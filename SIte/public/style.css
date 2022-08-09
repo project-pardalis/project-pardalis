@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 :root {
   --primaryColor: rgb(255, 255, 255);
   --secundaryColor: rgb(0, 0, 0);
   --thirdColor: rgb(94, 14, 90);
   --hoverColor: #663dff;
+  --silver: rgba(135, 135, 135, 0.702);
 
 }
 
@@ -19,8 +22,8 @@ body {
   line-height: 1.6;
   height: 100vh auto;
   /* background-color: var(--backgroundColor); */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: 'Open Sans', sans-serif;
+
 }
 
 a {
@@ -100,6 +103,18 @@ a {
   border-bottom: var(--hoverColor) 3px solid;
 }
 
+.all-border{
+  height: 4vh;
+  border: 2px solid var(--silver);
+  margin-top: 1vh;
+}
+
+.all-border:focus, .all-border:hover{
+  border: 2px solid var(--thirdColor);
+  transition: all ease-in-out 300ms;
+  
+}
+
 .form button {
   color: white;
   background-color: var(--thirdColor);
@@ -150,9 +165,15 @@ a {
 }
 
 .form a {
-  color: rgb(122, 122, 122);
-  border-bottom: 2px solid rgb(122, 122, 122);
+  color: var(--silver);
+  border-bottom: 2px solid var(--silver);
   font-size: 60%;
+}
+
+.form a:hover{
+  color: var(--hoverColor);
+  border-bottom: 2px solid var(--hoverColor);
+  transition: all ease 0.4s;
 }
 
 #error_msg{

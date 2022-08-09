@@ -25,13 +25,13 @@ function cadastrar(nome, email, senha, username) {
 // Essa função está sendo executada na Settings para trocar o usuario, senha e etc.
 
 
-function updatePassword(username, senha){
+function updatePassword(email, senha){
 
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function sel():","" );
     
     var instrucao = `
    
-    UPDATE Usuario SET senha = '${senha}' WHERE username = '${username}';
+    UPDATE USUARIO_EMAIL SET USUARIO_SENHA = '${senha}' WHERE USUARIO_EMAIL = '${email}';
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);

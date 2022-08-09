@@ -79,18 +79,18 @@ function cadastrar(req, res) {
 
 function updatePassword(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var username = req.body.usernameServer;
+    var email = req.body.emailServer;
     var senha = req.body.senhaServer;
   
     // Faça as validações dos valores
-    if (username == undefined) {
-      res.status(400).send("Seu username está undefined!");
+    if (email == undefined) {
+      res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
       res.status(400).send("Seu ID está undefined!");
     } else {
       // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
       usuarioModel
-        .updatePassword(username, senha)
+        .updatePassword(email, senha)
         .then(function (resultado) {
           res.json(resultado);
         })
@@ -104,9 +104,6 @@ function updatePassword(req, res) {
         });
     }
   }
-
-
-
 
 
 module.exports = {
