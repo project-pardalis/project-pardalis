@@ -66,7 +66,7 @@ a {
 }
 
 .center-form {
-  border: 0px dashed red;
+  /* border: 2px dashed red; */
   display: grid;
   place-items: center;
   margin-top: 2%;
