@@ -1,0 +1,162 @@
+:root {
+  --primaryColor: rgb(255, 255, 255);
+  --secundaryColor: rgb(0, 0, 0);
+  --thirdColor: rgb(94, 14, 90);
+  --hoverColor: #663dff;
+
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1.3125rem;
+  line-height: 1.6;
+  height: 100vh auto;
+  /* background-color: var(--backgroundColor); */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header .logo-img img {
+  height: 60%;
+  width: 30%;
+  margin-top: 5%;
+  margin-left: 10%;
+}
+
+.header-itens {
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  list-style: none;
+  margin-right: 10%;
+}
+
+.header-itens li {
+  margin-left: 5vw;
+  color: black;
+}
+
+.header-itens li:hover {
+  border-bottom: 4px solid var(--thirdColor);
+}
+
+.center-form {
+  border: 0px dashed red;
+  display: grid;
+  place-items: center;
+  margin-top: 2%;
+}
+
+.center-form .form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1%;
+  align-items: center;
+}
+
+.center-form .form h1 {
+  font-size: 250%;
+  margin-bottom: 7%;
+  font-weight: 400;
+}
+
+.input-form {
+  width: 26vw;
+  margin: 10%;
+  height: 3vh;
+  text-align: center;
+  border: none;
+  border-bottom: 3px solid var(--thirdColor);
+  outline: none;
+  font-size: 80%;
+}
+
+.input-form:focus, .input-form:hover{
+  border-bottom: var(--hoverColor) 3px solid;
+}
+
+.form button {
+  color: white;
+  background-color: var(--thirdColor);
+  height: 4vh;
+  width: 6vw;
+  border-radius: 5px;
+  border: 0;
+  margin-top: 5vh;
+  margin-bottom: 7vh;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1;
+
+  font-family: "Lato", sans-serif;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.form button:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: var(--hoverColor);
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.form button:hover{
+  color: #fff;
+}
+.form button:hover:after  {
+  left: 0;
+  width: 100%;
+}
+.form button:active {
+  top: 2px;
+}
+
+.form a {
+  color: rgb(122, 122, 122);
+  border-bottom: 2px solid rgb(122, 122, 122);
+  font-size: 60%;
+}
+
+#error_msg{
+    color: red;
+    font-weight: 500;
+    margin-top: 10%;
+}
