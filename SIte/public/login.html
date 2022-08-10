@@ -28,16 +28,16 @@
     </div>
 
     <div class="center-form">
+        <h1>Login</h1>
         <div class="form">
-            <h1>Login</h1>
 
             <input type="text" autofocus class="input-form" placeholder="E-mail" id="ipt_email" onkeypress="key()">
             <input type="password" class="input-form" placeholder="Senha" id="ipt_password" onkeypress="key()">
             <button onclick="login()">Entrar</button>
             <a href="recovery.html" class="hide-link">Recuperar senha</a>
-
-            <span id="error_msg"></span>
         </div>
+
+        <span id="error_msg"></span>
     </div>
 
 </div>
@@ -98,6 +98,9 @@
                     resposta.text().then(texto => {
                         console.error(texto);
                         error_msg.innerHTML = `Email ou Senha inválida`;
+                        setTimeout(() => {
+                            error_msg.innerHTML = '';
+                        }, 4000)
                         
                     });
                 }
@@ -108,7 +111,6 @@
     
             return false;
                 }
-
                 setTimeout(() => {
                             error_msg.innerHTML = '';
                         }, 4000)

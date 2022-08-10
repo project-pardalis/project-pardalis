@@ -80,11 +80,19 @@ a {
   flex-direction: column;
   padding-top: 1%;
   align-items: center;
+  border: 0px dashed green;
+  box-sizing: border-box;
 }
 
-.center-form .form h1 {
-  font-size: 250%;
-  margin-bottom: 7%;
+.center-form  h1 {
+  font-size: 2.8rem;
+  margin-bottom: 2%;
+  font-weight: 400;
+}
+
+.center-form  h3 {
+  font-size: 2.5rem;
+  margin-bottom: 2%;
   font-weight: 400;
 }
 
@@ -106,7 +114,8 @@ a {
 .all-border{
   height: 4vh;
   border: 2px solid var(--silver);
-  margin-top: 1vh;
+  margin-top: 2vh;
+  
 }
 
 .all-border:focus, .all-border:hover{
@@ -179,5 +188,97 @@ a {
 #error_msg{
     color: red;
     font-weight: 500;
-    margin-top: 10%;
+    margin-top: 3%;
+    font-size: 1.4rem;
+}
+
+
+@media only screen and (min-width: 200px) and (max-width: 900px) {
+  
+  .header li{
+    display: none;
+  }
+
+  .header {
+    border: 0px dashed green;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8vh;
+    margin-top: 2vh;
+    margin-left: 2vh;
+
+  }
+
+  .header .logo-img img {
+    height: 100%;
+    width: 30%;
+    border: 0px dashed purple;
+    margin-top: 0%;
+    margin-left: 0%;
+  }
+
+  .center-form  h1 {
+    font-size: 2rem;
+    margin-bottom: 5vh;
+    font-weight: 400;
+  }
+
+  .input-form {
+    width: 55vw;
+    margin: 15%;
+    height: 3vh;
+    text-align: center;
+    border: none;
+    border-bottom: 3px solid var(--thirdColor);
+    outline: none;
+    font-size: 0.9rem;
+  
+  }
+
+  .form button {
+    color: white;
+    background-color: var(--thirdColor);
+    height: 4vh;
+    width: 20vw;
+    border-radius: 5px;
+    border: 0;
+    margin-top: 2vh;
+    margin-bottom: 5vh;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+    font-family: "Lato", sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+      7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+    outline: none;
+  }
+
+  #error_msg{
+    color: red;
+    font-weight: 500;
+    margin-top: 5%;
+    font-size: 0.8rem
+}
+.center-form  h3 {
+  font-size: 1.5rem;
+  margin-bottom: 2%;
+  font-weight: 400;
+  margin-bottom: 5%;
+}
+
+.all-border{
+  height: 4vh;
+  border: 2px solid var(--silver);
+  margin-top: 1vh;
+}
+
+.all-border:focus, .all-border:hover{
+  border: 2px solid var(--thirdColor);
+  transition: all ease-in-out 300ms;
+  
+}
 }
