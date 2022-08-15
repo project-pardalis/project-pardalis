@@ -26,11 +26,11 @@ function cadastrar(nome, email, senha, username) {
 
 function updatePassword(email, senha){
 
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function sel():","" );
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function updatePassword:","" );
     
     var instrucao = `
    
-    UPDATE USUARIO_EMAIL SET USUARIO_SENHA = '${senha}' WHERE USUARIO_EMAIL = '${email}';
+    UPDATE EMPRESA SET EMPRESA_SENHA = '${senha}' WHERE EMPRESA_EMAIL = '${email}';
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);

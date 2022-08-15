@@ -52,6 +52,7 @@
                 return updatePassword()
             }
         }
+      
     
     
          // Validaçao abas de Login. 
@@ -83,7 +84,7 @@
             }).then(function (resposta) {
                 console.log("ESTOU NO THEN DO updatePassword()!")
 
-                if (resposta.ok) {
+                if (resposta.ok && resposta.affectedRows > 0) {
 
                     console.log(resposta);       
                     error_msg.style.color = "green";                                                                                                                                                                                                      
@@ -101,11 +102,7 @@
 
                     resposta.text().then(texto => {
                         console.error(texto);
-
-                        setTimeout(() => {
-
                             error_msg.innerHTML = 'Não foi possível alterar sua senha.';
-                        }, 4000)
                     });
                 }
 
@@ -114,9 +111,12 @@
             })
 
             return false;
+
         }
-        setTimeout(() =>{
-                error_msg.innerHTML = '';
-            }, 4000)
+        
     }
+    setTimeout(() =>{
+        error_msg.innerHTML = "";
+    }, 4000)
+   
     </script>
