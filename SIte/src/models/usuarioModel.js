@@ -1,37 +1,38 @@
 var database = require("../database/config")
 
-
 function entrar(email, senha) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", username, senha)
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucao = `
-        SELECT * FROM USUARIO WHERE USUARIO_EMAIL = '${email}' AND senha = '${senha}';
+        SELECT * FROM USUARIO WHERE USUARIO_EMAIL = '${email}' AND USUARIO_SENHA = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
-function cadastrar(nome, email, senha, username) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, username);
-    
-    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
-    //  e na ordem de inserção dos dados.
+function cadastrarEmpresa(nome, cnpj) {
     var instrucao = `
-        INSERT INTO Usuario (nome, email, senha, username, paisOne, paisTwo, paisThree) VALUES ('${nome}', '${email}', '${senha}', '${username}', null, null, null);
+        INSERT INTO EMPRESA (EMPRESA_NOME, EMPRESA_CNPJ) VALUES ('${nome}', '${cnpj}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
-// Essa função está sendo executada na Settings para trocar o usuario, senha e etc.
 
+function cadastrarFuncionario(nome, email, senha, nivelAcesso, fkEmpresa) {
+    var instrucao = `
+        INSERT INTO USUARIO (USUARIO_NOME, USUARIO_EMAIL, USUARIO_SENHA, USUARIO_ACESSO, USUARIO_FKEMPRESA) VALUES ('${nome}', '${email}', '${senha}', ${nivelAcesso}, ${fkEmpresa});
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
 
 function updatePassword(email, senha){
 
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function sel():","" );
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function updatePassword:","" );
     
     var instrucao = `
    
-    UPDATE USUARIO_EMAIL SET USUARIO_SENHA = '${senha}' WHERE USUARIO_EMAIL = '${email}';
+    UPDATE EMPRESA SET EMPRESA_SENHA = '${senha}' WHERE EMPRESA_EMAIL = '${email}';
 
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
@@ -44,6 +45,7 @@ function updatePassword(email, senha){
 
 module.exports = {
     entrar,
-    cadastrar,
+    cadastrarEmpresa,
     updatePassword,
+    cadastrarFuncionario
 };
