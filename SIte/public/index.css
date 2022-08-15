@@ -4,6 +4,7 @@ body {
     margin: 0;
     background: black;
     font-family: 'Open Sans', sans-serif;
+    width: 100vh;
 }
 
 .container {
@@ -336,4 +337,315 @@ a {
 ::-webkit-scrollbar-thumb {
     background: rgb(107, 195, 73);
     /* border-radius: 16px; */
+}
+
+@media only screen and (min-width: 250px) and (max-width:900px) {
+    
+    .header {
+        /* background-color: rgb(0, 0, 0, 0.4); */
+        color: white;
+        display: flex;
+        margin-bottom: 24px;
+        flex-direction: column;
+        /* border: 3px solid blue; */
+    
+    }
+    
+    .header .container{
+        justify-content: space-between;
+        font-size: 12px;
+    }
+    
+    .titulo {
+        color: white;
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        font-family: 'Open Sans', sans-serif;    
+        width: 35%;
+        /* text-shadow: 1px 1px black;  */
+        /* border: 3px solid blue; */
+    }
+    
+    .titulo img{
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        margin-right: 12px;
+    }
+    
+    
+    .register {
+        display: flex;
+        list-style: none;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 260px;
+        float: right;
+        /* margin-left: 400px; */
+        /* text-shadow: 1px 1px black;  */
+        /* border: 3px solid blue; */
+    }
+    
+    .cadastro_botao {
+        background-color: white;
+        color: black;
+        width: 36px;
+        padding: 10px;
+        border-radius: 24px;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 11px;
+
+    }
+    
+    .cadastro_botao:hover {
+        background-color: whitesmoke;
+        cursor: pointer;
+    }
+    
+    .cadastro_botao a{
+        color: #000;
+    }
+    
+    .login_botao {
+        background-color:   rgb(107, 195, 73);
+        color: white;
+        
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+        width: 36px;
+        padding: 10px;
+        border-radius: 24px;
+        align-items: center;
+        justify-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 11px;
+    }
+    
+    a {
+        color: white;
+        text-decoration: none; 
+    }
+    
+    .banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        
+        /* border: 3px solid blue;  */
+    }
+    
+    .banner .container{
+        justify-content: space-between;
+        display: flex;
+    
+    }
+    
+    /* BANNER - FIM */
+    
+    .banner h1 {
+        color: white;
+        font-size: 24px;
+        width: 40%;
+        /* text-shadow: 1px 1px black;  */
+    }
+
+
+    /* SOCIAL - COMEÇO */
+
+.social {
+    background-color: white;
+    font-size: x-large;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 900px;
+}
+
+.social .container h4{
+    font-weight: lighter;
+    float: left;
+    display: flex;
+}
+
+.parte1 {
+    display: flex;
+    width: 100%;
+    padding-top: 36px;
+    padding-bottom: 36px;
+}
+
+.parte1 .container {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    
+}
+
+.parte2 {
+    padding-top: 72px;
+    padding-bottom: 72px;
+    width: 100%;
+    display: flex;
+    background-color: whitesmoke;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.parte2 .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-items: center;
+}
+
+.parte2 .container .box1{
+    flex-direction: column;
+    width: 500px;
+}
+
+/* .parte3 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.parte3 .container {
+    justify-content: space-between;
+} */
+
+.box1 {
+    display: flex;
+    flex-direction: row;
+    /* align-items: left; */
+    width: 33%;
+    justify-content: space-around;
+}
+
+.box1 h1{
+   display: flex;
+   float: left;
+   margin-right: 150px;
+   
+}
+
+.box1 h4{
+    display: flex;
+    font-size: medium;
+ }
+
+.box2 {
+    display: flex;
+    align-items: center;
+}
+
+#greenhouse {
+    width: 650px;
+    border-radius: 32px;
+}
+
+#graphs {
+    height: 600px;
+    width: 300px;
+    border-radius: 32px;
+    border-left: 50px;
+}
+
+#profit {
+    width: 650px;
+    border-radius: 32px;
+}
+
+#loss {
+    width: 612px;
+    border-radius: 24px;
+    margin-top: 32px;
+}
+
+/* SOCIAL - FIM */
+
+/* FOOTER - COMEÇO */
+
+.footer{
+    background-color:   rgb(107, 195, 73);
+    width: 100vh;
+    color: white;
+    padding-top: 72px;
+    padding-bottom: 72px;
+    height: 700px;
+    
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    height: 600px;
+}
+
+.boxes_footer1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slogan_footer { 
+    width: 280px;
+    height: 238px;
+    display: flex;
+    align-items: top;
+    margin-right: 24px;
+    margin-left: 34px;
+    
+}
+
+.listas_footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+
+.ul_footer{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    /* height: 200px; */
+    list-style: none;
+    
+}
+
+.divisao {
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 1px;
+    background-color: white;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.boxes_footer2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer .titulo {
+    justify-content: left;
+    
+}
+
+/* FOOTER - FIM */
 }
