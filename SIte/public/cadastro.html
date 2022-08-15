@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Pardallis</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    
+<div class="main">
+
+    <div class="header">
+        
+        <div class="logo-img">
+            <img src="./imgs/Pardallis-logo-temporario.png">
+        </div>
+
+        <div class="header-itens">
+            <a href=""><li>Inicio</li></a>
+            <a href="#"><li>Lorem</li></a>
+            <a href="login.html"><li>Login</li></a>
+            <a href="#"><li>Cadastro</li></a>
+        </div>
+
+    </div>
+
+    <div class="center-form">
+        <h1>Cadastro</h1>
+        <div class="form">
+            <input type="text" class="input-form" placeholder="Nome da empresa" id="ipt_" onkeypress="key()">
+            <input type="text" class="input-form" maxlength="18" placeholder="CNPJ" id="ipt_" onkeypress="key()">            
+            <input type="text" autofocus class="input-form" placeholder="E-mail" id="ipt_email" onkeypress="key()">
+            <input type="password" class="input-form" placeholder="Senha" id="ipt_password" onkeypress="key()">            
+            <button onclick="cadastrar()">Cadastrar</button>
+        </div>
+
+        <span id="error_msg"></span>
+    </div>
+
+</div>
+
+</body>
+</html>
+<script>
+
+      //Fazendo o enter funcionar quando da um Enter no input
+        function key(){
+            if(event.key === 'Enter'){
+                return login()
+            }
+        }
+    
+    
+         // Validaçao abas de Login. 
+        
+    </script>
