@@ -30,10 +30,11 @@
     <div class="center-form">
         <h1>Cadastro</h1>
         <div class="form">
-            <input type="text" class="input-form" placeholder="Nome da empresa" id="ipt_" onkeypress="key()">
-            <input type="text" class="input-form" maxlength="18" placeholder="CNPJ" id="ipt_" onkeypress="key()">            
-            <input type="text" autofocus class="input-form" placeholder="E-mail" id="ipt_email" onkeypress="key()">
-            <input type="password" class="input-form" placeholder="Senha" id="ipt_password" onkeypress="key()">            
+            <input type="text" class="input-form" placeholder="Nome da empresa" id="ipt_empresa" onkeypress="key()" value='YouTube'>
+            <input type="text" class="input-form" maxlength="18" placeholder="CNPJ" id="ipt_cnpj" onkeypress="key()" value='99.813.314/0001-70'>            
+            <input type="text" autofocus class="input-form" placeholder="Nome do gerente" id="ipt_gerente" onkeypress="key()" value='Agda Taniguchi'>
+            <input type="text" autofocus class="input-form" placeholder="E-mail" id="ipt_email" onkeypress="key()" value='agda.taniguchi@youtube.com'>
+            <input type="password" class="input-form" placeholder="Senha" id="ipt_senha" onkeypress="key()" value='1234'>
             <button onclick="cadastrar()">Cadastrar</button>
         </div>
 
@@ -45,15 +46,56 @@
 </body>
 </html>
 <script>
-
-      //Fazendo o enter funcionar quando da um Enter no input
-        function key(){
-            if(event.key === 'Enter'){
-                return login()
-            }
+    //Fazendo o enter funcionar quando da um Enter no input
+    function key(){
+        if(event.key === 'Enter'){
+            return cadastrar()
         }
-    
-    
-         // Validaçao abas de Login. 
+    }
+
+    function cadastrar(){
+        var empresaVar = ipt_empresa.value;
+        var cnpjVar = ipt_cnpj.value;
+        var gerenteVar = ipt_gerente.value;
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+
+        if(empresaVar == '' || cnpjVar == '' || gerenteVar == '' || emailVar == '' || senhaVar == ''){
+            error_msg.innerHTML = 'Todos os campos devem ser preenchidos';
+        }
+        else{
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers : {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    empresaServer: empresaVar,
+                    cnpjServer: cnpjVar,
+                    gerenteServer: gerenteVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar
+                })
+            }).then(function(resposta) {
+                if(resposta.ok){
+                    console.log(resposta);
+                    window.location.href = "login.html";
+                }
+                else{
+                    console.log("Houve um erro ao tentar realizar o cadastro!");
+                    resposta.text().then((texto) => {
+                        console.error(texto);
+                        error_msg.innerHTML = texto;
+                        setTimeout(() => {
+                            error_msg.innerHTML = '';
+                        }, 4000);
+                    })
+                }
+            }).catch(function(erro) {
+                console.log(erro);
+            })
+            return false;
+        }
+    }
         
-    </script>
+</script>
