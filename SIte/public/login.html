@@ -1,72 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login-Pardallis</title>
-    <link rel="stylesheet" href="style.css">
-    
-</head>
-<body>
-    
-<div class="main">
-
-    <div class="header">
-        
-        <div class="logo-img">  
-            <img src="./imgs/Pardallis-logo-temporario.png">
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login-Pardallis</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="logo-img">
+                    <img src="./imgs/Pardallis-logo-temporario.png">
+                </div>
+                <div class="header-itens">
+                    <a href="#">
+                        <li>Inicio</li>
+                    </a>
+                    <a href="#">
+                        <li>Lorem</li>
+                    </a>
+                    <a href="#">
+                        <li>Login</li>
+                    </a>
+                    <a href="cadastro.html">
+                        <li>Cadastro</li>
+                    </a>
+                </div>
+            </div>
+            <div class="center-form">
+                <h1>Login</h1>
+                <div class="form">
+                    <input type="text" autofocus class="input-form" placeholder="E-mail" id="ipt_email" onkeypress="key()">
+                    <input type="password" class="input-form" placeholder="Senha" id="ipt_password" onkeypress="key()">
+                    <button onclick="login()">Entrar</button>
+                    <a href="recovery.html" class="hide-link">Recuperar senha</a>
+                </div>
+                <span id="error_msg"></span>
+            </div>
         </div>
-
-        <div class="header-itens">
-            <a href="#"><li>Inicio</li></a>
-            <a href="#"><li>Lorem</li></a>
-            <a href="#"><li>Login</li></a>
-            <a href="cadastro.html"><li>Cadastro</li></a>
-        </div>
-
-    </div>
-
-    <div class="center-form">
-        <h1>Login</h1>
-        <div class="form">
-
-            <input type="text" autofocus class="input-form" placeholder="E-mail" id="ipt_email" onkeypress="key()">
-            <input type="password" class="input-form" placeholder="Senha" id="ipt_password" onkeypress="key()">
-            <button onclick="login()">Entrar</button>
-            <a href="recovery.html" class="hide-link">Recuperar senha</a>
-        </div>
-
-        <span id="error_msg"></span>
-    </div>
-
-</div>
-
-</body>
+    </body>
 </html>
 <script>
-
-      //Fazendo o enter funcionar quando da um Enter no input
-        function key(){
-            if(event.key === 'Enter'){
-                return login()
-            }
+    //Fazendo o enter funcionar quando da um Enter no input
+    function key() {
+        if (event.key === 'Enter') {
+            return login()
         }
-    
-    
-         // Validaçao abas de Login. 
-        function login(){
-    
-            var userEmailVar = ipt_email.value;
-            var senhaVar = ipt_password.value;
-    
-            if(userEmailVar == '' || senhaVar == ''){
-    
-                error_msg.innerHTML = 'Todos os campos devem ser preenchidos';
-    
-            }else{
-    
-                // Pegando aqui o select do Username e da senha..
+    }
+
+    // Validaçao abas de Login. 
+    function login() {
+
+        var userEmailVar = ipt_email.value;
+        var senhaVar = ipt_password.value;
+
+        if (userEmailVar == '' || senhaVar == '') {
+            error_msg.innerHTML = 'Todos os campos devem ser preenchidos';
+        }
+        else {
+            // Pegando aqui o select do Username e da senha..
             fetch("/usuarios/autenticar", {
                 method: "POST",
                 headers: {
@@ -79,21 +72,17 @@
             }).then(function (resposta) {
                 console.log("ESTOU NO THEN DO entrar()!")
                 // Se o comando rodar então vai entrar nesse if
-    
                 if (resposta.ok) {
                     console.log(resposta);
                     resposta.json().then(json => {
                         console.log(json);
                         console.log(JSON.stringify(json));
-                        
-        
+
                         sessionStorage.ID_USUARIO = json.USUARIO_ID;
-                        sessionStorage.EMAIL_USUARIO = json.USUARIO_EMAIL;                 
-                        
-                        
+                        sessionStorage.EMAIL_USUARIO = json.USUARIO_EMAIL;
                     });
-                } else {
-    
+                }
+                else {
                     console.log("Houve um erro ao tentar realizar o login!");
                     resposta.text().then(texto => {
                         console.error(texto);
@@ -101,18 +90,15 @@
                         setTimeout(() => {
                             error_msg.innerHTML = '';
                         }, 4000)
-                        
                     });
                 }
-    
             }).catch(function (erro) {
                 console.log(erro);
             })
-    
             return false;
-                }
-                setTimeout(() => {
-                            error_msg.innerHTML = '';
-                        }, 4000)
-         }
-    </script>
+        }
+        setTimeout(() => {
+            error_msg.innerHTML = '';
+        }, 4000)
+    }
+</script>
