@@ -8,6 +8,7 @@ const PORTA = 3000;
 const app = express();
 
 const indexRouter = require("./src/routes/index");
+const registrosRouter = require("./src/routes/registros");
 const usuariosRouter = require("./src/routes/usuarios");
 
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuariosRouter);
+app.use("/registros", registrosRouter);
 
 app.listen(PORTA, function(){
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA}`);
