@@ -24,6 +24,17 @@
      
 }
 
+
+.dark-theme-variables{
+    --color-background: #242528;
+    --color-white: #21262c;
+    --color-dark: #edeffd;
+    --color-dark-variant:#a3bdcc;
+    --color-light: rgba(0, 0, 0, 0.4);
+    --box-shadow: 0 2rem 3rem var(--color-light);
+
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -93,7 +104,10 @@ small{
     width: 2.8rem;
     height: 2.8rem;
     border-radius: 50%;
-    overflow: hidden;
+    background: url(imgs/user-1.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .text-muted {
