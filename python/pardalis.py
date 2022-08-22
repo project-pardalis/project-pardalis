@@ -4,13 +4,48 @@ from matplotlib.animation import FuncAnimation
 from datetime import datetime, timedelta
 import pymysql.cursors
 import platform
+import os
+import subprocess, re
 
-def definirGraficoGeral(frame):
-    conexao = pymysql.connect(host='localhost', user='root', password='1234', database='pardalis', port=3307, cursorclass=pymysql.cursors.DictCursor)
+def nomeProcessador():
+    if platform.system() == "Linux":
+        command = "cat /proc/cpuinfo"
+        all_info = subprocess.check_output(command, shell=True).decode().strip()
+        for line in all_info.split("\n"):
+            if "model name" in line:
+                z = re.sub( ".*model name.*:", "", line,1)
+    else:
+        print("Deu ruim")
+
+    print(z)
+
+
+def infoMaquina():
+
+    sistemaOperacional = platform.uname().system
+    qtdCPU = os.cpu_count()
+    qtdThreads = os.cpu_count()*2
+    qtdCache = psutil.virtual_memory().cached * 10**-9
+    qtdTotalRam = psutil.virtual_memory.total
+    armazenamentoMax = psutil.disk_usage('/').total * 10**-9
+    modeloProcessador = nomeProcessador()
+
+    conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
 
     with conexao:
         with conexao.cursor() as cursor:
-            comando = f"INSERT INTO registro (momento, porcentagemCPU, porcentagemRAM, porcentagemDisco) VALUES (NOW(), {psutil.cpu_percent()}, {psutil.virtual_memory().percent}, {psutil.disk_usage('/').percent})"
+            comando = f"INSERT INTO MAQUINA (MAQUINA_SISTEMA_OPERACIONAL, MAQUINA_MODELO_PROCESSADOR , MAQUINA_THREADS, MAQUINA_QTD_CPU, MAQUINA_QTD_RAM, MAQUINA_QTD_CACHE, MAQUINA_ARMAZENAMENTO_MAXIMO) VALUES (NOW(),{sistemaOperacional}, {modeloProcessador}, {qtdThreads}, {qtdCPU}, {qtdTotalRam}, {qtdCache}, {armazenamentoMax})"
+            cursor.execute(comando)
+
+        conexao.commit()
+
+
+def definirGraficoGeral(frame):
+    conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
+
+    with conexao:
+        with conexao.cursor() as cursor:
+            comando = f"INSERT INTO REGISTRO (REGISTRO_MOMENTO, REGISTRO_PORC_CPU , REGISTRO_PORC_RAM, REGISTRO_PORC_DISCO) VALUES (NOW(), {psutil.cpu_percent()}, {psutil.virtual_memory().percent}, {psutil.disk_usage('/').percent})"
             cursor.execute(comando)
 
         conexao.commit()
