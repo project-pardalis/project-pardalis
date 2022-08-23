@@ -26,7 +26,7 @@ def infoMaquina():
     qtdCPU = os.cpu_count()
     qtdThreads = os.cpu_count()*2
     qtdCache = psutil.virtual_memory().cached * 10**-9
-    qtdTotalRam = psutil.virtual_memory.total
+    qtdTotalRam = psutil.virtual_memory().total * 10 ** -9
     armazenamentoMax = psutil.disk_usage('/').total * 10**-9
     modeloProcessador = nomeProcessador()
 
@@ -34,11 +34,12 @@ def infoMaquina():
 
     with conexao:
         with conexao.cursor() as cursor:
-            comando = f"INSERT INTO MAQUINA (MAQUINA_SISTEMA_OPERACIONAL, MAQUINA_MODELO_PROCESSADOR , MAQUINA_THREADS, MAQUINA_QTD_CPU, MAQUINA_QTD_RAM, MAQUINA_QTD_CACHE, MAQUINA_ARMAZENAMENTO_MAXIMO) VALUES (NOW(),{sistemaOperacional}, {modeloProcessador}, {qtdThreads}, {qtdCPU}, {qtdTotalRam}, {qtdCache}, {armazenamentoMax})"
+            comando = f"INSERT INTO MAQUINA (MAQUINA_SISTEMA_OPERACIONAL, MAQUINA_MODELO_PROCESSADOR , MAQUINA_THREADS, MAQUINA_QTD_CPU, MAQUINA_QTD_RAM, MAQUINA_QTD_CACHE, MAQUINA_ARMAZENAMENTO_MAXIMO) VALUES ('{sistemaOperacional}', '{modeloProcessador}', {qtdThreads}, {qtdCPU}, {qtdTotalRam}, {qtdCache}, {armazenamentoMax})"
             cursor.execute(comando)
 
         conexao.commit()
 
+infoMaquina()
 
 def definirGraficoGeral(frame):
     conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
