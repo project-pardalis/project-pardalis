@@ -1,7 +1,6 @@
 import psutil
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from datetime import datetime, timedelta
 import pymysql.cursors
 import platform
 import os
@@ -14,39 +13,33 @@ def nomeProcessador():
         for line in all_info.split("\n"):
             if "model name" in line:
                 z = re.sub( ".*model name.*:", "", line,1)
+                
     else:
-        print("Deu ruim")
-
-    print(z)
-
+        print("Este aplicativo só pode executado em Linux!")
 
 def infoMaquina():
-
     sistemaOperacional = platform.uname().system
-    qtdCPU = os.cpu_count()
-    qtdThreads = os.cpu_count()*2
-    qtdCache = psutil.virtual_memory().cached * 10**-9
+    qtdCPUFisica = os.cpu_count()
+    qtdCPUVirtual = psutil.cpu_count(logical=True)
     qtdTotalRam = psutil.virtual_memory().total * 10 ** -9
     armazenamentoMax = psutil.disk_usage('/').total * 10**-9
     modeloProcessador = nomeProcessador()
 
-    conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
+    conexao = pymysql.connect(host='localhost', user='root', password='urubu100', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
 
     with conexao:
         with conexao.cursor() as cursor:
-            comando = f"INSERT INTO MAQUINA (MAQUINA_SISTEMA_OPERACIONAL, MAQUINA_MODELO_PROCESSADOR , MAQUINA_THREADS, MAQUINA_QTD_CPU, MAQUINA_QTD_RAM, MAQUINA_QTD_CACHE, MAQUINA_ARMAZENAMENTO_MAXIMO) VALUES ('{sistemaOperacional}', '{modeloProcessador}', {qtdThreads}, {qtdCPU}, {qtdTotalRam}, {qtdCache}, {armazenamentoMax})"
+            comando = f"INSERT INTO MAQUINA (MAQUINA_SISTEMA_OPERACIONAL, MAQUINA_MODELO_PROCESSADOR , MAQUINA_QTD_CPU_FISICA, MAQUINA_QTD_CPU_VIRTUAL, MAQUINA_QTD_RAM, MAQUINA_ARMAZENAMENTO_MAXIMO) VALUES ('{sistemaOperacional}', '{modeloProcessador}', {qtdCPUFisica}, {qtdCPUVirtual}, {qtdTotalRam}, {armazenamentoMax})"
             cursor.execute(comando)
 
         conexao.commit()
 
-infoMaquina()
-
 def definirGraficoGeral(frame):
-    conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
+    conexao = pymysql.connect(host='localhost', user='root', password='urubu100', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
 
     with conexao:
         with conexao.cursor() as cursor:
-            comando = f"INSERT INTO REGISTRO (REGISTRO_MOMENTO, REGISTRO_PORC_CPU , REGISTRO_PORC_RAM, REGISTRO_PORC_DISCO) VALUES (NOW(), {psutil.cpu_percent()}, {psutil.virtual_memory().percent}, {psutil.disk_usage('/').percent})"
+            comando = f"INSERT INTO REGISTRO (REGISTRO_MOMENTO, REGISTRO_PORC_CPU , REGISTRO_PORC_RAM, REGISTRO_PORC_DISCO, REGISTRO_NIVEL_CACHE_CPU) VALUES (NOW(), {psutil.cpu_percent()}, {psutil.virtual_memory().percent}, {psutil.disk_usage('/').percent}, {psutil.virtual_memory().cached * 10 ** -9})"
             cursor.execute(comando)
 
         conexao.commit()
@@ -64,6 +57,9 @@ def definirGraficoGeral(frame):
         graficos[index].scatter(len(valores[index]) - 1, valores[index][-1]) # marcador da posição atual
         graficos[index].title.set_text(f'{nomeDados[index]} - {valores[index][-1]}%')
         graficos[index].set_ylim(0, 100)
+
+# Inserir dados da máquina
+infoMaquina()
 
 # Lista dos valores que aparecem nos gráficos (ram, cpu, ocupação do disco)
 valores = [[0] * 50, [0] * 50, [0] * 50]
