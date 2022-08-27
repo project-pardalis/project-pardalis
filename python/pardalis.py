@@ -1,31 +1,34 @@
+# Pacote de informações sobre a máquina
 import psutil
+import platform
+import subprocess, re
+# Pacote de gráficos
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+# Pacote para inserir no mysql
 import pymysql.cursors
-import platform
-import os
-import subprocess, re
 
 def nomeProcessador():
     if platform.system() == "Linux":
-        command = "cat /proc/cpuinfo"
-        all_info = subprocess.check_output(command, shell=True).decode().strip()
-        for line in all_info.split("\n"):
-            if "model name" in line:
-                z = re.sub( ".*model name.*:", "", line,1)
+        comando = "cat /proc/cpuinfo"
+        resultado = subprocess.check_output(comando, shell=True).decode().strip()
+        for linha in resultado.split("\n"):
+            if "model name" in linha:
+                nome_modelo = re.sub( ".*model name.*:", "", linha, 1)
+                return nome_modelo
                 
     else:
         print("Este aplicativo só pode executado em Linux!")
 
 def infoMaquina():
     sistemaOperacional = platform.uname().system
-    qtdCPUFisica = os.cpu_count()
-    qtdCPUVirtual = psutil.cpu_count(logical=True)
+    qtdCPUFisica = psutil.cpu_count(logical=False)
+    qtdCPUVirtual = psutil.cpu_count()
     qtdTotalRam = psutil.virtual_memory().total * 10 ** -9
     armazenamentoMax = psutil.disk_usage('/').total * 10**-9
     modeloProcessador = nomeProcessador()
 
-    conexao = pymysql.connect(host='localhost', user='root', password='urubu100', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
+    conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
 
     with conexao:
         with conexao.cursor() as cursor:
@@ -35,7 +38,7 @@ def infoMaquina():
         conexao.commit()
 
 def definirGraficoGeral(frame):
-    conexao = pymysql.connect(host='localhost', user='root', password='urubu100', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
+    conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
 
     with conexao:
         with conexao.cursor() as cursor:
@@ -65,7 +68,7 @@ infoMaquina()
 valores = [[0] * 50, [0] * 50, [0] * 50]
 
 # propriedades dos gráficos
-janela = plt.figure(num='Gráficos do sistema', figsize=(3 * 3, 2 * 3), facecolor='#EEE')
+janela = plt.figure(num='Gráficos do sistema', figsize=(9, 6), facecolor='#EEE')
 
 graficos = [plt.subplot(311), plt.subplot(312), plt.subplot(313)]
 
