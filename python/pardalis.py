@@ -1,44 +1,12 @@
-# Pacote de informações sobre a máquina
 import psutil
 import platform
-import subprocess, re
-# Pacote de gráficos
+import subprocess
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-# Pacote para inserir no mysql
 import pymysql.cursors
 
-def nomeProcessador():
-    if platform.system() == "Linux":
-        comando = "cat /proc/cpuinfo"
-        resultado = subprocess.check_output(comando, shell=True).decode().strip()
-        for linha in resultado.split("\n"):
-            if "model name" in linha:
-                nome_modelo = re.sub( ".*model name.*:", "", linha, 1)
-                return nome_modelo
-                
-    else:
-        print("Este aplicativo só pode executado em Linux!")
-
-def infoMaquina():
-    sistemaOperacional = platform.uname().system
-    qtdCPUFisica = psutil.cpu_count(logical=False)
-    qtdCPUVirtual = psutil.cpu_count()
-    qtdTotalRam = psutil.virtual_memory().total * 10 ** -9
-    armazenamentoMax = psutil.disk_usage('/').total * 10**-9
-    modeloProcessador = nomeProcessador()
-
-    conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
-
-    with conexao:
-        with conexao.cursor() as cursor:
-            comando = f"INSERT INTO MAQUINA (MAQUINA_SISTEMA_OPERACIONAL, MAQUINA_MODELO_PROCESSADOR , MAQUINA_QTD_CPU_FISICA, MAQUINA_QTD_CPU_VIRTUAL, MAQUINA_QTD_RAM, MAQUINA_ARMAZENAMENTO_MAXIMO) VALUES ('{sistemaOperacional}', '{modeloProcessador}', {qtdCPUFisica}, {qtdCPUVirtual}, {qtdTotalRam}, {armazenamentoMax})"
-            cursor.execute(comando)
-
-        conexao.commit()
-
 def definirGraficoGeral(frame):
-    conexao = pymysql.connect(host='localhost', user='aluno', password='sptech', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
+    conexao = pymysql.connect(host='localhost', user='root', password='urubu100', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
 
     with conexao:
         with conexao.cursor() as cursor:
@@ -61,20 +29,50 @@ def definirGraficoGeral(frame):
         graficos[index].title.set_text(f'{nomeDados[index]} - {valores[index][-1]}%')
         graficos[index].set_ylim(0, 100)
 
-# Inserir dados da máquina
-infoMaquina()
+# Início do programa
+# Verificar se é Linux
+if platform.system() == "Linux":
+    comando = "cat /proc/cpuinfo"
+    resultado = subprocess.check_output(comando, shell=True).decode()
+    for linha in resultado.splitlines():
+        if "model name" in linha:
+            nome_modelo = linha[linha.find(":") + 1 : -1].strip()
+            break
+else:
+    print("Este aplicativo só pode executado em Linux!")
+    exit()
+
+# Pegar informações da MÁQUINA
+sistemaOperacional = platform.uname().system
+qtdCPUFisica = psutil.cpu_count(logical=False)
+qtdCPUVirtual = psutil.cpu_count()
+qtdTotalRam = psutil.virtual_memory().total * 10 ** -9
+armazenamentoMax = psutil.disk_usage('/').total * 10**-9
+modeloProcessador = nome_modelo
+
+conexao = pymysql.connect(host='localhost', user='root', password='urubu100', database='PARDALIS', cursorclass=pymysql.cursors.DictCursor)
+
+with conexao:
+    with conexao.cursor() as cursor:
+        comando = f"INSERT INTO MAQUINA (MAQUINA_SISTEMA_OPERACIONAL, MAQUINA_MODELO_PROCESSADOR , MAQUINA_QTD_CPU_FISICA, MAQUINA_QTD_CPU_VIRTUAL, MAQUINA_QTD_RAM, MAQUINA_ARMAZENAMENTO_MAXIMO) VALUES ('{sistemaOperacional}', '{modeloProcessador}', {qtdCPUFisica}, {qtdCPUVirtual}, {qtdTotalRam}, {armazenamentoMax})"
+        cursor.execute(comando)
+
+    conexao.commit()
 
 # Lista dos valores que aparecem nos gráficos (ram, cpu, ocupação do disco)
 valores = [[0] * 50, [0] * 50, [0] * 50]
 
-# propriedades dos gráficos
+# Criação da janela do gráfico e definindo propriedades
 janela = plt.figure(num='Gráficos do sistema', figsize=(9, 6), facecolor='#EEE')
 
+# Criação dos gráficos que ficam dentro da janela
 graficos = [plt.subplot(311), plt.subplot(312), plt.subplot(313)]
 
+# Configurações de cada gráfico
 for i in range(0, 3):
     graficos[i].axes.get_xaxis().set_visible(False)
     graficos[i].set_facecolor('#DDD')
 
+# Animação em tempo real do gráfico
 animacaoGeral = FuncAnimation(janela, definirGraficoGeral, interval=1000)
 plt.show()
