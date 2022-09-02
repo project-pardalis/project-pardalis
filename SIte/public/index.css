@@ -3,8 +3,7 @@
 body {
     margin: 0;
     background: black;
-    font-family: 'Open Sans', sans-serif;
-    width: 100vh;
+    font-family: 'Open Sans', sans-serif;;
 }
 
 .container {
@@ -20,7 +19,7 @@ body {
 
 .fundo {
     margin: auto;
-    background-image: url('img/fundo.jpg');
+    background-color: whitesmoke;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -32,11 +31,12 @@ body {
 /* HEADER */
 
 .header {
-    /* background-color: rgb(0, 0, 0, 0.4); */
+    background-color: rgb(0, 0, 0, 0.4);
     color: white;
     display: flex;
     margin-bottom: 24px;
     /* border: 3px solid blue; */
+    /* background-color: rgb(107, 195, 73); */
 
 }
 
@@ -49,7 +49,8 @@ body {
     display: flex;
     flex-direction: row; 
     align-items: center;
-    font-family: 'Open Sans', sans-serif;    
+    font-family:'Arial';
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
     width: 35%;
     /* text-shadow: 1px 1px black;  */
     /* border: 3px solid blue; */
@@ -68,7 +69,7 @@ body {
     align-items: center;
     justify-content: space-evenly;
     width: 350px;
-    
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
     /* text-shadow: 1px 1px black;  */
     /* border: 3px solid blue; */
 }
@@ -107,7 +108,7 @@ body {
 .login_botao {
     background-color:   rgb(107, 195, 73);
     color: white;
-    
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
     width: 84px;
     padding: 10px;
@@ -136,13 +137,47 @@ a {
 .banner {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    
+    justify-content: center;
+    justify-items: center;
+    color: #000;
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
     /* border: 3px solid blue;  */
 }
 
+#slider {
+    width: 80%;
+    max-width: 500px;
+    height: 50vw;
+    max-height: 150px;
+
+    position: relative;
+
+    
+}
+
+#slider img{
+    opacity: 0;
+
+    position: absolute;
+
+    width: 800px;
+    height: 350px;
+
+    /* object-fit: cover; */
+    border-radius: 32px;
+
+    transition: opacity 800ms;
+}
+
+#slider img.selected { 
+    opacity: 1;
+}
+
 .banner .container{
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+
+ 
     display: flex;
 
 }
@@ -150,7 +185,7 @@ a {
 /* BANNER - FIM */
 
 .banner h1 {
-    color: white;
+    color: rgb(0, 0, 0);
     font-size: 56px;
     width: 48%;
     /* text-shadow: 1px 1px black;  */
@@ -193,8 +228,6 @@ a {
     display: flex;
     align-items: center;
     background-color: whitesmoke;
-    align-items: center;
-    justify-content: center;
 }
 
 .parte2 .container {
@@ -203,7 +236,7 @@ a {
     flex-direction: row-reverse;
 }
 
-/* .parte3 {
+.parte3 {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -214,7 +247,41 @@ a {
 
 .parte3 .container {
     justify-content: space-between;
-} */
+}
+
+.parte4 {
+    display: flex;
+    background-color: whitesmoke;
+    width: 100%;
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.parte4 .container {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.parte4 .container .box1 h4 {
+    background-color: #cf0b0b;
+    color: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    width: 250px;
+    height: 64px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 36px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: normal;
+}
+
+.parte4 .container .box1 h4:hover {
+    background-color: #B31C45;
+}
 
 .box1 {
     display: flex;
@@ -226,22 +293,21 @@ a {
 .box2 {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 #greenhouse {
-    width: 650px;
+    width: 450px;
     border-radius: 32px;
 }
 
 #graphs {
-    height: 600px;
-    width: 300px;
+    width: 350px;
     border-radius: 32px;
-    border-left: 50px;
 }
 
 #profit {
-    width: 650px;
+    width: 450px;
     border-radius: 32px;
 }
 
@@ -282,7 +348,7 @@ a {
     display: flex;
     align-items: top;
     margin-right: 24px;
-    
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
 }
 
 .listas_footer {
@@ -299,7 +365,7 @@ a {
     align-items: left;
     height: 200px;
     list-style: none;
-    
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
 }
 
 .divisao {
@@ -319,7 +385,7 @@ a {
 
 .footer .titulo {
     justify-content: left;
-    
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
 }
 
 /* FOOTER - FIM */
@@ -339,6 +405,40 @@ a {
     /* border-radius: 16px; */
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media only screen and (min-width: 250px) and (max-width:900px) {
     
     .header {
@@ -347,6 +447,8 @@ a {
         display: flex;
         margin-bottom: 24px;
         flex-direction: column;
+        width: 100vh;
+      
         /* border: 3px solid blue; */
     
     }
@@ -354,6 +456,7 @@ a {
     .header .container{
         justify-content: space-between;
         font-size: 12px;
+       
     }
     
     .titulo {
@@ -363,6 +466,7 @@ a {
         align-items: center;
         font-family: 'Open Sans', sans-serif;    
         width: 35%;
+        
         /* text-shadow: 1px 1px black;  */
         /* border: 3px solid blue; */
     }
@@ -482,10 +586,15 @@ a {
 .parte1 .container {
     justify-content: space-between;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     
 }
 
+.parte1 .container .box1 {
+    flex-direction: column;
+    width: 500px;
+
+}
 .parte2 {
     padding-top: 72px;
     padding-bottom: 72px;
@@ -499,7 +608,7 @@ a {
 .parte2 .container {
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
     /* align-items: center; */
     justify-items: center;
 }
@@ -524,7 +633,7 @@ a {
 
 .box1 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     /* align-items: left; */
     width: 33%;
     justify-content: space-around;
@@ -532,7 +641,7 @@ a {
 
 .box1 h1{
    display: flex;
-   float: left;
+   /* float: left; */
    margin-right: 150px;
    
 }
@@ -548,19 +657,17 @@ a {
 }
 
 #greenhouse {
-    width: 650px;
+    width: 200px;
     border-radius: 32px;
 }
 
 #graphs {
-    height: 600px;
-    width: 300px;
+    width: 200px;
     border-radius: 32px;
-    border-left: 50px;
 }
 
 #profit {
-    width: 650px;
+    width: 200px;
     border-radius: 32px;
 }
 
@@ -580,7 +687,7 @@ a {
     color: white;
     padding-top: 72px;
     padding-bottom: 72px;
-    height: 700px;
+    height: 300px;
     
 }
 
@@ -588,7 +695,7 @@ a {
     display: flex;
     flex-direction: column;
     float: left;
-    height: 600px;
+    height: 150px;
 }
 
 .boxes_footer1 {
@@ -644,7 +751,12 @@ a {
 
 .footer .titulo {
     justify-content: left;
+    display: none;
     
+}
+
+.footer .cadastro_botao{
+    display: none;
 }
 
 /* FOOTER - FIM */

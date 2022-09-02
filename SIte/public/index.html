@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <link rel="icon" href="imgs/Pardallis-logo-temporario.pngs">
+    <link rel="icon" href="imgs/logo.png">
     <script src="./js/funcoes.js"></script>
     <title>Pardalis</title>
 </head>
@@ -19,7 +19,7 @@
         <div class="header">
             <div class="container">
                 <div class="titulo">
-                    <img src="imgs/Pardallis-logo-temporario.png" alt="">
+                    <img src="imgs/logo.png" alt="">
                     <h1>Pardalis</h1>
                 </div>
                 <ul class="register">
@@ -42,7 +42,13 @@
 
         <div class="banner">
             <div class="container">
-                <h1>Monitore e gerencie o processo de transcoding de maneira facil e rapida</h1>
+                <!-- <h1>Monitore e gerencie o processo de transcoding de maneira facil e rapida</h1> -->
+                <div id="slider">
+                    <img class="selected" src="imgs/Dash.png" alt="Image1">
+                    <img src="imgs/DashDark.png" alt="Image2">
+                    <!-- <img src="https://images.unsplash.com/photo-1562526109-878e3d276ceb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Image3">
+                    <img src="https://images.unsplash.com/photo-1504870444519-3c678061c754?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Image4"> -->
+                </div>
             </div>
         </div>
     </div>
@@ -54,11 +60,11 @@
         <div class="parte1">
             <div class="container">
                 <div class="box1">
-                    <h1>Participe da comunidade</h1>
-                    <h4>Encontre novos jogadores, conheca novos amigos, compartilhe suas aventuras. </h4>
+                    <h1>Aumente a produtividade no ambiente de trabalho!</h1>
+                    <h4>Telas intuitivas e completas a cerca de todos os dados necessarios. </h4>
                 </div>
                 <div class="box2">
-                    <img id="greenhouse" src="imgs/Dash.png" alt="">
+                    <img id="greenhouse" src="imgs/trancodingVetor.png" alt="">
                 </div>
             </div>
         </div>
@@ -66,16 +72,26 @@
         <div class="parte2">
             <div class="container">
                 <div class="box1">
-                    <h1>Teste seu conhecimento no nosso quiz</h1>
-                    <h4>Pontue e apareca num ranking junto a outros jogadores.</h4>
+                    <h1>Receba alertas</h1>
+                    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quibusdam? Est quisquam doloribus aliquid in nihil eveniet officiis quas rem quae facilis, non debitis accusantium. Accusamus voluptas ut dolorum autem.</h4>
                 </div>
                 <div class="box2">
-                    <img id="graphs" src="imgs/DashResp.png" alt="">
+                    <img id="graphs" src="imgs/JobVetor.png" alt="">
                 </div>
             </div>
         </div>
 
-        
+        <div class="parte4">
+            <div class="container">
+                <div class="box1">
+                    <h1>Monitore seus processos!</h1>
+                    
+                </div>
+                <div class="box2">
+                    <img src="imgs/GraficosVetor.png" alt="" id="loss">
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- FOOTER -->
@@ -85,7 +101,7 @@
             <div class="boxes_footer1">
 
                 <div class="slogan_footer">
-                    <h1>Teste seus conhecimentos sobre minecraft.</h1>
+                    <h1>Monitoramento de qualidade e compromisso é Pardalis.</h1>
                 </div>
 
                 <div class="listas_footer">
@@ -120,7 +136,7 @@
 
             <div class="boxes_footer2">
                 <div class="titulo">
-                    <img src="imgs/Pardallis-logo-temporario.png" alt="">
+                    <img src="imgs/logo.png" alt="">
                     <h1>Pardalis</h1>
                 </div>
 
@@ -141,3 +157,34 @@
 </body>
 
 </html>
+
+<script>
+    let time = 5000,
+    currentImageIndex = 0,
+    images = document
+                .querySelectorAll("#slider img")
+    max = images.length;
+
+function nextImage() {
+
+    images[currentImageIndex]
+        .classList.remove("selected")
+
+    currentImageIndex++
+
+    if(currentImageIndex >= max)
+        currentImageIndex = 0
+
+    images[currentImageIndex]
+        .classList.add("selected")
+}
+
+function start() {
+    setInterval(() => {
+        // troca de image
+        nextImage()
+    }, time)
+}
+
+window.addEventListener("load", start)
+</script>
