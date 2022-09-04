@@ -1,0 +1,33 @@
+Empresa
+    Nome da empresa
+    CNPJ
+
+Usuário
+    Nome
+    E-mail
+    Senha
+    Cargo
+
+DataCenter
+    Logradouro
+    Bairro
+    Cidade
+    Estado
+    País
+
+Máquina
+    Nome
+    Sistema Operacional
+    Modelo do processador
+    Quantidade de cpu virtual
+    Quantidade de cpu lógica
+    Quantidade de memória RAM
+    Armazenamento máximo da Máquina
+
+Registro (Dado capturado pela aplicação)
+    Momento da captura
+    Temperatura da CPU
+    Porcentagem da CPU
+    Porcentagem da RAM
+    Porcentagem do Disco
+    Nível do cache da RAM
