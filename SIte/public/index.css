@@ -2,7 +2,7 @@
 
 body {
     margin: 0;
-    background: black;
+    /* background: black; */
     font-family: 'Open Sans', sans-serif;;
 }
 
@@ -16,7 +16,6 @@ body {
  
 
 /* HEADER - COMEÇO */
-
 .fundo {
     margin: auto;
     background-color: whitesmoke;
@@ -36,7 +35,7 @@ body {
     display: flex;
     margin-bottom: 24px;
     /* border: 3px solid blue; */
-    /* background-color: rgb(107, 195, 73); */
+    /* background-color: rgb(94, 14, 90); */
 
 }
 
@@ -51,7 +50,6 @@ body {
     align-items: center;
     font-family:'Arial';
     /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
-    width: 35%;
     /* text-shadow: 1px 1px black;  */
     /* border: 3px solid blue; */
 }
@@ -106,7 +104,7 @@ body {
 }
 
 .login_botao {
-    background-color:   rgb(107, 195, 73);
+    background-color:   rgb(94, 14, 90);
     color: white;
     /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
@@ -315,7 +313,7 @@ a {
 /* FOOTER - COMEÇO */
 
 .footer{
-    background-color:   rgb(107, 195, 73);
+    background-color:   rgb(94, 14, 90);
     width: 100%;
     color: white;
     padding-top: 72px;
@@ -394,7 +392,7 @@ a {
 }
   
 ::-webkit-scrollbar-thumb {
-    background: rgb(107, 195, 73);
+    background: rgb(94, 14, 90);
     /* border-radius: 16px; */
 }
 
@@ -508,7 +506,7 @@ a {
     }
     
     .login_botao {
-        background-color:   rgb(107, 195, 73);
+        background-color:   rgb(94, 14, 90);
         color: white;
         
         box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
@@ -675,7 +673,7 @@ a {
 /* FOOTER - COMEÇO */
 
 .footer{
-    background-color:   rgb(107, 195, 73);
+    background-color:   rgb(94, 14, 90);
     width: 100vh;
     color: white;
     padding-top: 72px;

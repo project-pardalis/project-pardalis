@@ -12,16 +12,14 @@
 </head>
 
 <body>
-
     <!-- HEADER -->
-
     <div class="fundo">
         <div class="header">
             <div class="container">
-                <div class="titulo">
+                <a href="index.html" class="titulo">
                     <img src="imgs/logo.png" alt="">
                     <h1>Pardalis</h1>
-                </div>
+                </a>
                 <ul class="register">
                     <a href="cadastro.html">
                         <div class="cadastro_botao">
@@ -146,14 +144,8 @@
                     </div>
                 </a>
             </div>
-
         </div>
-
-
     </div>
-
-
-
 </body>
 
 </html>
@@ -161,22 +153,19 @@
 <script>
     let time = 5000,
     currentImageIndex = 0,
-    images = document
-                .querySelectorAll("#slider img")
+    images = document.querySelectorAll("#slider img")
     max = images.length;
 
 function nextImage() {
 
-    images[currentImageIndex]
-        .classList.remove("selected")
+    images[currentImageIndex].classList.remove("selected")
 
     currentImageIndex++
 
     if(currentImageIndex >= max)
         currentImageIndex = 0
 
-    images[currentImageIndex]
-        .classList.add("selected")
+    images[currentImageIndex].classList.add("selected")
 }
 
 function start() {
