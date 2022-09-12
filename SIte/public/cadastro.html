@@ -1,109 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login-Pardallis</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="index.css">
-    
-</head>
-<body>
-    
-<div class="main">
-
-    <div class="header">
-        <div class="container">
-            <a href="index.html" class="titulo">
-                <img src="imgs/logo.png" alt="">
-                <h1>Pardalis</h1>
-            </a>
-            <ul class="register">
-                <a href="cadastro.html">
-                    <div class="cadastro_botao">
-                        <li>Cadastro</li>
-                    </div>
-                </a>
-                |
-                <a href="login.html">
-                    <div class="login_botao">
-                        <li> Login</li>
-                    </div>
-                </a>
-            </ul>
-        </div>
-    </div>
-
-    <div class="center-form">
-        <h1>Cadastro</h1>
-        <div class="form">
-            <input type="text" class="input-form" placeholder="Nome da empresa" id="ipt_empresa" onkeypress="key()">
-            <input type="text" class="input-form" maxlength="18" placeholder="CNPJ" id="ipt_cnpj" onkeypress="key()">            
-            <input type="text" autofocus class="input-form" placeholder="Nome do gerente" id="ipt_gerente" onkeypress="key()">
-            <input type="text" autofocus class="input-form" placeholder="E-mail" id="ipt_email" onkeypress="key()">
-            <input type="password" class="input-form" placeholder="Senha" id="ipt_senha" onkeypress="key()">
-            <button onclick="cadastrar()">Cadastrar</button>
-        </div>
-
-        <span id="error_msg"></span>
-    </div>
-
-    <div class="footer">
-        <div class="container">
-            <div class="boxes_footer1">
-
-                <div class="slogan_footer">
-                    <h1>Monitoramento de qualidade e compromisso é Pardalis.</h1>
-                </div>
-
-                <div class="listas_footer">
-                    <ul class="ul_footer">
-                        <h3>Empresa</h3>
-                        <li>Sobre</li>
-                        <li>Marca</li>
-                        <li>Empregos</li>
-                    </ul>
-
-                    <ul class="ul_footer">
-                        <h3>Politica</h3>
-                        <li>Termos</li>
-                        <li>Privacidade</li>
-                        <li>Configurações de cookies</li>
-                        <li>Diretrizes</li>
-                        <li>Reconhecimentos</li>
-                        <li>Licenças</li>
-                    </ul>
-
-                    <ul class="ul_footer">
-                        <h3>Contato</h3>
-
-                        <li>Tel: (11) 97357-7889</li>
-                        <li>Email: projetopardalis@gmail.com</li>
-
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cadastro | Pardallis</title>
+        <link rel="icon" href="imgs/logo.png">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main">
+            <div class="header">
+                <div class="container">
+                    <a href="index.html" class="titulo">
+                        <img src="imgs/logo.png" alt="">
+                        <h1>Pardalis</h1>
+                    </a>
+                    <ul class="register">
+                        <a href="cadastro.html">
+                            <div class="cadastro_botao">
+                                <li>Cadastro</li>
+                            </div>
+                        </a>
+                        |
+                        <a href="login.html">
+                            <div class="login_botao">
+                                <li> Login</li>
+                            </div>
+                        </a>
                     </ul>
                 </div>
             </div>
-
-            <div class="divisao"></div>
-
-            <div class="boxes_footer2">
-                <div class="titulo">
-                    <img src="imgs/logo.png" alt="">
-                    <h1>Pardalis</h1>
+            <div class="center-form">
+                <h1>Cadastro</h1>
+                <div class="form">
+                    <input type="text" class="input-form" placeholder="Nome da empresa" id="ipt_empresa" onkeypress="key()">
+                    <input type="text" class="input-form" maxlength="18" placeholder="CNPJ" id="ipt_cnpj" onkeypress="key()">            
+                    <input type="text" autofocus class="input-form" placeholder="Nome do gerente" id="ipt_gerente" onkeypress="key()">
+                    <input type="text" autofocus class="input-form" placeholder="E-mail" id="ipt_email" onkeypress="key()">
+                    <input type="password" class="input-form" placeholder="Senha" id="ipt_senha" onkeypress="key()">
+                    <button onclick="cadastrar()">Cadastrar</button>
                 </div>
-
-                <a href="cadastro.html">
-                    <div class="cadastro_botao">
-                        Cadastro
+                <span id="error_msg"></span>
+            </div>
+            <div class="footer">
+                <div class="container">
+                    <div class="boxes_footer1">
+                        <div class="slogan_footer">
+                            <h1>Monitoramento de qualidade e compromisso é Pardalis.</h1>
+                        </div>
+                        <div class="listas_footer">
+                            <ul class="ul_footer">
+                                <h3>Empresa</h3>
+                                <li>Sobre</li>
+                                <li>Marca</li>
+                                <li>Empregos</li>
+                            </ul>
+                            <ul class="ul_footer">
+                                <h3>Politica</h3>
+                                <li>Termos</li>
+                                <li>Privacidade</li>
+                                <li>Configurações de cookies</li>
+                                <li>Diretrizes</li>
+                                <li>Reconhecimentos</li>
+                                <li>Licenças</li>
+                            </ul>
+                            <ul class="ul_footer">
+                                <h3>Contato</h3>
+                                <li>Tel: (11) 97357-7889</li>
+                                <li>Email: projetopardalis@gmail.com</li>
+                            </ul>
+                        </div>
                     </div>
-                </a>
+
+                    <div class="divisao"></div>
+
+                    <div class="boxes_footer2">
+                        <div class="titulo">
+                            <img src="imgs/logo.png" alt="">
+                            <h1>Pardalis</h1>
+                        </div>
+
+                        <a href="cadastro.html"><div class="cadastro_botao">Cadastro</div></a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-</body>
+    </body>
 </html>
 <script>
     //Fazendo o enter funcionar quando da um Enter no input
