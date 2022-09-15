@@ -34,6 +34,217 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="imgs/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="./assets/imgs/logo.png" type="image/x-icon">
+    <script src="./js/funcoes.js"></script>
+    <title>Pardalis</title>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div class="fundo">
+        <div class="header">
+            <div class="container d-flex my-2 w-100">
+                <a href="index.html" class="titulo">
+                    <img src="./assets/imgs/logo.png" alt="">
+                    <h1 class="m-0 p-0">Pardalis</h1>
+                </a>
+                <ul class="register">
+                    <li>
+                        <button class="btn fw-semibold ver-planos-botao">Ver Planos</button>
+                    </li>
+                    <li>
+                        <button class="btn fw-semibold login-botao">Entrar</button>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- BANNER -->
+
+        <div class="banner">
+            <div class="container d-flex justify-content-center align-items-center h-100" style="position: relative">
+                <!-- <h1>Monitore e gerencie o processo de transcoding de maneira facil e rapida</h1> -->
+                <div id="slider" class="py-5">
+                    <img class="img-fluid selected" src="./assets/imgs/Dash.png" alt="Image1" id="1">
+                    <img class="img-fluid" src="./assets/imgs/DashDark.png" alt="Image2" id="2">
+                    <!-- <img src="https://images.unsplash.com/photo-1562526109-878e3d276ceb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Image3">
+                    <img src="https://images.unsplash.com/photo-1504870444519-3c678061c754?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Image4"> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOCIAL -->
+
+    <div class="social">
+
+        <div class="parte1">
+            <div class="container d-flex">
+                <div class="col-4 d-flex align-items-center m-0 p-0" style="flex-direction: column;">
+                    <h1>Aumente a produtividade no ambiente de trabalho!</h1>
+                    <h4>Telas intuitivas e completas a cerca de todos os dados necessarios. </h4>
+                </div>
+                <div class="box2">
+                    <img id="greenhouse" src="./assets/imgs/trancodingVetor.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="parte2">
+            <div class="container">
+                <div class="box1">
+                    <h1>Receba alertas</h1>
+                    <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quibusdam? Est quisquam
+                        doloribus aliquid in nihil eveniet officiis quas rem quae facilis, non debitis accusantium.
+                        Accusamus voluptas ut dolorum autem.</h4>
+                </div>
+                <div class="box2">
+                    <img id="graphs" src="./assets/imgs/JobVetor.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="parte4">
+            <div class="container">
+                <div class="box1">
+                    <h1>Monitore seus processos!</h1>
+
+                </div>
+                <div class="box2">
+                    <img src="./assets/imgs/GraficosVetor.png" alt="" id="loss">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        <div class="container">
+            <div class="boxes_footer1">
+
+                <div class="slogan_footer">
+                    <h1>Monitoramento de qualidade e compromisso é Pardalis.</h1>
+                </div>
+
+                <div class="listas_footer">
+                    <ul class="ul_footer">
+                        <h3>Empresa</h3>
+                        <li>Sobre</li>
+                        <li>Marca</li>
+                        <li>Empregos</li>
+                    </ul>
+
+                    <ul class="ul_footer">
+                        <h3>Politica</h3>
+                        <li>Termos</li>
+                        <li>Privacidade</li>
+                        <li>Configurações de cookies</li>
+                        <li>Diretrizes</li>
+                        <li>Reconhecimentos</li>
+                        <li>Licenças</li>
+                    </ul>
+
+                    <ul class="ul_footer">
+                        <h3>Contato</h3>
+
+                        <li>Tel: (11) 97357-7889</li>
+                        <li>Email: projetopardalis@gmail.com</li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="divisao"></div>
+
+            <div class="boxes_footer2">
+                <div class="titulo">
+                    <img src="imgs/logo.png" alt="">
+                    <h1>Pardalis</h1>
+                </div>
+
+                <a href="cadastro.html">
+                    <div class="cadastro_botao">
+                        Cadastro
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    var selectedImgIndex = 0;
+    function changeImgEvent() {
+        let time = 5000;
+        let images = document.querySelectorAll('#slider img');
+        let currentImageIndex = 0;
+        setInterval(() => {
+            images[currentImageIndex].classList.remove('selected');
+            currentImageIndex++;
+            if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            }
+            images[currentImageIndex].classList.add('selected');
+        }, time);
+    }
+
+    function setCarrossel() {
+        let images = document.querySelectorAll('#slider img');
+
+        for (let i = 0; i < images.length; i++) {
+            images[i].addEventListener('click', (event) => {
+
+                let sliderElement = document.querySelector('#slider');
+
+                let imgIndex = parseInt(event.target.id);
+                if (imgIndex == selectedImgIndex) return 0;
+
+                switch (imgIndex) {
+                    case 1:
+                        carrosselAtualPosition = 14;
+                        break;
+                    case 2:
+                        carrosselAtualPosition = -63;
+                        break;
+                }
+                for (let j = 0; j < images.length; j++) {
+                    images[j].classList.remove('selected');
+                }
+                images[imgIndex - 1].classList.add('selected');
+                
+                var cssRoot = document.querySelector(':root');
+                cssRoot.style.setProperty('--carrossel-position-x', `${carrosselAtualPosition}`);
+                selectedImgIndex = imgIndex;
+
+            });
+        }
+    }
+
+    function scrollImg(event) {
+        let sliderElement = document.querySelector('#slider');
+
+
+    }
+
+    setCarrossel();
+
+    // changeImgEvent();
+
+=======
             <!-- BANNER -->
 
             <div class="banner">
@@ -172,4 +383,5 @@
     }
 
     window.addEventListener("load", start);
+>>>>>>> 204f669e6ff1751d48d0369f52957d936f2179d1
 </script>

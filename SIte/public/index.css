@@ -1,0 +1,342 @@
+:root {
+    --cor-padrao: #6B46D7;
+    --carrossel-position-x: 14;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@font-face {
+    font-family: "Nunito", sans-serif;
+    src: url(./assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+}
+
+body {
+    margin: 0;
+    /* background: black; */
+    font-family: 'Nunito', 'Open Sans', sans-serif !important;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* SCROLL BAR - COMEÇO */
+
+::-webkit-scrollbar-track {
+    background-color: whitesmoke;
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: var(--cor-padrao);
+    border-radius: 5%;
+}
+
+
+
+/* HEADER - COMEÇO */
+.fundo {
+    margin: auto;
+    background-color: whitesmoke;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+}
+
+/* HEADER */
+
+.header {
+    display: flex;
+    background-color: yellow;
+
+}
+
+.header .container{
+    justify-content: space-between;
+}
+
+.titulo {
+    color: black;
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+}
+
+.titulo img{
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    margin-right: 12px;
+}
+
+.navBar {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 350px;
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
+    /* text-shadow: 1px 1px black;  */
+    /* border: 3px solid blue; */
+}
+
+.register {
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    margin: 0;
+}
+
+.cadastro_botao {
+    background-color: white;
+    color: black;
+    width: 98px;
+    padding: 10px;
+    border-radius: 24px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cadastro_botao:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+    border-radius: 5%;
+}
+
+.ver-planos-botao, .login-botao {
+    border: 0 !important;
+    background-color: var(--cor-padrao) !important;
+    transition: all 300ms;
+    color: white !important;
+}
+
+.ver-planos-botao:hover, .login-botao:hover {
+    border: 0 !important;
+}
+
+/* HEADER - FIM */
+
+/* BANNER - COMEÇO */
+
+.banner {
+    height: 500px;
+}
+
+#slider {
+    width: 100%;
+    height:100%;
+    position: absolute;
+    display: flex;
+    column-gap: 40px;
+    transition: all 300ms;
+    transform: translateX(calc(var(--carrossel-position-x) * 1%));
+}
+
+#slider img{
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+
+#slider img:not(.selected) {
+    cursor: pointer;
+}
+
+/* BANNER - FIM */
+
+/* CADASTRO - FIM */
+
+/* SOCIAL - COMEÇO */
+
+.social {
+    background-color: white;
+    font-size: x-large;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.social .container h4{
+    font-weight: lighter;
+}
+
+.parte1 {
+    display: flex;
+    width: 100%;
+    padding-top: 36px;
+    padding-bottom: 36px;
+}
+
+.parte1 .container {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    
+}
+
+.parte2 {
+    padding-top: 72px;
+    padding-bottom: 72px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: whitesmoke;
+}
+
+.parte2 .container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+}
+
+.parte3 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.parte3 .container {
+    justify-content: space-between;
+}
+
+.parte4 {
+    display: flex;
+    background-color: whitesmoke;
+    width: 100%;
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.parte4 .container {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.parte4 .container .box1 h4 {
+    background-color: #cf0b0b;
+    color: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+    width: 250px;
+    height: 64px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 36px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: normal;
+}
+
+.parte4 .container .box1 h4:hover {
+    background-color: #B31C45;
+}
+
+#greenhouse {
+    width: 450px;
+    border-radius: 32px;
+}
+
+#graphs {
+    width: 350px;
+    border-radius: 32px;
+}
+
+#profit {
+    width: 450px;
+    border-radius: 32px;
+}
+
+#loss {
+    width: 612px;
+    border-radius: 24px;
+    margin-top: 32px;
+}
+
+/* SOCIAL - FIM */
+
+/* FOOTER - COMEÇO */
+
+.footer{
+    background-color:   rgb(94, 14, 90);
+    width: 100%;
+    color: white;
+    padding-top: 72px;
+    padding-bottom: 72px;
+    
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.boxes_footer1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slogan_footer { 
+    width: 280px;
+    height: 238px;
+    display: flex;
+    align-items: top;
+    margin-right: 24px;
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
+}
+
+.listas_footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+
+.ul_footer{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    height: 200px;
+    list-style: none;
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
+}
+
+.divisao {
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.boxes_footer2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer .titulo {
+    justify-content: left;
+    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
+}
+
+/* FOOTER - FIM */
+
