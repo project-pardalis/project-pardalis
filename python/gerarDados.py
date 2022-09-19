@@ -1,7 +1,6 @@
-from operator import length_hint
+from dis import dis
 import random
 import csv
-from tabnanny import check
 
 f = open("python/jorge.csv","w")
 
@@ -9,6 +8,12 @@ def delete_csv():
     with open('python/jorge.csv',"w") as arq : 
         arq.write('')
     with open('python/jorgeComponente.csv',"w") as arq:
+        arq.write('')
+    with open('python/jorgeMetricasHasComponentes.csv',"w") as arq:
+        arq.write('')
+    with open('python/jorgeUsuarios.csv',"w") as arq:
+        arq.write('')
+    with open('python/jorgeDados.csv',"w") as arq:
         arq.write('')
 
 def sorteio(componente):
@@ -55,6 +60,12 @@ def write_lines_user(idUser,fkEmp,fkAdm,nome,email,senha,cargo):
             esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
             esc.writerow([idUser,fkEmp,fkAdm,nome,email,senha,cargo])
 
+def write_lines_dados(idComp,fkComp,fkMaq,fkEmp,fkMet,valor, dia, hora, minuto):
+    with open("python/jorgeDados.csv", "a") as csv_file:
+            esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
+            esc.writerow([idComp, fkComp, fkMaq, fkEmp, fkMet,valor, dia, hora, minuto])
+
+
 def get_componente(x):
     componentes = ["Cpu","Memoria Ram","Disco"]
     return componentes[x]
@@ -85,7 +96,7 @@ def main_usuario():
 
 def def_Adm(qtd):
     rand = random.randint(0,100)
-    if rand > 60:
+    if rand > 50:
         return random.randint(0,qtd)
     else:
         return "Null"
@@ -124,12 +135,37 @@ def main_metricas():
             for metrica in range(check_lines("python/jorgeMetricas.csv")):
                 write_lines_met(componente+1,maquina+1,1,metrica)
 
+def main_dados():
+    idComponente = 0 
+    for dias in range(10):
+        for horas in range(24):
+            for minutos in range(60):
+                for maquina in range(check_lines("python/jorge.csv")):
+                    for metrica in range(check_lines("python/jorgeMetricas.csv")):
+                        for componente in range(3):
+                            if componente == 0:
+                                for i in range(2):
+                                    valor = random.randint(20,100)
+                                    idComponente += 1
+                                    write_lines_dados(idComponente,componente+1,maquina+1,1,metrica,valor, dias,horas,minutos)
+                            elif componente == 1:
+                                valor = random.randint(1,16)
+                                idComponente += 1
+                                write_lines_dados(idComponente,componente+1,maquina+1,1,metrica, valor, dias,horas,minutos)
+                            elif componente == 2:
+                                valor = random.randint(0,100)
+                                idComponente += 1
+                                write_lines_dados(idComponente,componente+1,maquina+1,1,metrica, valor, dias,horas,minutos)
+
+                
+
 
 def main(): 
-        
+    delete_csv()
     main_maquinas()
     main_componentes()
     main_metricas()
     main_usuario()
-    delete_csv()
+    main_dados()
+
 main()
