@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="text">
-                            <label for="">Nome do gerente</label>
+                            <label for="">Nome do admnistrador</label>
                             <label for="">E-mail</label>
                         </div>
                         <div class="inpt">
@@ -143,7 +143,9 @@
         var senhaVar = ipt_senha.value;
 
         if (empresaVar == '' || cnpjVar == '' || gerenteVar == '' || emailVar == '' || senhaVar == '') {
+            error_msg.style.display = 'block'
             error_msg.innerHTML = 'Todos os campos devem ser preenchidos';
+
         }
         else {
             fetch("/usuarios/cadastrar", {

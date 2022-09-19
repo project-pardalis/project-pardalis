@@ -392,21 +392,16 @@ a {
     height: 100%;
 }
 
-.center-form {
-    display: grid;
-    place-items: center;
-    margin-top: 2%;
-    background-color: white;
-}
 
 .center-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 20px;
-    border: 2px solid rgb(125, 125, 125);
+    background-color: white;
+    border: none;
     box-sizing: border-box;
-    width: 60rem
+    padding: 3rem;
 }
 
 .center-form h2 {
@@ -476,7 +471,7 @@ a {
     text-align: center;
     border-radius: 0.4rem;
     padding: 1rem;
-    border: 1px solid black;
+    border: 1px solid rgb(0, 0, 0, 0.6);
     transition: 150ms;
     font-size: 80%;
 }
@@ -565,9 +560,14 @@ a {
 }
 
 #error_msg {
-    color: red;
-    font-weight: 500;
-    margin-top: 3%;
+    transition: 200ms;
+    color: white;
+    background-color: red;
+    display: none;
+    padding: 1rem;
+    border-radius: 6px;
+
+    font-weight: 100%;
+
     font-size: 1.4rem;
-}
 }
