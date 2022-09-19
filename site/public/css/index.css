@@ -1,9 +1,9 @@
 :root {
     --primaryColor: rgb(255, 255, 255);
     --secundaryColor: rgb(0, 0, 0);
-    --thirdColor: #7F45DE;
-    --hoverColor: #663dff;
-
+    --thirdColor: #6B46D7;
+    --hoverColor: #5431d4;
+    --carrossel-position-x: 14;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
@@ -13,8 +13,11 @@
     src: url(./assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
 }
 
+
+
 body {
     margin: 0;
+    padding: 0;
     /* background: black; */
     font-family: 'Nunito', 'Open Sans', sans-serif !important;
     overflow-x: hidden;
@@ -35,7 +38,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--cor-padrao);
+    background: var(--thirdColor);
     border-radius: 5%;
 }
 
@@ -43,19 +46,15 @@ a {
 
 /* HEADER - COMEÇO */
 .fundo {
-    margin: auto;
     background-color: whitesmoke;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
+    width: 100%
 }
 
 /* HEADER */
 
 .header {
     display: flex;
-    background-color: yellow;
+    /* background-color: yellow; */
 
 }
 
@@ -71,10 +70,9 @@ a {
 }
 
 .titulo img {
-    width: 50px;
-    height: 50px;
     border-radius: 12px;
-    margin-right: 12px;
+    margin-right: 1%;
+    width: 5%;
 }
 
 .navBar {
@@ -83,9 +81,6 @@ a {
     align-items: center;
     justify-content: space-evenly;
     width: 350px;
-    /* text-shadow: 0.1em 0.1em 0.05em rgb(0, 0, 0); */
-    /* text-shadow: 1px 1px black;  */
-    /* border: 3px solid blue; */
 }
 
 .register {
@@ -93,9 +88,9 @@ a {
     list-style: none;
     justify-content: space-evenly;
     align-items: center;
-    width: 25%;
     height: 100%;
     margin: 0;
+    width: 40%;
 }
 
 .cadastro_botao {
@@ -119,7 +114,7 @@ a {
 .ver-planos-botao,
 .login-botao {
     border: 0 !important;
-    background-color: var(--cor-padrao) !important;
+    background-color: var(--thirdColor) !important;
     transition: all 300ms;
     color: white !important;
 }
@@ -127,6 +122,8 @@ a {
 .ver-planos-botao:hover,
 .login-botao:hover {
     border: 0 !important;
+    background-color: var(--hoverColor) !important;
+    color: rgb(203, 203, 203) !important;
 }
 
 /* HEADER - FIM */
@@ -176,54 +173,19 @@ a {
     font-weight: lighter;
 }
 
-.parte1 {
+.parte1, .parte2, .parte3, .parte4 {
     display: flex;
     width: 100%;
     padding-top: 36px;
     padding-bottom: 36px;
 }
 
-.parte1 .container {
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-
-}
-
 .parte2 {
-    padding-top: 72px;
-    padding-bottom: 72px;
-    width: 100%;
-    display: flex;
-    align-items: center;
     background-color: whitesmoke;
 }
 
-.parte2 .container {
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row-reverse;
-}
-
-.parte3 {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    width: 100%;
-    padding-top: 72px;
-    padding-bottom: 72px;
-}
-
-.parte3 .container {
-    justify-content: space-between;
-}
-
-.parte4 {
-    display: flex;
-    background-color: whitesmoke;
-    width: 100%;
-    padding-top: 72px;
-    padding-bottom: 72px;
+.parte1 .container, .parte2 .container, .parte3 .container, .parte4 .container {
+    justify-content: space-around
 }
 
 .parte4 .container {
@@ -232,58 +194,23 @@ a {
     align-items: center;
 }
 
-.parte4 .container .box1 h4 {
-    background-color: #cf0b0b;
-    color: white;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
-    width: 250px;
-    height: 64px;
-    padding-right: 10px;
-    padding-left: 10px;
-    border-radius: 36px;
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    font-weight: normal;
-}
-
-.parte4 .container .box1 h4:hover {
-    background-color: #B31C45;
-}
-
-#greenhouse {
-    width: 450px;
+#greenhouse, #graphs, #loss {
+    width: 100%;
     border-radius: 32px;
 }
 
-#graphs {
-    width: 350px;
-    border-radius: 32px;
-}
-
-#profit {
-    width: 450px;
-    border-radius: 32px;
-}
-
-#loss {
-    width: 612px;
-    border-radius: 24px;
-    margin-top: 32px;
-}
 
 /* SOCIAL - FIM */
 
 /* FOOTER - COMEÇO */
+
 .footer {
     background-color: var(--thirdColor);
     width: 100%;
     border-top: 6px solid white;
     color: white;
-    padding-top: 3rem;
+    padding-top: 2rem;
     font-size: 0.8rem;
-
 }
 
 .footer h1 {
@@ -297,16 +224,13 @@ a {
 
 .boxes_footer1 {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
 }
 
 .slogan_footer {
     width: 20rem;
     height: 12rem;
     display: flex;
-    align-items: top;
     margin-right: 24px;
 }
 
