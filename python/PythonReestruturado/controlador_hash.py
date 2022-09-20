@@ -7,6 +7,7 @@ def save_hash():
             file.write({
                 "hash": hash_computer
             })
+        return hash_computer
         print("Hash salvo com sucesso!")
     except:
         print("Erro ao salvar o hash do computador")
@@ -21,3 +22,7 @@ def load_hash():
                 "hash": ""
             })
             print("Arquivo de hash não encontrado, criando arquivo...")
+
+def check_hash():
+    pass
+    # Acessar o banco de dados e verificar se o hash existe e se está ativo?
