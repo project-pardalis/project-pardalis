@@ -1,32 +1,75 @@
 CREATE DATABASE PARDALIS;
 USE PARDALIS;
 
+CREATE TABLE Empresa(
+    idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
+    nomeEmpresa VARCHAR(60) NOT NULL,
+    cnpjEmpresa CHAR(14) NOT NULL
+);
+
 CREATE TABLE Usuario(
-	ID_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    USUARIO_NOME VARCHAR(60) NOT NULL,
-    USUARIO_EMAIL VARCHAR(60) NOT NULL CHECK(USUARIO_EMAIL = '%@%'),
-    USUARIO_SENHA CHAR(128) NOT NULL
+	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nomeUsuario VARCHAR(60) NOT NULL,
+    emailUsuario VARCHAR(60) NOT NULL UNIQUE,
+    senhaUsuario CHAR(128) NOT NULL,
+    cargo VARCHAR(60) NOT NULL,
+    fkEmpresa INT NOT NULL,
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(fkEmpresa),
+    fkAdministrador INT,
+    FOREIGN KEY (fkAdministrador) REFERENCES Administrador(fkAdministrador)
 );
 
-CREATE TABLE MAQUINA(
-	ID_MAQUINA INT PRIMARY KEY AUTO_INCREMENT,
-    MAQUINA_NOME VARCHAR(50),
-    MAQUINA_SISTEMA_OPERACIONAL VARCHAR(50),
-    MAQUINA_MODELO_PROCESSADOR VARCHAR(50),
-    MAQUINA_QTD_CPU_FISICA INT,
-    MAQUINA_QTD_CPU_VIRTUAL INT,
-    MAQUINA_QTD_RAM INT,
-    MAQUINA_ARMAZENAMENTO_MAXIMO INT
+CREATE TABLE Maquina(
+	idMaquina INT AUTO_INCREMENT,
+    nomeMaquina VARCHAR(50) NOT NULL,
+    sistemaOperacional VARCHAR(50) NOT NULL,
+    onCloud BOOLEAN NOT NULL,
+    dataCriacao DATETIME NOT NULL,
+    fkEmpresa INT NOT NULL,
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(fkEmpresa),
+    PRIMARY KEY(idMaquina, fkEmpresa)
 );
 
-CREATE TABLE REGISTRO(
-	ID_REGISTRO INT PRIMARY KEY AUTO_INCREMENT,
-    REGISTRO_MOMENTO DATETIME NOT NULL,
-    REGISTRO_TEMP_CPU DECIMAL(5, 2),
-    REGISTRO_PORC_CPU DECIMAL(5, 2),
-    REGISTRO_PORC_RAM DECIMAL(5, 2),
-    REGISTRO_PORC_DISCO DECIMAL(5, 2),
-    REGISTRO_NIVEL_CACHE_CPU DECIMAL(5, 2),
-    REGISTRO_FK_MAQUINA INT,
-    FOREIGN KEY (REGISTRO_FK_MAQUINA) REFERENCES MAQUINA(ID_MAQUINA)
+CREATE TABLE Componente(
+	idComponente INT AUTO_INCREMENT,
+    nomeComponente VARCHAR(50) NOT NULL,
+    isComponenteValido BOOLEAN NOT NULL,
+    fkMaquina INT NOT NULL,
+    FOREIGN KEY (fkMaquina) REFERENCES Maquina(fkMaquina),
+    fkEmpresa INT NOT NULL,
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(fkEmpresa),
+    PRIMARY KEY(idComponente, fkMaquina, fkEmpresa)
+);
+
+CREATE TABLE Metrica(
+    idMetrica INT PRIMARY KEY AUTO_INCREMENT,
+    nomeMetrica VARCHAR(45) NOT NULL,
+    unidadeDeMedida VARCHAR(10) NOT NULL,
+);
+
+CREATE TABLE Componente_has_Metrica(
+    fkComponente INT NOT NULL,
+    fkMetrica INT NOT NULL,
+    fkMaquina INT NOT NULL,
+    fkEmpresa INT NOT NULL,
+    isEstatico BOOLEAN NOT NULL,
+    FOREIGN KEY (fkComponente) REFERENCES Componente(fkComponente),
+    FOREIGN KEY (fkMetrica) REFERENCES Metrica(fkMetrica),
+    FOREIGN KEY (fkMaquina) REFERENCES Maquina(fkMaquina),
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(fkEmpresa),
+    PRIMARY KEY(fkComponente, fkMetrica, fkMaquina, fkEmpresa)
+);
+CREATE TABLE Leitura(
+    idLeitura INT AUTO_INCREMENT,
+    fkComponente INT NOT NULL,
+    fkMetrica INT NOT NULL,
+    fkMaquina INT NOT NULL,
+    fkEmpresa INT NOT NULL,
+    FOREIGN KEY (fkComponente) REFERENCES Componente(fkComponente),
+    FOREIGN KEY (fkMetrica) REFERENCES Metrica(fkMetrica),
+    FOREIGN KEY (fkMaquina) REFERENCES Maquina(fkMaquina),
+    FOREIGN KEY (fkEmpresa) REFERENCES Empresa(fkEmpresa),
+    PRIMARY KEY(idLeitura, fkComponente, fkMetrica, fkMaquina, fkEmpresa),
+    dataColeta DATETIME NOT NULL,
+    valorLeitura DECIMAL(7,2) NOT NULL
 );
