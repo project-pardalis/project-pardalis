@@ -38,37 +38,37 @@ def insert_static_metrica(computer_info : dict, components : dict):
             component["fkMaquina"], component["fkEmpresa"], computer_info[component_name]["atual_percent"], "ENCONTRAR")
 
 def select_menu():
-    try:
-        print("Bem vindo ao Pardalis!")
-        print("Opções Dinponíveis:")
-        print("1 - Obter Dados do Computador")
-        print("2 - Atualizar Componentes do Computador")
-        print("3 - Adicionar Hash do Computador")
-        print("0 - Sair")
-        option = input("Digite a opção desejada: ")
-        if option == 1:
-            hash_computer = hash.load_hash()
-            machine_information["fkMaquina"] = hash_computer["fkMaquina"]
-            machine_information["fkEmpresa"] = hash_computer["fkEmpresa"]
-            machine_information["hash"] = hash_computer["hash"]
+    while True:
+        try:
+            print("Bem vindo ao Pardalis!")
+            print("Opções Dinponíveis:")
+            print("1 - Obter Dados do Computador")
+            print("2 - Atualizar Componentes do Computador")
+            print("3 - Adicionar Hash do Computador")
+            print("0 - Sair")
+            option = int(input("Digite a opção desejada: "))
+            if option == 1:
+                hash_computer = hash.load_hash()
+                machine_information["fkMaquina"] = hash_computer["fkMaquina"]
+                machine_information["fkEmpresa"] = hash_computer["fkEmpresa"]
+                machine_information["hash"] = hash_computer["hash"]
 
-            if (not hash_computer):
-                exit()
+                if (not hash_computer):
+                    break
+                else:
+                    start_get_values()
+            elif option == 2:
+                break
+            elif option == 3:
+                hash.save_hash()
+
+            elif option == 0:
+                print("Obrigado por utilizar o Pardalis!")
+                break
             else:
-                start_get_values()
-        elif option == 2:
-            exit()
-        elif option == 3:
-            hash.save_hash()
-
-        elif option == 0:
-            print("Obrigado por utilizar o Pardalis!")
-            exit()
-        else:
-            print("Opção inválida")
-    except:
-        pass
-    select_menu()
+                print("Opção inválida")
+        except:
+            pass
 
 def main():
     if sistema_operacional == "Linux":

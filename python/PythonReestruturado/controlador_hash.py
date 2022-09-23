@@ -1,5 +1,5 @@
-from genericpath import exists
 import json, comandosParaArmazenarDados as db
+from logging import exception
 # Tentar
 
 
@@ -8,9 +8,9 @@ def save_hash():
     hash_computer = input("Digite o hash do computador: ")
     try:
         with open("hash.json", "w") as file:
-            file.write({
+            json.dump({
                 "hash": hash_computer
-            })
+            }, file)
         print("Hash salvo com sucesso!")
         return hash_computer
     except:
@@ -26,12 +26,12 @@ def load_hash():
             else:
                 return False
 
-    except:
+    except :
         with open("hash.json", "w") as file:
             file.write({
                 "hash": ""
             })
-            print("Arquivo de hash não encontrado, criando arquivo...")
+        print("Arquivo de hash não encontrado, criando arquivo...")
 
 # Verifica se o hash existe no banco de dados
 def check_hash(hash : str):

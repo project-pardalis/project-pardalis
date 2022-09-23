@@ -38,12 +38,13 @@ def get_cpu_type():
     ]
 
     for j in necessary_data:
-            for k in necessary_data[j]:
+            for k in range(len(necessary_data[j])):
                 try:
-                    index = cpu_data.index(necessary_data[j][k])
-                    data[index]['value'] = cpu_data[index][1].strip()
+                    for l in range(len(cpu_data)):
+                        if cpu_data[l][0] == necessary_data[j][k]:
+                            data[k]['value'] = cpu_data[l][1].strip()
                 except:
-                    pass
+                    print("Não foi encontrado as especificações do computador.")
         
     return data
 

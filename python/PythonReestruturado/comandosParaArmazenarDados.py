@@ -2,9 +2,9 @@ from datetime import datetime
 import pymysql.cursors
 
 connection = pymysql.connect(host='localhost',
-                             user='xxxxxxx',
-                             password='xxxxxx',
-                             database='pardalis')
+                             user='pateta',
+                             password='teste@123',
+                             database='PARDALIS')
 
 cursor = connection.cursor()
 
@@ -39,7 +39,8 @@ dynamic_metrica = {
 # Roda um comando do MySQL
 def run_sql_command(sql_command : str):
     try:
-        return cursor.execute(sql_command)
+        cursor.execute(sql_command)
+        return cursor.fetchone()
     except Exception as e:
         print("Erro ao executar comando SQL")
         print("Comando: ", sql_command)
@@ -47,7 +48,7 @@ def run_sql_command(sql_command : str):
 
 # Verifica se a hash já existe no banco de dados
 def verify_if_hash_exists_in_database(hash : str):
-    result = run_sql_command(f"SELECT * FROM hash WHERE hash = '{hash}'") # Verificar o query cost
+    result = run_sql_command(f"SELECT * FROM Maquina WHERE hash = '{hash}'") # Verificar o query cost
 
     if len(result) == 0: return False
     else: return result
