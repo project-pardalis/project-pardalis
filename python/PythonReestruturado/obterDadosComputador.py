@@ -14,17 +14,18 @@ sistema_operacional = platform.system()
 
 def start_get_values():
     computer_info = dados.get_all_info()
-    db.insert_computer_info(computer_info)
+    print(computer_info)
+    #db.insert_computer_info(computer_info)
     
-    components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
+    #components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
 
-    insert_static_metrica(computer_info, components)
+    #insert_static_metrica(computer_info, components)
     
-    while True:
+    #while True:
 
-        components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
-        db.insert_dynamic_metrica(computer_info, components)
-        time.sleep(1)
+    #    components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
+    #    db.insert_dynamic_metrica(computer_info, components)
+    #    time.sleep(1)
 
 ## Arrumar o insert_static_metrica no valor Leitura
 ## Descobrir onde colocar o estático como arquitetura do computador
@@ -49,9 +50,9 @@ def select_menu():
             option = int(input("Digite a opção desejada: "))
             if option == 1:
                 hash_computer = hash.load_hash()
-                machine_information["fkMaquina"] = hash_computer["fkMaquina"]
-                machine_information["fkEmpresa"] = hash_computer["fkEmpresa"]
-                machine_information["hash"] = hash_computer["hash"]
+                machine_information["fkMaquina"] = hash_computer[0]
+                machine_information["fkEmpresa"] = hash_computer[len(hash_computer) - 1]
+                machine_information["hash"] = hash_computer[5]
 
                 if (not hash_computer):
                     break

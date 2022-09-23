@@ -48,7 +48,7 @@ def run_sql_command(sql_command : str):
 
 # Verifica se a hash já existe no banco de dados
 def verify_if_hash_exists_in_database(hash : str):
-    result = run_sql_command(f"SELECT * FROM Maquina WHERE hash = '{hash}'") # Verificar o query cost
+    result = run_sql_command(f"SELECT * FROM Maquina WHERE hashMaquina = '{hash}'") # Verificar o query cost
 
     if len(result) == 0: return False
     else: return result

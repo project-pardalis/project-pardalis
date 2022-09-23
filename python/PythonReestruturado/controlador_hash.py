@@ -28,9 +28,9 @@ def load_hash():
 
     except :
         with open("hash.json", "w") as file:
-            file.write({
+            json.dump({
                 "hash": ""
-            })
+            }, file)
         print("Arquivo de hash não encontrado, criando arquivo...")
 
 # Verifica se o hash existe no banco de dados
