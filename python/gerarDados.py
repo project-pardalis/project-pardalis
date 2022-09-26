@@ -68,12 +68,12 @@ def check_lines(arq):
 def write_lines_comp(idComp,fkMaq,fkEmp,nome):
     with open("python/jorgeComponente.csv", "a") as csv_file:
             esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            esc.writerow([idComp, fkMaq, fkEmp, nome, 1])
+            esc.writerow([idComp, fkMaq, fkEmp, nome])
 
 def write_lines_met(fkComp,fkMaq,fkEmp,fkMet):
     with open("python/jorgeMetricasHasComponentes.csv", "a") as csv_file:
             esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            esc.writerow([fkComp, fkMaq, fkEmp, fkMet])
+            esc.writerow([fkComp, fkMet, fkMaq, fkEmp])
 
 def write_lines_user(idUser,fkEmp,fkAdm,nome,email,senha,cargo):
     with open("python/jorgeUsuarios.csv", "a") as csv_file:
@@ -165,15 +165,15 @@ def main_dados():
                                     for i in range(2):
                                         valor = random.randint(20,100)
                                         idComponente += 1
-                                        write_lines_dados(idComponente, componente+i+1, componente+1,maquina+1,1,valor, format_date(mes+1, dias+1, horas, minutos, segundos))
+                                        write_lines_dados(idComponente, componente+i+1, componente+1,maquina+1,1,format_date(mes+1, dias+1, horas, minutos, segundos), valor)
                                 elif componente == 1:
                                     valor = random.randint(1,16)
                                     idComponente += 1
-                                    write_lines_dados(idComponente, componente+2, componente+1,maquina+1,1, valor, format_date(mes+1, dias+1, horas, minutos, segundos))
+                                    write_lines_dados(idComponente, componente+2, componente+1,maquina+1,1, format_date(mes+1, dias+1, horas, minutos, segundos), valor)
                                 elif componente == 2:              
                                     valor = random.   randint(0,1000)
                                     idComponente += 1
-                                    write_lines_dados(idComponente, componente+2, componente+1,maquina+1,1, valor, format_date(mes+1, dias+1, horas, minutos, segundos))
+                                    write_lines_dados(idComponente, componente+2, componente+1,maquina+1,1, format_date(mes+1, dias+1, horas, minutos, segundos), valor)
 
 def main(): 
     delete_csv()
