@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from dis import dis
 import random
 import csv
@@ -27,15 +28,34 @@ def sorteio(componente):
 def hex_append(so):
     so = so.lower()
     so = so[0:2]
-    return f"{so}-{gerar_hex()}"
+    return f"{so}-{gerar_hex(20)}"
 
-def gerar_hex():
+def gerar_hex(num):
     chars = "123456ABCDEFGHI76wndixdzsfszfs2009765210ojfngdBNMUOP"
     string_hex = ''
-    for i in range(0,20):
+    for i in range(num):
         rand = random.randint(0,len(chars)-1)
         string_hex += chars[rand]
     return string_hex
+
+def format_date(mes, dia, hora, minuto, segundo):
+    mesF = mes
+    diaF = dia
+    horaF = hora
+    minF = minuto
+    segF = segundo
+    if mes < 10:
+        mesF = f'0{mes}'
+    if dia < 10:
+        diaF = f'0{dia}'
+    if hora < 10:
+        horaF = f'0{hora}'
+    if minuto < 10:
+        minF = f'0{minuto}'
+    if segundo < 10:
+        segF = f'0{segundo}'
+    data = f'2022-{mesF}-{diaF} {horaF}:{minF}:{segF}'
+    return data
 
 def check_lines(arq):
     with open(arq) as csv_file:
@@ -60,27 +80,25 @@ def write_lines_user(idUser,fkEmp,fkAdm,nome,email,senha,cargo):
             esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
             esc.writerow([idUser,fkEmp,fkAdm,nome,email,senha,cargo])
 
-def write_lines_dados(idComp,fkComp,fkMaq,fkEmp,fkMet,valor, dia, hora, minuto):
+def write_lines_dados(idComp,fkComp,fkMaq,fkEmp,fkMet,valor, data):
     with open("python/jorgeDados.csv", "a") as csv_file:
             esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            esc.writerow([idComp, fkComp, fkMaq, fkEmp, fkMet,valor, dia, hora, minuto])
-
+            esc.writerow([idComp, fkComp, fkMaq, fkEmp, fkMet,valor, data])
 
 def get_componente(x):
     componentes = ["Cpu","Memoria Ram","Disco"]
     return componentes[x]
 
-
 def main_usuario():
     ler = open("python/nomes.txt","r").read().split(",")
     cargoR = ["Operacional","Tecnico"]
-    for i in range(20) : 
+    for i in range(20): 
         idUsuario = i+1
         fkEmpresa = 1
         rand = random.randint(0,len(ler))
         nome = ler[rand]
         email = f'{nome}@gmail.com'
-        senha = gerar_hex() 
+        senha = gerar_hex(8) 
         cargoRandom = random.randint(0,100)
         if cargoRandom > 90:
             cargo = cargoR[0]
@@ -93,15 +111,12 @@ def main_usuario():
             fkAdm = 'Null'
         write_lines_user(idUsuario,fkEmpresa,fkAdm,nome,email,senha,cargo)
         
-
 def def_Adm(qtd):
     rand = random.randint(0,100)
     if rand > 50:
         return random.randint(0,qtd)
     else:
         return "Null"
-
-
 
 def main_maquinas():
 
@@ -130,35 +145,35 @@ def main_componentes():
         write_lines_comp(idComponente, fkMaquina, fkEmpresa, nome)
 
 def main_metricas():
-    for maquina in range(check_lines("python/jorgeComponente.csv")*check_lines("python/jorgeMetricas.csv")):
-        for componente in range(3):
-            for metrica in range(check_lines("python/jorgeMetricas.csv")):
-                write_lines_met(componente+1,maquina+1,1,metrica)
+    for maquina in range(check_lines("python/jorge.csv")):
+        for componente in range(2):
+            if componente == 0:
+                for i in range(2):
+                    write_lines_met(componente+1,maquina+1,1,i+1)
+            write_lines_met(componente+2,maquina+1,1,componente+3)
 
 def main_dados():
     idComponente = 0 
-    for dias in range(10):
-        for horas in range(24):
-            for minutos in range(60):
-                for maquina in range(check_lines("python/jorge.csv")):
-                    for metrica in range(check_lines("python/jorgeMetricas.csv")):
-                        for componente in range(3):
-                            if componente == 0:
-                                for i in range(2):
-                                    valor = random.randint(20,100)
+    for mes in range(11):
+        for dias in range(29):
+            for horas in range(24):
+                for minutos in range(60):
+                    for segundos in range(60):
+                        for maquina in range(check_lines("python/jorge.csv")):
+                            for componente in range(3):
+                                if componente == 0:
+                                    for i in range(2):
+                                        valor = random.randint(20,100)
+                                        idComponente += 1
+                                        write_lines_dados(idComponente, componente+i+1, componente+1,maquina+1,1,valor, format_date(mes+1, dias+1, horas, minutos, segundos))
+                                elif componente == 1:
+                                    valor = random.randint(1,16)
                                     idComponente += 1
-                                    write_lines_dados(idComponente,componente+1,maquina+1,1,metrica,valor, dias,horas,minutos)
-                            elif componente == 1:
-                                valor = random.randint(1,16)
-                                idComponente += 1
-                                write_lines_dados(idComponente,componente+1,maquina+1,1,metrica, valor, dias,horas,minutos)
-                            elif componente == 2:
-                                valor = random.randint(0,100)
-                                idComponente += 1
-                                write_lines_dados(idComponente,componente+1,maquina+1,1,metrica, valor, dias,horas,minutos)
-
-                
-
+                                    write_lines_dados(idComponente, componente+2, componente+1,maquina+1,1, valor, format_date(mes+1, dias+1, horas, minutos, segundos))
+                                elif componente == 2:              
+                                    valor = random.   randint(0,1000)
+                                    idComponente += 1
+                                    write_lines_dados(idComponente, componente+2, componente+1,maquina+1,1, valor, format_date(mes+1, dias+1, horas, minutos, segundos))
 
 def main(): 
     delete_csv()
