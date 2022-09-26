@@ -15,11 +15,14 @@ sistema_operacional = platform.system()
 def start_get_values():
     computer_info = dados.get_all_info()
     print(computer_info)
-    #db.insert_computer_info(computer_info)
+    db.insert_component_info(computer_info["cpu"], "CPU", machine_information["fkMaquina"], machine_information["fkEmpresa"])
     
-    #components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
+    components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
 
-    #insert_static_metrica(computer_info, components)
+    for component in components:
+        insert_static_metrica(component["nomeComponente"], 
+        component["idComponente"], machine_information["fkMaquina"], 
+        machine_information["fkEmpresa"], computer_info[component["nomeComponente"]])
     
     #while True:
 

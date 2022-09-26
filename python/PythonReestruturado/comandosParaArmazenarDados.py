@@ -11,15 +11,13 @@ cursor = connection.cursor()
 static_metrica = {
     "cpu": {
         "cpu_Frequencia_Maxima": 1,
-        "cpu_Frequencia_Minima": 2,
-        "cpu_Arquitetura": 3,
-        "cpu_BitsArquitetura": 4,
+        "cpu_Frequencia_Minima": 2
     },
     "ram": {
-        "ram_Total": 5,
+        "ram_Total": 3
     },
     "disk": {
-        "disco_Total": 6,
+        "disco_Total": 4
     }
 }
 
@@ -52,21 +50,12 @@ def verify_if_hash_exists_in_database(hash : str):
 
     if len(result) == 0: return False
     else: return result
-
-def insert_computer_info(pc_info : dict):
-    insert_cpu_info(pc_info["cpu"])
-
+    
 # Recebe um parâmetro do tipo dicionario e insere no banco de dados
-def insert_cpu_info(cpu_info : dict):
-    command = ""
-    run_sql_command(command)
+def insert_component_info(component_info : dict, nomeComponent : str, fkMaquina : int,
+                          fkEmpresa: int):
+    command = f'UPDATE Componentes SET descricao = {component_info} WHERE nomeComponente = xx AND fkMaquina = xx AND fkEmpresa = xx' # xx = int
 
-def insert_memory_info(memory_info : dict):
-    command = ""
-    run_sql_command(command)
-
-def insert_disk_info(disk_info : dict):
-    command = ""
     run_sql_command(command)
 
 # Atualiza informações básicas da máquina
@@ -76,8 +65,7 @@ def update_machine(fkMaquina : int, fkEmpresa : int, sistemaOperacional : str):
     if result["dataCriacao"] == None:
         dataCriacao = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        command = f"UPDATE maquina SET dataCriacao = {dataCriacao} AND sistemaOperacional = {sistemaOperacional} ",
-        f"WHERE fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa}"
+        command = f"UPDATE maquina SET dataCriacao = {dataCriacao} AND sistemaOperacional = {sistemaOperacional} WHERE fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa}"
         run_sql_command(command)
         return True
     else:
@@ -88,25 +76,25 @@ def update_machine(fkMaquina : int, fkEmpresa : int, sistemaOperacional : str):
 
 # Pega as informações dos componentes que deseja monitorar
 def get_components(fkMaquina : int, fkEmpresa : int):
-    command = f"SELECT * FROM Componente WHERE fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} AND isComponenteValido = 1"
+    command = f"SELECT * FROM Componente WHERE fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} AND isComponenteValido = 1, LIMIT 3"
     return run_sql_command(command)
 
 def get_static_metricas_component(fkComponente : int):
-    command = f"SELECT fkMetrica FROM Componente_has_Metrica WHERE fkComponente = {fkComponente} and isEstatico = 1"
+    command = f"SELECT idMetrica FROM Componente_has_Metrica JOIN Metrica ON Componente_has_Metrica.fkComponente = {fkComponente} AND Metrica.isEstatico = 1"
     return run_sql_command(command)
 
 def get_dynamic_metricas_component(fkComponente : int):
-    command = f"SELECT fkMetrica FROM Componente_has_Metrica WHERE fkComponente = {fkComponente} and isEstatico = 0"
+    command = f"SELECT idMetrica FROM Componente_has_Metrica JOIN Metrica ON Componente_has_Metrica.fkComponente = {fkComponente} AND Metrica.isEstatico = 0"
     return run_sql_command(command)
 
-def insert_static_metrica(name : str, fkComponente : int, fkMaquina : int, fkEmpresa: int, valorLeitura : int):
+def insert_static_metrica(name : str, fkComponente : int, fkMaquina : int, fkEmpresa: int, valoresLeitura : int):
     metricas = get_static_metricas_component(fkComponente)
     for metrica in metricas:
-        metrica = metrica["fkMetrica"]
+        metrica = metrica["idMetrica"]
         
         for componente in static_metrica[name]:
             if metrica == static_metrica[name][componente]:
-                insert_metrica_component(fkComponente, metrica, fkMaquina, fkEmpresa, valorLeitura)
+                insert_metrica_component(fkComponente, metrica, fkMaquina, fkEmpresa, valorLeitura[metrica])
 
 def insert_dynamic_metrica(name : str, fkComponente : int, fkMaquina : int, fkEmpresa: int, valorLeitura : int):
     metricas = get_dynamic_metricas_component(fkComponente)
