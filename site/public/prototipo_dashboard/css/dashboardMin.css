@@ -1,0 +1,95 @@
+@media only screen and (max-width: 980px) {
+    .sidebar {
+        background-color: rgb(140, 0, 255);
+        width: 100%;
+        height: 10vh;
+    }
+
+    .serverCont {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+    }
+    .server {
+        height: 8vh;
+        width: 10vw;
+        margin-top: 1vh;
+        margin-left: 0.5vw;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        font-weight: 600;
+        font-size: 3vw;
+        cursor: pointer;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .dashCont {
+        margin-left: 3vh;
+        width: 90vw;
+        height: 80vh;
+        margin-top: 15vh;
+    }
+    .serverContainer {
+        width: 80vw;
+        height: 60vh;
+    }
+    .serverCont {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+    }
+    .server {
+        height: 8vh;
+        width: 18vw;
+        margin-top: 1vh;
+        margin-left: 0.5vw;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        font-weight: 600;
+        font-size: 5vw;
+        cursor: pointer;
+    }
+    .listStyle {
+        margin-top: -48vh;
+        margin-left: 63vw;
+        height: 3vh;
+        z-index: 2;
+    }
+    .listList {
+        height: 4vh;
+        margin-top: -0.5vh;
+        margin-left: 2vw;
+    }
+    .filterSvg {
+        height: 4vh;
+    }
+    .filterStyle {
+        height: 5vh;
+        width: 8vw;
+        margin-top: -49vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+    }
+    .button {
+        height: 5vh;
+        width: 25vw;
+        margin-top: -70vh;
+    }
+    .filterSearch {
+        height: 4vh;
+        width: 20vw;
+        margin-top: 9.5vh;
+    }
+    .filters {
+        height: 3.5vh;
+        margin-top: -4vh;
+        margin-left: -7.5vw;
+    }
+    .filters2 {
+        height: 3.5vh;
+        margin-top: -4vh;
+        margin-left: 7.5vw;
+    }
+}

@@ -1,0 +1,186 @@
+body {
+    overflow-x: hidden;
+}
+.button {
+    width: 10vw;
+    background-color: rgb(140, 0, 255);
+    color: white;
+    font-weight: 600;
+    font-size: 2vh;
+    margin-top: -80vh;
+    margin-left: 55vw;
+}
+.button:hover {
+    background-color: rgb(160, 73, 200);
+    outline: none;
+}
+.wave {
+    margin-left: 10vw;
+    margin-top: 0vh;
+}
+.dashCont {
+    background-color: white;
+    width: 75vw;
+    height: 94vh;
+    margin-left: 20vw;
+    border-radius: 10px;
+    margin-top: 10vh;
+    display: flex;
+}
+.logo {
+    height: 8vh;
+    margin-left: 0vw;
+    cursor: pointer;
+}
+.user {
+    height: 12vh;
+    margin-left: 2.5vw;
+    margin-top: 77vh;
+}
+.line {
+    height: 10vh;
+    width: 70vw;
+    margin-top: 0vh;
+    border-radius: 5px;
+    z-index: 2;
+    font-size: 5vh;
+}
+.line2 {
+    background-color: rgb(184, 184, 184);
+    height: 5vh;
+    width: 7vw;
+    margin-top: -69vh;
+    margin-left: -57vw;
+    border-radius: 5px;
+    font-size: 3vh;
+}
+.filter {
+    margin-top: -79vh;
+    margin-right: 40vw;
+}
+.filterSearch {
+    width: 12.5vw;
+    margin-left: 3vw;
+    border: 2px solid rgb(100, 100, 100);
+    border-radius: 5px;
+    font-size: 3vh;
+    outline: none;
+}
+.filters {
+    margin-right: 52.5vw;
+    margin-top: -12vh;
+    font-size: 2.3vh;
+    background-color: rgb(194, 194, 194);
+    border-radius: 5px;
+}
+.filters2 {
+    margin-right: 21.5vw;
+    margin-top: -12vh;
+    font-size: 2.3vh;
+    background-color: rgb(194, 194, 194);
+    border-radius: 5px;
+}
+.filterCancel {
+    cursor: pointer;
+}
+.filterSelected {
+    margin-left: 0vw;
+}
+
+.filterSvg {
+    height: 5vh;
+    cursor: pointer;
+}
+.serverContainer {
+    border: 2px solid black;
+    margin-top: 16vh;
+    height: 65vh;
+    width: 60vw;
+    overflow-y: scroll;
+}
+.serverCont {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto 
+    auto auto auto auto auto auto auto auto auto auto
+    auto auto auto auto;
+}
+.listStyle {
+    margin-top: -55vh;
+    margin-left: 55vw;
+    height: 5vh;
+    z-index: 2;
+}
+.listList {
+    cursor: pointer;
+    height: 6vh; 
+    margin-top: -0.5vh; 
+    margin-left: 0.5vw;
+}
+.server {
+    height: 5vh;
+    width: 2.5vw;
+    margin-top: 1vh;
+    margin-left: 0.5vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-weight: 600;
+    font-size: 1vw;
+    cursor: pointer;
+}
+.servers {
+    margin-left: 0.6vw;
+}
+.serverLista {
+    width: 100%;
+    height: 13vh;
+    border-bottom: 2px solid black;
+}
+.serverSvg {
+    height: 11vh;
+    margin-left: 1vw;
+    margin-top: 0.8vh;
+    opacity: 0.8;
+}
+.setorLista {
+    font-size: 3vh;
+    margin-top: 1.5vh;
+    margin-left: 2vh;
+}
+.hexLista {
+    margin-top: 6.5vh;
+    margin-left: 0.8vw;
+    opacity: 0.7;
+}
+.statusServer {
+    border-radius: 5rem;
+    height: 2vh;
+    width: 0.9vw;
+    margin-left: 4.5vw;
+    margin-top: 7.7vh;
+    z-index: 2;
+}
+.armazemProgress {
+    border-radius: 5rem;
+    background-color: grey;
+    width: 20vw;
+    height: 2vh;
+    margin-top: -3vh;
+    margin-left: 36vw;
+}
+.armazemHas {
+    border-radius: 5rem;
+    height: 2vh;
+    margin-top: -3vh;
+    margin-left: 36vw;
+}
+.qtdArmazem {
+    margin-top: 5vh;
+    margin-left: 31vw;
+    font-size: 2.5vh;
+}
+.cpuTemperatura {
+    margin-left: 47vw;
+    margin-top: 1vh;
+    font-size: 2.8vh;
+}
