@@ -57,8 +57,8 @@ def get_cpu_info():
         'cpu_type': cpu_type,
         'temperature': temperature,
         'atual_freq': ps.cpu_freq().current,
-        'min_freq': ps.cpu_freq().min,
-        'max_freq': ps.cpu_freq().max,
+        'cpu_Frequencia_Minima': ps.cpu_freq().min,
+        'cpu_Frequencia_Maxima': ps.cpu_freq().max,
         'arch': platform.machine(),
         'atual_percent': ps.cpu_percent()
     }
@@ -69,7 +69,7 @@ def get_memory_info():
 
     return {
         'total_memory': transform_to_gb(memory.total),
-        'available_memory': transform_to_gb(memory.available),
+        'ram_Total': transform_to_gb(memory.available),
         'used_memory': transform_to_gb(memory.used)
     }
 
@@ -78,7 +78,7 @@ def get_disk_info():
     disk = ps.disk_usage('/')
 
     return {
-        'total_disk': transform_to_gb(disk.total),
+        'disco_Total': transform_to_gb(disk.total),
         'used_disk': transform_to_gb(disk.used),
         'free_disk': transform_to_gb(disk.free),
         'read_time': ps.disk_io_counters().read_time >> 15,
