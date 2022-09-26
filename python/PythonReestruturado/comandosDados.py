@@ -56,11 +56,11 @@ def get_cpu_info():
     return {
         'cpu_type': cpu_type,
         'temperature': temperature,
-        'atual_freq': ps.cpu_freq().current,
+        'cpu_Frequencia_Atual': ps.cpu_freq().current,
         'cpu_Frequencia_Minima': ps.cpu_freq().min,
         'cpu_Frequencia_Maxima': ps.cpu_freq().max,
         'arch': platform.machine(),
-        'atual_percent': ps.cpu_percent()
+        'cpu_Utilizacao': ps.cpu_percent()
     }
 
 # Retorna Informações da Memória RAM
@@ -68,9 +68,9 @@ def get_memory_info():
     memory = ps.virtual_memory()
 
     return {
-        'total_memory': transform_to_gb(memory.total),
-        'ram_Total': transform_to_gb(memory.available),
-        'used_memory': transform_to_gb(memory.used)
+        'ram_Total': transform_to_gb(memory.total),
+        'ram_Disponivel': transform_to_gb(memory.available),
+        'ram_Usada': transform_to_gb(memory.used)
     }
 
 # Retorna as informações do disco
@@ -79,7 +79,7 @@ def get_disk_info():
 
     return {
         'disco_Total': transform_to_gb(disk.total),
-        'used_disk': transform_to_gb(disk.used),
+        'disco_Usado': transform_to_gb(disk.used),
         'free_disk': transform_to_gb(disk.free),
         'read_time': ps.disk_io_counters().read_time >> 15,
         'write_time': ps.disk_io_counters().write_time >> 15
@@ -108,8 +108,8 @@ def get_system_info():
 def get_all_info():
     return {
         'cpu': get_cpu_info(),
-        'memory': get_memory_info(),
-        'disk': get_disk_info(),
+        'ram': get_memory_info(),
+        'disco': get_disk_info(),
         'network': get_network_info(),
         'system': get_system_info()
     }

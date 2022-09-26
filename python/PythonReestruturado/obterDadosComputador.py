@@ -1,4 +1,4 @@
-import psutil, os, platform, time, controlador_hash as hash
+import os, platform, time, controlador_hash as hash
 import comandosDados as dados, comandosParaArmazenarDados as db
 
 # Início do programa
@@ -15,31 +15,38 @@ sistema_operacional = platform.system()
 def start_get_values():
     computer_info = dados.get_all_info()
     print(computer_info)
-    db.insert_component_info(computer_info["cpu"], "CPU", machine_information["fkMaquina"], machine_information["fkEmpresa"])
+    db.create_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
+
+    db.insert_component_info(computer_info["cpu"], "cpu", machine_information["fkMaquina"], machine_information["fkEmpresa"])
     
     components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
 
-    for component in components:
-        insert_static_metrica(component["nomeComponente"], 
-        component["idComponente"], machine_information["fkMaquina"], 
-        machine_information["fkEmpresa"], computer_info[component["nomeComponente"]])
-    
-    #while True:
+    exists = db.update_machine(machine_information["fkMaquina"], machine_information["fkEmpresa"], computer_info["system"]["system"])
 
-    #    components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
-    #    db.insert_dynamic_metrica(computer_info, components)
-    #    time.sleep(1)
+    for component in components:
+        insert_metrica(computer_info, component, exists)
+    
+    # Verificar o db.insert_static_metrica, para verificar se já existe uma metrica
+    while True:
+
+        computer_info = dados.get_all_info()
+
+        components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
+        for component in components:
+
+            insert_metrica(computer_info, component, False, 1)
+
+        time.sleep(1)
 
 ## Arrumar o insert_static_metrica no valor Leitura
 ## Descobrir onde colocar o estático como arquitetura do computador
-def insert_static_metrica(computer_info : dict, components : dict):
-    exists = db.update_machine(machine_information["fkMaquina"], machine_information["fkEmpresa"], computer_info["system"]["system"])
-
+def insert_metrica(computer_info : dict, component : tuple, exists : bool, type = 0):
     if (not exists):
-        for component in components:
-            component_name = component["nomeComponente"]
-            db.insert_static_metrica(component["nomeComponente"], component["idComponente"], 
-            component["fkMaquina"], component["fkEmpresa"], computer_info[component_name]["atual_percent"], "ENCONTRAR")
+            component_name = component[1]
+            db.insert_metrica(component_name, component[0], 
+            component[4], component[-1], computer_info, type)
+
+
 
 def select_menu():
     while True:
@@ -53,9 +60,10 @@ def select_menu():
             option = int(input("Digite a opção desejada: "))
             if option == 1:
                 hash_computer = hash.load_hash()
-                machine_information["fkMaquina"] = hash_computer[0]
-                machine_information["fkEmpresa"] = hash_computer[len(hash_computer) - 1]
-                machine_information["hash"] = hash_computer[5]
+
+                machine_information["fkMaquina"] = hash_computer[0][0]
+                machine_information["fkEmpresa"] = hash_computer[0][len(hash_computer[0]) - 1]
+                machine_information["hash"] = hash_computer[0][5]
 
                 if (not hash_computer):
                     break
