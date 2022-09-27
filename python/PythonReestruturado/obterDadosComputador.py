@@ -14,7 +14,7 @@ sistema_operacional = platform.system()
 
 def start_get_values():
     computer_info = dados.get_all_info()
-    print(computer_info)
+
     db.create_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
 
     db.insert_component_info(computer_info["cpu"], "cpu", machine_information["fkMaquina"], machine_information["fkEmpresa"])
@@ -36,12 +36,12 @@ def start_get_values():
 
             insert_metrica(computer_info, component, False, 1)
 
-        time.sleep(1)
+        time.sleep(3)
 
 ## Arrumar o insert_static_metrica no valor Leitura
 ## Descobrir onde colocar o estático como arquitetura do computador
 def insert_metrica(computer_info : dict, component : tuple, exists : bool, type = 0):
-    if (not exists):
+    if (not exists and component[2] == 1):
             component_name = component[1]
             db.insert_metrica(component_name, component[0], 
             component[4], component[-1], computer_info, type)

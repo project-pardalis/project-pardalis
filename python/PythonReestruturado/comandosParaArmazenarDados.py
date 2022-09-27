@@ -146,8 +146,7 @@ def create_components(fkMaquina : int, fkEmpresa : int):
     
     for i in range(len(list_of_components)):
         print(f"Componente {list_of_components[i]} sendo criado")
-        descricao_json = {}
-        insert_command = f'INSERT INTO Componente VALUES (null, "{list_of_components[i]}", 1, "{descricao_json}", {fkMaquina}, {fkEmpresa});'
+        insert_command = f'INSERT INTO Componente VALUES (null, "{list_of_components[i]}", 1, Null, {fkMaquina}, {fkEmpresa});'
         run_sql_command(insert_command)
         print("Componente Adicionado")
 

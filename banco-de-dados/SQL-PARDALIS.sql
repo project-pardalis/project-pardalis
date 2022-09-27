@@ -76,14 +76,11 @@ CREATE TABLE Leitura(
     dataColeta DATETIME NOT NULL,
     valorLeitura DECIMAL(7,2) NOT NULL
 );
-select * from  Maquina;
-INSERT INTO Empresa Values (null, "Teste1", "00000000000000");
-INSERT INTO Usuario values (null, "João", "joao@gmail.com", "Teste@!23", "", 1, null);
+
+INSERT INTO Empresa Values (null, "Sptech", "00000000000000");
+INSERT INTO Usuario values (null, "João", "joao@gmail.com", "Teste@123", "Analista", 1, null);
 INSERT INTO Maquina VALUES (null, "Servidor-SPTECH", "", true, null, "1234567890", 1);
-select * from Metrica;
-SELECT fkMetrica FROM Componente_has_Metrica JOIN Metrica ON fkComponente = 1 AND Metrica.isEstatico = 1;
-# Colocar o mesmo nome das métricas e no Python (Arquivo: comandosParaArmazenarDados) e também no arquivo comandosDados na parte get_cpu_info
-# (Arquivo: comandosParaArmazenarDados) e (Arquivo: comandosDados e Função: get_cpu_info, get_memory_info e get_disk_info) já estão com as métricas iguais só falta o banco
+
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("Utilização", "%", 0),
 						  ("cpu_Frequencia_Maxima", "HZ", 1),
                           ("Frequência Atual", "HZ", 0),
@@ -102,6 +99,5 @@ INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("Dados Rec
 INSERT INTO Componente_has_Metrica VALUES (1, 1, 1, 1);
 INSERT INTO Componente_has_Metrica VALUES (1, 2, 1, 1);
 select * from Leitura;
-
 
 select * from Usuario join Empresa LIMIT 15; 
