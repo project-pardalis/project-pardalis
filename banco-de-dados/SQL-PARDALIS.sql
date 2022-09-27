@@ -102,3 +102,6 @@ INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("Dados Rec
 INSERT INTO Componente_has_Metrica VALUES (1, 1, 1, 1);
 INSERT INTO Componente_has_Metrica VALUES (1, 2, 1, 1);
 select * from Leitura;
+
+
+select * from Usuario join Empresa LIMIT 15; 
