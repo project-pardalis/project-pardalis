@@ -1,21 +1,28 @@
-from dataclasses import dataclass
-from dis import dis
+from datetime import datetime
 import random
-import csv
+import mysql.connector as db
 
-f = open("python/jorge.csv","w")
+banco = db.connect(
+  host="localhost",
+  user="aluno",
+  password="sptech",
+  database="PARDALIS"
+)
 
-def delete_csv():
-    with open('python/jorge.csv',"w") as arq : 
-        arq.write('')
-    with open('python/jorgeComponente.csv',"w") as arq:
-        arq.write('')
-    with open('python/jorgeMetricasHasComponentes.csv',"w") as arq:
-        arq.write('')
-    with open('python/jorgeUsuarios.csv',"w") as arq:
-        arq.write('')
-    with open('python/jorgeDados.csv',"w") as arq:
-        arq.write('')
+mycursor = banco.cursor()
+
+sqlMetrica = "INSERT INTO Metrica VALUES(NULL,'porcentagemCpu','%',0),(NULL,'temperaturaCpu','°C',0),(NULL,'memoriaRam','GB',0),(NULL,'espacoDisco','GB',0)"
+mycursor.execute(sqlMetrica)
+
+sqlEmpresa = "INSERT INTO Empresa VALUES(NULL,'teste',12345678912345)"
+mycursor.execute(sqlEmpresa)
+sqlUsuario = "INSERT INTO Usuario VALUES(NULL,%s,%s,%s,%s,1,%s)"
+sqlMaquina = "INSERT INTO Maquina VALUES(NULL,%s,%s,%s,%s,%s,1)"
+sqlComponente = "INSERT INTO Componente VALUES(NULL,%s,1,%s,%s,1)"
+sqlComponenteHasMetrica = "INSERT INTO Componente_has_Metrica VALUES(%s,%s,%s,%s)"
+sqlDados = "INSERT INTO Leitura VALUES(NULL,%s,%s,%s,1,%s,%s)"
+
+date = datetime.now()
 
 def sorteio(componente):
     if componente.lower() == "maquina":
@@ -57,33 +64,21 @@ def format_date(mes, dia, hora, minuto, segundo):
     data = f'2022-{mesF}-{diaF} {horaF}:{minF}:{segF}'
     return data
 
-def check_lines(arq):
-    with open(arq) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-        for row in csv_reader:
-            line_count += 1
-    return line_count
-
-def write_lines_comp(idComp,fkMaq,fkEmp,nome):
-    with open("python/jorgeComponente.csv", "a") as csv_file:
-            esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            esc.writerow([idComp, fkMaq, fkEmp, nome])
+def write_lines_comp(fkMaq,nome):
+    val = (nome,'teste',fkMaq)
+    mycursor.execute(sqlComponente,val)
 
 def write_lines_met(fkComp,fkMaq,fkEmp,fkMet):
-    with open("python/jorgeMetricasHasComponentes.csv", "a") as csv_file:
-            esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            esc.writerow([fkComp, fkMet, fkMaq, fkEmp])
+    val = (fkComp,fkMet,fkMaq,fkEmp)
+    mycursor.execute(sqlComponenteHasMetrica,val)
 
-def write_lines_user(idUser,fkEmp,fkAdm,nome,email,senha,cargo):
-    with open("python/jorgeUsuarios.csv", "a") as csv_file:
-            esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            esc.writerow([idUser,fkEmp,fkAdm,nome,email,senha,cargo])
+def write_lines_user(fkAdm,nome,email,senha,cargo):
+    val = (nome,email,senha,cargo,fkAdm)
+    mycursor.execute(sqlUsuario,val)
 
-def write_lines_dados(idComp,fkComp,fkMaq,fkEmp,fkMet,valor, data):
-    with open("python/jorgeDados.csv", "a") as csv_file:
-            esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            esc.writerow([idComp, fkComp, fkMaq, fkEmp, fkMet,valor, data])
+def write_lines_dados(fkComp,fkMaq,fkEmp,fkMet,valor, data):
+    val = (fkMet,fkComp,fkMaq,fkEmp,data,valor)
+    mycursor.execute(sqlDados,val)
 
 def get_componente(x):
     componentes = ["Cpu","Memoria Ram","Disco"]
@@ -106,17 +101,17 @@ def main_usuario():
             cargo = cargoR[1]
        
         if i>1 : 
-            fkAdm = def_Adm(i)
+            fkAdm = None
         else:
-            fkAdm = 'Null'
-        write_lines_user(idUsuario,fkEmpresa,fkAdm,nome,email,senha,cargo)
+            fkAdm = None
+        write_lines_user(fkAdm,nome,email,senha,cargo)
         
 def def_Adm(qtd):
     rand = random.randint(0,100)
-    if rand > 50:
+    if rand > 80:
         return random.randint(0,qtd)
     else:
-        return "Null"
+        return None
 
 def main_maquinas():
 
@@ -126,15 +121,13 @@ def main_maquinas():
         sistemaOp = so[sorteio("maquina")]
         hexCode = hex_append(sistemaOp)
         onCloud = random.randint(0,1)
-        with open("python/jorge.csv", "a") as csv_file:
-            esc = csv.writer(csv_file, delimiter=',', quotechar='"',quoting=csv.QUOTE_MINIMAL)
-            esc.writerow([idServer, hexCode, sistemaOp, onCloud, 1])
+        val = (hexCode,sistemaOp,onCloud,'2022-12-12 10:10:10',gerar_hex(10))
+        mycursor.execute(sqlMaquina,val)
 
 def main_componentes():
     compNum = 0
     fkMaquina = 0
-    for i in range(check_lines("python/jorge.csv")*3):
-        idComponente = i+1
+    for i in range(150):
         if i % 3 == 0:
             fkMaquina+=1
         fkEmpresa = 1
@@ -142,45 +135,40 @@ def main_componentes():
         compNum+=1
         if compNum == 3:
             compNum = 0
-        write_lines_comp(idComponente, fkMaquina, fkEmpresa, nome)
+        write_lines_comp(fkMaquina, nome)
 
 def main_metricas():
-    for maquina in range(check_lines("python/jorge.csv")):
+    for maquina in range(50):
         for componente in range(2):
             if componente == 0:
                 for i in range(2):
-                    write_lines_met(componente+1,maquina+1,1,i+1)
-            write_lines_met(componente+2,maquina+1,1,componente+3)
+                    write_lines_met(componente+1,maquina,1,i+1)
+            write_lines_met(componente+2,maquina,componente+3,1)
 
 def main_dados():
-    idComponente = 0 
     for mes in range(11):
         for dias in range(29):
             for horas in range(24):
                 for minutos in range(60):
                     for segundos in range(60):
-                        for maquina in range(check_lines("python/jorge.csv")):
+                        for maquina in range(50):
                             for componente in range(3):
                                 if componente == 0:
                                     for i in range(2):
                                         valor = random.randint(20,100)
-                                        idComponente += 1
-                                        write_lines_dados(idComponente, componente+i+1, componente+1,maquina+1,1,format_date(mes+1, dias+1, horas, minutos, segundos), valor)
+                                        write_lines_dados(componente+i+1, componente+1,maquina+1,1,format_date(mes+1, dias+1, horas, minutos, segundos), valor)
                                 elif componente == 1:
                                     valor = random.randint(1,16)
-                                    idComponente += 1
-                                    write_lines_dados(idComponente, componente+2, componente+1,maquina+1,1, format_date(mes+1, dias+1, horas, minutos, segundos), valor)
+                                    write_lines_dados(componente+2, componente+1,maquina+1,1, format_date(mes+1, dias+1, horas, minutos, segundos), valor)
                                 elif componente == 2:              
-                                    valor = random.   randint(0,1000)
-                                    idComponente += 1
-                                    write_lines_dados(idComponente, componente+2, componente+1,maquina+1,1, format_date(mes+1, dias+1, horas, minutos, segundos), valor)
+                                    valor = random.randint(0,1000)
+                                    write_lines_dados(componente+2, componente+1,maquina+1,1, format_date(mes+1, dias+1, horas, minutos, segundos), valor)
 
 def main(): 
-    delete_csv()
+    main_usuario()
     main_maquinas()
     main_componentes()
     main_metricas()
-    main_usuario()
     main_dados()
 
 main()
