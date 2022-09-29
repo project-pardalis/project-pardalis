@@ -97,7 +97,7 @@ function sumirFiltros() {
     filtroGrau.style.display = 'none'
 }
 function gerarServers() {
-    setores = ["Alpha", "Beta", "Charlie", "Delta"]
+    setores = ["Alpha", "Bravo", "Charlie", "Delta"]
     z = Math.floor(Math.random() * (250 - 50)) + 50
     for (let x = 0; x < z; x++) {
         var length = 12,
@@ -135,7 +135,7 @@ function montarLista() {
         serverCont.innerHTML += `<div id="idServer${x}" class="server">${setor.slice(0,1)}</div>`
         serverList.innerHTML += `<div class="serverLista">
         <div id="statusServer${x}" class="statusServer position-absolute"></div>
-        <img class="serverSvg" src="../asset/img/hdd-stack-fill.svg" alt="">
+        <img class="serverSvg" src="../assets/img/hdd-stack-fill.svg" alt="">
         <span class="setorLista position-absolute"><b>${servers[x].Setor}</b></span>
         <span class="hexLista position-absolute">${servers[x].Serial}</span>
         <span class="qtdArmazem position-absolute">${servers[x].Armazenamento}GB de 1tb</span>
