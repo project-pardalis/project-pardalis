@@ -4,8 +4,8 @@ import mysql.connector as db
 
 banco = db.connect(
     host="localhost",
-    user="aluno",
-    password="sptech",
+    user="root",
+    password="1991",
     database="PARDALIS"
 )
 
@@ -81,21 +81,21 @@ def check_lines(arq):
 
 
 def write_lines_comp(idComp, fkMaq, fkEmp, nome):
-    with open("python/jorgeComponente.csv", "a") as csv_file:
+    with open("python/jorgeComponente.csv", "a", newline='',encoding='utf-8') as csv_file:
         esc = csv.writer(csv_file, delimiter=',',
                          quotechar='"', quoting=csv.QUOTE_MINIMAL)
         esc.writerow([idComp, nome, 1, 'teste', fkMaq, fkEmp])
 
 
 def write_lines_met(fkComp, fkMaq, fkEmp, fkMet):
-    with open("python/jorgeMetricasHasComponentes.csv", "a") as csv_file:
+    with open("python/jorgeMetricasHasComponentes.csv", "a", newline='',encoding='utf-8') as csv_file:
         esc = csv.writer(csv_file, delimiter=',',
                          quotechar='"', quoting=csv.QUOTE_MINIMAL)
         esc.writerow([fkComp, fkMet, fkMaq, fkEmp])
 
 
 def write_lines_user(idUser, fkEmp, fkAdm, nome, email, senha, cargo):
-    with open("python/jorgeUsuarios.csv", "a") as csv_file:
+    with open("python/jorgeUsuarios.csv", "a", newline='',encoding='utf-8') as csv_file:
         esc = csv.writer(csv_file, delimiter=',',
                          quotechar='"', quoting=csv.QUOTE_MINIMAL)
         esc.writerow([idUser, nome, email, senha, cargo, fkEmp, fkAdm])
@@ -152,7 +152,7 @@ def main_maquinas():
         sistemaOp = so[sorteio("maquina")]
         hexCode = hex_append(sistemaOp)
         onCloud = random.randint(0, 1)
-        with open("python/jorge.csv", "a") as csv_file:
+        with open("python/jorge.csv", "a", newline='',encoding='utf-8') as csv_file:
             esc = csv.writer(csv_file, delimiter=',',
                              quotechar='"', quoting=csv.QUOTE_MINIMAL)
             esc.writerow([idServer, hexCode, sistemaOp, onCloud, "2022-12-12 10:10:10", gerar_hex(10),1])
@@ -193,17 +193,17 @@ def main_dados():
                             for componente in range(3):
                                 if componente == 0:
                                     for i in range(2):
-                                        valor = random.randint(20, 100)
+                                        valor = random.randint(60, 80)
                                         idComponente += 1
                                         write_lines_dados(idComponente, componente+i+1, componente+1, maquina+1,
                                                           1, format_date(mes+1, dias+1, horas, minutos, segundos),valor)
                                 elif componente == 1:
-                                    valor = random.randint(1, 16)
+                                    valor = random.randint(6, 12)
                                     idComponente += 1
                                     write_lines_dados(idComponente, componente+2, componente+1, maquina+1,
                                                       1, format_date(mes+1, dias+1, horas, minutos, segundos), valor)
                                 elif componente == 2:
-                                    valor = random.   randint(0, 1000)
+                                    valor = random.randint(700, 1000)
                                     idComponente += 1
                                     write_lines_dados(idComponente, componente+2, componente+1, maquina+1,
                                                       1, format_date(mes+1, dias+1, horas, minutos, segundos), valor)
