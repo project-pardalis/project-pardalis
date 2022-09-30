@@ -36,7 +36,7 @@ CREATE TABLE Componente(
 	idComponente INT AUTO_INCREMENT,
     nomeComponente VARCHAR(50) NOT NULL,
     isComponenteValido BOOLEAN NOT NULL,
-    descricao VARCHAR(100),
+    descricao JSON,
     fkMaquina INT NOT NULL,
     FOREIGN KEY (fkMaquina) REFERENCES Maquina(idMaquina),
     fkEmpresa INT NOT NULL,
