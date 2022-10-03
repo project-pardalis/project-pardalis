@@ -20,7 +20,7 @@ function cadastrarEmpresa(nome, cnpj) {
 
 function cadastrarFuncionario(nome, email, senha, nivelAcesso, fkEmpresa) {
     var instrucao = `
-        INSERT INTO USUARIO (USUARIO_NOME, USUARIO_EMAIL, USUARIO_SENHA, USUARIO_ACESSO, USUARIO_FKEMPRESA) VALUES ('${nome}', '${email}', '${senha}', ${nivelAcesso}, ${fkEmpresa});
+        INSERT INTO USUARIO (USUARIO_NOME, USUARIO_EMAIL, USUARIO_SENHA, USUARIO_CNPJ, USUARIO_FKEMPRESA) VALUES ('${nome}', '${email}', '${senha}', '${cnpj}','${fkEmpresa}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
