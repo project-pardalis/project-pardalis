@@ -9,6 +9,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Nunito', 'Open Sans', sans-serif !important;
+    overflow: hidden;
 }
 
 :root {
@@ -83,7 +84,7 @@ a {
     justify-content: center;
     background: linear-gradient(45deg, #c42ba8, 35%, var(--thirdColor), var(--hoverColor) 100%);
     background-size: 400% 400%;
-    animation: animation-body 3s ease infinite;
+    animation: animation-body 8s ease infinite;
 }
 
 @keyframes animation-body {
@@ -101,14 +102,6 @@ a {
 }
 
 
-@media (max-width: 500px) {
-    .form-container {
-        width: 100% !important;
-    }
-    .register {
-        width: 50%;
-    }
-}
 
 .form-container {
     background-color: white;
@@ -280,7 +273,7 @@ label {
 /* SCROLL BAR - COMEÇO */
 
 ::-webkit-scrollbar-track {
-    background-color: var(--thirdColor);
+    background-color: var(--thirdColor) !important;
 }
 
 ::-webkit-scrollbar {
@@ -288,7 +281,7 @@ label {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #231161;
+    background: #231161 !important;
     border-radius: 5%;
 }
 
@@ -318,4 +311,13 @@ label {
     font-weight: 100%;
 
     font-size: 1.4rem;
+}
+
+@media (max-width: 500px) {
+    .form-container {
+        width: 100% !important;
+    }
+    .register {
+        width: 50%;
+    }
 }
