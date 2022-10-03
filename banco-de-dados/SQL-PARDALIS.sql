@@ -76,6 +76,28 @@ CREATE TABLE Leitura(
     dataColeta DATETIME NOT NULL,
     valorLeitura DECIMAL(7,2) NOT NULL
 );
+INSERT INTO Empresa Values (null, "Sptech", "00000000000000");
+INSERT INTO Usuario values (null, "João", "joao@gmail.com", "Teste@123", "Analista", 1, null);
+INSERT INTO Maquina VALUES (null, "Servidor-SPTECH", "", true, null, "1234567890", 1);
+
+INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("cpu_Utilizacao", "%", 0),
+						  ("cpu_Frequencia_Maxima", "HZ", 1),
+                          ("cpu_Frequencia_Atual", "HZ", 0),
+                          ("cpu_Frequencia_Minima", "HZ", 1); -- CPU
+
+INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("ram_Total", "GB", 1),
+						  ("ram_Usada", "GB", 0); -- RAM
+                          
+INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("disco_Total", "GB", 1),
+						  ("disco_Usado", "GB", 0); -- DISCO
+
+-- Não rodar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("Dados Recebidos", "MB", 0),
+						  ("Dados Enviados", "MB", 0);
+
+
+-- Views
 
 CREATE VIEW `vw_empresa_sptech_maquina_componentes` AS
 SELECT nomeComponente, isComponenteValido, descricao, nomeEmpresa, nomeMaquina 
@@ -83,7 +105,6 @@ FROM Empresa
 JOIN Maquina ON idEmpresa = Maquina.fkEmpresa 
 JOIN Componente ON Componente.fkMaquina = idMaquina and Componente.fkEmpresa = idEmpresa;
 
-<<<<<<< HEAD
 CREATE VIEW `vw_empresa_sptech_maquina1_leitura` AS
 SELECT nomeMaquina, dataCriacao, nomeComponente, nomeMetrica, 
 	   unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 
@@ -94,21 +115,3 @@ SELECT nomeMaquina, dataCriacao, nomeComponente, nomeMetrica,
 CREATE VIEW `vw_empresa_sptech_maquinas` AS
 SELECT nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina 
 FROM Empresa JOIN Maquina ON idEmpresa = fkEmpresa;
-=======
-INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("cpu_Utilizacao", "%", 0),
-						  ("cpu_Frequencia_Maxima", "HZ", 1),
-                          ("cpu_Frequencia_Atual", "HZ", 0),
-                          ("cpu_Frequencia_Minima", "HZ", 1);
-
-INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("ram_Total", "GB", 1),
-						  ("ram_Usada", "GB", 0); # RAM
-                          
-INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("disco_Total", "GB", 1),
-						  ("disco_Usado", "GB", 0); # DISCO
-
--- Não rodar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("Dados Recebidos", "MB", 0),
-						  ("Dados Enviados", "MB", 0),
-                          ("IP?", "HZ", 0); # Internet
->>>>>>> fbc89cd3cec9dbb8d34267e2f30c47f183ec3b2f
