@@ -1,11 +1,12 @@
 import random
 import csv
 import mysql.connector as db
+from pymysql import NULL
 
 banco = db.connect(
     host="localhost",
-    user="root",
-    password="1991",
+    user="aluno",
+    password="sptech",
     database="PARDALIS"
 )
 
@@ -84,7 +85,7 @@ def write_lines_comp(idComp, fkMaq, fkEmp, nome):
     with open("python/jorgeComponente.csv", "a", newline='',encoding='utf-8') as csv_file:
         esc = csv.writer(csv_file, delimiter=',',
                          quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        esc.writerow([idComp, nome, 1, 'teste', fkMaq, fkEmp])
+        esc.writerow([idComp, nome, 1, NULL, fkMaq, fkEmp])
 
 
 def write_lines_met(fkComp, fkMaq, fkEmp, fkMet):
