@@ -146,6 +146,10 @@ a {
 
 
 @media (max-width: 500px) {
+
+    .banner {
+        height: 280px;
+    }
     #slider {
         transform: translateX(0)
     }
@@ -153,7 +157,11 @@ a {
         width: 10%;
     }
     .register {
-        width: 40%;
+        width: 60%;
+    }
+
+    .img1 {
+        height: 90% !important;
     }
 }
 
@@ -223,6 +231,7 @@ a {
     border-top: 6px solid white;
     color: white;
     padding-top: 2rem;
+    padding-bottom: 2rem;
     font-size: 0.8rem;
 }
 

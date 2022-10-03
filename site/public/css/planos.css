@@ -1,25 +1,33 @@
+:root {
+  --primaryColor: rgb(255, 255, 255);
+  --secundaryColor: rgb(0, 0, 0);
+  --thirdColor: #6B46D7;
+  --hoverColor: #5431d4;
+  --carrossel-position-x: 14;
+}
+
+
 body {
-    background-image: linear-gradient(180deg, rgb(255, 255, 255), #9d46d7 0px);
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+  background: linear-gradient(45deg, #c42ba8, 35%, var(--thirdColor), var(--hoverColor) 100%);
+  background-size: 400% 400%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  animation: animation-body 3s ease infinite;
+}
+
+@keyframes animation-body {
+  0% {
+      background-position: 0% 50%;
   }
-  
-  .container {
 
-  }
-  
-  .pricing-header {
-
+  50% {
+      background-position: 100% 50%;
   }
 
-
-  :root {
-    --primaryColor: rgb(255, 255, 255);
-    --secundaryColor: rgb(0, 0, 0);
-    --thirdColor: #6B46D7;
-    --hoverColor: #5431d4;
-    --carrossel-position-x: 14;
+  100% {
+      background-position: 0% 50%;
+  }
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
@@ -42,121 +50,57 @@ body {
 
 
 a {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
-  .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
   }
-
-  @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-    }
-  }
-
-  .b-example-divider {
-    height: 3rem;
-    background-color: #6B46D7;;
-    border: solid #5431d4;
-    border-width: 1px 0;
-    box-shadow: inset 0 .5em 1.5em #6B46D7, inset 0 .125em .5em #5431d4;
-  }
-
-  .b-example-vr {
-    flex-shrink: 0;
-    width: 1.5rem;
-    height: 100vh;
-  }
-
-  .bi {
-    vertical-align: -.125em;
-    fill: currentColor;
-  }
-
-  .nav-scroller {
-    position: relative;
-    z-index: 2;
-    height: 2.75rem;
-    overflow-y: hidden;
-  }
-
-  .nav-scroller .nav {
-    display: flex;
-    flex-wrap: nowrap;
-    padding-bottom: 1rem;
-    margin-top: -1px;
-    overflow-x: auto;
-    text-align: center;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .footer {
-    background-color: var(--thirdColor);
-    width: 100%;
-    border-top: 6px solid white;
-    color: white;
-    padding-top: 2rem;
-    font-size: 0.8rem;
 }
 
-.footer h1 {
-    font-weight: bolder;
+.b-example-divider {
+  height: 3rem;
+  background-color: #6B46D7;
+  ;
+  border: solid #5431d4;
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em #6B46D7, inset 0 .125em .5em #5431d4;
 }
 
-.footer .container {
-    display: flex;
-    flex-direction: column;
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
 }
 
-.boxes_footer1 {
-    display: flex;
-    justify-content: space-between;
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
 }
 
-.slogan_footer {
-    width: 20rem;
-    height: 12rem;
-    display: flex;
-    margin-right: 24px;
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
 }
 
-.listas_footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 70%;
-}
-
-.ul_footer {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    height: 200px;
-    list-style: none;
-}
-
-.divisao {
-    width: 100%;
-    height: 1px;
-    background-color: white;
-    margin-top: 24px;
-    margin-bottom: 24px;
-}
-
-.boxes_footer2 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer .titulo {
-    justify-content: left;
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
 }

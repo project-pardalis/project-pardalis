@@ -9,7 +9,6 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Nunito', 'Open Sans', sans-serif !important;
-    overflow-y: hidden;
 }
 
 :root {
@@ -62,7 +61,7 @@ body {
     align-items: center;
     height: 100%;
     margin: 0;
-    width: 40%;
+    width: 20%;
 }
 
 #here {
@@ -80,13 +79,36 @@ a {
 
 .container-elements-page {
     height: 100%;
-    padding: 5rem;
     display: flex;
     justify-content: center;
-    background: linear-gradient(45deg, #c42ba8, 35%, #7F45DE 100%);
+    background: linear-gradient(45deg, #c42ba8, 35%, var(--thirdColor), var(--hoverColor) 100%);
     background-size: 400% 400%;
+    animation: animation-body 3s ease infinite;
 }
 
+@keyframes animation-body {
+  0% {
+      background-position: 0% 50%;
+  }
+
+  50% {
+      background-position: 100% 50%;
+  }
+
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+
+@media (max-width: 500px) {
+    .form-container {
+        width: 100% !important;
+    }
+    .register {
+        width: 50%;
+    }
+}
 
 .form-container {
     background-color: white;
@@ -94,6 +116,7 @@ a {
     align-items: center;
     flex-direction: column;
     width: 40%;
+    height: fit-content;
 }
 
 .linha {
@@ -119,6 +142,10 @@ label {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.input-container label {
+    text-align: center;
 }
 
 .input-form {
@@ -253,7 +280,7 @@ label {
 /* SCROLL BAR - COMEÇO */
 
 ::-webkit-scrollbar-track {
-    background-color: whitesmoke;
+    background-color: var(--thirdColor);
 }
 
 ::-webkit-scrollbar {
@@ -261,7 +288,7 @@ label {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--thirdColor);
+    background: #231161;
     border-radius: 5%;
 }
 
