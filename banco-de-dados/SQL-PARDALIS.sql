@@ -81,9 +81,9 @@ INSERT INTO Empresa Values (null, "Sptech", "00000000000000");
 INSERT INTO Usuario values (null, "João", "joao@gmail.com", "Teste@123", "Analista", 1, null);
 INSERT INTO Maquina VALUES (null, "Servidor-SPTECH", "", true, null, "1234567890", 1);
 
-INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("Utilização", "%", 0),
+INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("cpu_Utilizacao", "%", 0),
 						  ("cpu_Frequencia_Maxima", "HZ", 1),
-                          ("Frequência Atual", "HZ", 0),
+                          ("cpu_Frequencia_Atual", "HZ", 0),
                           ("cpu_Frequencia_Minima", "HZ", 1);
 
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("ram_Total", "GB", 1),
@@ -92,12 +92,8 @@ INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("ram_Total
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("disco_Total", "GB", 1),
 						  ("disco_Usado", "GB", 0); # DISCO
 
+-- Não rodar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("Dados Recebidos", "MB", 0),
 						  ("Dados Enviados", "MB", 0),
                           ("IP?", "HZ", 0); # Internet
-
-INSERT INTO Componente_has_Metrica VALUES (1, 1, 1, 1);
-INSERT INTO Componente_has_Metrica VALUES (1, 2, 1, 1);
-select * from Leitura;
-
-select * from Usuario join Empresa LIMIT 15; 

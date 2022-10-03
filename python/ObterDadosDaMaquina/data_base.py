@@ -1,5 +1,4 @@
 from datetime import datetime
-from distutils.log import error
 import pymysql.cursors
 
 connection = pymysql.connect(host='localhost',
@@ -23,10 +22,23 @@ def get_metricas():
         metrica = metricas[i]
         name_metrica = metrica[1]
         
+        if name_metrica[0:3] == "ram":
+            componente_name = "ram"
+        elif name_metrica[0:3] == "cpu":
+            componente_name = "cpu"
+        elif name_metrica[0:3] == "dis":
+            componente_name = "disco"
+
         if metrica[3] == 0:
-            dynamic_metrica[name_metrica] = metrica[0] # idMetrica
+            metrica_escolhida = dynamic_metrica
         else:
-            static_metrica[name_metrica] = metrica[0]
+            metrica_escolhida = static_metrica
+
+        if not (componente_name in metrica_escolhida):
+            metrica_escolhida[componente_name] = {}
+        
+        metrica_escolhida[componente_name][name_metrica] = metrica[0]
+        
 
 def string_index(text : str, string : str):
     try:
@@ -103,16 +115,24 @@ def get_components(fkMaquina : int, fkEmpresa : int):
     return run_sql_command(command)
 
 # Seleciona qual tipo de métrica vai utilizar
-def insert_metrica(fkComponente : int, fkMaquina : int, fkEmpresa: int, data : int, type = 0):
+def insert_metrica(name_component: str, fkComponente : int, fkMaquina : int, fkEmpresa: int, data : int, type = 0):
     if type == 0:
         metrica_escolhida = static_metrica
     else: 
         metrica_escolhida = dynamic_metrica
-    for metrica in metrica_escolhida:
-        idMetrica = metrica_escolhida[metrica]
+    
+    for componente in metrica_escolhida:
+        for metrica in metrica_escolhida[componente]:
 
-        insert_metrica_component(fkComponente, idMetrica, fkMaquina, fkEmpresa, data[metrica])
-        print(f"Metrica {metrica} Adicionada")
+            idMetrica = metrica_escolhida[componente][metrica]
+            
+
+            if metrica in data[name_component]:
+                
+                insert_metrica_component(fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica])
+                print(f"Metrica {metrica} Adicionada")
+            else:
+                break
 
 # Insere as métricas na tabela Leitura
 def insert_metrica_component(fkComponente : int, fkMetrica : int, fkMaquina : int, fkEmpresa : int, valorLeitura : int):

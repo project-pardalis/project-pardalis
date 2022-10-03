@@ -1,5 +1,5 @@
-import os, platform, time, controlador_hash as hash
-import comandosDados as dados, comandosParaArmazenarDados as db
+import os, platform, time, hash
+import computer_data as dados, data_base as db
 
 # Início do programa
 # Verificar se é Linux
@@ -13,17 +13,13 @@ hash_computer = False
 sistema_operacional = platform.system()
 
 def start_get_values():
-    db.get_metricas()
     computer_info = dados.get_all_info()
-
     db.create_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
-
     db.insert_component_info(computer_info["cpu"], "cpu", machine_information["fkMaquina"], machine_information["fkEmpresa"])
     
     components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
-
     exists = db.update_machine(machine_information["fkMaquina"], machine_information["fkEmpresa"], computer_info["system"]["system"])
-
+    os.system("clear")
     for component in components:
         insert_metrica(computer_info, component, exists)
     
@@ -38,13 +34,14 @@ def start_get_values():
             insert_metrica(computer_info, component, False, 1)
 
         time.sleep(3)
+        os.system("clear")
 
 ## Arrumar o insert_static_metrica no valor Leitura
 ## Descobrir onde colocar o estático como arquitetura do computador
 def insert_metrica(computer_info : dict, component : tuple, exists : bool, type = 0):
     if (not exists and component[2] == 1):
-            ## component_name = component[1]
-            db.insert_metrica(component[0], 
+            component_name = component[1]
+            db.insert_metrica(component_name, component[0], 
             component[4], component[-1], computer_info, type)
 
 
@@ -69,12 +66,16 @@ def select_menu():
                 if (not hash_computer):
                     break
                 else:
+                    
+                    db.get_metricas()
                     start_get_values()
+
+                    
             elif option == 2:
                 break
             elif option == 3:
                 hash.save_hash()
-
+                
             elif option == 0:
                 print("Obrigado por utilizar o Pardalis!")
                 break
