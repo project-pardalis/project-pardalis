@@ -21,7 +21,7 @@
         <div class="header">
             <div class="container d-flex my-2 w-100">
                 <a href="index.html" class="titulo">
-                    <img class="img-fluid" src="../assets/imgs/logo.png" alt="">
+                    <img class="" src="../assets/imgs/logo.png" alt=""> <!-- Mudar com media -->
                     <h1 class="m-0 p-0">Pardalis</h1>
                 </a>
                 <ul class="register">
@@ -40,11 +40,11 @@
 
         <div class="banner">
             <div class="container d-flex justify-content-center align-items-center h-100" style="position: relative">
-                <div id="slider" class="py-5">
-                    <img class="img-fluid selected" src="../assets/imgs/Dash.png" alt="Image1" id="1">
-                    <img class="img-fluid" src="../assets/imgs/DashDark.png" alt="Image2" id="2">
-                    <img src="https://images.unsplash.com/photo-1562526109-878e3d276ceb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Image3" id="3">
-                    <img src="https://images.unsplash.com/photo-1504870444519-3c678061c754?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Image4" id="4">
+                <div id="slider" class="py-5 d-sm-flex flex-column flex-md-row">
+                    <img class="selected h-75 h-md-100" src="../assets/imgs/DashDark.png" alt="Image1" id="1">
+                    <img class="d-none d-md-block" style="height: 40%;" src="../assets/imgs/Dash.png" alt="Image2" id="2">
+                    <img class="d-none d-md-block" style="height: 40%;" src="https://images.unsplash.com/photo-1562526109-878e3d276ceb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Image3" id="3">
+                    <img class="d-none d-md-block" style="height: 40%;" src="https://images.unsplash.com/photo-1504870444519-3c678061c754?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="Image4" id="4">
                 </div>
             </div>
         </div>
@@ -55,44 +55,39 @@
     <div class="social">
 
         <div class="parte1">
-            <div class="container d-flex">
-                <div class="col-6 d-flex m-0 p-0" style="flex-direction: column;">
-                    <h1>Aumente a produtividade no ambiente de trabalho!</h1>
-                    <p class="h5">Telas intuitivas e completas a cerca de todos os dados necessarios. </p>
+            <div class="container d-flex flex-md-row flex-column-reverse">
+                <div class="col-md-6 col-12 d-flex m-0 p-0" style="flex-direction: column;">
+                    <p class="h2 mt-5 mt-md-0">Aumente a produtividade no ambiente de trabalho!</p>
+                    <p class="h6 fw-light">Telas intuitivas e completas a cerca de todos os dados necessarios. </p>
                 </div>
-                <div class="col-4">
+                <div class="col-md-3 col-8 d-flex align-items-center">
                     <img class="img-fluid" id="greenhouse" src="../assets/imgs/trancodingVetor.png" alt="">
                 </div>
             </div>
         </div>
 
         <div class="parte2">
-            <div class="container d-flex" style="flex-direction:row-reverse;">
-                <div class="col-6 d-flex m-0 p-0" style="flex-direction: column;">
-                    <h1>Receba alertas</h1>
-                    <p class="h5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quibusdam? Est quisquam
-                        doloribus aliquid in nihil eveniet officiis quas rem quae facilis, non debitis
-                        accusantium.
-                        Accusamus voluptas ut dolorum autem.</p>
+            <div class="container d-flex flex-column-reverse flex-md-row-reverse">
+                <div class="col-md-6 col-12 d-flex m-0 p-0" style="flex-direction: column;">
+                    <p class="h2 mt-5 mt-md-0">Receba alertas</p>
+                    <p class="h6 fw-light fw-md-bolder">Através do nosso sitema, iremos estabelecer métricas para que ao seu sistema der problema ou der suspeitas para isso, 
+                        irá enviar um alerta através do seu slack, para que você saiba qual é a máquina com o problema.</p>
                 </div>
-                <div class="col-4">
+                <div class="col-md-3 col-8 d-flex align-items-center">
                     <img class="img-fluid" id="greenhouse" src="../assets/imgs/JobVetor.png" alt="">
+
                 </div>
             </div>
         </div>
 
         <div class="parte3">
-            <div class="container d-flex" style="flex-direction:row-reverse;">
-                <div class="col-6 d-flex m-0 p-0" style="flex-direction: column;">
-                    <h1>Monitore seus processos!</h1>
-
-                    <p class="h5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, quibusdam? Est quisquam
-                        doloribus aliquid in nihil eveniet officiis quas rem quae facilis, non debitis
-                        accusantium.
-                        Accusamus voluptas ut dolorum autem.</p>
+            <div class="container d-flex flex-column-reverse flex-md-row" >
+                <div class="col-md-6 col-12 d-flex m-0 p-0" style="flex-direction: column;">
+                    <p class="h2 mt-5 mt-md-0">Monitore seus processos!</p>
+                    <p class="h6 fw-light">Com a nossa dash intuitiva, iremos permitir que você crie maquinas e verifique as informações de cada uma delas.</p>
                 </div>
-                <div class="col-4">
-                    <img class="img-fluid" id="loss" src="../assets/imgs/GraficosVetor.png" alt="">
+                <div class="col-md-3 col-8 d-flex align-items-center">
+                    <img class="img-fluid" id="greenhouse" src="../assets/imgs/GraficosVetor.png" alt="">
                 </div>
             </div>
         </div>
@@ -102,29 +97,31 @@
 
     <div class="footer">
         <div class="container">
-            <div class="boxes_footer1">
-                <div class="slogan_footer">
-                    <p class="h2">Monitoramento de qualidade e compromisso é Pardalis.</p>
+            <div class="boxes_footer1 d-flex flex-column flex-md-row">
+                <div class="slogan_footer m-0 p-0">
+                    <p class="h3 fw-semibold m-0 p-0" style="font-family: sans-serif; letter-spacing: 0.5px;">
+                        MONITORAMENTO DE QUALIDADE E COMPROMISSO É PARDALIS.
+                    </p>
                 </div>
-                <div class="listas_footer">
-                    <ul class="ul_footer">
+                <div class="listas_footer d-flex flex-column flex-md-row justify-content-between mt-3 mt-md-0">
+                    <ul class="ul_footer p-0 m-0">
                         <li><p class="h3">Empresa</p></li>
-                        <li><p class="h6">Sobre</p></li>
-                        <li><p class="h6">Marca</p></li>
-                        <li><p class="h6">Empregos</p></li>
+                        <li><p class="h6 fw-light">Sobre</p></li>
+                        <li><p class="h6 fw-light">Marca</p></li>
+                        <li><p class="h6 fw-light">Empregos</p></li>
                     </ul>
-                    <ul class="ul_footer">
+                    <ul class="ul_footer m-0 p-0 mt-3 mt-md-0 ms-0 ms-md-3">
                         <li><p class="h3">Politica</p></li>
-                        <li><p class="h6">Termos</p></li>
-                        <li><p class="h6">Configurações de cookies</p></li>
-                        <li><p class="h6">Diretrizes</p></li>
-                        <li><p class="h6">Reconhecimentos</p></li>
-                        <li><p class="h6">Licenças</p></li>
+                        <li><p class="h6 fw-light">Termos</p></li>
+                        <li><p class="h6 fw-light">Configurações de cookies</p></li>
+                        <li><p class="h6 fw-light">Diretrizes</p></li>
+                        <li><p class="h6 fw-light">Reconhecimentos</p></li>
+                        <li><p class="h6 fw-light">Licenças</p></li>
                     </ul>
-                    <ul class="ul_footer">
+                    <ul class="ul_footer m-0 p-0 mt-3 mt-md-0 ms-0 ms-md-3">
                         <li><p class="h3">Contato</p></li>
-                        <li><p class="h6">Tel: (11) 97357-7889</p></li>
-                        <li><p class="h6">Email: projetopardalis@gmail.com</p></li>
+                        <li><p class="h6 fw-light">Tel: (11) 97357-7889</p></li>
+                        <li><p class="h6 fw-light">Email: projetopardalis@gmail.com</p></li>
                     </ul>
                 </div>
             </div>
