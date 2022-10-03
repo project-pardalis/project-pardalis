@@ -63,16 +63,15 @@ a {
 }
 
 .titulo {
-    color: black;
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 4%;
 }
 
 .titulo img {
-    border-radius: 12px;
     margin-right: 1%;
-    width: 5%;
+    width: 100%;
 }
 
 .navBar {
@@ -90,7 +89,7 @@ a {
     align-items: center;
     height: 100%;
     margin: 0;
-    width: 40%;
+    width: 20%;
 }
 
 .cadastro_botao {
@@ -132,6 +131,7 @@ a {
 
 .banner {
     height: 500px;
+    overflow: hidden;
 }
 
 #slider {
@@ -142,6 +142,27 @@ a {
     column-gap: 40px;
     transition: all 300ms;
     transform: translateX(calc(var(--carrossel-position-x) * 1%));
+}
+
+
+@media (max-width: 500px) {
+
+    .banner {
+        height: 280px;
+    }
+    #slider {
+        transform: translateX(0)
+    }
+    .titulo {
+        width: 10%;
+    }
+    .register {
+        width: 60%;
+    }
+
+    .img1 {
+        height: 90% !important;
+    }
 }
 
 #slider img {
@@ -210,6 +231,7 @@ a {
     border-top: 6px solid white;
     color: white;
     padding-top: 2rem;
+    padding-bottom: 2rem;
     font-size: 0.8rem;
 }
 
@@ -229,24 +251,17 @@ a {
 
 .slogan_footer {
     width: 20rem;
-    height: 12rem;
-    display: flex;
-    margin-right: 24px;
 }
 
 .listas_footer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     width: 70%;
 }
 
 .ul_footer {
     display: flex;
     flex-direction: column;
-    align-items: left;
-    height: 200px;
     list-style: none;
 }
 

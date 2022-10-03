@@ -1,5 +1,4 @@
 from datetime import datetime
-from distutils.log import error
 import pymysql.cursors
 
 connection = pymysql.connect(host='localhost',
@@ -10,30 +9,36 @@ connection = pymysql.connect(host='localhost',
 cursor = connection.cursor()
 
 static_metrica = {
-    "cpu": {
-        "cpu_Frequencia_Maxima": 2,
-        "cpu_Frequencia_Minima": 4
-    },
-    "ram": {
-        "ram_Total": 5
-    },
-    "disco": {
-        "disco_Total": 7
-    }
 }
 
 dynamic_metrica = {
-    "cpu": {
-        "cpu_Utilizacao": 1,
-        "cpu_Frequencia_Atual": 3,
-    },
-    "ram": {
-        "ram_Usada": 6,
-    },
-    "disco": {
-        "disco_Usado": 8,
-    }
 }
+
+def get_metricas():
+    command = f"select * from Metrica;"
+    metricas = run_sql_command(command)
+
+    for i in range(len(metricas)):
+        metrica = metricas[i]
+        name_metrica = metrica[1]
+        
+        if name_metrica[0:3] == "ram":
+            componente_name = "ram"
+        elif name_metrica[0:3] == "cpu":
+            componente_name = "cpu"
+        elif name_metrica[0:3] == "dis":
+            componente_name = "disco"
+
+        if metrica[3] == 0:
+            metrica_escolhida = dynamic_metrica
+        else:
+            metrica_escolhida = static_metrica
+
+        if not (componente_name in metrica_escolhida):
+            metrica_escolhida[componente_name] = {}
+        
+        metrica_escolhida[componente_name][name_metrica] = metrica[0]
+        
 
 def string_index(text : str, string : str):
     try:
@@ -103,37 +108,40 @@ def update_machine(fkMaquina : int, fkEmpresa : int, sistemaOperacional : str):
         return True
     else:
         return False
-   
-# Fazer com que o script do NodeJs crie automaticamente os componentes
-# Fazer para que crie também a sua conexão com as métricas
 
 # Pega as informações dos componentes que deseja monitorar
 def get_components(fkMaquina : int, fkEmpresa : int):
     command = f"SELECT * FROM Componente WHERE fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} AND isComponenteValido = 1 LIMIT 3;"
     return run_sql_command(command)
 
-def get_metricas_component(fkComponente : int, isEstatico : int):
-    command = f"SELECT idMetrica FROM Componente_has_Metrica JOIN Metrica ON Componente_has_Metrica.fkComponente = {fkComponente} AND Metrica.isEstatico = {isEstatico}"
-    return run_sql_command(command)
-
-def insert_metrica(name : str, fkComponente : int, fkMaquina : int, fkEmpresa: int, data : int, type = 0):
+# Seleciona qual tipo de métrica vai utilizar
+def insert_metrica(name_component: str, fkComponente : int, fkMaquina : int, fkEmpresa: int, data : int, type = 0):
     if type == 0:
         metrica_escolhida = static_metrica
     else: 
         metrica_escolhida = dynamic_metrica
-    for metrica in metrica_escolhida[name]:
-        idMetrica = metrica_escolhida[name][metrica]
+    
+    for componente in metrica_escolhida:
+        for metrica in metrica_escolhida[componente]:
 
-        insert_metrica_component(fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name][metrica])
-        print(f"Metrica: {metrica} Adicionado")
+            idMetrica = metrica_escolhida[componente][metrica]
+            
 
+            if metrica in data[name_component]:
+                
+                insert_metrica_component(fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica])
+                print(f"Metrica {metrica} Adicionada")
+            else:
+                break
 
+# Insere as métricas na tabela Leitura
 def insert_metrica_component(fkComponente : int, fkMetrica : int, fkMaquina : int, fkEmpresa : int, valorLeitura : int):
     dataColeta = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura})"
     run_sql_command(command)
 
+# Cria os componentes no banco de dados
 def create_components(fkMaquina : int, fkEmpresa : int):
     get_component_command = f"SELECT nomeComponente from Componente WHERE fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} LIMIT 3"
     components = run_sql_command(get_component_command)

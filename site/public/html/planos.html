@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planos Pardallis</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/pricing/">
+  <link href="../css/planos.css" rel="stylesheet">
+  <link href="../css/login-cadastro.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check" viewBox="0 0 16 16">
+      <title>Check</title>
+      <path
+        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+    </symbol>
+  </svg>
+
+  <header>
+    <div class="header">
+      <div class="container d-flex my-2 w-100">
+          <a href="index.html" class="titulo">
+              <img class="" src="../assets/imgs/logo.png" alt=""> <!-- Mudar com media -->
+              <h1 class="m-0 p-0">Pardalis</h1>
+          </a>
+          <ul class="register">
+              <li>
+                  <a class="text-dark" href="planos.html">Planos</a>
+              </li>
+              <li>
+                  <button class="ms-1 btn fw-semibold login-botao" onclick="redirectUserToLogin()">Entrar</button>
+              </li>
+
+          </ul>
+      </div>
+  </div>
+
+
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center text-light">
+      <h1 class="display-4 fw-normal">Planos</h1>
+      <p class="fs-5">A organização Pardallis oferece uma série de opções que se adequam as suas necessidades.</p>
+    </div>
+  </header>
+
+  <div class="container py-3">
+    <main>
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal text-secondary">Básico</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">R$2999<small class="text-muted fw-light">/mês</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Limite de 10 usuários</li>
+                <li>Até 50 servidores</li>
+                <li>Suporte por email</li>
+                <li>⠀⠀⠀⠀⠀⠀⠀⠀⠀</li>
+                <li>⠀⠀⠀⠀⠀⠀⠀⠀⠀</li>
+              </ul>
+              <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button> -->
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3 border-dark">
+              <h4 class="my-0 fw-normal">Profissional</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">$7500<small class="text-muted fw-light">/mês</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Limite de 25 usuários</li>
+                <li>Até 250 servidores</li>
+                <li>Suporte por email e telefone</li>
+                <li>Integração com Slack</li>
+                <li>⠀⠀⠀⠀⠀⠀⠀⠀⠀</li>
+              </ul>
+              <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Get started</button> -->
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3 border-warning">
+              <h4 class="my-0 fw-normal text-warning">Gold</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">R$15000<small class="text-muted fw-light">/mês</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Sem limite de usuários</li>
+                <li>Sem limite de servidores</li>
+                <li>Suporte 24 horas</li>
+                <li>Integração com Slack</li>
+                <li>Dashboard Personalizada</li>
+              </ul>
+              <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Contact us</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="display-6 text-center mb-4 text-light">Comparação dos planos</h2>
+
+      <div class="table-responsive">
+        <table class="table text-center text-light">
+          <thead>
+            <tr>
+              <th style="width: 34%;"></th>
+              <th style="width: 22%;">Básico</th>
+              <th style="width: 22%;">Profissional</th>
+              <th style="width: 22%;">Gold</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="text-start">Monitoramento dos servidores</th>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Acesso a plataforma de monitoramento</th>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+          </tbody>
+
+          <tbody>
+            <tr>
+              <th scope="row" class="text-start">Suporte por email</th>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Suporte por telefone</th>
+              <td></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Usuários ilimitados</th>
+              <td></td>
+              <td></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Servidores ilimitados</th>
+              <td></td>
+              <td></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Suporte 24 horas</th>
+              <td></td>
+              <td></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Integração com slack</th>
+              <td></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Dashboard Personalizada</th>
+              <td></td>
+              <td></td>
+              <td><svg class="bi" width="24" height="24">
+                  <use xlink:href="#check" />
+                </svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+
+  </div>
+  <div class="footer m-0">
+    <div class="container">
+        <div class="boxes_footer1 d-flex flex-column flex-md-row">
+            <div class="slogan_footer m-0 p-0">
+                <p class="h3 fw-semibold m-0 p-0" style="font-family: sans-serif; letter-spacing: 0.5px;">
+                    MONITORAMENTO DE QUALIDADE E COMPROMISSO É PARDALIS.
+                </p>
+            </div>
+            <div class="listas_footer d-flex flex-column flex-md-row justify-content-between mt-3 mt-md-0">
+                <ul class="ul_footer p-0 m-0">
+                    <li><p class="h3">Empresa</p></li>
+                    <li><p class="h6 fw-light">Sobre</p></li>
+                    <li><p class="h6 fw-light">Marca</p></li>
+                    <li><p class="h6 fw-light">Empregos</p></li>
+                </ul>
+                <ul class="ul_footer m-0 p-0 mt-3 mt-md-0 ms-0 ms-md-3">
+                    <li><p class="h3">Politica</p></li>
+                    <li><p class="h6 fw-light">Termos</p></li>
+                    <li><p class="h6 fw-light">Configurações de cookies</p></li>
+                    <li><p class="h6 fw-light">Diretrizes</p></li>
+                    <li><p class="h6 fw-light">Reconhecimentos</p></li>
+                    <li><p class="h6 fw-light">Licenças</p></li>
+                </ul>
+                <ul class="ul_footer m-0 p-0 mt-3 mt-md-0 ms-0 ms-md-3">
+                    <li><p class="h3">Contato</p></li>
+                    <li><p class="h6 fw-light">Tel: (11) 97357-7889</p></li>
+                    <li><p class="h6 fw-light m-0">Email: projetopardalis@gmail.com</p></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+
+</html>
