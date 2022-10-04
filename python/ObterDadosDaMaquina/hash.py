@@ -1,9 +1,7 @@
-import json, comandosParaArmazenarDados as db
-from logging import exception
-# Tentar
+import json, data_base as db
 
 
-# Tensa salvar o hash digitado no json
+# Tenta salvar o hash digitado no json
 def save_hash():
     hash_computer = input("Digite o hash do computador: ")
     try:
