@@ -77,7 +77,7 @@ CREATE TABLE Leitura(
     valorLeitura DECIMAL(7,2) NOT NULL
 );
 INSERT INTO Empresa Values (null, "Sptech", "00000000000000");
-INSERT INTO Usuario values (null, "João", "joao@gmail.com", "Teste@123", "Analista", 1, null);
+INSERT INTO Usuario values (null, "João", "joao@gmail.com", SHA2('Teste@123', 512), "Analista", 1, null);
 INSERT INTO Maquina VALUES (null, "Servidor-SPTECH", "", true, null, "1234567890", 1);
 
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("cpu_Utilizacao", "%", 0),
