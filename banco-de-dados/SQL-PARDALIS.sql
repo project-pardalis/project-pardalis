@@ -83,12 +83,15 @@ INSERT INTO Maquina VALUES (null, "Servidor-SPTECH", "", true, null, "1234567890
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("cpu_Utilizacao", "%", 0),
 						  ("cpu_Frequencia_Maxima", "HZ", 1),
                           ("cpu_Frequencia_Atual", "HZ", 0),
+                          ("cpu_Temperature", "°C", 0),
                           ("cpu_Frequencia_Minima", "HZ", 1); -- CPU
 
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("ram_Total", "GB", 1),
 						  ("ram_Usada", "GB", 0); -- RAM
                           
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("disco_Total", "GB", 1),
+						  ("disco_read_time", "MB", 0),
+						  ("disco_write_time", "MB", 0),
 						  ("disco_Usado", "GB", 0); -- DISCO
 
 -- Não rodar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
