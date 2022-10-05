@@ -29,6 +29,7 @@ var sqlServerConfig = {
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
     if (process.env.AMBIENTE_PROCESSO == "producao") {
+        console.log("Executando a instrução SQL: \n" + instrucao);
         return new Promise(function (resolve, reject) {
             sql.connect(sqlServerConfig).then(function () {
                 return sql.query(instrucao);

@@ -49,7 +49,7 @@
     
                             <div class="col-12 input-container mb-2">
                                 <label for="ipt_CNPJ" class="mb-1">CNPJ</label>
-                                <input type="text" class="input-form" placeholder="333.333.333.333/333.333" id="ipt_CNPJ"
+                                <input type="text" class="input-form" placeholder="333.333.333.333/333.333" id="ipt_cnpj"
                                     onkeypress="key()">
                             </div>
                             <div class="col-12 input-container mb-2">
@@ -94,9 +94,7 @@
 <script>
     //Fazendo o enter funcionar quando da um Enter no input
     function key() {
-        if (event.key === 'Enter') {
-            return cadastrar()
-        }
+        if (event.key === 'Enter') return cadastrar()
     }
 
     function pegarInfoUsuario() {
@@ -120,23 +118,16 @@
             error_msg.style.display = 'block'
             error_msg.innerHTML = 'Todos os campos devem ser preenchidos';
             return false;
+        } else if (senhaAdmin != confirmarSenhaAdmin) {
+            error_msg.style.display = 'block'
+            error_msg.innerHTML = 'As senhas não são iguais';
+            return false;
         } else {
-            if (senhaAdmin != confirmarSenhaAdmin) {
-                error_msg.style.display = 'block'
-                error_msg.innerHTML = 'As senhas não são iguais';
-                return false;
-            } else {
-                return true;
-            }
+            return true;
         }
     }
 
     function cadastrar(nomeEmpresa, cnpjEmpresa, adminEmpresa, emailEmpresa, senhaAdmin, confirmarSenhaAdmin) {
-
-
-
-
-
         fetch("/usuarios/cadastrar", {
             method: "POST",
             headers: {

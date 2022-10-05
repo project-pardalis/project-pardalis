@@ -1,12 +1,22 @@
 :root {
-  --roxo-main: #6B46D7;
+  --primaryColor: rgb(255, 255, 255);
+  --secundaryColor: rgb(0, 0, 0);
+  --thirdColor: #6B46D7;
+  --hoverColor: #5431d4;
+  --carrossel-position-x: 14;
+}
 
+
+@font-face {
+  font-family: "Nunito", sans-serif;
+  src: url(./assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
 }
 
 body {
   font-size: .875rem;
-  overflow-x: hidden;
-
+  font-family: 'Nunito', 'Open Sans', sans-serif !important;
+  height: 100vh;
+  width: 100vw;
 }
 
 main {
@@ -31,7 +41,6 @@ main {
   bottom: 0;
   /* rtl:remove */
   left: 0;
-  z-index: 100;
   /* Behind the navbar */
   padding: 48px 0 0;
   /* Height of navbar */
@@ -49,24 +58,13 @@ main {
   /* Scrollable contents if viewport is shorter than content. */
 }
 
-.sidebar .nav-link {
-  font-weight: 500;
+.nav .nav-item .active {
   color: #333;
+  text-decoration: none !important;
 }
 
-.sidebar .nav-link .feather {
-  margin-right: 4px;
-  color: #727272;
-  margin-left: 4px;
-}
-
-.sidebar .nav-link.active {
-  color: #2470dc;
-}
-
-.sidebar .nav-link:hover .feather,
-.sidebar .nav-link.active .feather {
-  color: inherit;
+.nav .nav-link.active:hover {
+  color: #2470dc !important;
 }
 
 .sidebar-heading {
@@ -81,12 +79,12 @@ main {
   padding-top: .75rem;
   padding-bottom: .75rem;
 
-  box-shadow: inset -1px 0 0 var(--roxo-main);
+  box-shadow: inset -1px 0 0 var(--thirdColor);
   /* box-shadow: inset 1px 0 0 rgba(0, 0, 0, .25); */
 }
 
 header {
-  background-color: var(--roxo-main);
+  background-color: var(--thirdColor);
 }
 
 .navbar .navbar-toggler {
@@ -176,7 +174,6 @@ header {
   width: 70vw;
   margin-top: 0vh;
   border-radius: 5px;
-  z-index: 2;
   font-size: 5vh;
 }
 
@@ -240,7 +237,7 @@ header {
   overflow-y: scroll;
 }
 
-.serverCont {
+.server-cont {
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
 }
@@ -249,31 +246,17 @@ header {
   margin-top: -55vh;
   margin-left: 55vw;
   height: 5vh;
-  z-index: 2;
 }
 
-.listList {
-  cursor: pointer;
-  height: 6vh;
-  margin-top: -0.5vh;
-  margin-left: 0.5vw;
-}
-
-
-.filterStyle:hover {
-  filter: blur(2)
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-
-
-}
-
-.estado {
+.card-state-machine {
   height: 20% !important;
 }
+
+.text-muted {
+  cursor: context-menu;
+}
+
+/* General Data */
 
 .hover-mychart {
   transition: 100ms;
@@ -304,8 +287,6 @@ header {
 
 .minichart {
   width: 9rem !important;
-
-
 }
 
 .center-row {
@@ -330,7 +311,6 @@ header {
   margin-top: 5rem;
   padding: 1rem;
   height: 20rem;
-
   border-right: 2px solid rgb(171, 171, 171);
 }
 
@@ -393,7 +373,6 @@ header {
   width: 0.9vw;
   margin-left: 4.5vw;
   margin-top: 7.7vh;
-  z-index: 2;
 }
 
 .armazemProgress {

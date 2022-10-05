@@ -100,11 +100,13 @@
                     console.log(resposta);
                     resposta.json().then(json => {
                         console.log(json);
-                        console.log(JSON.stringify(json));
 
-                        sessionStorage.ID_USUARIO = json.USUARIO_ID;
-                        sessionStorage.EMAIL_USUARIO = json.USUARIO_EMAIL;
-                        sessionStorage.FK_EMPRESA = json.EMPRESA_FK;
+                        sessionStorage.ID_USUARIO = json.idUsuario;
+                        sessionStorage.EMAIL_USUARIO = json.emailUsuario;
+                        sessionStorage.FK_EMPRESA = json.fkEmpresa;
+                        sessionStorage.FK_ADMINISTRADOR = json.fkEmpresa;
+                        
+                        if (json.idUsuario != null) window.location.href = "/dashboard.html";
                     });
                 }
                 else {

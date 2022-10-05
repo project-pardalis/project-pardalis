@@ -11,7 +11,7 @@ function getComponente(empresa) {
 }
 
 function getDados(empresa) {
-    var sql = `SELECT * FROM Leitura ORDER BY idLeitura DESC, dataColeta  DESC LIMIT 200`
+    var sql = `SELECT * FROM Leitura ORDER BY dataColeta DESC LIMIT 60`
     return database.executar(sql)
 }
 
