@@ -66,3 +66,5 @@ const pizza_use_big = new Chart(
     document.getElementById('myChart5'),
     configPizza
 );
+
+console.log("oi")
