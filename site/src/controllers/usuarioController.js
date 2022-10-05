@@ -1,5 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
-
+var sha512 = require('js-sha512');
 var sessoes = [];
 
 function testar(req, res) {
@@ -17,7 +17,7 @@ function entrar(req, res) {
     res.status(400).send("Sua senha está indefinida!");
   } else {
     usuarioModel
-      .entrar(email, senha)
+      .entrar(email, sha512(senha))
       .then(function (resultado) {
         console.log(`\nResultados encontrados: ${resultado.length}`);
         console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
@@ -67,7 +67,7 @@ function cadastrar(req, res) {
       .cadastrarEmpresa(empresa, cnpj)
       .then(function (resultado) {
         // console.log(resultado);
-        usuarioModel.cadastrarFuncionario(gerente, email, senha, 1, resultado.insertId)
+        usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), 1, resultado.insertId)
           .then(function (resultado) {
             res.json(resultado);
           })

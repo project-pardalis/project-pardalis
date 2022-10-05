@@ -55,11 +55,10 @@ def get_cpu_info():
 
     return {
         'cpu_type': cpu_type,
-        'temperature': temperature,
+        'cpu_Temperature': temperature,
         'cpu_Frequencia_Atual': ps.cpu_freq().current,
         'cpu_Frequencia_Minima': ps.cpu_freq().min,
         'cpu_Frequencia_Maxima': ps.cpu_freq().max,
-        'arch': platform.machine(),
         'cpu_Utilizacao': ps.cpu_percent()
     }
 
@@ -81,8 +80,8 @@ def get_disk_info():
         'disco_Total': transform_to_gb(disk.total),
         'disco_Usado': transform_to_gb(disk.used),
         'free_disk': transform_to_gb(disk.free),
-        'read_time': ps.disk_io_counters().read_time >> 15,
-        'write_time': ps.disk_io_counters().write_time >> 15
+        'disco_read_time': ps.disk_io_counters().read_time >> 15,
+        'disco_write_time': ps.disk_io_counters().write_time >> 15
     }
 
 # Retorna as informações da rede

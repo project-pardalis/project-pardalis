@@ -25,6 +25,7 @@ body {
 
 a {
     text-decoration: none !important;
+    color: black !important;
 }
 
 /* SCROLL BAR - COMEÇO */
@@ -145,17 +146,7 @@ a {
 }
 
 
-@media (max-width: 500px) {
-    #slider {
-        transform: translateX(0)
-    }
-    .titulo {
-        width: 10%;
-    }
-    .register {
-        width: 40%;
-    }
-}
+
 
 #slider img {
     height: 100%;
@@ -220,9 +211,9 @@ a {
 .footer {
     background-color: var(--thirdColor);
     width: 100%;
-    border-top: 6px solid white;
     color: white;
     padding-top: 2rem;
+    padding-bottom: 2rem;
     font-size: 0.8rem;
 }
 
@@ -276,3 +267,28 @@ a {
 }
 
 /* FOOTER - FIM */
+
+/* Responsividade */
+@media (max-width: 500px) {
+
+    .banner {
+        height: 280px;
+    }
+    #slider {
+        transform: translateX(0)
+    }
+    .titulo {
+        width: 10%;
+    }
+    .register {
+        width: 65%;
+    }
+
+    .img1 {
+        height: 90% !important;
+    }
+
+    #greenhouse, #graphs, #loss {
+        width: 70% !important;
+    }
+}

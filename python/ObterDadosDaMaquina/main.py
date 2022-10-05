@@ -51,9 +51,9 @@ def select_menu():
         try:
             print("Bem vindo ao Pardalis!")
             print("Opções Dinponíveis:")
-            print("1 - Obter Dados do Computador")
+            print("1 - Obter Dados do Computador") # 1 - Padrão adicionado no Banco
             print("2 - Atualizar Componentes do Computador")
-            print("3 - Adicionar Hash do Computador")
+            print("3 - Adicionar Hash do Computador") # 1234567890 - Padrão adicionado no Banco
             print("0 - Sair")
             option = int(input("Digite a opção desejada: "))
             if option == 1:
