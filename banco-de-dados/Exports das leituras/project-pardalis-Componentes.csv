@@ -1,0 +1,10 @@
+idComponente;nomeComponente;isComponenteValido;descricao;fkMaquina;fkEmpresa
+1;cpu;1;"""{'Arquitetura': 'x86_64', 'Nome do modelo': 'Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz', 'Thread per núcleo': '2', 'Núcleo por soquete': '2'}""";1;1
+2;ram;1;Null;1;1
+3;disco;1;Null;1;1
+4;cpu;1;"""{'Arquitetura': 'x86_64', 'Nome do modelo': 'Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz', 'Thread per núcleo': '2', 'Núcleo por soquete': '2'}""";2;1
+5;ram;1;Null;2;1
+6;disco;1;Null;2;1
+7;cpu;1;"""{'Arquitetura': 'x86_64', 'Nome do modelo': 'Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz', 'Thread per núcleo': '2', 'Núcleo por soquete': '2'}""";3;1
+8;ram;1;Null;3;1
+9;disco;1;Null;3;1

@@ -248,10 +248,6 @@ header {
   height: 5vh;
 }
 
-.card-state-machine {
-  height: 20% !important;
-}
-
 .text-muted {
   cursor: context-menu;
 }

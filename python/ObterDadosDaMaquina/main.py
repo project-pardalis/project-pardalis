@@ -49,20 +49,21 @@ def insert_metrica(computer_info : dict, component : tuple, exists : bool, type 
 def select_menu():
     while True:
         try:
+            
             print("Bem vindo ao Pardalis!")
             print("Opções Dinponíveis:")
             print("1 - Obter Dados do Computador") # 1 - Padrão adicionado no Banco
             print("2 - Atualizar Componentes do Computador")
             print("3 - Adicionar Hash do Computador") # 1234567890 - Padrão adicionado no Banco
             print("0 - Sair")
+
+            hash_computer = hash.load_hash()
+
+            machine_information["fkMaquina"] = hash_computer[0][0]
+            machine_information["fkEmpresa"] = hash_computer[0][len(hash_computer[0]) - 1]
+            machine_information["hash"] = hash_computer[0][5]
             option = int(input("Digite a opção desejada: "))
             if option == 1:
-                hash_computer = hash.load_hash()
-
-                machine_information["fkMaquina"] = hash_computer[0][0]
-                machine_information["fkEmpresa"] = hash_computer[0][len(hash_computer[0]) - 1]
-                machine_information["hash"] = hash_computer[0][5]
-
                 if (not hash_computer):
                     break
                 else:

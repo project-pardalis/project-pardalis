@@ -35,7 +35,7 @@ def load_hash():
 def check_hash(hash : str):
     exists_in_database = db.verify_if_hash_exists_in_database(hash)
     if exists_in_database:
-        print("Hash encontrado no banco de dados!")
+        print(f"Hash {hash} no banco de dados!")
         return exists_in_database
     else:
         print("Hash não encontrado no banco de dados!")
