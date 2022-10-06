@@ -259,6 +259,7 @@ header {
 /* General Data */
 
 .hover-mychart {
+
   transition: 100ms;
   background-color: white;
 }
@@ -266,6 +267,42 @@ header {
 .hover-mychart:hover {
   transform: scale(1.4);
   transition: 100ms;
+
+}
+
+.center {
+  display: flex;
+
+}
+
+.component-box {
+  margin-top: 8rem;
+
+}
+
+.box-buttom {
+  width: 10rem;
+}
+
+.component-box .card {
+  width: 80%;
+}
+
+.kpis-flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.server-txt {
+  padding: 1rem;
+  border-radius: 1.2rem;
+  border: 2px solid red;
+  width: 30%;
+}
+
+.kpi-analisys-data {
+  box-shadow: 0.1rem 0.3rem 0.2rem rgb(195, 195, 195);
 
 }
 
@@ -309,9 +346,9 @@ header {
 
 .v-hr {
   margin-top: 5rem;
-  padding: 1rem;
+  margin-right: 2rem;
   height: 20rem;
-  border-right: 2px solid rgb(171, 171, 171);
+  border-right: 1px solid rgb(227, 227, 227);
 }
 
 
@@ -323,6 +360,22 @@ header {
   height: 2rem;
   margin-top: 0;
   margin-right: 1rem;
+}
+
+
+.icon-kpi {
+  width: 4rem;
+}
+
+.card-img-kpi {
+  padding: 2rem;
+}
+
+#center-donut-1 {
+
+  margin-top: 8%;
+  color: var(--hoverColor);
+  z-index: 100;
 }
 
 .server {

@@ -9,7 +9,7 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
     <!--Verificar se necessário-->
-    <link href="../css/dashboard.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
@@ -69,62 +69,85 @@
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" onclick="mudarFiltro()" class="btn btn-sm btn-outline-secondary">Mudar
+                                Filtro</button>
+                            <button type="button" onclick="mostrarLista(1)"
+                                class="btn btn-sm btn-outline-secondary">Modo
+                                Amplo</button>
+                            <button type="button" onclick="mostrarLista(2)"
+                                class="btn btn-sm btn-outline-secondary">Modo
+                                Lista</button>
+                        </div>
+                    </div>
+                </div>
 
+                <!--KEEP EYES-->
+                <div class="d-flex justify-content-between">
+
+                    <div class="position-relative card text-bg-danger p-3 h-25">
+                        <div class="card-header">
+                            <div class="estado fw-semibold">Crítico</div>
+                            <p class="card-text">3 Servidores estão críticos </p>
+
+                        </div>
+                    </div>
+                    <div class="position-relative card text-bg-warning p-3 h-25">
+                        <div class="card-header">
+                            <div class="estado fw-semibold">Alerta</div>
+                            <p class="card-text">1 Servidor requer atenção </p>
+
+                        </div>
+                    </div>
+
+                    <div class="position-relative card text-bg-success p-3 h-25">
+                        <div class="card-header">
+                            <div class="estado fw-semibold">Ok</div>
+                            <p class="card-text">90 servidores estão OK! </p>
+
+                        </div>
+                    </div>
+                </div>
+                <hr>
+
+
+                <!--Fim KEEP EYES-->
+                <!--     <div class=".container-{600} sidebar fixed-top">
+        <img class="logo" src="../../assets/img/arrow-left.svg" alt="">
+        <div class=".container"><img class="user" src="../../assets/img/user.png" alt=""></div>
+    </div> 
+    <div class=".container wave"><img src="../../assets/img/svgs/wave.svg" alt=""></div> 
+    <div class=".container-fluid dashCont sticky-bottom align-items-center justify-content-center">
+        <div class="btn button position-absolute justify-content-center align-items-center">Adicionar</div>
+        <div class="filter position-absolute d-flex"> 
+            <div><input id="filterSearch" class="filterSearch" type="text" placeholder="Setor"></div>
+            <div><input id="filterSearch2" class="filterSearch" type="text" placeholder="A decidir"></div> 
+        </div> -->
+                <div class="line d-flex align-items-center justify-content-center">
+                    <div id="filters" class="filters position-absolute">
+                    </div>
+                    <div id="filters2" class="filters2 position-absolute">
+                    </div>
+
+
+                </div>
                 <div class="center">
 
 
-                    <span class="span1 fw-bold fs-3">Server (n) Analisys</span>
+                    <span class="span1 fw-bold fs-3">Long-term analisys</span>
 
                 </div>
                 <div class="card p-6">
-                    <div class="d-flex p-5 justify-content-evenly border-bottom">
-
-                        <div class="center-row">
-                            <div class="fw-semibold">Estado</div>
-                            <div class="position-relative card text-bg-success p-3 ">
-                                <div class="estado 2card-header">
-
-                                    <p class="card-text">O servidor está OK! </p>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="center-row">
-                            <div class="fw-semibold">Histórico</div>
-                            <div class="position-relative card text-bg-warning p-3 ">
-                                <div class="estado 2card-header">
-
-                                    <p class="card-text">5 alertas na última semana </p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
                     <div class="center " style="  align-items: center;">
 
                         <div class="center-row">
-                            <div class="card donutChart  p-4 w-100">
-                                <div class="center-text ">
-                                    <p class="fw-semibold h3 ">Utilização <span>{Componente}</span></p>
-                                </div>
-
-                                <canvas id="myChart5"></canvas>
-
-
-
-
-
-                            </div>
-                            <hr>
-                            <div class="card p-2">
-
+                            <div class="card">
                                 <div class="center-left">
                                     <canvas class="minichart" id="myChart"></canvas>
-                                    <div class="v-hr p-2 v-hr-small"></div>
                                     <div class="center-text ">
                                         <p class="fw-semibold">CPU</p>
                                         <p id="cpu_data" class="percent card px-2"> 33% </p>
@@ -136,10 +159,9 @@
 
 
                             <hr>
-                            <div class="card p-2">
+                            <div class="card">
                                 <div class="center-left">
                                     <canvas class="minichart" id="myChart1"></canvas>
-                                    <div class="v-hr p-2 v-hr-small"></div>
                                     <div class="center-text ">
                                         <p class="fw-semibold">RAM</p>
                                         <p id="ram_data" class="percent card px-2"> 8% </p>
@@ -149,10 +171,9 @@
 
                             </div>
                             <hr>
-                            <div class="card p-2">
+                            <div class="card">
                                 <div class="center-left">
                                     <canvas class="minichart" id="myChart2"></canvas>
-                                    <div class="v-hr p-2 v-hr-small"></div>
                                     <div class="center-text ">
                                         <p class="fw-semibold">DISK</p>
                                         <p id="disk_data" class="percent card px-2"> 47% </p>
@@ -163,94 +184,85 @@
                             </div>
                         </div>
 
-                        <div class="v-hr v-hr-less-mgtop"></div>
+                        <div class="v-hr"></div>
 
-                        <div class="center-row-big border-bottom p-5">
-                            <div class="center justify-content-around">
-                                <div class="center-text ">
-                                    <div class="h4 fw-semibold ">Component</div>
-                                </div>
-                                <div class="center-text">
-                                    <div class="lead ">Data Component</div>
-                                </div>
+                        <div class="center-row-big">
+                            <div class="center-text">
+                                <div class="fw-semibold ">COMPONENT</div>
                             </div>
-                            <hr>
 
                             <canvas id="myChart3"></canvas>
-                            <hr>
-                            <div class="card p-3">
-                                <div class="center">
-                                    <div class="center-text ">
-                                        <div class="center-row">
-                                            <div class="h5 lead ">Utilização</div>
-                                            <div class="h4 fw-semibold"> 16%</div>
-
-                                        </div>
+                        </div>
 
 
-                                    </div>
-                                    <div class="center">
-                                        <div class="center-text ">
-                                            <div class="center-row">
-                                                <div class="h5 lead ">Data 1</div>
-                                                <div class="h4 fw-semibold"> X </div>
-                                            </div>
+                    </div>
+                    <div class="card p-3">
+                        <div class="center">
+                            <div class="center-text ">
+                                <div class="center-row">
+                                    <div class="h5 lead ">Utilização</div>
+                                    <div class="h4 fw-semibold"> 16%</div>
 
-                                        </div>
-                                    </div>
                                 </div>
-                                <hr>
-                                <div class="center justify-content-around">
-                                    <div class="center-text justify-content-left ">
-                                        <div class="center-text ">
-                                            <div class="center-row">
-                                                <div class="h5 lead ">Comparação por <span
-                                                        id='tipoUtilizacao'>Hora</span>
-                                                </div>
-
-                                            </div>
-                                            <div>
-                                                <div class="hover-mychart">
-                                                    <canvas id="myChart4"></canvas>
-                                                </div>
 
 
-                                            </div>
-
-
-                                        </div>
-
+                            </div>
+                            <div class="center">
+                                <div class="center-text ">
+                                    <div class="center-row">
+                                        <div class="h5 lead ">Data 1</div>
+                                        <div class="h4 fw-semibold"> X </div>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <div class="center justify-content-around">
+                            <div class="center-text justify-content-left ">
+                                <div class="center-text ">
+                                    <div class="center-row">
+                                        <div class="h5 lead ">Comparação por <span id='tipoUtilizacao'>Hora</span>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <div class="hover-mychart">
+                                            <canvas id="myChart4"></canvas>
+                                        </div>
+
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
-
-
                 </div>
+
+
         </div>
 
+        <!--Verificar se necessário-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    </div>
-
-    <!--Verificar se necessário-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-        crossorigin="anonymous"></script>
-    <script src="../js/general-dash.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
-        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
-        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
-        crossorigin="anonymous"></script>
+        <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+            integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+            integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+            crossorigin="anonymous"></script>
+        <script src="js/general-dash.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+            integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+            integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>

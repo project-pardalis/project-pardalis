@@ -18,6 +18,16 @@ const data = {
     }]
 };
 
+const data_without_labels = {
+
+    datasets: [{
+        label: 'My First dataset',
+        backgroundColor: '#6B46D7',
+        borderColor: '#6B46D7',
+        data: [0, 10, 5, 2, 20, 30, 45],
+    }]
+};
+
 const config = {
     type: 'line',
     data: data,
@@ -32,7 +42,7 @@ const configBig = {
 
 const configPizza = {
     type: 'doughnut',
-    data: data,
+    data: data_without_labels,
     options: {}
 
 };
