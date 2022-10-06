@@ -273,7 +273,23 @@ header {
 
 .component-box {
   margin-top: 8rem;
+  transition: 300ms;
 
+}
+
+.component-box:hover {
+  transition: 300ms;
+}
+
+
+
+.content-card {
+  width: 80%;
+}
+
+.component-box .card:hover {
+  transition: 300ms;
+  background-color: rgb(209, 209, 209);
 }
 
 .box-buttom {
@@ -293,7 +309,7 @@ header {
 .server-txt {
   padding: 1rem;
   border-radius: 1.2rem;
-  border: 2px solid red;
+
   width: 30%;
 }
 

@@ -17,7 +17,7 @@
 
 </head>
 
-<body onload="gerarServers()">
+<body>
 
     <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
         <a class="navbar-brand  col-md-3 col-lg-2 me-0 px-3 fs-6 " href="#">Projeto Pardalis</a>
@@ -68,84 +68,13 @@
                 </div>
             </nav>
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Dashboard</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-2">
-                            <button type="button" onclick="mudarFiltro()" class="btn btn-sm btn-outline-secondary">Mudar
-                                Filtro</button>
-                            <button type="button" onclick="mostrarLista(1)"
-                                class="btn btn-sm btn-outline-secondary">Modo
-                                Amplo</button>
-                            <button type="button" onclick="mostrarLista(2)"
-                                class="btn btn-sm btn-outline-secondary">Modo
-                                Lista</button>
-                        </div>
-                    </div>
-                </div>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex justify-content-center">
 
-                <!--KEEP EYES-->
-                <div class="d-flex justify-content-between">
-
-                    <div class="position-relative card text-bg-danger p-3 h-25">
-                        <div class="card-header">
-                            <div class="estado fw-semibold">Crítico</div>
-                            <p class="card-text">3 Servidores estão críticos </p>
-
-                        </div>
-                    </div>
-                    <div class="position-relative card text-bg-warning p-3 h-25">
-                        <div class="card-header">
-                            <div class="estado fw-semibold">Alerta</div>
-                            <p class="card-text">1 Servidor requer atenção </p>
-
-                        </div>
-                    </div>
-
-                    <div class="position-relative card text-bg-success p-3 h-25">
-                        <div class="card-header">
-                            <div class="estado fw-semibold">Ok</div>
-                            <p class="card-text">90 servidores estão OK! </p>
-
-                        </div>
-                    </div>
-                </div>
-                <hr>
-
-
-                <!--Fim KEEP EYES-->
-                <!--     <div class=".container-{600} sidebar fixed-top">
-        <img class="logo" src="../../assets/img/arrow-left.svg" alt="">
-        <div class=".container"><img class="user" src="../../assets/img/user.png" alt=""></div>
-    </div> 
-    <div class=".container wave"><img src="../../assets/img/svgs/wave.svg" alt=""></div> 
-    <div class=".container-fluid dashCont sticky-bottom align-items-center justify-content-center">
-        <div class="btn button position-absolute justify-content-center align-items-center">Adicionar</div>
-        <div class="filter position-absolute d-flex"> 
-            <div><input id="filterSearch" class="filterSearch" type="text" placeholder="Setor"></div>
-            <div><input id="filterSearch2" class="filterSearch" type="text" placeholder="A decidir"></div> 
-        </div> -->
-                <div class="line d-flex align-items-center justify-content-center">
-                    <div id="filters" class="filters position-absolute">
-                    </div>
-                    <div id="filters2" class="filters2 position-absolute">
-                    </div>
-
-
-                </div>
-                <div class="center">
-
-
-                    <span class="span1 fw-bold fs-3">Long-term analisys</span>
-
-                </div>
-                <div class="card p-6">
+                <div class="card content-card p-6">
 
                     <div class="center kpis-flex">
                         <div class="center server-txt">
-                            <div class="display-4">Servidor <div class="h3">numero - setor</div>
+                            <div class="display-6">Servidor <div class="h5">numero - setor</div>
                             </div>
                         </div>
                         <div class="center-row">
