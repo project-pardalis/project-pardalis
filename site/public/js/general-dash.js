@@ -10,12 +10,17 @@ const labels = [
 
 const data = {
     labels: labels,
-    datasets: [{
-        label: 'My First dataset',
-        backgroundColor: '#6B46D7',
-        borderColor: '#6B46D7',
-        data: [0, 10, 5, 2, 20, 30, 45],
-    }]
+    datasets: [
+
+        {
+
+            fill: true,
+            fillColor: " #6B46D750 ",
+            label: 'CPU',
+
+            borderColor: '#6B46D7',
+            data: [80, 78, 70, 65, 50, 40, 50],
+        }]
 };
 
 const data_without_labels = {
@@ -32,7 +37,9 @@ const config = {
     type: 'line',
     data: data,
     options: {}
-};
+}
+
+    ;
 
 const configBig = {
     type: 'bar',
@@ -72,9 +79,6 @@ const bar_component = new Chart(
     configBig
 );
 
-const pizza_use_big = new Chart(
-    document.getElementById('myChart5'),
-    configPizza
-);
 
-console.log("oi")
+
+console.log(config)
