@@ -1,3 +1,4 @@
+maquinas = []
 function pegarMaquinas() {
     fetch("/dash/getMaquinas", {
         method: "POST",
@@ -9,6 +10,7 @@ function pegarMaquinas() {
         if (resposta.ok) {
             resposta.json().then(json => {
                 maquinas = json
+                montarLista(maquinas)
             });
         }
     })

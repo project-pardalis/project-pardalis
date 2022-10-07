@@ -96,29 +96,6 @@ function sumirFiltros() {
     filtroAlfa.style.display = 'none'
     filtroGrau.style.display = 'none'
 }
-function gerarServers() {
-    setores = ["Alpha", "Bravo", "Charlie", "Delta"]
-    z = Math.floor(Math.random() * (250 - 50)) + 50
-    for (let x = 0; x < z; x++) {
-        var length = 12,
-            charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-            hexkey = "";
-        for (var i = 0, n = charset.length; i < length; ++i) {
-            hexkey += charset.charAt(Math.floor(Math.random() * n));
-        }
-        cpuTemp = Math.floor(Math.random() * (100 - 40)) + 40
-        armazem = Math.floor(Math.random() * (1000 - 200)) + 200
-        setorR = Math.floor(Math.random() * 4)
-        servers.push({
-            "IdServer": x,
-            "Setor": setores[setorR],
-            "Serial": hexkey,
-            "cpuTemp": cpuTemp,
-            "Armazenamento": armazem
-        })
-    }
-    montarLista(1)
-}
 function mostrarLista(x) {
     if (x == 1) {
         serverCont.style.display = 'grid'
@@ -128,20 +105,18 @@ function mostrarLista(x) {
         serverList.style.display = 'block'
     }
 }
-function montarLista() {
-    for (let x = 0; x < servers.length; x++) {
+function montarLista(maq) {
+    for (let x = 0; x < maq.length; x++) {
         serverQtd++
-        setor = servers[x].Setor
-        serverCont.innerHTML += `<div id="idServer${x}"  class="server">${setor.slice(0, 1)}</div>`
+        serverCont.innerHTML += `<div id="idServer${maq[x].idMaquina}"  class="server"></div>`
         serverList.innerHTML += `<div class="serverLista">
-        <div id="statusServer${x}" class="statusServer position-absolute"></div>
+        <div id="statusServer${maq[x].idMaquina}" class="statusServer position-absolute"></div>
         <img class="serverSvg" src="../assets/img/hdd-stack-fill.svg" alt="">
-        <span class="setorLista position-absolute"><b>${servers[x].Setor}</b></span>
-        <span class="hexLista position-absolute">${servers[x].Serial}</span>
+        <span class="hexLista position-absolute">${maq[x].nomeMaquina}</span>
         <span class="qtdArmazem position-absolute">${servers[x].Armazenamento}GB de 1tb</span>
         <div class="armazemProgress position-absolute"></div>
-        <div id="serverArma${x}" class="armazemHas position-absolute"></div>
-        <span id="cpuTemperatura${x}" class="cpuTemperatura position-absolute">${servers[x].cpuTemp}ºC</span>
+        <div id="serverArma${maq[x].idMaquina}" class="armazemHas position-absolute"></div>
+        <span id="cpuTemperatura${maq[x].idMaquina}" class="cpuTemperatura position-absolute">${servers[x].cpuTemp}ºC</span>
         </div>`
     }
     verificarCor(servers)
