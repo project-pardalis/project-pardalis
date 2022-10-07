@@ -1,4 +1,3 @@
-
 const labels = [
     'January',
     'February',
@@ -8,23 +7,47 @@ const labels = [
     'June',
 ];
 
-const data = {
+const dataCPU = {
     labels: labels,
     datasets: [
-
         {
-
             fill: true,
             fillColor: " #6B46D750 ",
-            label: 'CPU',
-
+            label: 'Cpu',
+            borderColor: '#6B46D7',
+            data: [80, 78, 70, 65, 50, 40, 50],
+        }]
+};
+const dataRAM = {
+    labels: labels,
+    datasets: [
+        {
+            fill: true,
+            fillColor: " #6B46D750 ",
+            label: 'Ram',
+            borderColor: '#6B46D7',
+            data: [80, 78, 70, 65, 50, 40, 50],
+        }]
+};
+const dataDisco = {
+    labels: labels,
+    datasets: [
+        {
+            fill: true,
+            fillColor: " #6B46D750 ",
+            label: 'Disco',
             borderColor: '#6B46D7',
             data: [80, 78, 70, 65, 50, 40, 50],
         }]
 };
 
-const data_without_labels = {
+const barConfig = {
+    type: 'bar',
+    data: dataCPU,
+    options: { maintainAspectRatio: false }
+};
 
+const dataDiaHora = {
     datasets: [{
         label: 'My First dataset',
         backgroundColor: '#6B46D7',
@@ -33,50 +56,79 @@ const data_without_labels = {
     }]
 };
 
-const config = {
-    type: 'line',
-    data: data,
-    options: {}
-}
-
-    ;
-
-const configBig = {
-    type: 'bar',
-    data: data,
-    options: {}
-};
 
 const configPizza = {
     type: 'doughnut',
-    data: data_without_labels,
+    data: dataDiaHora,
     options: {}
 
 };
 
-const cpu = new Chart(
+const chartCpu = new Chart(
     document.getElementById('myChart'),
-    config
+    {
+        type: 'line',
+        data: dataCPU,
+        options: {
+            legend: {
+                display: false,
+            }
+        }
+    }
 );
 
-const ram = new Chart(
+const chartRam = new Chart(
     document.getElementById('myChart1'),
-    config
+    {
+        type: 'line',
+        data: dataRAM,
+        options: {
+            legend: {
+                display: false,
+            }
+        }
+    }
 );
 
-const disk = new Chart(
+const chartDisco = new Chart(
     document.getElementById('myChart2'),
-    config
+    {
+        type: 'line',
+        data: dataDisco,
+        options: {
+            legend: {
+                display: false,
+            }
+        }
+    }
 );
 
-const big = new Chart(
+const bigChart = new Chart(
     document.getElementById('myChart3'),
-    config
+    {
+        type: 'line',
+        data: dataCPU,
+        options: {
+            maintainAspectRatio: false,
+            legend: {
+                display: false,
+            }
+        }
+    }
 );
 
-const bar_component = new Chart(
+const barChart = new Chart(
     document.getElementById('myChart4'),
-    configBig
+    {
+        type: 'bar',
+        data: dataCPU,
+        options: {
+            maintainAspectRatio: false, 
+            legend: {
+                display: false,
+            }
+        }
+    }
 );
 
 

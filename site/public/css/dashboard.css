@@ -16,7 +16,6 @@ body {
   font-size: .875rem;
   font-family: 'Nunito', 'Open Sans', sans-serif !important;
   height: 100vh;
-  width: 100vw;
 }
 
 main {
@@ -63,7 +62,7 @@ main {
   text-decoration: none !important;
 }
 
-.nav .nav-link.active:hover {
+.nav .nav-link.active:not(.fw-bold):hover {
   color: #2470dc !important;
 }
 
@@ -74,14 +73,6 @@ main {
 /*
  * Navbar
  */
-
-.navbar-brand {
-  padding-top: .75rem;
-  padding-bottom: .75rem;
-
-  box-shadow: inset -1px 0 0 var(--thirdColor);
-  /* box-shadow: inset 1px 0 0 rgba(0, 0, 0, .25); */
-}
 
 header {
   background-color: var(--thirdColor);
@@ -261,8 +252,9 @@ header {
 }
 
 .hover-mychart:hover {
-  transform: scale(1.4);
+  transform: scale(1.1);
   transition: 100ms;
+  border-radius: 2px;
 
 }
 
@@ -272,19 +264,13 @@ header {
 }
 
 .component-box {
-  margin-top: 8rem;
+  padding-top: 8rem;
   transition: 300ms;
 
 }
 
 .component-box:hover {
   transition: 300ms;
-}
-
-
-
-.content-card {
-  width: 80%;
 }
 
 .component-box .card:hover {
@@ -306,24 +292,8 @@ header {
   padding: 1rem;
 }
 
-.server-txt {
-  padding: 1rem;
-  border-radius: 1.2rem;
-
-  width: 30%;
-}
-
 .kpi-analisys-data {
   box-shadow: 0.1rem 0.3rem 0.2rem rgb(195, 195, 195);
-
-}
-
-.center-text {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-
 }
 
 .center-left {
@@ -334,16 +304,11 @@ header {
 
 }
 
-.minichart {
-  width: 9rem !important;
-}
-
 .center-row {
   display: flex;
   justify-content: left;
   align-items: center;
   flex-direction: column;
-  width: 30rem;
 }
 
 .center-row-big {
@@ -351,8 +316,6 @@ header {
   justify-content: left;
   margin-top: 1rem;
   flex-direction: column;
-  width: 60rem;
-  max-width: 60rem;
   padding: 1rem;
 }
 
@@ -515,3 +478,23 @@ header {
 }
 
 /* dashboard min.css */
+
+/* Dados-gerais */
+.big-chart {
+  width: 70%;
+}
+
+
+/* Scroll */
+::-webkit-scrollbar-track {
+  background-color: whitesmoke;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--thirdColor);
+  border-radius: 5%;
+}
