@@ -110,7 +110,7 @@
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
                     style="height: fit-content; width: 25%; ">
                     <div class="h2">Servers em risco</div>
-                    <p class="lead small-font">Servidores que estão com risco problemas graves.
+                    <p class="lead small-font">Gráfico de pizza (risco / normais / alertas)
                     </p>
                     <div class="box-minichart-general"> <canvas id="serverRiskPie"></canvas></div>
                     <hr>
@@ -119,17 +119,18 @@
 
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
                     style="height: fit-content; width: 25%; ">
-                    <div class="h2">Servers em risco</div>
-                    <p class="lead small-font">Servidores que estão com risco problemas graves.
+                    <div class="h2">Sistema operacional </div>
+                    <p class="lead small-font">Gráfico de barra (linux / mac / windows )
                     </p>
                     <div class="box-minichart-general"> </div>
                     <hr>
 
                 </div>
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
-                    style="height: fit-content; width: 25%; ">
-                    <div class="h2">Servers em risco</div>
-                    <p class="lead small-font">Servidores que estão com risco problemas graves.
+                    style="height: fit-content; width: 45%; ">
+                    <div class="h2">Média armazenamento </div>
+                    <p class="lead small-font"> chart linha => (semana / média de uso gb de todos os discos )
+
                     </p>
                     <div class="box-minichart-general"> </div>
                     <hr>
@@ -139,34 +140,68 @@
 
             <div class="center box-general justify-content-evenly flex-column"
                 style="width:90%; border:2px solid blue;">
-
+                <div class="display-6">Avg / Date</div>
+                <div class="small-font">
+                    Gráfico com as médias por data, média para comparativo de qualidade a longo-prazo, select dinamico
+                    que altera com os selects buttom
+                </div>
                 <div class="box-mensal-chart">
 
                 </div>
                 <div class="center">
-                    <div class="center">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label h4" for="flexCheckDefault">
-                                Ano
-                            </label>
+                    <div class="center justify-content-between " style="border: 2px solid red; width: 45rem;">
+                        <div class="card d-flex  flex-md-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="anoCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">Ano</div>
+                                </label>
+
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="mesCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">Mês</div>
+                                </label>
+
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="semanaCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">Semana</div>
+                                </label>
+
+                            </div>
 
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label h4" for="flexCheckDefault">
-                                Mês
-                            </label>
+                        <div class="card d-flex flex-md-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="cpuCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">CPU</div>
+                                </label>
+
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="ramCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">RAM</div>
+                                </label>
+
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="discoCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">DISCO</div>
+                                </label>
+
+                            </div>
 
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label h4" for="flexCheckDefault">
-                                Semana
-                            </label>
 
-                        </div>
+
                     </div>
+
                 </div>
             </div>
             <div class="center-row box-general justify-content-evenly" style="width:90%; border:2px solid blue;">
@@ -182,8 +217,9 @@
 
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
                     style="height: fit-content; width: 25%; ">
-                    <div class="h2">Servers em risco</div>
-                    <p class="lead small-font">Servidores que estão com risco problemas graves.
+                    <div class="h2">Armazenamento </div>
+                    <p class="lead small-font"> chart barra => Qtd servers entre (300-400GB , 400-500GB , 500-600GB ,
+                        >600GB )
                     </p>
                     <div class="box-minichart-general"> </div>
                     <hr>
