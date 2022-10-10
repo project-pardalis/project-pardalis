@@ -4,6 +4,7 @@ listStyle = 1
 contFiltro = 1
 serverQtd = 0
 isFiltro = false
+dadosServer = []
 document.getElementById("filterSearch").addEventListener("keypress", function (e) {
     if (e.key == 'Enter') {
         filtro = filterSearch.value
@@ -105,21 +106,25 @@ function mostrarLista(x) {
         serverList.style.display = 'block'
     }
 }
+
+function salvarDados(dados) {
+    dadosServer = dados;
+}
+
 function montarLista(maq) {
     for (let x = 0; x < maq.length; x++) {
-        serverQtd++
         serverCont.innerHTML += `<div id="idServer${maq[x].idMaquina}"  class="server"></div>`
         serverList.innerHTML += `<div class="serverLista">
         <div id="statusServer${maq[x].idMaquina}" class="statusServer position-absolute"></div>
         <img class="serverSvg" src="../assets/img/hdd-stack-fill.svg" alt="">
         <span class="hexLista position-absolute">${maq[x].nomeMaquina}</span>
-        <span class="qtdArmazem position-absolute">${servers[x].Armazenamento}GB de 1tb</span>
-        <div class="armazemProgress position-absolute"></div>
+        <span id=statusLista${maq[x].idMaquina} class="qtdArmazem position-absolute"></span>
+        <div id=armazemProgress${maq[x].idMaquina} class="armazemProgress position-absolute"></div>
         <div id="serverArma${maq[x].idMaquina}" class="armazemHas position-absolute"></div>
-        <span id="cpuTemperatura${maq[x].idMaquina}" class="cpuTemperatura position-absolute">${servers[x].cpuTemp}ºC</span>
+        <span id="cpuTemperatura${maq[x].idMaquina}" class="cpuTemperatura position-absolute">ºC</span>
         </div>`
     }
-    verificarCor(servers)
+    verificarCor(dadosServer)
 }
 
 function filtrarServers(filtro) {
@@ -132,63 +137,32 @@ function filtrarServers(filtro) {
     }
     montarListaFiltro()
 }
-function montarListaFiltro() {
-    for (let x = 0; x < serversFiltro.length; x++) {
-        serverQtd++
-        setor = serversFiltro[x].Setor
-        serverCont.innerHTML += ` <div id="idServer${x}"  class="server">${setor.slice(0, 1)}</div>`
-        serverList.innerHTML += `<div class="serverLista">
-        <div id="statusServer${x}" href="server_analysys.html" class="statusServer position-absolute"></div>
-        <img class="serverSvg" src="../../assets/img/hdd-stack-fill.svg" alt="">
-        <span class="setorLista position-absolute"><b>${serversFiltro[x].Setor}</b></span>
-        <span class="hexLista position-absolute">${serversFiltro[x].Serial}</span>
-        <span class="qtdArmazem position-absolute">${serversFiltro[x].Armazenamento}GB de 1tb</span>
-        <div class="armazemProgress position-absolute"></div>
-        <div id="serverArma${x}" class="armazemHas position-absolute"></div>
-        <span id="cpuTemperatura${x}" class="cpuTemperatura position-absolute">${serversFiltro[x].cpuTemp}ºC</span>
-        </div>`
-    }
-    verificarCor(serversFiltro)
-}
+// function montarListaFiltro() {
+//     for (let x = 0; x < serversFiltro.length; x++) {
+//         serverQtd++
+//         setor = serversFiltro[x].Setor
+//         serverCont.innerHTML += ` <div id="idServer${x}"  class="server">${setor.slice(0, 1)}</div>`
+//         serverList.innerHTML += `<div class="serverLista">
+//         <div id="statusServer${x}" href="server_analysys.html" class="statusServer position-absolute"></div>
+//         <img class="serverSvg" src="../../assets/img/hdd-stack-fill.svg" alt="">
+//         <span class="setorLista position-absolute"><b>${serversFiltro[x].Setor}</b></span>
+//         <span class="hexLista position-absolute">${serversFiltro[x].Serial}</span>
+//         <span class="qtdArmazem position-absolute">${serversFiltro[x].Armazenamento}GB de 1tb</span>
+//         <div class="armazemProgress position-absolute"></div>
+//         <div id="serverArma${x}" class="armazemHas position-absolute"></div>
+//         <span id="cpuTemperatura${x}" class="cpuTemperatura position-absolute">${serversFiltro[x].cpuTemp}ºC</span>
+//         </div>`
+//     }
+//     verificarCor(serversFiltro)
+// }
 
-function verificarCor(filtro) {
+function verificarCor(servers) {
     normal = '#00FF00'
     alerta = '#FFFF00'
     risco = '#FF0000'
-    for (let x = 0; x < serverQtd; x++) {
-        if (filtro[x].cpuTemp > 95 || filtro[x].Armazenamento > 950) {
-            document.getElementById(`idServer${x}`).style.backgroundColor = risco
-        } else if (filtro[x].cpuTemp > 85 || filtro[x].Armazenamento > 800) {
-            document.getElementById(`idServer${x}`).style.backgroundColor = alerta
-        } else {
-            document.getElementById(`idServer${x}`).style.backgroundColor = normal
+    for (let x = 0; x < servers.length; x++) {
+        for (let y = 0; y < 4; y++) {
+            
         }
     }
-    for (let x = 0; x < serverQtd; x++) {
-        if (filtro[x].cpuTemp >= 95 || filtro[x].Armazenamento > 950) {
-            document.getElementById(`statusServer${x}`).style.backgroundColor = risco
-        } else if (filtro[x].cpuTemp >= 85 || filtro[x].Armazenamento > 800) {
-            document.getElementById(`statusServer${x}`).style.backgroundColor = alerta
-        } else if (filtro[x].cpuTemp < 85 && filtro[x].Armazenamento < 800) {
-            document.getElementById(`statusServer${x}`).style.backgroundColor = normal
-        }
-        if (filtro[x].cpuTemp >= 95) {
-            document.getElementById(`cpuTemperatura${x}`).style.color = risco
-        } else if (filtro[x].cpuTemp >= 85) {
-            document.getElementById(`cpuTemperatura${x}`).style.color = alerta
-        }
-        if (filtro[x].Armazenamento > 950) {
-            document.getElementById(`serverArma${x}`).style.backgroundColor = risco
-        } else if (filtro[x].Armazenamento > 800) {
-            document.getElementById(`serverArma${x}`).style.backgroundColor = alerta
-        } else if (filtro[x].Armazenamento < 800) {
-            document.getElementById(`serverArma${x}`).style.backgroundColor = normal
-        }
-        document.getElementById(`serverArma${x}`).style.width = `${servers[x].Armazenamento / 50}vw`
-    }
-    serverQtd = 0
-
-
-
-
 }

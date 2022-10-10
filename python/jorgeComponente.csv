@@ -1,150 +1,150 @@
-1,Cpu,1,teste,1,1
-2,Memoria Ram,1,teste,1,1
-3,Disco,1,teste,1,1
-4,Cpu,1,teste,2,1
-5,Memoria Ram,1,teste,2,1
-6,Disco,1,teste,2,1
-7,Cpu,1,teste,3,1
-8,Memoria Ram,1,teste,3,1
-9,Disco,1,teste,3,1
-10,Cpu,1,teste,4,1
-11,Memoria Ram,1,teste,4,1
-12,Disco,1,teste,4,1
-13,Cpu,1,teste,5,1
-14,Memoria Ram,1,teste,5,1
-15,Disco,1,teste,5,1
-16,Cpu,1,teste,6,1
-17,Memoria Ram,1,teste,6,1
-18,Disco,1,teste,6,1
-19,Cpu,1,teste,7,1
-20,Memoria Ram,1,teste,7,1
-21,Disco,1,teste,7,1
-22,Cpu,1,teste,8,1
-23,Memoria Ram,1,teste,8,1
-24,Disco,1,teste,8,1
-25,Cpu,1,teste,9,1
-26,Memoria Ram,1,teste,9,1
-27,Disco,1,teste,9,1
-28,Cpu,1,teste,10,1
-29,Memoria Ram,1,teste,10,1
-30,Disco,1,teste,10,1
-31,Cpu,1,teste,11,1
-32,Memoria Ram,1,teste,11,1
-33,Disco,1,teste,11,1
-34,Cpu,1,teste,12,1
-35,Memoria Ram,1,teste,12,1
-36,Disco,1,teste,12,1
-37,Cpu,1,teste,13,1
-38,Memoria Ram,1,teste,13,1
-39,Disco,1,teste,13,1
-40,Cpu,1,teste,14,1
-41,Memoria Ram,1,teste,14,1
-42,Disco,1,teste,14,1
-43,Cpu,1,teste,15,1
-44,Memoria Ram,1,teste,15,1
-45,Disco,1,teste,15,1
-46,Cpu,1,teste,16,1
-47,Memoria Ram,1,teste,16,1
-48,Disco,1,teste,16,1
-49,Cpu,1,teste,17,1
-50,Memoria Ram,1,teste,17,1
-51,Disco,1,teste,17,1
-52,Cpu,1,teste,18,1
-53,Memoria Ram,1,teste,18,1
-54,Disco,1,teste,18,1
-55,Cpu,1,teste,19,1
-56,Memoria Ram,1,teste,19,1
-57,Disco,1,teste,19,1
-58,Cpu,1,teste,20,1
-59,Memoria Ram,1,teste,20,1
-60,Disco,1,teste,20,1
-61,Cpu,1,teste,21,1
-62,Memoria Ram,1,teste,21,1
-63,Disco,1,teste,21,1
-64,Cpu,1,teste,22,1
-65,Memoria Ram,1,teste,22,1
-66,Disco,1,teste,22,1
-67,Cpu,1,teste,23,1
-68,Memoria Ram,1,teste,23,1
-69,Disco,1,teste,23,1
-70,Cpu,1,teste,24,1
-71,Memoria Ram,1,teste,24,1
-72,Disco,1,teste,24,1
-73,Cpu,1,teste,25,1
-74,Memoria Ram,1,teste,25,1
-75,Disco,1,teste,25,1
-76,Cpu,1,teste,26,1
-77,Memoria Ram,1,teste,26,1
-78,Disco,1,teste,26,1
-79,Cpu,1,teste,27,1
-80,Memoria Ram,1,teste,27,1
-81,Disco,1,teste,27,1
-82,Cpu,1,teste,28,1
-83,Memoria Ram,1,teste,28,1
-84,Disco,1,teste,28,1
-85,Cpu,1,teste,29,1
-86,Memoria Ram,1,teste,29,1
-87,Disco,1,teste,29,1
-88,Cpu,1,teste,30,1
-89,Memoria Ram,1,teste,30,1
-90,Disco,1,teste,30,1
-91,Cpu,1,teste,31,1
-92,Memoria Ram,1,teste,31,1
-93,Disco,1,teste,31,1
-94,Cpu,1,teste,32,1
-95,Memoria Ram,1,teste,32,1
-96,Disco,1,teste,32,1
-97,Cpu,1,teste,33,1
-98,Memoria Ram,1,teste,33,1
-99,Disco,1,teste,33,1
-100,Cpu,1,teste,34,1
-101,Memoria Ram,1,teste,34,1
-102,Disco,1,teste,34,1
-103,Cpu,1,teste,35,1
-104,Memoria Ram,1,teste,35,1
-105,Disco,1,teste,35,1
-106,Cpu,1,teste,36,1
-107,Memoria Ram,1,teste,36,1
-108,Disco,1,teste,36,1
-109,Cpu,1,teste,37,1
-110,Memoria Ram,1,teste,37,1
-111,Disco,1,teste,37,1
-112,Cpu,1,teste,38,1
-113,Memoria Ram,1,teste,38,1
-114,Disco,1,teste,38,1
-115,Cpu,1,teste,39,1
-116,Memoria Ram,1,teste,39,1
-117,Disco,1,teste,39,1
-118,Cpu,1,teste,40,1
-119,Memoria Ram,1,teste,40,1
-120,Disco,1,teste,40,1
-121,Cpu,1,teste,41,1
-122,Memoria Ram,1,teste,41,1
-123,Disco,1,teste,41,1
-124,Cpu,1,teste,42,1
-125,Memoria Ram,1,teste,42,1
-126,Disco,1,teste,42,1
-127,Cpu,1,teste,43,1
-128,Memoria Ram,1,teste,43,1
-129,Disco,1,teste,43,1
-130,Cpu,1,teste,44,1
-131,Memoria Ram,1,teste,44,1
-132,Disco,1,teste,44,1
-133,Cpu,1,teste,45,1
-134,Memoria Ram,1,teste,45,1
-135,Disco,1,teste,45,1
-136,Cpu,1,teste,46,1
-137,Memoria Ram,1,teste,46,1
-138,Disco,1,teste,46,1
-139,Cpu,1,teste,47,1
-140,Memoria Ram,1,teste,47,1
-141,Disco,1,teste,47,1
-142,Cpu,1,teste,48,1
-143,Memoria Ram,1,teste,48,1
-144,Disco,1,teste,48,1
-145,Cpu,1,teste,49,1
-146,Memoria Ram,1,teste,49,1
-147,Disco,1,teste,49,1
-148,Cpu,1,teste,50,1
-149,Memoria Ram,1,teste,50,1
-150,Disco,1,teste,50,1
+1,Cpu,1,NULL,1,1
+2,Memoria Ram,1,NULL,1,1
+3,Disco,1,NULL,1,1
+4,Cpu,1,NULL,2,1
+5,Memoria Ram,1,NULL,2,1
+6,Disco,1,NULL,2,1
+7,Cpu,1,NULL,3,1
+8,Memoria Ram,1,NULL,3,1
+9,Disco,1,NULL,3,1
+10,Cpu,1,NULL,4,1
+11,Memoria Ram,1,NULL,4,1
+12,Disco,1,NULL,4,1
+13,Cpu,1,NULL,5,1
+14,Memoria Ram,1,NULL,5,1
+15,Disco,1,NULL,5,1
+16,Cpu,1,NULL,6,1
+17,Memoria Ram,1,NULL,6,1
+18,Disco,1,NULL,6,1
+19,Cpu,1,NULL,7,1
+20,Memoria Ram,1,NULL,7,1
+21,Disco,1,NULL,7,1
+22,Cpu,1,NULL,8,1
+23,Memoria Ram,1,NULL,8,1
+24,Disco,1,NULL,8,1
+25,Cpu,1,NULL,9,1
+26,Memoria Ram,1,NULL,9,1
+27,Disco,1,NULL,9,1
+28,Cpu,1,NULL,10,1
+29,Memoria Ram,1,NULL,10,1
+30,Disco,1,NULL,10,1
+31,Cpu,1,NULL,11,1
+32,Memoria Ram,1,NULL,11,1
+33,Disco,1,NULL,11,1
+34,Cpu,1,NULL,12,1
+35,Memoria Ram,1,NULL,12,1
+36,Disco,1,NULL,12,1
+37,Cpu,1,NULL,13,1
+38,Memoria Ram,1,NULL,13,1
+39,Disco,1,NULL,13,1
+40,Cpu,1,NULL,14,1
+41,Memoria Ram,1,NULL,14,1
+42,Disco,1,NULL,14,1
+43,Cpu,1,NULL,15,1
+44,Memoria Ram,1,NULL,15,1
+45,Disco,1,NULL,15,1
+46,Cpu,1,NULL,16,1
+47,Memoria Ram,1,NULL,16,1
+48,Disco,1,NULL,16,1
+49,Cpu,1,NULL,17,1
+50,Memoria Ram,1,NULL,17,1
+51,Disco,1,NULL,17,1
+52,Cpu,1,NULL,18,1
+53,Memoria Ram,1,NULL,18,1
+54,Disco,1,NULL,18,1
+55,Cpu,1,NULL,19,1
+56,Memoria Ram,1,NULL,19,1
+57,Disco,1,NULL,19,1
+58,Cpu,1,NULL,20,1
+59,Memoria Ram,1,NULL,20,1
+60,Disco,1,NULL,20,1
+61,Cpu,1,NULL,21,1
+62,Memoria Ram,1,NULL,21,1
+63,Disco,1,NULL,21,1
+64,Cpu,1,NULL,22,1
+65,Memoria Ram,1,NULL,22,1
+66,Disco,1,NULL,22,1
+67,Cpu,1,NULL,23,1
+68,Memoria Ram,1,NULL,23,1
+69,Disco,1,NULL,23,1
+70,Cpu,1,NULL,24,1
+71,Memoria Ram,1,NULL,24,1
+72,Disco,1,NULL,24,1
+73,Cpu,1,NULL,25,1
+74,Memoria Ram,1,NULL,25,1
+75,Disco,1,NULL,25,1
+76,Cpu,1,NULL,26,1
+77,Memoria Ram,1,NULL,26,1
+78,Disco,1,NULL,26,1
+79,Cpu,1,NULL,27,1
+80,Memoria Ram,1,NULL,27,1
+81,Disco,1,NULL,27,1
+82,Cpu,1,NULL,28,1
+83,Memoria Ram,1,NULL,28,1
+84,Disco,1,NULL,28,1
+85,Cpu,1,NULL,29,1
+86,Memoria Ram,1,NULL,29,1
+87,Disco,1,NULL,29,1
+88,Cpu,1,NULL,30,1
+89,Memoria Ram,1,NULL,30,1
+90,Disco,1,NULL,30,1
+91,Cpu,1,NULL,31,1
+92,Memoria Ram,1,NULL,31,1
+93,Disco,1,NULL,31,1
+94,Cpu,1,NULL,32,1
+95,Memoria Ram,1,NULL,32,1
+96,Disco,1,NULL,32,1
+97,Cpu,1,NULL,33,1
+98,Memoria Ram,1,NULL,33,1
+99,Disco,1,NULL,33,1
+100,Cpu,1,NULL,34,1
+101,Memoria Ram,1,NULL,34,1
+102,Disco,1,NULL,34,1
+103,Cpu,1,NULL,35,1
+104,Memoria Ram,1,NULL,35,1
+105,Disco,1,NULL,35,1
+106,Cpu,1,NULL,36,1
+107,Memoria Ram,1,NULL,36,1
+108,Disco,1,NULL,36,1
+109,Cpu,1,NULL,37,1
+110,Memoria Ram,1,NULL,37,1
+111,Disco,1,NULL,37,1
+112,Cpu,1,NULL,38,1
+113,Memoria Ram,1,NULL,38,1
+114,Disco,1,NULL,38,1
+115,Cpu,1,NULL,39,1
+116,Memoria Ram,1,NULL,39,1
+117,Disco,1,NULL,39,1
+118,Cpu,1,NULL,40,1
+119,Memoria Ram,1,NULL,40,1
+120,Disco,1,NULL,40,1
+121,Cpu,1,NULL,41,1
+122,Memoria Ram,1,NULL,41,1
+123,Disco,1,NULL,41,1
+124,Cpu,1,NULL,42,1
+125,Memoria Ram,1,NULL,42,1
+126,Disco,1,NULL,42,1
+127,Cpu,1,NULL,43,1
+128,Memoria Ram,1,NULL,43,1
+129,Disco,1,NULL,43,1
+130,Cpu,1,NULL,44,1
+131,Memoria Ram,1,NULL,44,1
+132,Disco,1,NULL,44,1
+133,Cpu,1,NULL,45,1
+134,Memoria Ram,1,NULL,45,1
+135,Disco,1,NULL,45,1
+136,Cpu,1,NULL,46,1
+137,Memoria Ram,1,NULL,46,1
+138,Disco,1,NULL,46,1
+139,Cpu,1,NULL,47,1
+140,Memoria Ram,1,NULL,47,1
+141,Disco,1,NULL,47,1
+142,Cpu,1,NULL,48,1
+143,Memoria Ram,1,NULL,48,1
+144,Disco,1,NULL,48,1
+145,Cpu,1,NULL,49,1
+146,Memoria Ram,1,NULL,49,1
+147,Disco,1,NULL,49,1
+148,Cpu,1,NULL,50,1
+149,Memoria Ram,1,NULL,50,1
+150,Disco,1,NULL,50,1

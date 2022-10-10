@@ -11,7 +11,7 @@ function getComponente(empresa) {
 }
 
 function getDados(empresa) {
-    var sql = `SELECT * FROM Leitura ORDER BY dataColeta DESC LIMIT 60`
+    var sql = `select * from vw_empresa_sptech_maquina1_leitura order by dataColeta DESC limit 200`
     return database.executar(sql)
 }
 

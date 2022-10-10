@@ -1,4 +1,3 @@
-maquinas = []
 function pegarMaquinas() {
     fetch("/dash/getMaquinas", {
         method: "POST",
@@ -43,6 +42,7 @@ function pegarDados() {
         if (resposta.ok) {
             resposta.json().then(json => {
                 dados = json
+                salvarDados(dados)
             })
         }
     })
@@ -51,4 +51,3 @@ function pegarDados() {
 pegarMaquinas()
 pegarComponente()
 pegarDados()
-setInterval(pegarDados, 30000)

@@ -104,7 +104,7 @@ def write_lines_user(idUser, fkEmp, fkAdm, nome, email, senha, cargo):
 
 def write_lines_dados(idComp, fkComp, fkMet, fkMaq, fkEmp, data, valor):
     sql = "INSERT INTO Leitura VALUES(%s,%s,%s,%s,%s,%s,%s)"
-    val = (idComp,fkComp,fkMet,fkMaq,fkEmp,data,valor)
+    val = (idComp,fkMet,fkComp,fkMaq,fkEmp,data,valor)
     mycursor.execute(sql,val)
     banco.commit()
 
