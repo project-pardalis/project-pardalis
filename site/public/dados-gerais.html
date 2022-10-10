@@ -38,7 +38,8 @@
                         <p class="h5 text-muted fw-bolder">Dashboards</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="./dashboard.html">Home</a>
+                        <a class="nav-link active h6 p-2 m-0" style="width: fit-content;"
+                            href="./dashboard.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;">
@@ -48,7 +49,8 @@
                         <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="">Mês atual</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="./server-analysys.html">Análise de dados</a>
+                        <a class="nav-link active h6 p-2 m-0" style="width: fit-content;"
+                            href="./server-analysys.html">Análise de dados</a>
                     </li>
                 </ul>
                 <ul class="nav flex-column mt-2">
@@ -70,92 +72,161 @@
             </div>
         </nav>
 
-        <div class="p-0 center flex-column align-items-center" style="width: 85%;">
+        <div class="center flex-column" style="width: 85%; border: 2px solid red;">
+            <div class="center">
+                <div class="display-4"> Dados operacionais</div>
+            </div>
+            <div class="center-row  box-general justify-content-between">
+                <div class="card bg-dark cards-general-data mt-4 p-4 d-flex  flex-column">
 
-            <div class="center kpis-flex mt-4" style="width: 95%;">
+                    <div class="txt-kpi-general fw-bolder text-white">Qtd de Servers</div>
+                    <div class="warning">
+                        <div class="display-6 text-white">
+                            25
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-dark  cards-general-data mt-4 p-4 d-flex flex-column">
+
+                    <div class="txt-kpi-general fw-bolder text-white">Server em risco</div>
+                    <div class="display-6 text-white  ">
+                        25
+                    </div>
+
+                </div>
+                <div class="card  bg-dark  cards-general-data mt-4 p-4 d-flex flex-column">
+
+
+                    <div class="txt-kpi-general fw-bolder text-white">Server em risco/mês</div>
+                    <div class="display-6 text-white">
+                        25
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="center-row box-general justify-content-evenly" style="width:90%; border:2px solid blue;">
+                <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
+                    style="height: fit-content; width: 25%; ">
+                    <div class="h2">Servers em risco</div>
+                    <p class="lead small-font">Gráfico de pizza (risco / normais / alertas)
+                    </p>
+                    <div class="box-minichart-general"> <canvas id="serverRiskPie"></canvas></div>
+                    <hr>
+
+                </div>
+
+                <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
+                    style="height: fit-content; width: 25%; ">
+                    <div class="h2">Sistema operacional </div>
+                    <p class="lead small-font">Gráfico de barra (linux / mac / windows )
+                    </p>
+                    <div class="box-minichart-general"> </div>
+                    <hr>
+
+                </div>
+                <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
+                    style="height: fit-content; width: 45%; ">
+                    <div class="h2">Média armazenamento </div>
+                    <p class="lead small-font"> chart linha => (semana / média de uso gb de todos os discos )
+
+                    </p>
+                    <div class="box-minichart-general"> </div>
+                    <hr>
+
+                </div>
+            </div>
+
+            <div class="center box-general justify-content-evenly flex-column"
+                style="width:90%; border:2px solid blue;">
+                <div class="display-6">Avg / Date</div>
+                <div class="small-font">
+                    Gráfico com as médias por data, média para comparativo de qualidade a longo-prazo, select dinamico
+                    que altera com os selects buttom
+                </div>
+                <div class="box-mensal-chart">
+
+                </div>
                 <div class="center">
-                    <div class="display-6">Servidor <div class="h5">numero - setor</div>
-                    </div>
-                </div>
-                <div class="card center-row kpi-analisys-data">
-                    <div class='card-img-kpi'>
-                        <img src="https://www.svgrepo.com/show/76255/computer-cpu.svg" alt="" class="icon-kpi">
-                    </div>
-                    <div class="text-center">
-                        <div class="h4 fw-bolder">11%</div>
-                    </div>
+                    <div class="center justify-content-between " style="border: 2px solid red; width: 45rem;">
+                        <div class="card d-flex  flex-md-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="anoCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">Ano</div>
+                                </label>
 
-                </div>
-                <div class="card center-row kpi-analisys-data">
-                    <div class='card-img-kpi'>
-                        <img src="https://cdn-icons-png.flaticon.com/128/1689/1689137.png" alt="" class="icon-kpi">
-                    </div>
-                    <div class="text-center">
-                        <div class="h4 fw-bolder">11%</div>
-                    </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="mesCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">Mês</div>
+                                </label>
 
-                </div>
-                <div class="card center-row kpi-analisys-data">
-                    <div class='card-img-kpi'>
-                        <img src="https://www.pngrepo.com/png/95566/512/hard-drive-device.png" alt="" class="icon-kpi">
-                    </div>
-                    <div class="text-center">
-                        <div class="h4 fw-bolder">11%</div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="semanaCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">Semana</div>
+                                </label>
+
+                            </div>
+
+                        </div>
+                        <div class="card d-flex flex-md-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="cpuCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">CPU</div>
+                                </label>
+
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="ramCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">RAM</div>
+                                </label>
+
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="discoCheckBox">
+                                <label class="form-check-label h4" for="flexCheckDefault">
+                                    <div class="small-font">DISCO</div>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
                     </div>
 
                 </div>
             </div>
+            <div class="center-row box-general justify-content-evenly" style="width:90%; border:2px solid blue;">
+                <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
+                    style="height: fit-content; width: 25%; ">
+                    <div class="h2">Servers em risco</div>
+                    <p class="lead small-font">Servidores que estão com risco problemas graves.
+                    </p>
+                    <div class="box-minichart-general"> </div>
+                    <hr>
 
-            <div class="card mt-4 p-4 d-flex flex-row" style="height: fit-content; width: 95%;">
-                <div class="h-100 w-25">
-                    <div class="card w-100 center-left d-flex flex-row p-2 mb-4">
-                        <div class="chart h-100" style="width: 75%;">
-                            <canvas class="minichart" id="myChart"></canvas>
-                        </div>
-                        <div class="text-center d-flex flex-column align-items-center">
-                            <p class="fw-semibold h5 mb-3">CPU</p>
-                            <p id="cpu_data" class="percent card px-2"> 33% </p>
-                        </div>
-                    </div>
-                    <div class="card w-100 center-left d-flex flex-row p-2 mb-4">
-                        <div class="chart h-100" style="width: 75%;">
-                            <canvas class="minichart" id="myChart1"></canvas>
-                        </div>
-                        <div class="text-center d-flex flex-column align-items-center">
-                            <p class="fw-semibold h5 mb-3">RAM</p>
-                            <p id="cpu_data" class="percent card px-2"> 100% </p>
-                        </div>
-                    </div>
-                    <div class="card w-100 center-left d-flex flex-row p-2">
-                        <div class="chart h-100" style="width: 75%;">
-                            <canvas class="minichart" id="myChart2"></canvas>
-                        </div>
-                        <div class="text-center d-flex flex-column align-items-center">
-                            <p class="fw-semibold h5 mb-3">Disco</p>
-                            <p id="cpu_data" class="percent card px-2"> 100% </p>
-                        </div>
-                    </div>
                 </div>
 
-                <div class="big-chart h-100 ms-auto card p-2 text-center">
+                <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
+                    style="height: fit-content; width: 25%; ">
+                    <div class="h2">Armazenamento </div>
+                    <p class="lead small-font"> chart barra => Qtd servers entre (300-400GB , 400-500GB , 500-600GB ,
+                        >600GB )
+                    </p>
+                    <div class="box-minichart-general"> </div>
+                    <hr>
 
-                    <!-- <p class="fw-semibold h4 w-auto">Componente (freq por sec)</p> -->
-                    <div class="h-50 w-100 chart" style="position: relative;">
-                        <canvas id="myChart3"></canvas>
-                    </div>
-                    <div class="text-center">
-                        <div class="center-row">
-                            <div class="h5">Comparação por <span id='tipoUtilizacao'>Hora</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="hover-mychart">
-                                <canvas id="myChart4"></canvas>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+
 
         </div>
     </div>

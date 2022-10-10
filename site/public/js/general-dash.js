@@ -123,7 +123,7 @@ const barChart = new Chart(
         type: 'bar',
         data: dataCPU,
         options: {
-            maintainAspectRatio: false, 
+            maintainAspectRatio: false,
             legend: {
                 display: false,
             }
@@ -131,6 +131,12 @@ const barChart = new Chart(
     }
 );
 
+const serverRiskPie = new Chart(
+    documento.getElementById("serverRiskPie"), {
+    data: serverRiskPie
+}
 
+
+);
 
 console.log(config)

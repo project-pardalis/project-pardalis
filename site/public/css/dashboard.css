@@ -260,6 +260,8 @@ header {
 
 .center {
   display: flex;
+  justify-content: left;
+  align-items: center;
 
 }
 
@@ -308,7 +310,7 @@ header {
   display: flex;
   justify-content: left;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .center-row-big {
@@ -484,6 +486,33 @@ header {
   width: 70%;
 }
 
+.cards-general-data {
+  height: fit-content;
+  width: 20%;
+}
+
+.box-general {
+  width: 90%;
+  border: 2px solid blue;
+  margin-top: 1rem;
+}
+
+.box-mensal-chart {
+  width: 100%;
+  border: 2px solid purple;
+  height: 20rem;
+}
+
+.box-minichart-general {
+  width: 80%;
+  border: 2px solid red;
+  height: 10rem;
+}
+
+.small-font {
+  font-size: 1rem !important;
+  color: rgb(118, 118, 118);
+}
 
 /* Scroll */
 ::-webkit-scrollbar-track {
