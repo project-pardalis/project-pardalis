@@ -30,6 +30,10 @@ function getDados(req, res) {
         })
 }
 
+function analysys(req, res) {
+    let fkEmpresa = res.body.fkEmpresa;
+    let fkMaquina = res.body.fkMaquina;
+}
 module.exports = {
     getMaquinas,
     getComponente,

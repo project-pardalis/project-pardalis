@@ -15,4 +15,8 @@ router.post("/getDados", function(req, res) {
     dashController.getDados(req, res)
 })
 
+router.post("/analysys", function(req, res) {
+    dashController.analysys(req, res)
+})
+
 module.exports = router

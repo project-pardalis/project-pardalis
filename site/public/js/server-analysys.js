@@ -131,12 +131,18 @@ const barChart = new Chart(
     }
 );
 
-const serverRiskPie = new Chart(
-    documento.getElementById("serverRiskPie"), {
-    data: serverRiskPie
-}
-
-
-);
+fetch(`http://localhost:3000/dash/analysys`, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        "fkEmpresa": 1,
+        "fkMaquina": 1
+    })
+}).then(res => {
+    res = res.json();
+    
+})
 
 console.log(config)
