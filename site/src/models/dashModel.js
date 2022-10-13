@@ -26,6 +26,11 @@ async function analysys(fkEmpresa, fkMaquina, nomeMetrica) {
     return res; */
 }
 
+function getMaquinaInfo(fkEmpresa, fkMaquina) {
+    let sql = `SELECT nomeMaquina, nomeEmpresa FROM Maquina JOIN Empresa on idEmpresa = Maquina.fkEmpresa WHERE idMaquina = ${fkMaquina} AND fkEmpresa = ${fkEmpresa}`
+    return database.executar(sql)
+}
+
 async function checkIfViewExists(nomeEmpresa, nomeMaquina, nomeMetrica) {
     let sql = `SHOW FULL TABLES iN PARDALIS;`
     let res = await database.executar(sql)
@@ -35,11 +40,6 @@ async function checkIfViewExists(nomeEmpresa, nomeMaquina, nomeMetrica) {
         }
     })
     return res;
-}
-
-function getMaquinaInfo(fkEmpresa, fkMaquina) {
-    let sql = `SELECT nomeMaquina, nomeEmpresa FROM Maquina JOIN Empresa on idEmpresa = Maquina.fkEmpresa WHERE idMaquina = ${fkMaquina} AND fkEmpresa = ${fkEmpresa}`
-    return database.executar(sql)
 }
 
 async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina) {
