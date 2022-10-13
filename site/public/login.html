@@ -101,10 +101,10 @@
                     resposta.json().then(json => {
                         console.log(json);
 
+                        sessionStorage.NOME_USUARIO = json.nomeUsuario;
                         sessionStorage.ID_USUARIO = json.idUsuario;
                         sessionStorage.EMAIL_USUARIO = json.emailUsuario;
                         sessionStorage.FK_EMPRESA = json.fkEmpresa;
-                        sessionStorage.FK_ADMINISTRADOR = json.fkEmpresa;
                         
                         if (json.idUsuario != null) window.location.href = "/dashboard.html";
                     });

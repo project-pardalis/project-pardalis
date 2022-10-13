@@ -131,18 +131,51 @@ const barChart = new Chart(
     }
 );
 
-fetch(`http://localhost:3000/dash/analysys`, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        "fkEmpresa": 1,
-        "fkMaquina": 1
-    })
-}).then(res => {
-    res = res.json();
+var idMaquina;
+var fkEmpresa;
+var metricas;
+// Pega os parametros da URL
+function getMapaParams() {
     
-})
+}
 
-console.log(config)
+function getMaquinaParamsAndSet() {
+    const urlParams = new URLSearchParams(window.location.search);
+    idMaquina = urlParams.get('idMaquina');
+    fkEmpresa = sessionStorage.FK_EMPRESA;
+    if (idMaquina == null) {
+        window.location.href = `./dashboard.html`;
+        window.focus();
+    }
+}
+
+async function getMetricas() {
+    let response = await (await fetch(`http://localhost:3000/dash/metricas`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    })).json();
+    metricas = response;
+}
+
+async function getServerInfo() {
+    console.log(fkEmpresa)
+    console.log(idMaquina)
+
+    let response = await (await fetch(`http://localhost:3000/dash/analysys`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "fkEmpresa": fkEmpresa,
+            "fkMaquina": idMaquina
+        })
+    })).json();
+    console.log(response)
+    return response;
+}
+getMaquinaParamsAndSet();
+getServerInfo();
+

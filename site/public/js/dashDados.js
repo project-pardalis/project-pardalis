@@ -48,6 +48,11 @@ function pegarDados() {
     })
 }
 
+function trocarPagina(idMaquina, fkEmpresa) {
+    window.location.href = `./server-analysys.html?idMaquina=${idMaquina, fkEmpresa}`;
+        window.focus();
+}
+
 pegarMaquinas()
 pegarComponente()
 pegarDados()
