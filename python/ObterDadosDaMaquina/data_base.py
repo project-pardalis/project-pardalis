@@ -126,7 +126,7 @@ def get_components(fkMaquina: int, fkEmpresa: int):
 # Seleciona qual tipo de métrica vai utilizar
 
 
-def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmpresa: int, data: int, type=0):
+def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmpresa: int, data: int, type=0, static=False):
     if type == 0:
         metrica_escolhida = static_metrica
     else:
@@ -139,7 +139,7 @@ def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmp
 
             if metrica in data[name_component]:
 
-                if type == 0:
+                if type == 0 and static == True:
                     value = data[name_component][metrica]
                     insert_metrica_component(
                     fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica])

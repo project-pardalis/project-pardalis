@@ -22,23 +22,23 @@ def start_get_values():
     os.system("clear")
 
     for component in components:
-        insert_metrica(computer_info, component, exists)
+        insert_metrica(computer_info, component, exists, 0, True)
 
     while True:
         computer_info = dados.get_all_info()
 
         components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
         for component in components:
-            insert_metrica(computer_info, component, True, 1)
+            insert_metrica(computer_info, component, True, 1, False)
 
         time.sleep(3)
         os.system("clear")
 
-def insert_metrica(computer_info : dict, component : tuple, exists : bool, type = 0):
+def insert_metrica(computer_info : dict, component : tuple, exists : bool, type = 0, static=False):
     if (exists and component[2] == 1):
             component_name = component[1]
             db.insert_metrica(component_name, component[0], 
-            component[4], component[-1], computer_info, type)
+            component[4], component[-1], computer_info, type, static)
 
 
 
