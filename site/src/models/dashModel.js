@@ -35,7 +35,7 @@ async function checkIfViewExists(nomeEmpresa, nomeMaquina, nomeMetrica) {
     let sql = `SHOW FULL TABLES iN PARDALIS;`
     let res = await database.executar(sql)
     res = res.filter((table) => {
-        if (table.Table_type == 'VIEW' && table.Tables_in_pardalis == `vw_${nomeEmpresa}_${nomeMaquina}_${nomeMetrica}`) {
+        if (table.Table_type == 'VIEW' && table.Tables_in_pardalis == "vw_" + nomeEmpresa.toLowerCase() + "_" + nomeMaquina.toLowerCase() + "_" + nomeMetrica.toLowerCase()) {
             return true;
         }
     })
@@ -48,12 +48,11 @@ async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
     let estatico = [];
     for (let i = 0; i < res.length; i++) {
         let nomeMetrica = res[i].nomeMetrica;
-
-        if (res[i].isEstatico == 0) {
+        if (res[i].isEstatico == 1) {
             estatico.push(nomeMetrica);
         } else {
             let viewExists = await checkIfViewExists(nomeEmpresa, nomeMaquina, nomeMetrica);
-            if (viewExists.length == 0) {
+            if (viewExists.length == 0 && res[i].isEstatico == 0) {
                 await createView(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomeMetrica);
             }
         }
@@ -61,6 +60,7 @@ async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
 
     if (estatico.length > 0) {
         let viewExists = await checkIfViewExists(nomeEmpresa, nomeMaquina, "estatico");
+        
         if (viewExists.length == 0) {
             await createViewEstatica(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, estatico);
         }
@@ -84,6 +84,14 @@ async function createView(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomeMe
 }
 
 async function createViewEstatica(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomesMetrica) {
+    let nomesMetrica2 = "";
+    for (let i = 0; i < nomesMetrica.length; i++) {
+        if (i == nomesMetrica.length - 1) {
+            nomesMetrica2 += "'" + nomesMetrica[i] + "'";
+        } else {
+            nomesMetrica2 += "'" + nomesMetrica[i] + "', ";
+        }
+    }
     let sql = "CREATE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + "estatico`";
     sql += `AS
         SELECT nomeMaquina, dataCriacao, nomeComponente, nomeMetrica, 
@@ -93,7 +101,7 @@ async function createViewEstatica(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
         JOIN Maquina on idMaquina = Leitura.fkMaquina 
         and Maquina.fkEmpresa = ${fkEmpresa} 
         and Maquina.idMaquina = ${fkMaquina}
-        and Leitura.fkMetrica in (${nomesMetrica});
+        and Metrica.nomeMetrica in (${nomesMetrica2});
     `
     let res = await database.executar(sql);
     return res;

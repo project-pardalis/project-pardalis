@@ -154,11 +154,12 @@ def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmp
 def insert_metrica_component(fkComponente: int, fkMetrica: int, fkMaquina: int, fkEmpresa: int, valorLeitura: int, type=0):
     dataColeta = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if (type == 0):
-        result = run_sql_command(f"SELECT idLeitura FROM Leitura WHERE fkComponente = {fkComponente} AND fkMetrica = {fkMetrica} AND fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} AND dataColeta = '{dataColeta}' LIMIT 1;")
-        if (len(result) == 0):
-            command = f"INSERT INTO Leitura VALUES ({result[0]}, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura}) ON DUPLICATE KEY UPDATE valorLeitura = {valorLeitura}, dataColeta = '{dataColeta}';"
+        result = run_sql_command(f"SELECT idLeitura FROM Leitura WHERE fkComponente = {fkComponente} AND fkMetrica = {fkMetrica} AND fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} LIMIT 1;")
+        print(result)
+        if (len(result) > 0):
+            command = f"INSERT INTO Leitura VALUES ({result[0][0]}, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura}) ON DUPLICATE KEY UPDATE valorLeitura = {valorLeitura}, dataColeta = '{dataColeta}';"
         else: 
-            command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura}) ON DUPLICATE KEY UPDATE valorLeitura = {valorLeitura}, dataColeta = '{dataColeta}';"
+            command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura});"
     else:
         command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura})"
     run_sql_command(command)
