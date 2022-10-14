@@ -145,24 +145,27 @@ def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmp
 
             if metrica in data[name_component]:
 
-                insert_metrica_component(
+                if type == 0:
+                    value = data[name_component][metrica]
+                    insert_metrica_component(
                     fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica])
-                print(f"Metrica {metrica} Adicionada")
+                else:
+                    insert_metrica_component(
+                        fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica], 1)
+                    print(f"Metrica {metrica} Adicionada")
             else:
                 break
 
 # Insere as métricas na tabela Leitura
-
-
-def insert_metrica_component(fkComponente: int, fkMetrica: int, fkMaquina: int, fkEmpresa: int, valorLeitura: int):
+def insert_metrica_component(fkComponente: int, fkMetrica: int, fkMaquina: int, fkEmpresa: int, valorLeitura: int, type=0):
     dataColeta = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura})"
+    if (type == 0):
+        command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura}) ON DUPLICATE KEY UPDATE valorLeitura = {valorLeitura}, dataColeta = '{dataColeta}';"
+    else:
+        command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura})"
     run_sql_command(command)
 
 # Cria os componentes no banco de dados
-
-
 def create_components(fkMaquina: int, fkEmpresa: int):
     get_component_command = f"SELECT nomeComponente from Componente WHERE fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} LIMIT 3"
     components = run_sql_command(get_component_command)
