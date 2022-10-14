@@ -30,16 +30,18 @@ function getDados(req, res) {
         })
 }
 
-function analysys(req, res) {
+async function analysys(req, res) {
     let fkEmpresa = req.body.fkEmpresa;
     let fkMaquina = req.body.fkMaquina;
     let nomeMetrica = req.body.nomeMetrica;
 
-    res.json(dashModel.analysys(fkEmpresa, fkMaquina, nomeMetrica)/* .catch((err) => {console.log(err);}) */)
+    let response = await dashModel.analysys(fkEmpresa, fkMaquina, nomeMetrica);
+    //console.log(response)
+    res.json({"metricas": response})/* .catch((err) => {console.log(err);}) */
 }
 
 function getMetricas(req, res) {
-    res.json(dashModel.getMetricas())
+    res.json(dashModel.createViewMetricas())
 }
 module.exports = {
     getMaquinas,

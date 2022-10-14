@@ -15,15 +15,25 @@ function getDados(empresa) {
     return database.executar(sql)
 }
 
-async function analysys(fkEmpresa, fkMaquina, nomeMetrica) {
+async function analysys(fkEmpresa, fkMaquina) {
     let maquinaInfo = await getMaquinaInfo(fkEmpresa, fkMaquina);
     let nomeEmpresa = maquinaInfo[0].nomeEmpresa, nomeMaquina = maquinaInfo[0].nomeMaquina;
-    createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina);
+    let metricas = await getMetricas();
+    let res = {};
+    for (let i = 0; i < metricas.length; i++) {
+        let nomeMetrica = metricas[i].nomeMetrica;
+        if (metricas[i].isEstatico == 0) {
+            res[nomeMetrica] = await getView(nomeEmpresa, nomeMaquina, nomeMetrica);
+        }
+    }
+    res.estatico = await getView(nomeEmpresa, nomeMaquina, "estatico");
 
-    /* let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
-    let res = await database.executar(sql);
-    console.log(res)
-    return res; */
+    return res;
+}
+
+function getView(nomeEmpresa, nomeMaquina, nomeMetrica) {
+    let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "` LIMIT 60";
+    return database.executar(sql);
 }
 
 function getMaquinaInfo(fkEmpresa, fkMaquina) {
@@ -107,9 +117,18 @@ async function createViewEstatica(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
     return res;
 }
 
+async function createViewMetricas() {
+    let maquinaInfo = await getMaquinaInfo(fkEmpresa, fkMaquina);
+    let nomeEmpresa = maquinaInfo[0].nomeEmpresa, nomeMaquina = maquinaInfo[0].nomeMaquina;
+    createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina);
+
+    return getMetricas();
+}
+
 async function getMetricas() {
     let sql = `SELECT nomeMetrica, unidadeDeMedida, isEstatico FROM Metrica`;
     let res = await database.executar(sql);
+
     return res;
 }
 
@@ -118,5 +137,5 @@ module.exports = {
     getComponente,
     getDados,
     analysys,
-    getMetricas
+    createViewMetricas
 }

@@ -19,4 +19,8 @@ router.post("/analysys", function(req, res) {
     dashController.analysys(req, res)
 })
 
+router.post("/GetCreateMetrica", function(req, res) {
+    dashController.getMetricas(req, res)
+})
+
 module.exports = router

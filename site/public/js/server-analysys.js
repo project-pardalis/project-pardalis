@@ -150,7 +150,7 @@ function getMaquinaParamsAndSet() {
 }
 
 async function getMetricas() {
-    let response = await (await fetch(`http://localhost:3000/dash/metricas`, {
+    let response = await (await fetch(`http://localhost:3000/dash/GetCreateMetrica`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
