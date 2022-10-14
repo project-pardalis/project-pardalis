@@ -138,15 +138,14 @@ def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmp
             idMetrica = metrica_escolhida[componente][metrica]
 
             if metrica in data[name_component]:
-
+                value = data[name_component][metrica]
                 if type == 0 and static == True:
-                    value = data[name_component][metrica]
                     insert_metrica_component(
-                    fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica])
+                    fkComponente, idMetrica, fkMaquina, fkEmpresa, value)
                     print(f"Metrica {metrica} Estatica Adicionada/Atualizada")
                 else:
                     insert_metrica_component(
-                        fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica], 1)
+                        fkComponente, idMetrica, fkMaquina, fkEmpresa, value, 1)
                     print(f"Metrica {metrica} Adicionada")
             else:
                 break
@@ -155,7 +154,11 @@ def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmp
 def insert_metrica_component(fkComponente: int, fkMetrica: int, fkMaquina: int, fkEmpresa: int, valorLeitura: int, type=0):
     dataColeta = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if (type == 0):
-        command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura}) ON DUPLICATE KEY UPDATE valorLeitura = {valorLeitura}, dataColeta = '{dataColeta}';"
+        result = run_sql_command(f"SELECT idLeitura FROM Leitura WHERE fkComponente = {fkComponente} AND fkMetrica = {fkMetrica} AND fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} AND dataColeta = '{dataColeta}' LIMIT 1;")
+        if (len(result) == 0):
+            command = f"INSERT INTO Leitura VALUES ({result[0]}, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura}) ON DUPLICATE KEY UPDATE valorLeitura = {valorLeitura}, dataColeta = '{dataColeta}';"
+        else: 
+            command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura}) ON DUPLICATE KEY UPDATE valorLeitura = {valorLeitura}, dataColeta = '{dataColeta}';"
     else:
         command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura})"
     run_sql_command(command)
