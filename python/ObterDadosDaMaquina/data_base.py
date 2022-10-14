@@ -2,8 +2,8 @@ from datetime import datetime
 import pymysql.cursors
 
 connection = pymysql.connect(host='localhost',
-                             user='rafael',
-                             password='akemisql',
+                             user='aluno',
+                             password='sptech',
                              database='PARDALIS')
 
 cursor = connection.cursor()
@@ -110,17 +110,11 @@ def insert_component_info(component_info: dict, nomeComponent: str, fkMaquina: i
 
 
 def update_machine(fkMaquina: int, fkEmpresa: int, sistemaOperacional: str):
-    command_to_check_info = f"SELECT dataCriacao FROM Maquina WHERE idMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa}"
-    result = run_sql_command(command_to_check_info)
+    dataCriacao = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    if result[0][0] == None:
-        dataCriacao = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-        command = f'UPDATE Maquina SET dataCriacao = "{dataCriacao}", sistemaOperacional = "{sistemaOperacional}" WHERE idMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa}'
-        run_sql_command(command)
-        return True
-    else:
-        return False
+    command = f'UPDATE Maquina SET dataCriacao = "{dataCriacao}", sistemaOperacional = "{sistemaOperacional}" WHERE idMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa}'
+    run_sql_command(command)
+    return True
 
 # Pega as informações dos componentes que deseja monitorar
 
@@ -149,6 +143,7 @@ def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmp
                     value = data[name_component][metrica]
                     insert_metrica_component(
                     fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica])
+                    print(f"Metrica {metrica} Estatica Adicionada/Atualizada")
                 else:
                     insert_metrica_component(
                         fkComponente, idMetrica, fkMaquina, fkEmpresa, data[name_component][metrica], 1)

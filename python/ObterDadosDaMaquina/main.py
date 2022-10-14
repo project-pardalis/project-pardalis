@@ -20,18 +20,16 @@ def start_get_values():
     components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
     exists = db.update_machine(machine_information["fkMaquina"], machine_information["fkEmpresa"], computer_info["system"]["system"])
     os.system("clear")
+
     for component in components:
         insert_metrica(computer_info, component, exists)
-    
-    # Verificar o db.insert_static_metrica, para verificar se já existe uma metrica
-    while True:
 
+    while True:
         computer_info = dados.get_all_info()
 
         components = db.get_components(machine_information["fkMaquina"], machine_information["fkEmpresa"])
         for component in components:
-
-            insert_metrica(computer_info, component, False, 1)
+            insert_metrica(computer_info, component, True, 1)
 
         time.sleep(3)
         os.system("clear")
@@ -65,7 +63,6 @@ def select_menu():
                 if (not hash_computer):
                     break
                 else:
-                    
                     db.get_metricas()
                     start_get_values()
 
