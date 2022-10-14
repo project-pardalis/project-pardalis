@@ -22,7 +22,7 @@
 </descriptorRefs>
 <archive>
 <manifest>
-<mainClass>sptech.school.tela.dois.pi</mainClass> </manifest>
+<mainClass>sptech.school.tela.dois.pi.TelaFinal</mainClass> </manifest>
 </archive>
 </configuration>
 <executions>
