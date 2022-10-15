@@ -33,10 +33,12 @@ function getDados(req, res) {
 async function getMetricas(req, res) {
     let fkEmpresa = req.body.fkEmpresa;
     let fkMaquina = req.body.fkMaquina;
+    let order = req.body.order;
+
     await dashModel.createViews(
         fkEmpresa, fkMaquina
     );
-    let response = await dashModel.analysys(fkEmpresa, fkMaquina);
+    let response = await dashModel.analysys(fkEmpresa, fkMaquina, order);
     res.json({"metricas": response})
 }
 
@@ -48,10 +50,20 @@ async function getMaquina(req, res) {
     res.json(response[0])
 }
 
+async function getComponente2(req, res) {
+    let fkEmpresa = req.body.fkEmpresa;
+    let fkMaquina = req.body.fkMaquina;
+    let nomeComponente = req.body.nomeComponente;
+    
+    let response = await dashModel.getComponente2(fkEmpresa, fkMaquina, nomeComponente);
+    res.json(response[0]);
+}
+
 module.exports = {
     getMaquinas,
     getComponente,
     getDados,
     getMetricas,
-    getMaquina
+    getMaquina,
+    getComponente2
 }

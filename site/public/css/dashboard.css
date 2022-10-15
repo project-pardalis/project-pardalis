@@ -298,6 +298,10 @@ header {
   box-shadow: 0.1rem 0.3rem 0.2rem rgb(195, 195, 195);
 }
 
+#cpu-card:hover:not(.selected), #ram-card:hover:not(.selected), #disk-card:hover:not(.selected) {
+  cursor: pointer;
+}
+
 .center-left {
   display: flex;
   justify-content: space-evenly;

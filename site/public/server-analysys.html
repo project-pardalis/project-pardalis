@@ -78,70 +78,54 @@
                     </div>
                 </div>
                 <!-- <div class="card center-row kpi-analisys-data">
-                    <div class='card-img-kpi'>
-                        <img src="https://www.svgrepo.com/show/76255/computer-cpu.svg" alt="" class="icon-kpi">
-                    </div>
-                    <div class="text-center">
-                        <div class="h4 fw-bolder">11%</div>
-                    </div>
-
-                </div>
-                <div class="card center-row kpi-analisys-data">
-                    <div class='card-img-kpi'>
-                        <img src="https://cdn-icons-png.flaticon.com/128/1689/1689137.png" alt="" class="icon-kpi">
-                    </div>
-                    <div class="text-center">
-                        <div class="h4 fw-bolder">11%</div>
-                    </div>
-
-                </div>
-                <div class="card center-row kpi-analisys-data">
-                    <div class='card-img-kpi'>
-                        <img src="https://www.pngrepo.com/png/95566/512/hard-drive-device.png" alt="" class="icon-kpi">
-                    </div>
-                    <div class="text-center">
-                        <div class="h4 fw-bolder">11%</div>
-                    </div>
+                    <span>Características: </span>
 
                 </div> -->
             </div>
 
             <div class="card mt-4 p-4 d-flex flex-row" style="height: fit-content; width: 95%;">
                 <div class="h-100 w-25">
-                    <div class="card w-100 center-left d-flex flex-row p-2 mb-4" id="cpu-card">
+                    <div class="card w-100 center-left d-flex flex-row p-2 mb-4 selected" id="cpu-card">
                         <div class="chart h-100" style="width: 75%;">
                             <canvas class="minichart" id="cpu-chart"></canvas>
                         </div>
                         <div class="text-center d-flex flex-column align-items-center">
                             <p class="fw-semibold h5 mb-3">CPU</p>
-                            <p id="cpu-data" class="percent card px-2"></p>
+                            <p id="cpu-data" class="percent card px-1"></p>
                         </div>
                     </div>
-                    <div class="card w-100 center-left d-flex flex-row p-2 mb-4">
+                    <div class="card w-100 center-left d-flex flex-row p-2 mb-4" id="ram-card">
                         <div class="chart h-100" style="width: 75%;">
                             <canvas class="minichart" id="ram-chart"></canvas>
                         </div>
                         <div class="text-center d-flex flex-column align-items-center">
                             <p class="fw-semibold h5 mb-3">RAM</p>
-                            <p id="ram-data" class="percent card px-2"></p>
+                            <p id="ram-data" class="percent card px-1 pt-2"></p>
                         </div>
                     </div>
-                    <div class="card w-100 center-left d-flex flex-row p-2">
+                    <div class="card w-100 center-left d-flex flex-row p-2" id="disk-card">
                         <div class="chart h-100" style="width: 75%;">
                             <canvas class="minichart" id="disk-chart"></canvas>
                         </div>
                         <div class="text-center d-flex flex-column align-items-center">
                             <p class="fw-semibold h5 mb-3">Disco</p>
-                            <p id="disk-data" class="percent card px-2"></p>
+                            <p id="disk-data" class="percent card px-1 pt-2"></p>
                         </div>
                     </div>
                 </div>
 
                 <div class="big-chart h-100 ms-auto card p-2 text-center">
-
-                    <!-- <p class="fw-semibold h4 w-auto">Componente (freq por sec)</p> -->
+                    <div class="w-100 d-flex justify-content-between">
+                        <p class="fw-semibold h4 w-auto" id="component-name">Cpu</p>
+                        <p class="fw-semibold h4 w-auto" id="component-complement">Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz</p>
+                    </div>
+                    
                     <div class="h-50 w-100 chart" style="position: relative;">
                         <canvas id="big-chart"></canvas>
+                    </div>
+                    <div class="card">
+                        Características: <br>
+                            Arquitetura: x86_64 <br> Thread per núcleo: 2 <br> Núcleo por soquete: 2
                     </div>
                     <!-- <div class="text-center">
                         <div class="center-row">

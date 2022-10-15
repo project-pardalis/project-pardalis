@@ -18,7 +18,7 @@ function getDados(empresa) {
 
 /* Server-Analysys */
 
-async function analysys(fkEmpresa, fkMaquina) {
+async function analysys(fkEmpresa, fkMaquina, order) {
     let maquinaInfo = await getMaquinaInfo(fkEmpresa, fkMaquina);
     let nomeEmpresa = maquinaInfo[0].nomeEmpresa, nomeMaquina = maquinaInfo[0].nomeMaquina;
     let metricas = await getMetricas();
@@ -26,7 +26,7 @@ async function analysys(fkEmpresa, fkMaquina) {
     for (let i = 0; i < metricas.length; i++) {
         let nomeMetrica = metricas[i].nomeMetrica;
         if (metricas[i].isEstatico == 0) {
-            res[nomeMetrica] = await getView(nomeEmpresa, nomeMaquina, nomeMetrica);
+            res[nomeMetrica] = await getView(nomeEmpresa, nomeMaquina, nomeMetrica, order);
         }
     }
     res.estatico = await getView(nomeEmpresa, nomeMaquina, "estatico");
@@ -34,8 +34,12 @@ async function analysys(fkEmpresa, fkMaquina) {
     return res;
 }
 
-function getView(nomeEmpresa, nomeMaquina, nomeMetrica) {
-    let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "` LIMIT 10";
+function getView(nomeEmpresa, nomeMaquina, nomeMetrica, order) {
+    let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
+    if (order) {
+        sql += ` ORDER BY dataColeta DESC `;
+    }
+    sql += "LIMIT 10;"
     return database.executar(sql);
 }
 
@@ -91,7 +95,7 @@ async function createView(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomeMe
         JOIN Maquina on idMaquina = Leitura.fkMaquina 
         and Maquina.fkEmpresa = ${fkEmpresa} 
         and Maquina.idMaquina = ${fkMaquina}
-        and Metrica.nomeMetrica = '${nomeMetrica}';
+        and Metrica.nomeMetrica = '${nomeMetrica}'
     `
     let res = await database.executar(sql);
     return res;
@@ -134,11 +138,19 @@ async function getMetricas() {
     return res;
 }
 
+async function getComponente2(fkEmpresa, fkMaquina, nomeComponente) {
+    let sql = `SELECT nomeComponente, isComponenteValido, descricao FROM Componente LIMIT 1`;
+    let res = await database.executar(sql);
+
+    return res;
+}
+
 module.exports = {
     getMaquinas,
     getComponente,
     getDados,
     analysys,
     createViews,
-    getMaquinaInfo
+    getMaquinaInfo,
+    getComponente2
 }

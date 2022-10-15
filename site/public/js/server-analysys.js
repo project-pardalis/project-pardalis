@@ -87,9 +87,9 @@ charts.bigChart = new Chart(
             labels: [],
             datasets: [
                 {
-                    backgroundColor: "#b8ff8684",
                     label: 'xxxxxx',
-                    borderColor: '#62b02a',
+                    backgroundColor: "#9cdbffa0",
+                    borderColor: '#117dbb',
                     data: [],
                     tension: 0.1,
                     pointRadius: 0,
@@ -98,6 +98,7 @@ charts.bigChart = new Chart(
                 }]
         },
         options: {
+            maintainAspectRatio: false,
             legend: {
                 display: false,
             }
@@ -155,7 +156,12 @@ const barChart = new Chart(
 var idMaquina;
 var fkEmpresa;
 var metricas;
-var clickedChart = "cpu_Utilizacao";
+var bigChart = {
+    backgroundColor: "#9cdbffa0",
+    borderColor: '#117dbb',
+    clickedChart: "cpu_Utilizacao",
+    data: []
+}
 // Pega os parametros da URL
 function getMaquinaParamsAndSet() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -182,7 +188,6 @@ async function getMachineInfo() {
     })).json();
     let machineInfo = response;
     saveMachineInfo(machineInfo.nomeMaquina, machineInfo.hashMaquina);
-    console.log(response);
 }
 
 function saveMachineInfo(machineName, hashMaquina) {
@@ -193,9 +198,27 @@ function saveMachineInfo(machineName, hashMaquina) {
     /* Deixar o setor para depois */
 }
 
-/* Chart */
+/* Componente */
 
-async function getServerInfo() {
+async function getComponent(componentName) {
+    let response = await (await fetch(`http://localhost:3000/dash/getComponenteServer`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "fkEmpresa": fkEmpresa,
+            "fkMaquina": idMaquina,
+            "componente": componentName
+        })
+    })).json();
+    let component = response;
+    return component;
+}
+
+/* Metricas */
+
+async function getServerInfo(order = false) {
     let response = await (await fetch(`http://localhost:3000/dash/getMetrica`, {
         method: "POST",
         headers: {
@@ -203,33 +226,55 @@ async function getServerInfo() {
         },
         body: JSON.stringify({
             "fkEmpresa": fkEmpresa,
-            "fkMaquina": idMaquina
+            "fkMaquina": idMaquina,
+            "order": order
         })
     })).json();
-    console.log("Metrica Atualizada")
     metricas = response.metricas;
+    console.log("Metrica Atualizada")
 
 }
 
-function loadGraphData(graphic, graphicName, repeat = false) {
+/* Chart */
+
+function loadGraphData(graphic, graphicName, repeat = false, reverse = false) {
     console.log("Carregando dados do gráfico " + graphicName);
     let dataName = graphicName;
+    
     switch (graphicName) {
         case 'cpu':
             graphicName = "cpu_Utilizacao";
             break;
         case 'ram':
             graphicName = "ram_Usada";
+            
             break;
         case 'disk':
             graphicName = "disco_Usado";
+            
             break;
         case 'bigChart':
-            graphicName = clickedChart;
+            graphicName = bigChart.clickedChart;
             break;
     }
 
+    if (reverse && dataName != "bigChart") {
+        metricas[graphicName] = metricas[graphicName].reverse();
+    }
+
     if (dataName != "bigChart") updateDataNum(dataName, metricas[graphicName][0]);
+    else {
+
+        if (bigChart.borderColor != graphic.config.data.datasets[0].borderColor) {
+            graphic.data.datasets[0].data = [];
+            graphic.data.labels = [];
+            graphic.config.data.datasets[0].borderColor = bigChart.borderColor;
+            graphic.config.data.datasets[0].backgroundColor = bigChart.backgroundColor;
+            repeat = false;
+        }
+        
+    }
+
     let data = metricas[graphicName];
 
     if (!repeat) {
@@ -257,25 +302,78 @@ function loadGraphData(graphic, graphicName, repeat = false) {
 
 function updateDataNum(name, data) {
     let element = document.getElementById(name + "-data");
-    element.innerHTML = data.valorLeitura + " "+ data.unidadeDeMedida;
-}
-
-function setEventClick() {
-    document.getElementById('cpu-card').onclick = function (evt) {
-        clickedChart = "cpu_Utilizacao";
-        loadGraphData(charts.bigChart, "big-chart");
-        //document.getElementById('big-chart-card').style.display = "block";
+    switch (name) {
+        case 'cpu':
+            let atualFrequencyData = metricas.cpu_Frequencia_Atual[0];
+            element.innerHTML = `${data.valorLeitura} ${data.unidadeDeMedida} <br>――――<br> ${atualFrequencyData.valorLeitura} ${atualFrequencyData.unidadeDeMedida}`;
+            break;
+        case 'ram':
+            let ramTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "ram_Total")[0];
+            element.innerHTML = `${data.valorLeitura} ${data.unidadeDeMedida} <br>――――<br> ${ramTotalData.valorLeitura} ${ramTotalData.unidadeDeMedida}`;
+            break;
+        case 'disk':
+            let diskTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "disco_Total")[0];
+            element.innerHTML = `${data.valorLeitura} ${data.unidadeDeMedida} <br>――――<br> ${diskTotalData.valorLeitura} ${diskTotalData.unidadeDeMedida}`;
+            break;
+        default:
+            element.innerHTML = `${data.valorLeitura} ${data.unidadeDeMedida}`;
+            break;
     }
 }
+
+/* Big Chart */
+
+function setEventClick(componentName) {
+    if (componentName == "bigChart") return;
+    document.getElementById(`${componentName}-card`).onclick = async function (evt) {
+        let element = document.getElementById(`component-name`);
+        let element2 = document.getElementById(`component-complement`);
+
+        switch (componentName) {
+            case 'cpu':
+                bigChart.clickedChart = "cpu_Utilizacao";
+                bigChart.backgroundColor = "#9cdbffa0";
+                bigChart.borderColor = '#117dbb';
+                element.innerHTML = "Cpu";
+                let specification = await getComponent("cpu");
+                console.log(specification)
+                specification.descricao = JSON.parse(specification.descricao)
+                element2.innerHTML = specification[0].descricao["Nome do modelo"];
+                /* Colocar para pegar informações da cpu */
+                break;
+            case 'ram':
+                bigChart.clickedChart = "ram_Usada";
+                bigChart.backgroundColor = "#eba4ff7e";
+                bigChart.borderColor = '#9528b4';
+                element.innerHTML = "Ram";
+                // element2.innerHTML = specification[0].descricao["Nome do modelo"]; Ram total
+
+                break;
+            case 'disk':
+                bigChart.clickedChart = "disco_Usado";
+                bigChart.backgroundColor = "#b8ff8684";
+                bigChart.borderColor = '#62b02a';
+                element.innerHTML = "Disco";
+                // element2.innerHTML = specification[0].descricao["Nome do modelo"]; Ver se consegue pegar o modelo do disco
+                
+                break;
+        }
+        document.getElementsByClassName("selected")[0].classList.remove("selected");
+        document.getElementById(`${componentName}-card`).classList.add("selected");
+    }
+}
+
+/* Start */
 
 async function start() {
     getMaquinaParamsAndSet();
     console.log('Iniciando plotagem do gráfico...');
-    await getServerInfo();
+    await getServerInfo(true);
     await getMachineInfo();
 
     for (const key in charts) {
-        loadGraphData(charts[key], key, false);
+        loadGraphData(charts[key], key, false, true);
+        setEventClick(key);
     }
 
     setInterval(async () => {
@@ -287,6 +385,5 @@ async function start() {
 }
 
 start();
-setEventClick();
 
 

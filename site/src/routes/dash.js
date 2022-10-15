@@ -23,4 +23,8 @@ router.post("/getMaquina", function(req, res) {
     dashController.getMaquina(req, res)
 })
 
+router.post("/getComponenteServer", function(req, res) {
+    dashController.getComponente2(req, res)
+})
+
 module.exports = router
