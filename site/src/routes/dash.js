@@ -15,12 +15,12 @@ router.post("/getDados", function(req, res) {
     dashController.getDados(req, res)
 })
 
-router.post("/analysys", function(req, res) {
-    dashController.analysys(req, res)
+router.post("/getMetrica", function(req, res) {
+    dashController.getMetricas(req, res)
 })
 
-router.post("/GetCreateMetrica", function(req, res) {
-    dashController.getMetricas(req, res)
+router.post("/getMaquina", function(req, res) {
+    dashController.getMaquina(req, res)
 })
 
 module.exports = router

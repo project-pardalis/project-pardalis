@@ -74,7 +74,7 @@
 
             <div class="center kpis-flex mt-4" style="width: 95%;">
                 <div class="center">
-                    <div class="display-6">Servidor <div class="h5">numero - setor</div>
+                    <div class="display-6"><span id="server-name"></span><div class="h5"><span id="server-num"></span></div>
                     </div>
                 </div>
                 <!-- <div class="card center-row kpi-analisys-data">
@@ -108,31 +108,31 @@
 
             <div class="card mt-4 p-4 d-flex flex-row" style="height: fit-content; width: 95%;">
                 <div class="h-100 w-25">
-                    <div class="card w-100 center-left d-flex flex-row p-2 mb-4">
+                    <div class="card w-100 center-left d-flex flex-row p-2 mb-4" id="cpu-card">
                         <div class="chart h-100" style="width: 75%;">
-                            <canvas class="minichart" id="myChart"></canvas>
+                            <canvas class="minichart" id="cpu-chart"></canvas>
                         </div>
                         <div class="text-center d-flex flex-column align-items-center">
                             <p class="fw-semibold h5 mb-3">CPU</p>
-                            <p id="cpu_data" class="percent card px-2"> 33% </p>
+                            <p id="cpu-data" class="percent card px-2"></p>
                         </div>
                     </div>
                     <div class="card w-100 center-left d-flex flex-row p-2 mb-4">
                         <div class="chart h-100" style="width: 75%;">
-                            <canvas class="minichart" id="myChart1"></canvas>
+                            <canvas class="minichart" id="ram-chart"></canvas>
                         </div>
                         <div class="text-center d-flex flex-column align-items-center">
                             <p class="fw-semibold h5 mb-3">RAM</p>
-                            <p id="cpu_data" class="percent card px-2"> 100% </p>
+                            <p id="ram-data" class="percent card px-2"></p>
                         </div>
                     </div>
                     <div class="card w-100 center-left d-flex flex-row p-2">
                         <div class="chart h-100" style="width: 75%;">
-                            <canvas class="minichart" id="myChart2"></canvas>
+                            <canvas class="minichart" id="disk-chart"></canvas>
                         </div>
                         <div class="text-center d-flex flex-column align-items-center">
                             <p class="fw-semibold h5 mb-3">Disco</p>
-                            <p id="cpu_data" class="percent card px-2"> 100% </p>
+                            <p id="disk-data" class="percent card px-2"></p>
                         </div>
                     </div>
                 </div>
@@ -141,9 +141,9 @@
 
                     <!-- <p class="fw-semibold h4 w-auto">Componente (freq por sec)</p> -->
                     <div class="h-50 w-100 chart" style="position: relative;">
-                        <canvas id="myChart3"></canvas>
+                        <canvas id="big-chart"></canvas>
                     </div>
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         <div class="center-row">
                             <div class="h5">Comparação por <span id='tipoUtilizacao'>Hora</span>
                             </div>
@@ -153,7 +153,7 @@
                                 <canvas id="myChart4"></canvas>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 

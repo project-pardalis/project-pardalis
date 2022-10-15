@@ -1,4 +1,111 @@
-const labels = [
+var charts = {};
+
+charts.cpu = new Chart(
+    document.getElementById('cpu-chart'),
+    {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    backgroundColor: "#9cdbffa0",
+                    label: 'Cpu',
+                    borderColor: '#117dbb',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 0,
+                    hoverPointRadius: 0,
+                    borderWidth: 0.8
+                }]
+        },
+        options: {
+            legend: {
+                display: false,
+            }
+        }
+    }
+);
+
+charts.ram = new Chart(
+    document.getElementById('ram-chart'),
+    {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    backgroundColor: "#eba4ff7e",
+                    label: 'Ram',
+                    borderColor: '#9528b4',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 0,
+                    hoverPointRadius: 0,
+                    borderWidth: 0.8
+                }]
+        },
+        options: {
+            legend: {
+                display: false,
+            }
+        }
+    }
+);
+
+charts.disk = new Chart(
+    document.getElementById('disk-chart'),
+    {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    backgroundColor: "#b8ff8684",
+                    label: 'Disk',
+                    borderColor: '#62b02a',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 0,
+                    hoverPointRadius: 0,
+                    borderWidth: 0.8
+                }]
+        },
+        options: {
+            legend: {
+                display: false,
+            },
+            events: ["click"]
+        }
+    }
+);
+
+charts.bigChart = new Chart(
+    document.getElementById('big-chart'),
+    {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    backgroundColor: "#b8ff8684",
+                    label: 'xxxxxx',
+                    borderColor: '#62b02a',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 0,
+                    hoverPointRadius: 0,
+                    borderWidth: 0.8
+                }]
+        },
+        options: {
+            legend: {
+                display: false,
+            }
+        }
+    }
+);
+
+/* const labels = [
     'January',
     'February',
     'March',
@@ -6,40 +113,6 @@ const labels = [
     'May',
     'June',
 ];
-
-const dataCPU = {
-    labels: labels,
-    datasets: [
-        {
-            fill: true,
-            fillColor: " #6B46D750 ",
-            label: 'Cpu',
-            borderColor: '#6B46D7',
-            data: [80, 78, 70, 65, 50, 40, 50],
-        }]
-};
-const dataRAM = {
-    labels: labels,
-    datasets: [
-        {
-            fill: true,
-            fillColor: " #6B46D750 ",
-            label: 'Ram',
-            borderColor: '#6B46D7',
-            data: [80, 78, 70, 65, 50, 40, 50],
-        }]
-};
-const dataDisco = {
-    labels: labels,
-    datasets: [
-        {
-            fill: true,
-            fillColor: " #6B46D750 ",
-            label: 'Disco',
-            borderColor: '#6B46D7',
-            data: [80, 78, 70, 65, 50, 40, 50],
-        }]
-};
 
 const barConfig = {
     type: 'bar',
@@ -64,58 +137,6 @@ const configPizza = {
 
 };
 
-const chartCpu = new Chart(
-    document.getElementById('myChart'),
-    {
-        type: 'line',
-        data: dataCPU,
-        options: {
-            legend: {
-                display: false,
-            }
-        }
-    }
-);
-
-const chartRam = new Chart(
-    document.getElementById('myChart1'),
-    {
-        type: 'line',
-        data: dataRAM,
-        options: {
-            legend: {
-                display: false,
-            }
-        }
-    }
-);
-
-const chartDisco = new Chart(
-    document.getElementById('myChart2'),
-    {
-        type: 'line',
-        data: dataDisco,
-        options: {
-            legend: {
-                display: false,
-            }
-        }
-    }
-);
-
-const bigChart = new Chart(
-    document.getElementById('myChart3'),
-    {
-        type: 'line',
-        data: dataCPU,
-        options: {
-            maintainAspectRatio: false,
-            legend: {
-                display: false,
-            }
-        }
-    }
-);
 
 const barChart = new Chart(
     document.getElementById('myChart4'),
@@ -129,16 +150,13 @@ const barChart = new Chart(
             }
         }
     }
-);
+); */
 
 var idMaquina;
 var fkEmpresa;
 var metricas;
+var clickedChart = "cpu_Utilizacao";
 // Pega os parametros da URL
-function getMapaParams() {
-    
-}
-
 function getMaquinaParamsAndSet() {
     const urlParams = new URLSearchParams(window.location.search);
     idMaquina = urlParams.get('idMaquina');
@@ -149,21 +167,10 @@ function getMaquinaParamsAndSet() {
     }
 }
 
-async function getMetricas() {
-    let response = await (await fetch(`http://localhost:3000/dash/GetCreateMetrica`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })).json();
-    metricas = response;
-}
+/* Maquina Info */
 
-async function getServerInfo() {
-    console.log(fkEmpresa)
-    console.log(idMaquina)
-
-    let response = await (await fetch(`http://localhost:3000/dash/analysys`, {
+async function getMachineInfo() {
+    let response = await (await fetch(`http://localhost:3000/dash/getMaquina`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -173,9 +180,113 @@ async function getServerInfo() {
             "fkMaquina": idMaquina
         })
     })).json();
-    console.log(response)
-    return response;
+    let machineInfo = response;
+    saveMachineInfo(machineInfo.nomeMaquina, machineInfo.hashMaquina);
+    console.log(response);
 }
-getMaquinaParamsAndSet();
-getServerInfo();
+
+function saveMachineInfo(machineName, hashMaquina) {
+    let serverName = document.getElementById("server-name");
+    serverName.innerHTML = machineName;
+    let serverNum = document.getElementById("server-num");
+    serverNum.innerHTML = "Hash: " + hashMaquina;
+    /* Deixar o setor para depois */
+}
+
+/* Chart */
+
+async function getServerInfo() {
+    let response = await (await fetch(`http://localhost:3000/dash/getMetrica`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            "fkEmpresa": fkEmpresa,
+            "fkMaquina": idMaquina
+        })
+    })).json();
+    console.log("Metrica Atualizada")
+    metricas = response.metricas;
+
+}
+
+function loadGraphData(graphic, graphicName, repeat = false) {
+    console.log("Carregando dados do gráfico " + graphicName);
+    let dataName = graphicName;
+    switch (graphicName) {
+        case 'cpu':
+            graphicName = "cpu_Utilizacao";
+            break;
+        case 'ram':
+            graphicName = "ram_Usada";
+            break;
+        case 'disk':
+            graphicName = "disco_Usado";
+            break;
+        case 'bigChart':
+            graphicName = clickedChart;
+            break;
+    }
+
+    if (dataName != "bigChart") updateDataNum(dataName, metricas[graphicName][0]);
+    let data = metricas[graphicName];
+
+    if (!repeat) {
+        for (let i = 0; i < data.length; i++) {
+            graphic.data.labels.push(new Date(data[i].dataColeta).toLocaleTimeString());
+            graphic.data.datasets[0].data.push(data[i].valorLeitura);
+            /* 
+                grafico.data.datasets[0].backgroundColor
+                grafico.data.datasets[0].borderColor
+                #F04A5B
+                #FFCD56
+                #36A2EB
+            */
+        }
+        
+    } else {
+
+        graphic.data.labels.shift();
+        graphic.data.labels.push(new Date(metricas[graphicName][0].dataColeta).toLocaleTimeString());
+        graphic.data.datasets[0].data.shift();
+        graphic.data.datasets[0].data.push(metricas[graphicName][0].valorLeitura);
+    }
+    graphic.update();
+}
+
+function updateDataNum(name, data) {
+    let element = document.getElementById(name + "-data");
+    element.innerHTML = data.valorLeitura + " "+ data.unidadeDeMedida;
+}
+
+function setEventClick() {
+    document.getElementById('cpu-card').onclick = function (evt) {
+        clickedChart = "cpu_Utilizacao";
+        loadGraphData(charts.bigChart, "big-chart");
+        //document.getElementById('big-chart-card').style.display = "block";
+    }
+}
+
+async function start() {
+    getMaquinaParamsAndSet();
+    console.log('Iniciando plotagem do gráfico...');
+    await getServerInfo();
+    await getMachineInfo();
+
+    for (const key in charts) {
+        loadGraphData(charts[key], key, false);
+    }
+
+    setInterval(async () => {
+        await getServerInfo();
+        for (const key in charts) {
+            loadGraphData(charts[key], key, true);
+        }
+    }, 1000);
+}
+
+start();
+setEventClick();
+
 

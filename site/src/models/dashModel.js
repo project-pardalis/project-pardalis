@@ -1,5 +1,6 @@
 var database = require("../database/config")
 
+/* Dashboard */
 function getMaquinas(empresa) {
     var sql = `SELECT * FROM Maquina`
     return database.executar(sql)
@@ -14,6 +15,8 @@ function getDados(empresa) {
     var sql = `select * from vw_empresa_sptech_maquina1_leitura order by dataColeta DESC limit 200`
     return database.executar(sql)
 }
+
+/* Server-Analysys */
 
 async function analysys(fkEmpresa, fkMaquina) {
     let maquinaInfo = await getMaquinaInfo(fkEmpresa, fkMaquina);
@@ -32,12 +35,12 @@ async function analysys(fkEmpresa, fkMaquina) {
 }
 
 function getView(nomeEmpresa, nomeMaquina, nomeMetrica) {
-    let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "` LIMIT 60";
+    let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "` LIMIT 10";
     return database.executar(sql);
 }
 
 function getMaquinaInfo(fkEmpresa, fkMaquina) {
-    let sql = `SELECT nomeMaquina, nomeEmpresa FROM Maquina JOIN Empresa on idEmpresa = Maquina.fkEmpresa WHERE idMaquina = ${fkMaquina} AND fkEmpresa = ${fkEmpresa}`
+    let sql = `SELECT nomeMaquina, nomeEmpresa, hashMaquina, sistemaOperacional, onCloud, dataCriacao FROM Maquina JOIN Empresa on idEmpresa = Maquina.fkEmpresa WHERE idMaquina = ${fkMaquina} AND fkEmpresa = ${fkEmpresa} LIMIT 1`
     return database.executar(sql)
 }
 
@@ -81,13 +84,14 @@ async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
 async function createView(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomeMetrica) {
     let sql = "CREATE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
     sql += `AS
-        SELECT nomeMaquina, dataCriacao, nomeComponente, nomeMetrica, 
+        SELECT nomeMaquina, nomeComponente, nomeMetrica, 
         unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 
         JOIN Componente on idComponente = Leitura.fkComponente
         JOIN Metrica on idMetrica = Leitura.fkMetrica
         JOIN Maquina on idMaquina = Leitura.fkMaquina 
         and Maquina.fkEmpresa = ${fkEmpresa} 
-        and Maquina.idMaquina = ${fkMaquina};
+        and Maquina.idMaquina = ${fkMaquina}
+        and Metrica.nomeMetrica = '${nomeMetrica}';
     `
     let res = await database.executar(sql);
     return res;
@@ -104,7 +108,7 @@ async function createViewEstatica(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
     }
     let sql = "CREATE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + "estatico`";
     sql += `AS
-        SELECT nomeMaquina, dataCriacao, nomeComponente, nomeMetrica, 
+        SELECT nomeMaquina, nomeComponente, nomeMetrica, 
         unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 
         JOIN Componente on idComponente = Leitura.fkComponente
         JOIN Metrica on idMetrica = Leitura.fkMetrica
@@ -117,12 +121,10 @@ async function createViewEstatica(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
     return res;
 }
 
-async function createViewMetricas() {
+async function createViews(fkEmpresa, fkMaquina) {
     let maquinaInfo = await getMaquinaInfo(fkEmpresa, fkMaquina);
     let nomeEmpresa = maquinaInfo[0].nomeEmpresa, nomeMaquina = maquinaInfo[0].nomeMaquina;
-    createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina);
-
-    return getMetricas();
+    await createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina);
 }
 
 async function getMetricas() {
@@ -137,5 +139,6 @@ module.exports = {
     getComponente,
     getDados,
     analysys,
-    createViewMetricas
+    createViews,
+    getMaquinaInfo
 }
