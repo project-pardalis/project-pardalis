@@ -110,9 +110,9 @@
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
                     style="height: fit-content; width: 25%; ">
                     <div class="h2">Servers em risco</div>
-                    <p class="lead small-font">Gráfico de pizza (risco / normais / alertas)
+                    <p class="lead small-font">Ideais / Risco / Alerta
                     </p>
-                    <div class="box-minichart-general"> <canvas id="serverRiskPie"></canvas></div>
+                    <div class="box-minichart-general"> <canvas id="chart-risk-server"></canvas></div>
                     <hr>
 
                 </div>
@@ -122,7 +122,7 @@
                     <div class="h2">Sistema operacional </div>
                     <p class="lead small-font">Gráfico de barra (linux / mac / windows )
                     </p>
-                    <div class="box-minichart-general"> </div>
+                    <div class="box-minichart-general"> <canvas id="chart-so"></canvas> </div>
                     <hr>
 
                 </div>
@@ -132,7 +132,8 @@
                     <p class="lead small-font"> chart linha => (semana / média de uso gb de todos os discos )
 
                     </p>
-                    <div class="box-minichart-general"> </div>
+                    <div class="box-minichart-general"> <canvas id="chart-avgstorage" class="chart"></canvas>
+                    </div>
                     <hr>
 
                 </div>
@@ -141,12 +142,11 @@
             <div class="center box-general justify-content-evenly flex-column"
                 style="width:90%; border:2px solid blue;">
                 <div class="display-6">Avg / Date</div>
-                <div class="small-font">
-                    Gráfico com as médias por data, média para comparativo de qualidade a longo-prazo, select dinamico
-                    que altera com os selects buttom
+                <div class="small-font" id="component-per-date">
+                    Componente - Data
                 </div>
                 <div class="box-mensal-chart">
-
+                    <canvas id="chart-dynamic" class="chart"></canvas>
                 </div>
                 <div class="center">
                     <div class="center justify-content-between " style="border: 2px solid red; width: 45rem;">
@@ -204,44 +204,55 @@
 
                 </div>
             </div>
+
+
+            <div class="center-row">
+
+            </div>
             <div class="center-row box-general justify-content-evenly" style="width:90%; border:2px solid blue;">
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
-                    style="height: fit-content; width: 25%; ">
-                    <div class="h2">Servers em risco</div>
-                    <p class="lead small-font">Servidores que estão com risco problemas graves.
+                    style="height: fit-content; width: 45%; ">
+                    <div class="h2">Temperatura </div>
+                    <p class="lead small-font">chart line temp / mes
                     </p>
-                    <div class="box-minichart-general"> </div>
-                    <hr>
-
+                    <div class="box-minichart-general">
+                        <canvas class="mini-chart" id="chart-temperature">
+                    </div>
                 </div>
+                <hr>
+
+
+
 
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
-                    style="height: fit-content; width: 25%; ">
-                    <div class="h2">Armazenamento </div>
-                    <p class="lead small-font"> chart barra => Qtd servers entre (300-400GB , 400-500GB , 500-600GB ,
-                        >600GB )
+                    style="height: fit-content; width: 45%; ">
+                    <div class="h2">RAM </div>
+                    <p class="lead small-font">chart line ram / mes
                     </p>
-                    <div class="box-minichart-general"> </div>
+                    <div class="box-minichart-general"> <canvas class="chart" id="chart-ram"></canvas></div>
                     <hr>
 
                 </div>
             </div>
-
-
         </div>
+    </div>
+
+
+
+    </div>
     </div>
 
     <!--Verificar se necessário-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
         crossorigin="anonymous"></script>
-    <script src="js/general-dash.js"></script>
+    <script src="./js/dados-gerais.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
         crossorigin="anonymous"></script>
