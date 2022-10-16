@@ -499,19 +499,25 @@ header {
 
 .box-general {
   width: 90%;
-  border: 2px solid blue;
+  border: 2px solid rgb(190, 190, 190);
+  padding: 2rem;
+  border-radius: 10px;
   margin-top: 1rem;
 }
 
 .box-mensal-chart {
   width: 100%;
-  border: 2px solid purple;
+  border: 2px solid rgb(190, 190, 190);
+  padding: 2rem;
+  border-radius: 10px;
   height: 20rem;
 }
 
 .box-minichart-general {
   width: 80%;
-  border: 2px solid red;
+  border: 2px solid rgb(190, 190, 190);
+  padding: 2rem;
+  border-radius: 10px;
   height: 10rem;
 }
 
