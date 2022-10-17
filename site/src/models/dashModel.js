@@ -139,9 +139,8 @@ async function getMetricas() {
 }
 
 async function getComponente2(fkEmpresa, fkMaquina, nomeComponente) {
-    let sql = `SELECT nomeComponente, isComponenteValido, descricao FROM Componente LIMIT 1`;
+    let sql = `SELECT nomeComponente, isComponenteValido, descricao FROM Componente WHERE nomeComponente = '${nomeComponente}' AND fkEmpresa = ${fkEmpresa} AND fkMaquina = ${fkMaquina} LIMIT 1`;
     let res = await database.executar(sql);
-
     return res;
 }
 
