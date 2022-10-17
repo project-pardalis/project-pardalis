@@ -124,7 +124,7 @@ function montarLista(maq) {
         <span id="cpuTemperatura${maq[x].idMaquina}" class="cpuTemperatura position-absolute">ºC</span>
         </div>`
     }
-    verificarCor(dadosServer)
+    verificarCor(maq)
 }
 
 function filtrarServers(filtro) {
@@ -161,8 +161,25 @@ function verificarCor(servers) {
     alerta = '#FFFF00'
     risco = '#FF0000'
     for (let x = 0; x < servers.length; x++) {
-        for (let y = 0; y < 4; y++) {
-            
+        rand = Math.floor(Math.random() * 100)
+        if (rand > 90) {
+            document.getElementById(`idServer${servers[x].idMaquina}`).style.backgroundColor = risco
+            document.getElementById(`statusServer${servers[x].idMaquina}`).style.backgroundColor = risco
+            document.getElementById(`statusLista${servers[x].idMaquina}`).style.backgroundColor = risco
+            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).style.backgroundColor = risco
+            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).innerHTML = `${rand}ºC`
+        } else if (rand > 70) {
+            document.getElementById(`idServer${servers[x].idMaquina}`).style.backgroundColor = alerta
+            document.getElementById(`statusServer${servers[x].idMaquina}`).style.backgroundColor = alerta
+            document.getElementById(`statusLista${servers[x].idMaquina}`).style.backgroundColor = alerta
+            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).style.backgroundColor = alerta
+            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).innerHTML = `${rand}ºC`
+        } else {
+            document.getElementById(`idServer${servers[x].idMaquina}`).style.backgroundColor = normal
+            document.getElementById(`statusServer${servers[x].idMaquina}`).style.backgroundColor = normal
+            document.getElementById(`statusLista${servers[x].idMaquina}`).style.backgroundColor = normal
+            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).style.backgroundColor = normal
+            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).innerHTML = `${rand}ºC`
         }
     }
 }

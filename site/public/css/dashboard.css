@@ -226,6 +226,7 @@ header {
   height: 65vh;
   width: 60vw;
   overflow-y: scroll;
+  margin-left: 9.5rem;
 }
 
 .server-cont {
