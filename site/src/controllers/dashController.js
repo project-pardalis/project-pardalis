@@ -20,14 +20,14 @@ function getComponente(req, res) {
         })
 } 
 
-function getDados(req, res) {
-    dashModel.getDados()
-        .then(function(resultado) {
-            res.json(resultado)
-        })
-        .catch(function(erro) {
-            console.log(erro)
-        })
+async function getDados(req, res) {
+    let fkEmpresa = req.body.fkEmpresa;
+    let fkMaquina = req.body.fkMaquina;
+    let nomeMetrica = req.body.nomeMetrica;
+    
+    let maquinaInfo = await dashModel.getMaquinaInfo(fkEmpresa, fkMaquina);
+    let response = await dashModel.getDados(maquinaInfo[0].nomeEmpresa, maquinaInfo[0].nomeMaquina, nomeMetrica);
+    res.json({"metricas": response});
 }
 
 async function getMetricas(req, res) {

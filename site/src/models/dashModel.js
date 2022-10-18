@@ -1,19 +1,13 @@
 var database = require("../database/config")
 
 /* Dashboard */
-function getMaquinas(empresa) {
-    var sql = `SELECT * FROM Maquina`
+function getMaquinas(fkEmpresa, fkMaquina) {
+    var sql = `SELECT nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina WHERE fkEmpresa = ${fkEmpresa} AND fkMaquina = ${fkMaquina};`
     return database.executar(sql)
 }
 
-function getComponente(empresa) {
-    var sql = `SELECT * FROM Componente`
-    return database.executar(sql)
-}
-
-function getDados(empresa) {
-    var sql = `select * from vw_empresa_sptech_maquina1_leitura order by dataColeta DESC limit 200`
-    return database.executar(sql)
+function getDados(nomeEmpresa, nomeMaquina, nomeMetrica) {
+    return getView(nomeEmpresa, nomeMaquina, nomeMetrica, true, true);
 }
 
 /* Server-Analysys */
@@ -146,7 +140,6 @@ async function getComponente2(fkEmpresa, fkMaquina, nomeComponente) {
 
 module.exports = {
     getMaquinas,
-    getComponente,
     getDados,
     analysys,
     createViews,
