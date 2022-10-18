@@ -10,7 +10,15 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+    
     <build>
+        <!-- https://mvnrepository.com/artifact/com.github.britooo/looca-api -->
+<dependency>
+    <groupId>com.github.britooo</groupId>
+    <artifactId>looca-api</artifactId>
+    <version>2.1.0</version>
+</dependency>
+
 <plugins>
 <plugin>
 <groupId>org.apache.maven.plugins</groupId>
