@@ -3,7 +3,14 @@ var machines = [];
 var filtroPossiveis = [
     "cpu_Temperature",
     "cpu_Utilizacao",
+    "ram_Usada",
+    "disco_Usado",
 ];
+let colors = {
+    "normal": "#00FF00",
+    "alerta": "#FFFF00",
+    "risco": "#FF0000",
+}
 
 /* Pegar dados da empresa */
 function getParams() {
@@ -64,6 +71,49 @@ function appendMachine(maq) {
     }
     //verificarCor(maq)
 }
+
+function verificarCor(server) {
+    let summary;
+    switch (filtro) {
+        case "cpu_Temperature":
+            summary = getSummary(0, 100);
+            break;
+        case "cpu_Utilizacao":
+            summary = getSummary(0, 100);
+            break;
+        case "ram_Usada":
+            let ramTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "ram_Total")[0];
+            summary = getSummary(0, ramTotalData);
+            break;
+        case "disco_Usado":
+            let discoTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "disco_Total")[0];
+            summary = getSummary(0, discoTotalData);
+            break;
+    }
+    if (server.lastData[filtro] > summary.max) {
+        /* VERMELHO */
+    } else if (server.lastData[filtro] > summary.q3) {
+        /* AMARELO */
+    } else {
+        /* VERDE */
+        /* document.getElementById(`idServer${servers[x].idMaquina}`).style.backgroundColor = normal
+            document.getElementById(`statusServer${servers[x].idMaquina}`).style.backgroundColor = normal
+            document.getElementById(`statusLista${servers[x].idMaquina}`).style.backgroundColor = normal
+            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).style.backgroundColor = normal
+            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).innerHTML = `${rand}ºC` */
+    }
+}
+
+function getSummary(min, max) {
+    let mediana = (min + max) / 2;
+    let q1 = (min + mediana) / 2;
+    let q3 = (max + mediana) / 2;
+    return {
+        "q1": q1,
+        "q3": q3,
+        "max": max,
+    }
+} 
 
 /* Inicialização */
 async function start() {
