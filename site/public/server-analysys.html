@@ -119,11 +119,14 @@
                         <p class="fw-semibold h4 w-auto" id="component-name">CPU</p>
                         <p class="fw-semibold h4 w-auto" id="component-complement"></p>
                     </div>
+                    <div class="w-100 text-end">
+                        <p class="fw-lighter h5" id="last-update"></p>
+                    </div>
                     
-                    <div class="h-50 w-100 chart" style="position: relative;">
+                    <div class="h-25 w-100 chart" style="position: relative;">
                         <canvas id="big-chart"></canvas>
                     </div>
-                    <div class="card">
+                    <div class="">
                         Características: <br>
                             Arquitetura: x86_64 <br> Thread per núcleo: 2 <br> Núcleo por soquete: 2
                     </div>
@@ -141,16 +144,25 @@
                 </div>
             </div>
 
-            <div class="card mt-4 p-4 d-flex flex-row" style="height: fit-content; width: 95%;">
-                
+            <div class="card mt-4 p-4 d-flex flex-column" style="height: fit-content; width: 95%;">
+                <div>
+                    <p class="fw-semibold h4 w-auto" id="component-name">Informações do dia</p>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-outline-secondary fw-bold" style="box-shadow: none !important;" onclick="changeChartStyle('line')">Linha</button>
+                        <button class="btn btn-sm btn-outline-secondary fw-bold" style="box-shadow: none !important;" onclick="changeChartStyle('bar')">Barra</button>
+                    </div>
+                </div>
+                <div class="h-50 w-50 chart" style="position: relative;">
+                    <canvas id="day-chart"></canvas>
+                </div>
             </div>
 
         </div>
     </div>
 
     <!--Verificar se necessário-->
+    <script src="./js/moment-with-locales.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"

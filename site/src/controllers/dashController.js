@@ -34,11 +34,12 @@ async function getMetricas(req, res) {
     let fkEmpresa = req.body.fkEmpresa;
     let fkMaquina = req.body.fkMaquina;
     let order = req.body.order;
-
+    let limit = req.body.limit;
+    if (limit == undefined) limit = true;
     await dashModel.createViews(
         fkEmpresa, fkMaquina
     );
-    let response = await dashModel.analysys(fkEmpresa, fkMaquina, order);
+    let response = await dashModel.analysys(fkEmpresa, fkMaquina, order, limit);
     res.json({"metricas": response})
 }
 

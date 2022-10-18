@@ -15,7 +15,7 @@ charts.cpu = new Chart(
                     tension: 0.1,
                     pointRadius: 0,
                     hoverPointRadius: 0,
-                    borderWidth: 0.8
+                    borderWidth: 0.5
                 },
                 {
                     backgroundColor: "#7fffe86e",
@@ -25,7 +25,7 @@ charts.cpu = new Chart(
                     tension: 0.1,
                     pointRadius: 0,
                     hoverPointRadius: 0,
-                    borderWidth: 0.8
+                    borderWidth: 0.5
                 }]
         },
         options: {
@@ -51,7 +51,7 @@ charts.ram = new Chart(
                     tension: 0.1,
                     pointRadius: 0,
                     hoverPointRadius: 0,
-                    borderWidth: 0.8
+                    borderWidth: 0.5
                 }]
         },
         options: {
@@ -77,7 +77,7 @@ charts.disk = new Chart(
                     tension: 0.1,
                     pointRadius: 0,
                     hoverPointRadius: 0,
-                    borderWidth: 0.8
+                    borderWidth: 0.5
                 }]
         },
         options: {
@@ -104,7 +104,7 @@ charts.bigChart = new Chart(
                     tension: 0.1,
                     pointRadius: 1,
                     hoverPointRadius: 0,
-                    borderWidth: 0.8
+                    borderWidth: 1.5
                 },
                 {
                     backgroundColor: "#7fffe86e",
@@ -114,11 +114,11 @@ charts.bigChart = new Chart(
                     tension: 0.1,
                     pointRadius: 1,
                     hoverPointRadius: 0,
-                    borderWidth: 0.8
+                    borderWidth: 1.5
                 }]
         },
         options: {
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             legend: {
                 display: true,
             }
@@ -126,52 +126,80 @@ charts.bigChart = new Chart(
     }
 );
 
-/* const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-];
-
-const barConfig = {
-    type: 'bar',
-    data: dataCPU,
-    options: { maintainAspectRatio: false }
-};
-
-const dataDiaHora = {
-    datasets: [{
-        label: 'My First dataset',
-        backgroundColor: '#6B46D7',
-        borderColor: '#6B46D7',
-        data: [0, 10, 5, 2, 20, 30, 45],
-    }]
-};
-
-
-const configPizza = {
-    type: 'doughnut',
-    data: dataDiaHora,
-    options: {}
-
-};
-
-
-const barChart = new Chart(
-    document.getElementById('myChart4'),
+charts.dayChart = new Chart(
+    document.getElementById('day-chart'),
     {
         type: 'bar',
-        data: dataCPU,
+        data: {
+            labels: [],
+            datasets: [
+                {
+                    backgroundColor: "#9cdbffa0",
+                    label: 'Utilização da Cpu',
+                    borderColor: '#117dbb',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 2,
+                    hoverPointRadius: 0,
+                    borderWidth: 1.5
+                },
+                {
+                    backgroundColor: "#7fffe86e",
+                    label: 'Temperatura da Cpu',
+                    borderColor: '#45a593',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 2,
+                    hoverPointRadius: 0,
+                    borderWidth: 1.5
+                },
+                {
+                    backgroundColor: "#eba4ff7e",
+                    label: 'Ram Usada',
+                    borderColor: '#9528b4',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 2,
+                    hoverPointRadius: 0,
+                    borderWidth: 1.5
+                },
+                {
+                    backgroundColor: "#b8ff8684",
+                    label: 'Disco Usado',
+                    borderColor: '#62b02a',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 2,
+                    hoverPointRadius: 0,
+                    borderWidth: 1.5
+                }]
+        },
         options: {
-            maintainAspectRatio: false,
             legend: {
-                display: false,
+                display: true,
             }
         }
     }
-); */
+);
+
+var chartsColors = {
+    "cpu_Utilizacao": {
+        "backgroundColor": "#9cdbffa0",
+        "borderColor": "#117dbb"
+    },
+    "cpu_Temperature": {
+        "backgroundColor": "#7fffe86e",
+        "borderColor": "#45a593"
+    },
+    "ram_Usada": {
+        "backgroundColor": "#eba4ff7e",
+        "borderColor": "#9528b4"
+    },
+    "disco_Usado": {
+        "backgroundColor": "#b8ff8684",
+        "borderColor": "#62b02a"
+    }
+}
 
 var idMaquina;
 var fkEmpresa;
@@ -187,9 +215,9 @@ var bigChart = {
                 borderColor: '#117dbb',
                 data: [],
                 tension: 0.1,
-                pointRadius: 0,
+                pointRadius: 1.5,
                 hoverPointRadius: 0,
-                borderWidth: 0.8
+                borderWidth: 1.5
             },
             {
                 backgroundColor: "#7fffe86e",
@@ -197,9 +225,9 @@ var bigChart = {
                 borderColor: '#45a593',
                 data: [],
                 tension: 0.1,
-                pointRadius: 0,
+                pointRadius: 1.5,
                 hoverPointRadius: 0,
-                borderWidth: 0.8
+                borderWidth: 1.5
             }],
         ram: [
             {
@@ -208,9 +236,9 @@ var bigChart = {
                 borderColor: '#9528b4',
                 data: [],
                 tension: 0.1,
-                pointRadius: 0,
+                pointRadius: 1.5,
                 hoverPointRadius: 0,
-                borderWidth: 0.8
+                borderWidth: 1.5
             }],
         disk: [
             {
@@ -219,9 +247,9 @@ var bigChart = {
                 borderColor: '#62b02a',
                 data: [],
                 tension: 0.1,
-                pointRadius: 0,
+                pointRadius: 1.5,
                 hoverPointRadius: 0,
-                borderWidth: 0.8
+                borderWidth: 1.5
             }]
 
     }
@@ -297,7 +325,7 @@ async function getCPUInfo() {
 
 /* Metricas */
 
-async function getServerInfo(order = false) {
+async function getServerInfo(order = false, limit = true) {
     let response = await (await fetch(`http://localhost:3000/dash/getMetrica`, {
         method: "POST",
         headers: {
@@ -306,13 +334,35 @@ async function getServerInfo(order = false) {
         body: JSON.stringify({
             "fkEmpresa": fkEmpresa,
             "fkMaquina": idMaquina,
-            "order": order
+            "order": order,
+            "limit": limit
         })
     })).json();
-    metricas = response.metricas;
+    return response.metricas;
     console.log("Metrica Atualizada")
 
 }
+
+function loadLastUpdate(date) {
+    let element = document.getElementById("last-update");
+    let dateTime = moment(date);
+    dateTime.locale('pt-br');
+    element.title = dateTime.format('[Última atualização obtida:] Do MMMM YYYY, hh:mm:ss a');
+    element.innerHTML = dateTime.calendar('');
+}
+
+/* Alertas */
+
+function getSummary(min, max) {
+    let mediana = (min + max) / 2;
+    let q1 = (min + mediana) / 2;
+    let q3 = (max + mediana) / 2;
+    return {
+        "q1": q1,
+        "q3": q3,
+        "max": max,
+    }
+} 
 
 /* Chart */
 
@@ -324,6 +374,8 @@ async function appendChartData(chart, chartName, label, repeat = false, reverse 
     if (chartName != "bigChart") {
         if (reverse) metricas[label] = metricas[label].reverse();
         updateDataNum(chartName, metricas[label][0], label);
+    } else {
+        loadLastUpdate(metricas[label][0].dataColeta);
     }
 
     let data = metricas[label];
@@ -364,6 +416,34 @@ function selectDatasetToAppend(chart, label, data, repeat = true) {
     if (repeat && (label == "cpu_Utilizacao" || label == "disco_Usado" || label == "ram_Usada")) chart.data.labels.shift();
     if (label == "cpu_Utilizacao" || label == "disco_Usado" || label == "ram_Usada") chart.data.labels.push(new Date(data.dataColeta).toLocaleTimeString());
     if (repeat) dataset.data.shift();
+    let summary;
+    switch (label) {
+        case "cpu_Utilizacao":
+            summary = getSummary(0, 100);
+            break;
+        case "cpu_Temperature":
+            summary = getSummary(0, 100);
+            break;
+        case "ram_Usada":
+            let ramTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "ram_Total")[0];
+            summary = getSummary(0, ramTotalData); 
+            break;
+        case "disco_Usado":
+            let discoTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "disco_Total")[0];
+            summary = getSummary(0, discoTotalData);
+            break;
+    }
+    data.valorLeitura = parseFloat(data.valorLeitura);
+    if (data.valorLeitura >= summary.max) {
+        dataset.backgroundColor = "#F04A5B";
+        dataset.borderColor = "#F04A5B";
+    } else if (data.valorLeitura >= summary.q3) {
+        dataset.backgroundColor = "#FFCD56";
+        dataset.borderColor = "#FFCD56";
+    } else {
+        dataset.backgroundColor = chartsColors[label]["backgroundColor"];
+        dataset.borderColor = chartsColors[label]["borderColor"];
+    }
     dataset.data.push(data.valorLeitura);
 }
 
@@ -405,7 +485,6 @@ function getComponentMetricas(key) {
     return componentMetrica;
 }
 
-
 /* Carrega as informações do big chart */
 async function startChart(key, repeat, reverse) {
     let componentMetrica = getComponentMetricas(key);
@@ -425,8 +504,8 @@ async function startChart(key, repeat, reverse) {
 }
 
 /* Big Chart Event Click */
-function setEventClick(componentName) {
-    if (componentName == "bigChart") return;
+async function setEventClick(componentName) {
+    if (componentName == "bigChart" || componentName == "dayChart") return;
     document.getElementById(`${componentName}-card`).onclick = async function (evt) {
         let element = document.getElementById(`component-name`);
         let element2 = document.getElementById(`component-complement`);
@@ -436,19 +515,31 @@ function setEventClick(componentName) {
                 bigChart.clickedChart = "cpu";
                 element.innerHTML = "Cpu";
 
-                specification.descricao = getCPUInfo()
-                element2.innerHTML = specification.descricao["Nome do modelo"];
+                specification = await getCPUInfo()
+                console.log(specification)
+                element2.innerHTML = specification["Nome do modelo"];
+                let textSpecification = "";
+                for (const key in specification) {
+                    let specificationData = specification[key];
+                    if (key == "Nome do modelo") continue;
+                    if (Object.keys(specification).indexOf(key) == Object.keys(specification).length - 1) textSpecification += `${key}: ${specificationData}`;
+                    else textSpecification += ` ${key}: ${specificationData}, `;
+                }
+                element2.title = textSpecification;
                 /* Colocar para pegar informações da cpu */
                 break;
             case 'ram':
                 bigChart.clickedChart = "ram";
                 element.innerHTML = "Ram";
                 let ramTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "ram_Total")[0];
+                element2.title = "";
                 element2.innerHTML = ramTotalData.valorLeitura + ramTotalData.unidadeDeMedida;
                 break;
             case 'disk':
                 bigChart.clickedChart = "disco";
                 element.innerHTML = "Disco";
+                element2.title = "";
+                element2.innerHTML = "";
                 // element2.innerHTML = specification[0].descricao["Nome do modelo"]; Ver se consegue pegar o modelo do disc
                 break;
         }
@@ -462,6 +553,14 @@ async function loadCpuInfo() {
     let element = document.getElementById(`component-complement`);
     let specification = await getCPUInfo();
     element.innerHTML = specification["Nome do modelo"];
+    let textSpecification = "";
+    for (const key in specification) {
+        let specificationData = specification[key];
+        if (key == "Nome do modelo") continue;
+        if (Object.keys(specification).indexOf(key) == Object.keys(specification).length - 1) textSpecification += `${key}: ${specificationData}`;
+        else textSpecification += ` ${key}: ${specificationData}, `;
+    }
+    element.title = textSpecification;
 
 }
 
@@ -471,7 +570,7 @@ async function start() {
     getMaquinaParamsAndSet();
     console.log('Iniciando plotagem do gráfico...');
     loadCpuInfo();
-    await getServerInfo(true);
+    metricas = await getServerInfo(true);
     await getMachineInfo();
 
     for (const key in charts) {
@@ -479,9 +578,11 @@ async function start() {
         setEventClick(key);
     }
 
+    loadDataDayChart();
+
     setInterval(async () => {
         console.log("------------------------------------------------------------");
-        await getServerInfo(true);
+        metricas = await getServerInfo(true);
         for (const key in charts) {
             startChart(key, true);
         }
@@ -491,3 +592,100 @@ async function start() {
 start();
 
 
+/* ----------------------------- DAY CHART ------------------------------------------- */
+
+async function loadDataDayChart() {
+    let metricasDayChart = await getServerInfo(true, false);
+    let metricasDayChartKeys = Object.keys(metricasDayChart);
+    for (let i = 0; i < metricasDayChartKeys.length; i++) {
+        let data;
+        data = await separateData(metricasDayChart[metricasDayChartKeys[i]]);
+        findDataset(metricasDayChartKeys[i], data)
+    }
+    charts.dayChart.update();
+}
+
+async function separateData(data) {
+    if (data.length == 0) return;
+    let todayDate = new Date();
+    let dataSeparated = data.filter(
+        (data) => {
+            let date = new Date(data.dataColeta);
+            return true;
+            //return (date.getDate() == todayDate.getDate() && date.getMonth() == todayDate.getMonth() && date.getFullYear() == todayDate.getFullYear());
+        }
+    )
+    let hours = await separateHours(dataSeparated);
+    let dataSeparatedByHour = []
+    for (let i = 0; i < hours.length; i++) {
+        let dataByHour = dataSeparated.filter(
+            (data) => {
+                let date = new Date(data.dataColeta);
+                return (date.getHours() == hours[i]);
+            }
+        )
+        let mean = getMean(dataByHour);
+        dataSeparatedByHour.push(mean);
+        let labelsHours = charts.dayChart.data.labels.filter(
+            (label) => {
+                return label == `${hours[i]}h`;
+            }
+        )
+        if (labelsHours.length == 0) charts.dayChart.data.labels.push(`${hours[i]}h`);
+    }
+
+    return dataSeparatedByHour;
+}
+
+async function separateHours(data) {
+    let hours = [];
+    for (let i = 0; i < data.length; i++) {
+        let date = new Date(data[i].dataColeta);
+        let hour = date.getHours();
+        if (hours.indexOf(hour) == -1) hours.push(hour);
+    }
+    return hours
+}
+
+function getMean(data) {
+    let mean = 0;
+    for (let i = 0; i < data.length; i++) {
+        mean += parseFloat(data[i].valorLeitura);
+    }
+    mean /= data.length;
+    return mean.toFixed(2);
+}
+
+function findDataset(metrica, data) {
+    let labelName;
+    switch (metrica) {
+        case 'cpu_Utilizacao':
+            labelName = "Utilização da Cpu";
+            break;
+        case 'cpu_Temperature':
+            labelName = "Temperatura da Cpu";
+            break;
+        case 'ram_Usada':
+            labelName = "Ram Usada";
+            break;
+        case 'disco_Usado':
+            labelName = "Disco Usado";
+    }
+    for (let i = 0; i < charts.dayChart.data.datasets.length; i++) {
+        if (charts.dayChart.data.datasets[i].label == labelName) {
+            charts.dayChart.data.datasets[i].data = data;
+        }
+    }
+}
+
+function changeChartStyle(chartType) {
+    switch (chartType) {
+        case 'line':
+            charts.dayChart.config.type = 'line';
+            break;
+        case 'bar':
+            charts.dayChart.config.type = 'bar';
+            break;
+    }
+    charts.dayChart.update();
+} 
