@@ -7,10 +7,6 @@ router.post("/getMaquinas", function (req, res) {
     dashController.getMaquinas(req, res)
 });
 
-router.post("/getComponente", function(req, res) {
-    dashController.getComponente(req, res)
-})
-
 router.post("/getDados", function(req, res) {
     dashController.getDados(req, res)
 })
@@ -24,7 +20,7 @@ router.post("/getMaquina", function(req, res) {
 })
 
 router.post("/getComponenteServer", function(req, res) {
-    dashController.getComponente2(req, res)
+    dashController.getComponente(req, res)
 })
 
 module.exports = router

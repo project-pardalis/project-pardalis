@@ -19,13 +19,13 @@
   <header class="sticky-top bg-dark d-flex m-0 p-0 vw-auto shadow d-flex justify-content-between">
     <a class="navbar-brand px-2 fs-4 text-light" style="width: 15%;">Pardalis</a>
     <input class="form-control form-control-dark w-50 rounded-0 border-0" type="text" placeholder="Setor"
-        aria-label="Setor">
+      aria-label="Setor">
     <div class="navbar-nav w-auto">
-        <div class="nav-item text-nowrap">
-            <a class="nav-link px-3 text-light" href="#">Sair</a>
-        </div>
+      <div class="nav-item text-nowrap">
+        <a class="nav-link px-3 text-light" onclick="sair()" style="cursor: pointer;">Sair</a>
+      </div>
     </div>
-</header>
+  </header>
 
   <div class="container-fluid row m-0 p-0">
     <nav id="sidebarMenu" class="p-0 d-md-block bg-light collapse" style="width: 15%;">
@@ -45,8 +45,9 @@
             <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="">Mês atual</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="./server-analysys.html">Análise de dados</a>
-        </li>
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="./server-analysys.html">Análise de
+              dados</a>
+          </li>
         </ul>
         <ul class="nav flex-column mt-2">
           <li class="nav-item">
@@ -108,19 +109,19 @@
 
 
       <div class="center-row w-100">
-        <div class="server-cont" id="server-cont"></div>
-        <div class="server-cont" id="server-list"></div>
+        <div class="server-cont" id="wide-server-list-filter"></div>
+        <div class="server-cont" id="micro-server-list-filter"></div>
 
-         <div onclick="mudarFiltro()" class="filterStyle ">
+        <div onclick="mudarFiltro()" class="filterStyle ">
           <img id="filtroNumerico" class="filterSvg" src="./assets/img/sort-numeric-down.svg" style="display: block;"
             alt="">
           <img src="./assets/img/sort-alpha-down.svg" class="filterSvg" id="filtroAlfa" style="display: none;" alt="">
           <img src="./assets/img/sort-down.svg" class="filterSvg" id="filtroGrau" style="display: none;" alt="">
         </div>
-         <div class=".container  serverContainer">
-            <div class="server-cont" id="serverCont" style="display: grid;"></div>
-            <div class="server-cont" id="serverList" style="display: none;">
-            </div>
+        <div class=".container  serverContainer">
+          <div class="server-cont" id="wide-server-list" style="display: grid;"></div>
+          <div class="server-cont" id="micro-server-list" style="display: none;">
+          </div>
         </div>
 
       </div>
@@ -138,7 +139,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
     integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
     crossorigin="anonymous"></script>
-    <script src="./js/dashboard.js"></script>
+  <script src="./js/dashboard.js"></script>
   <script src="./js/dashDados.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
     integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"

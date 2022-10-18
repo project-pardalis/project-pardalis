@@ -1,13 +1,32 @@
 var database = require("../database/config")
 
 /* Dashboard */
-function getMaquinas(fkEmpresa, fkMaquina) {
-    var sql = `SELECT nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina WHERE fkEmpresa = ${fkEmpresa} AND fkMaquina = ${fkMaquina};`
-    return database.executar(sql)
+async function getMaquinas(fkEmpresa) {
+    var sql = `SELECT idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
+    let res = await database.executar(sql)
+    let metricas = await getMetricas();
+    for (let i = 0; i < res.length; i++) {
+        res[i].lastData = {};
+    }
+    for (let i = 0; metricas.length > i; i++) {
+        for (let j = 0; j < res.length; j++) {
+            if (metricas[i].isEstatico == 0) {
+                res[j].lastData[metricas[i].nomeMetrica] = await getDados(res[j].nomeEmpresa, res[j].nomeMaquina, metricas[i].nomeMetrica);
+            }
+        }
+    }
+    for (let i = 0; i < res.length; i++) {
+        res[i].lastData.estatico = (await getView(res[i].nomeEmpresa, res[i].nomeMaquina, "estatico", true));
+    }
+    
+    return res;
+
+
+
 }
 
-function getDados(nomeEmpresa, nomeMaquina, nomeMetrica) {
-    return getView(nomeEmpresa, nomeMaquina, nomeMetrica, true, true);
+async function getDados(nomeEmpresa, nomeMaquina, nomeMetrica) {
+    return (await getView(nomeEmpresa, nomeMaquina, nomeMetrica, true, true))[0];
 }
 
 /* Server-Analysys */
@@ -28,13 +47,20 @@ async function analysys(fkEmpresa, fkMaquina, order, limit) {
     return res;
 }
 
-function getView(nomeEmpresa, nomeMaquina, nomeMetrica, order, limit) {
-    let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
-    if (order) {
-        sql += ` ORDER BY dataColeta DESC `;
+async function getView(nomeEmpresa, nomeMaquina, nomeMetrica, order, limit) {
+    let teste;
+    try {
+        let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
+        if (order) {
+            sql += ` ORDER BY dataColeta DESC `;
+        }
+        if (limit) sql += "LIMIT 10;"
+        teste = await database.executar(sql);
+    } catch {
+        teste = [];
     }
-    if (limit) sql += "LIMIT 10;"
-    return database.executar(sql);
+    return teste;
+    
 }
 
 function getMaquinaInfo(fkEmpresa, fkMaquina) {
@@ -80,7 +106,7 @@ async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
 }
 
 async function createView(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomeMetrica) {
-    let sql = "CREATE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
+    let sql = "CREATE VIEW OR REPLACE" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
     sql += `AS
         SELECT nomeMaquina, nomeComponente, nomeMetrica, 
         unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 
@@ -132,7 +158,7 @@ async function getMetricas() {
     return res;
 }
 
-async function getComponente2(fkEmpresa, fkMaquina, nomeComponente) {
+async function getComponente(fkEmpresa, fkMaquina, nomeComponente) {
     let sql = `SELECT nomeComponente, isComponenteValido, descricao FROM Componente WHERE nomeComponente = '${nomeComponente}' AND fkEmpresa = ${fkEmpresa} AND fkMaquina = ${fkMaquina} LIMIT 1`;
     let res = await database.executar(sql);
     return res;
@@ -144,5 +170,5 @@ module.exports = {
     analysys,
     createViews,
     getMaquinaInfo,
-    getComponente2
+    getComponente
 }
