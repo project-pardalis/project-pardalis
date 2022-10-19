@@ -7,6 +7,15 @@ package school.sptech.conexao.banco;
 import java.sql.Connection;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.jdbc.JDBCPieDataset;
 
 /**
  *
@@ -27,6 +36,14 @@ public class TesteBanco {
         
         con.execute(criarTexto.toString());
 
-         
+       
+        //Create the chart
+    JFreeChart chart = ChartFactory.createPieChart(
+      "Bug Stat Pie Chart", pieDataset, true, true, true);
+
+    //Render the frame
+    ChartFrame chartFrame = new ChartFrame("JDPC Pie Chart", chart);
+    chartFrame.setVisible(true);
+    chartFrame.setSize(420, 300);
     }
 }
