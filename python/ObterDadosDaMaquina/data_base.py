@@ -108,7 +108,6 @@ def insert_component_info(component_info: dict, nomeComponent: str, fkMaquina: i
 
 # Atualiza informações básicas da máquina
 
-
 def update_machine(fkMaquina: int, fkEmpresa: int, sistemaOperacional: str):
     dataCriacao = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 

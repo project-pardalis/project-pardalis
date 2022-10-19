@@ -224,7 +224,7 @@ header {
 .serverContainer {
   border: 1px solid black !important;
   height: 65vh !important;
-  width: 60vw;
+  width: 95%;
   overflow-y: scroll;
 }
 

@@ -7,8 +7,6 @@
   <meta name="description" content="">
   <title>Dashboard | Pardalis</title>
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
-  <!--Verificar se necessário-->
   <link href="./css/dashboard.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -42,10 +40,7 @@
               Dados Gerais</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="">Mês atual</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="./server-analysys.html">Análise de
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content;">Análise de
               dados</a>
           </li>
         </ul>
@@ -68,33 +63,28 @@
       </div>
     </nav>
 
-
     <main class="main col-md-9 ms-sm-auto col-lg-10 px-md-4 text-center">
-      <div class="d-flex justify-content-between" style="width: 60vw;">
-
-        <div class="card text-bg-danger p-3 ">
-
+      <div class="d-flex justify-content-between" >
+        <div class="chart maquinas-estado" style="opacity: 0;">
+          <canvas id="chart-maquinas-estado" ></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="chart-armazenamento-total"></canvas>
+        </div>
+        <!-- <div class="card text-bg-danger p-3 ">
           <p class="fw-semibold h4">Crítico</p>
           <p class="card-text fw-light">3 Servidores estão críticos </p>
-
-
         </div>
         <div class="card text-bg-warning p-3 ">
-
           <p class="fw-semibold h4">Alerta</p>
           <p class="card-text fw-light">1 Servidor requer atenção </p>
-
-
         </div>
         <div class="card text-bg-success p-3 ">
-
           <p class="fw-semibold h4">Ok</p>
           <p class="card-text fw-light">90 servidores estão OK! </p>
-
-
-        </div>
+        </div> -->
       </div>
-      <div class="" style="width: 60vw;">
+      <div>
         <div class="w-100 d-flex justify-content-end mt-4">
           <div class="btn-group me-2">
             <button type="button" onclick="mostrarLista(1)" class="btn btn-sm btn-outline-secondary">Modo
@@ -118,12 +108,14 @@
           </div>
         </div>
         <div class="filterStyle d-flex flex-column" style="height: 65vh !important;">
-          <div onclick="reloadMachine()" class="ms-1" style="height: fit-content; cursor: pointer;">
+          <div onclick="reloadMachine()" title="Recarregar" class="ms-1 card" style="height: fit-content; cursor: pointer;">
             <i class="fa-solid fa-rotate-right h2 m-0"></i>
           </div>
-          <div class="mt-2 ms-1" style="height: fit-content; cursor: pointer;">
-            <i onclick="changeOrder(this)" class="fa-solid fa-arrow-up h2 ms-1 m-0" id="arrowUp"></i>
-            <i onclick="changeFilter(this)" class="fa-solid fa-arrow-up-a-z h2 m-0" id="crescent" ></i>
+          <div class="mt-2 ms-1 card" title="Mudar ordem" style="height: fit-content; cursor: pointer;">
+            <i onclick="changeOrder(this)" class="fa-solid fa-arrow-up h2 m-0" id="arrowUp"></i>
+          </div>
+          <div class="mt-2 ms-1 card" title="Mudar Filtro" style="height: fit-content; cursor: pointer;">
+            <i onclick="changeFilter(this)" class="fa-solid fa-arrow-up-a-z h2 m-0" id="name" ></i>
           </div>
 
         </div>
@@ -134,13 +126,12 @@
 
   </div>
 
-
   <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
   <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-    integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-    crossorigin="anonymous"></script>
-  <script src="./js/dashboard.js"></script>
+  integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+  crossorigin="anonymous"></script>
+  <script src="./js/dashboard_Grafico.js"></script>
   <script src="./js/dashDados.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
     integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"

@@ -1,16 +1,9 @@
 var fkEmpresa;
 var machines = [];
-var filtroPossiveis = [
-    "name",
-    "cpu_Temperature",
-    "cpu_Utilizacao",
-    "ram_Usada",
-    "disco_Usado",
-];
 
 var possibleIcons = {
     "reload": ["fa-solid", "fa-rotate-right"],
-    "crescent": ["fa-solid", "fa-arrow-up-a-z"],
+    "name": ["fa-solid", "fa-arrow-up-a-z"],
     "arrowUp": ["fa-solid", "fa-arrow-up"],
     "arrowDown": ["fa-solid", "fa-arrow-down"],
     "cpu_Utilizacao": ["fa-solid", "fa-microchip"],
@@ -51,29 +44,31 @@ async function getMachine() {
 
 /* Event Clicks */
 
+/* Ir para a página de máquina separada */
 function trocarPagina(idMaquina) {
     window.location.href = `./server-analysys.html?idMaquina=${idMaquina, fkEmpresa}`;
         window.focus();
 }
 
+/* Sai da página */
 function sair() {
     sessionStorage.clear();
     window.location.href = "./login.html";
 }
 
-function changeOrder (element) {
+/* Modifica a ordem das máquinas baseado no filtro */
+function changeOrder(element) {
     let filterElement = element;
     let currentFilter = filterElement.id;
     let keys = Object.keys(possibleIcons);
     let index = keys.indexOf(currentFilter);
 
-    index = index == 4 ? 3 : 4;
+    index = index == 3 ? 2 : 3;
 
     filterElement.id = keys[index];
     
     filterElement.removeAttribute("class");
     filterElement.classList.add("h2");
-    filterElement.classList.add("ms-1");
     filterElement.classList.add("m-0");
 
 
@@ -86,28 +81,13 @@ function changeOrder (element) {
     appendMachine(result);
 }
 
-function changeOrderMachine(crescent = true) {
-    let newOrder;
-    if (crescent) {
-        newOrder = machines.sort((a, b) => {
-            if (a.nomeMaquina > b.nomeMaquina) return 1;
-            if (a.nomeMaquina < b.nomeMaquina) return -1;
-
-        });
-    } else {
-        newOrder = machines.sort((a, b) => {
-            if (a.nomeMaquina > b.nomeMaquina) return -1;
-            if (a.nomeMaquina < b.nomeMaquina) return 1;
-        });
-    }
-    return newOrder;
-}
-
+/* Modifica o filtro */
 function changeFilter(element) {
     let filterElement = element;
     let currentFilter = filterElement.id;
     let keys = Object.keys(possibleIcons);
     let index = keys.indexOf(currentFilter);
+    console.log("Filtro antigo: " + currentFilter);
     if (index == keys.length - 1) index = 1;
     else index++;
     
@@ -115,6 +95,7 @@ function changeFilter(element) {
     
     filterElement.id = keys[index];
     filter = keys[index];
+    console.log("Novo Filtro: " + filter);
 
     filterElement.removeAttribute("class");
     filterElement.classList.add("h2");
@@ -124,52 +105,66 @@ function changeFilter(element) {
         filterElement.classList.add(possibleIcons[keys[index]][i]);
     }
 
-    console.log("Old order:");
-    console.log(machines);
-    console.log("New order:");
-    let newOrder = changeFilterMachine();
-    console.log(newOrder)
+    let newOrder = changeOrderMachine();
     appendMachine(newOrder);
+    setChartStateData();
 }
 
-/* Erro aqui no sort quando não a utilização é undefined */
-function changeFilterMachine() {
-    console.log("Filtro: " + filter);
+/* Escolhe qual função deve ser usada para aquele filtro */
+function changeOrderMachine() {
+    let orderChoosed = document.getElementById("arrowUp");
     switch (filter) {
         case "name":
-            let orderChoosed = document.getElementById("crescent");
-            if (orderChoosed == null) return changeOrderMachine(true);
-            else return changeOrderMachine(false);
-
-        case "cpu_Temperature":
-            return machines.sort((a, b) => {
-                return parseFloat(a.lastData.cpu_Temperature.valorLeitura) - parseFloat(b.lastData.cpu_Temperature.valorLeitura);
-            });
-        case "cpu_Utilizacao":
-            return machines.sort((a, b) => {
-                if (a.lastData.cpu_Utilizacao == undefined) return 0 - b.lastData.cpu_Utilizacao;
-                else if (b.lastData.cpu_Utilizacao == undefined) return a.lastData.cpu_Utilizacao.valorLeitura - 0;
-                return parseFloat(a.lastData.cpu_Utilizacao.valorLeitura) - parseFloat(b.lastData.cpu_Utilizacao.valorLeitura);
-            });
-        case "ram_Usada":
-            return machines.sort((a, b) => {
-                return parseFloat(a.lastData.ram_Usada.valorLeitura) - parseFloat(b.lastData.ram_Usada.valorLeitura);
-            });
-        case "disco_Usado":
-            return machines.sort((a, b) => {
-                return parseFloat(a.lastData.disco_Usado.valorLeitura) - parseFloat(b.lastData.disco_Usado.valorLeitura);
-            });
+            return changeOrderMachineByName(orderChoosed);
+            
+        default:
+            return separateMachines(orderChoosed);
     }
 }
 
+/* Ordena as máquinas pelo nome  */
+function changeOrderMachineByName(orderChoosed) {
+    if (orderChoosed == null) {
+        return machines.sort((a, b) => {
+            if (a.nomeMaquina > b.nomeMaquina) return 1;
+            if (a.nomeMaquina < b.nomeMaquina) return -1;
+
+        });
+    } else {
+        return machines.sort((a, b) => {
+            if (a.nomeMaquina > b.nomeMaquina) return -1;
+            if (a.nomeMaquina < b.nomeMaquina) return 1;
+        });
+    }
+}
+
+/* Ordena a máquina baseado no seu filtro  */
+function separateMachines(orderChoosed) {
+    let separated = machines.filter( (machine) => {
+        return machine.lastData[filter] !== undefined;
+    });
+    let separatedNull = machines.filter( (machine) => {
+        return machine.lastData[filter] === undefined;
+    });
+
+    separated.sort( (a, b) => {
+        if (orderChoosed == null) return parseFloat(a.lastData[filter].valorLeitura) - parseFloat(b.lastData[filter].valorLeitura);
+        else return parseFloat(b.lastData[filter].valorLeitura) - parseFloat(a.lastData[filter].valorLeitura);
+    });
+
+    for (let i = 0; i < separatedNull.length; i++) {
+        separated.push(separatedNull[i]);
+    }
+    return separated;
+}
+
+/* Recarrega as máquinas */
 async function reloadMachine() {
     console.log("Atualizando maquinas...");
     start();
 }
 
-/* Inicialização */
-
-/* Adicionar Servidor */
+/* Adiciona Servidor */
 function appendMachine(maq) {
     let wideServerList = document.getElementById("wide-server-list");
     let infoServerList = document.getElementById("info-server-list");
@@ -181,8 +176,11 @@ function appendMachine(maq) {
         element.classList.add("card")
         element.classList.add("ms-1")
         element.classList.add("fw-bold")
+        element.classList.add("h5");
+        element.title = maq[i].nomeMaquina;
         element.innerHTML = maq[i].nomeMaquina[0].toUpperCase();
         element.id = `idServer${maq[i].idMaquina}`;
+        console.log(maq[i].idMaquina);
         element.onclick = () => trocarPagina(maq[i].idMaquina);
         element = verificarCor(maq[i], element);
         wideServerList.appendChild(element);
@@ -199,7 +197,29 @@ function appendMachine(maq) {
     //verificarCor(maq)
 }
 
+/* Modifica a cor do element */
 function verificarCor(server, element) {
+    let filterResponse = filterSummary(element, server);
+    let summary = filterResponse.summary;
+    element = filterResponse.element;
+
+    if (filter == "name") return element;
+    else if (server.lastData[filter] > summary.max) {
+        /* VERMELHO */
+        element.style.backgroundColor = colors.risco;
+    } else if (server.lastData[filter] > summary.q3) {
+        element.style.backgroundColor = colors.alerta;
+    } else if (server.lastData[filter] == null) {
+        element.style.backgroundColor = colors.nenhum;
+        
+    } else {
+        element.style.backgroundColor = colors.normal;
+    }
+    return element
+}
+
+/* Pegar o summary baseado no filtro atual */
+function filterSummary(element, server) {
     let summary;
     switch (filter) {
         case "name":
@@ -220,26 +240,13 @@ function verificarCor(server, element) {
             summary = getSummary(0, discoTotalData);
             break;
     }
-
-    if (filter == "name") return element;
-     else if (server.lastData[filter] > summary.max) {
-        /* VERMELHO */
-        element.style.backgroundColor = colors.risco;
-    } else if (server.lastData[filter] > summary.q3) {
-        element.style.backgroundColor = colors.alerta;
-    } else if (server.lastData[filter] == null) {
-        element.style.backgroundColor = colors.nenhum;
-        /* document.getElementById(`idServer${servers[x].idMaquina}`).style.backgroundColor = normal
-            document.getElementById(`statusServer${servers[x].idMaquina}`).style.backgroundColor = normal
-            document.getElementById(`statusLista${servers[x].idMaquina}`).style.backgroundColor = normal
-            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).style.backgroundColor = normal
-            document.getElementById(`cpuTemperatura${servers[x].idMaquina}`).innerHTML = `${rand}ºC` */
-    } else {
-        element.style.backgroundColor = colors.normal;
+    return {
+        "summary": summary,
+        "element": element
     }
-    return element
 }
 
+/* Faz o summary */
 function getSummary(min, max) {
     let mediana = (min + max) / 2;
     let q1 = (min + mediana) / 2;
@@ -251,11 +258,22 @@ function getSummary(min, max) {
     }
 } 
 
+function mostrarLista(num) {
+    if (num == 1) {
+        document.getElementById("wide-server-list").style.display = "block";
+        document.getElementById("info-server-list").style.display = "none";
+    } else {
+        document.getElementById("wide-server-list").style.display = "none";
+        document.getElementById("info-server-list").style.display = "block";
+    }
+    
+}
 /* Inicialização */
 async function start() {
     getParams();
     machines = await getMachine();
     console.log(machines)
+    setChartStateData();
     let result = changeOrderMachine(true)
     appendMachine(result);
 }
