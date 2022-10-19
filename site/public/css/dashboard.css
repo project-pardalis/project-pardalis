@@ -222,16 +222,15 @@ header {
 }
 
 .serverContainer {
-  border: 2px solid black;
-  height: 65vh;
+  border: 1px solid black !important;
+  height: 65vh !important;
   width: 60vw;
   overflow-y: scroll;
-  margin-left: 9.5rem;
 }
 
 .server-cont {
   display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
 }
 
 .listStyle {
@@ -363,10 +362,6 @@ header {
 }
 
 .server {
-  height: 5vh;
-  width: 2.5vw;
-  margin-top: 1vh;
-  margin-left: 0.5vw;
   justify-content: center;
   align-items: center;
   display: flex;

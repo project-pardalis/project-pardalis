@@ -70,7 +70,7 @@
 
 
     <main class="main col-md-9 ms-sm-auto col-lg-10 px-md-4 text-center">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between" style="width: 60vw;">
 
         <div class="card text-bg-danger p-3 ">
 
@@ -94,7 +94,7 @@
 
         </div>
       </div>
-      <div class="w-100">
+      <div class="" style="width: 60vw;">
         <div class="w-100 d-flex justify-content-end mt-4">
           <div class="btn-group me-2">
             <button type="button" onclick="mostrarLista(1)" class="btn btn-sm btn-outline-secondary">Modo
@@ -109,19 +109,23 @@
 
 
       <div class="center-row w-100">
-        <div class="server-cont" id="wide-server-list-filter"></div>
-        <div class="server-cont" id="micro-server-list-filter"></div>
+        <!-- <div class="server-cont" id="wide-server-list-filter"></div>
+        <div class="server-cont" id="micro-server-list-filter"></div> -->
 
-        <div onclick="mudarFiltro()" class="filterStyle ">
-          <img id="filtroNumerico" class="filterSvg" src="./assets/img/sort-numeric-down.svg" style="display: block;"
-            alt="">
-          <img src="./assets/img/sort-alpha-down.svg" class="filterSvg" id="filtroAlfa" style="display: none;" alt="">
-          <img src="./assets/img/sort-down.svg" class="filterSvg" id="filtroGrau" style="display: none;" alt="">
-        </div>
-        <div class=".container  serverContainer">
-          <div class="server-cont" id="wide-server-list" style="display: grid;"></div>
+        <div class=".container serverContainer card">
+          <div class="server-cont p-2" id="wide-server-list" style="height: 9%;"></div>
           <div class="server-cont" id="micro-server-list" style="display: none;">
           </div>
+        </div>
+        <div class="filterStyle d-flex flex-column" style="height: 65vh !important;">
+          <div onclick="reloadMachine()" class="ms-1" style="height: fit-content; cursor: pointer;">
+            <i class="fa-solid fa-rotate-right h2 m-0"></i>
+          </div>
+          <div class="mt-2 ms-1" style="height: fit-content; cursor: pointer;">
+            <i onclick="changeOrder(this)" class="fa-solid fa-arrow-up h2 ms-1 m-0" id="arrowUp"></i>
+            <i onclick="changeFilter(this)" class="fa-solid fa-arrow-up-a-z h2 m-0" id="crescent" ></i>
+          </div>
+
         </div>
 
       </div>
@@ -130,12 +134,9 @@
 
   </div>
 
-  <!--Verificar se necessário-->
 
+  <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
   <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
-  <!--   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-    integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-    crossorigin="anonymous"></script> Não estava sendo usado-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
     integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
     crossorigin="anonymous"></script>
