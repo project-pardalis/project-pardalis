@@ -48,6 +48,9 @@ function setChartStateData() {
     if (filter == "name") document.getElementsByClassName('maquinas-estado')[0].style.opacity = '0';
     else document.getElementsByClassName('maquinas-estado')[0].style.opacity = '100';
 
+    if(machines.length == 0) document.getElementsByClassName('armazenamento-total')[0].style.opacity = '0';
+    else document.getElementsByClassName('armazenamento-total')[0].style.opacity = '100';
+
     setChartDiskTotal();
     for (let i = 0; i < machines.length; i++) {
         let machine = machines[i];

@@ -254,6 +254,7 @@ var bigChart = {
 
     }
 }
+var interval;
 
 // Pega os parametros da URL
 function getMaquinaParamsAndSet() {
@@ -451,6 +452,21 @@ function selectDatasetToAppend(chart, label, data, repeat = true) {
 function updateDataNum(name, data, label) {
     if (label == "cpu_Temperature") return;
     let element = document.getElementById(name + "-data");
+    console.log(data)
+    if (data === undefined) {
+        clearInterval(interval);
+        swal.fire( {
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Não foi possível carregar os dados do servidor!',
+            confirmButtonText: 'Entendi',
+        }).then( (result) => {
+            if (result.isConfirmed) {
+                window.location.href = "./dashboard.html";
+            }
+            
+        })
+    }
     let valorLeitura = parseFloat(data.valorLeitura).toFixed(1);
     switch (name) {
         case 'cpu':
@@ -580,7 +596,7 @@ async function start() {
 
     loadDataDayChart();
 
-    setInterval(async () => {
+    interval = setInterval(async () => {
         console.log("------------------------------------------------------------");
         metricas = await getServerInfo(true);
         for (const key in charts) {

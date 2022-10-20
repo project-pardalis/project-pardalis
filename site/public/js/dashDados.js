@@ -9,7 +9,7 @@ var possibleIcons = {
     "cpu_Utilizacao": ["fa-solid", "fa-microchip"],
     "cpu_Temperature": ["fa-solid", "fa-thermometer-three-quarters"],
     "ram_Usada": ["fa-solid", "fa-memory"],
-    "disco_Usado": ["fa-solid", "fa-hard-drive"],    
+    "disco_Usado": ["fa-solid", "fa-hard-drive"],
 }
 var filter = "name";
 let colors = {
@@ -46,8 +46,9 @@ async function getMachine() {
 
 /* Ir para a página de máquina separada */
 function trocarPagina(idMaquina) {
-    window.location.href = `./server-analysys.html?idMaquina=${idMaquina, fkEmpresa}`;
-        window.focus();
+    window.location.href = `./server-analysys.html?idMaquina=${idMaquina}`;
+    console.log(window.location.href)
+    //window.focus();
 }
 
 /* Sai da página */
@@ -66,7 +67,7 @@ function changeOrder(element) {
     index = index == 3 ? 2 : 3;
 
     filterElement.id = keys[index];
-    
+
     filterElement.removeAttribute("class");
     filterElement.classList.add("h2");
     filterElement.classList.add("m-0");
@@ -90,9 +91,9 @@ function changeFilter(element) {
     console.log("Filtro antigo: " + currentFilter);
     if (index == keys.length - 1) index = 1;
     else index++;
-    
+
     if (index == 2 || index == 3) index = 4;
-    
+
     filterElement.id = keys[index];
     filter = keys[index];
     console.log("Novo Filtro: " + filter);
@@ -116,7 +117,7 @@ function changeOrderMachine() {
     switch (filter) {
         case "name":
             return changeOrderMachineByName(orderChoosed);
-            
+
         default:
             return separateMachines(orderChoosed);
     }
@@ -140,14 +141,14 @@ function changeOrderMachineByName(orderChoosed) {
 
 /* Ordena a máquina baseado no seu filtro  */
 function separateMachines(orderChoosed) {
-    let separated = machines.filter( (machine) => {
+    let separated = machines.filter((machine) => {
         return machine.lastData[filter] !== undefined;
     });
-    let separatedNull = machines.filter( (machine) => {
+    let separatedNull = machines.filter((machine) => {
         return machine.lastData[filter] === undefined;
     });
 
-    separated.sort( (a, b) => {
+    separated.sort((a, b) => {
         if (orderChoosed == null) return parseFloat(a.lastData[filter].valorLeitura) - parseFloat(b.lastData[filter].valorLeitura);
         else return parseFloat(b.lastData[filter].valorLeitura) - parseFloat(a.lastData[filter].valorLeitura);
     });
@@ -161,40 +162,116 @@ function separateMachines(orderChoosed) {
 /* Recarrega as máquinas */
 async function reloadMachine() {
     console.log("Atualizando maquinas...");
+    let wideServerList = document.getElementById("wide-server-list");
+    let infoServerList = document.getElementById("info-server-list");
+    wideServerList.innerHTML = "";
+    infoServerList.innerHTML = "";
     start();
 }
 
 /* Adiciona Servidor */
-function appendMachine(maq) {
+async function appendMachine(maq) {
     let wideServerList = document.getElementById("wide-server-list");
     let infoServerList = document.getElementById("info-server-list");
     wideServerList.innerHTML = "";
     //infoServerList.innerHTML = "";
     for (let i = 0; i < maq.length; i++) {
-        let element = document.createElement("div");
-        element.classList.add("server")
-        element.classList.add("card")
-        element.classList.add("ms-1")
-        element.classList.add("fw-bold")
-        element.classList.add("h5");
-        element.title = maq[i].nomeMaquina;
-        element.innerHTML = maq[i].nomeMaquina[0].toUpperCase();
-        element.id = `idServer${maq[i].idMaquina}`;
-        console.log(maq[i].idMaquina);
-        element.onclick = () => trocarPagina(maq[i].idMaquina);
-        element = verificarCor(maq[i], element);
-        wideServerList.appendChild(element);
-        /* serverList.innerHTML += `<div class="serverLista">
-        <div id="statusServer${maq[i].idMaquina}" class="statusServer position-absolute"></div>
-        <img class="serverSvg" src="../assets/img/hdd-stack-fill.svg" alt="">
-        <span class="heiLista position-absolute">${maq[i].nomeMaquina}</span>
-        <span id=statusLista${maq[i].idMaquina} class="qtdArmazem position-absolute"></span>
-        <div id=armazemProgress${maq[i].idMaquina} class="armazemProgress position-absolute"></div>
-        <div id="serverArma${maq[i].idMaquina}" class="armazemHas position-absolute"></div>
-        <span id="cpuTemperatura${maq[i].idMaquina}" class="cpuTemperatura position-absolute">ºC</span>
-        </div>` */
+        wideServerList.appendChild(createWideServer(maq[i]));
+        infoServerList.appendChild(await createInfoServer(maq[i]));
+        /* serverList.innerHTML += `` */
     }
     //verificarCor(maq)
+}
+
+function createWideServer(maq) {
+    let element = document.createElement("div");
+    element.classList.add("server")
+    element.classList.add("card")
+    element.classList.add("ms-1")
+    element.classList.add("fw-bold")
+    element.classList.add("h5");
+    element.title = maq.nomeMaquina;
+    element.innerHTML = maq.nomeMaquina[0].toUpperCase();
+    element.id = `idServer${maq.idMaquina}`;
+    element.onclick = () => trocarPagina(maq.idMaquina);
+    element = verificarCor(maq, element);
+
+    return element;
+}
+
+async function createInfoServer(maq) {
+    let element = document.createElement("div");
+
+    element.classList.add("d-flex", "px-2", "flex-row", "server-background")
+    let diskInfo = await verifyColorInfoDisk(maq);
+
+    let diskText, diskColor, diskMax = "???", diskUsage = "???", diskPercentage, diskDate = "???", diskTitle;
+    let temperatureColor, temperatureText = "??°C";
+    if (diskInfo === "???") diskText = "???";
+    else {
+        let dateTime = moment(new Date(maq.lastData.disco_Usado.dataColeta));
+        dateTime.locale('pt-br');
+        diskDate = dateTime.calendar('');
+        diskTitle = dateTime.format('[Última atualização obtida:] Do MMMM YYYY, hh:mm:ss a');
+        diskColor = diskInfo.color;
+        diskMax = diskInfo.max.valorLeitura;
+        diskUsage = maq.lastData.disco_Usado.valorLeitura;
+        diskText = `<span>${diskUsage}`;
+        diskPercentage = (diskUsage / diskMax) * 100;
+        temperatureColor = verifiyColorInfoCpuTemperature(maq).color;
+        if (temperatureColor !== null) temperatureText = maq.lastData.cpu_Temperature.valorLeitura + "°C";
+    }
+
+
+
+    element.innerHTML = `
+        <div class="w-auto d-flex justify-content-center align-items-center">
+                <img class="server-svg" src="../assets/img/hdd-stack-fill.svg" alt="">
+              </div>
+              <div class="ms-2 mt-1 d-flex w-100 justify-content-between px-2 py-2">
+                
+                <div class="d-flex flex-column align-items-start">
+                  <span class="h5 fw-semibold m-0">${maq.nomeMaquina}</span>
+                <span class="fw-light m-0" title="${diskTitle}">${diskDate}</span>
+                </div>
+                <div class="w-25 d-flex align-items-end flex-column">
+                  <span class="h5 fw-light" style="${temperatureColor}">${temperatureText}</span>
+                  <span class="h5 fw-light" id="disk-element"><span style="${diskColor}">${diskUsage}</span> / ${diskMax} Gb</span>
+                  <div class="w-100 disk-background">
+                    <div class="disk-usage h-100" style="width:${diskPercentage}%"></div>
+                  </div>
+                </div>
+              </div>`;
+    return element;
+}
+
+function verifiyColorInfoCpuTemperature(maq) {
+    let color;
+
+    let summary = filterSummary(null, maq, "cpu_Temperature").summary
+
+
+    if (maq.lastData.cpu_Temperature.valorLeitura > summary.max) color = colors.risco;
+    if (maq.lastData.cpu_Temperature.valorLeitura > summary.q3) color = colors.alerta;
+    else color = colors.normal;
+
+    return `color: ${color}`;
+}
+
+function verifyColorInfoDisk(maq) {
+    let color;
+    let summary = filterSummary(null, maq, "disco_Usado").summary
+
+    if (maq.lastData.disco_Usado === undefined) return '???';
+    if (maq.lastData.disco_Usado.valorLeitura > summary.max) color = colors.risco;
+    if (maq.lastData.disco_Usado.valorLeitura > summary.q3) color = colors.alerta;
+    else color = colors.normal;
+
+    return {
+        color: `color: ${color}`,
+        max: summary.max,
+        atual: maq.lastData.disco_Usado.valorLeitura
+    }
 }
 
 /* Modifica a cor do element */
@@ -211,7 +288,7 @@ function verificarCor(server, element) {
         element.style.backgroundColor = colors.alerta;
     } else if (server.lastData[filter] == null) {
         element.style.backgroundColor = colors.nenhum;
-        
+
     } else {
         element.style.backgroundColor = colors.normal;
     }
@@ -219,9 +296,10 @@ function verificarCor(server, element) {
 }
 
 /* Pegar o summary baseado no filtro atual */
-function filterSummary(element, server) {
+function filterSummary(element, server, newFilter = null) {
+    if (newFilter == null) newFilter = filter;
     let summary;
-    switch (filter) {
+    switch (newFilter) {
         case "name":
             element.style.backgroundColor = colors.nenhum
             break;
@@ -256,7 +334,7 @@ function getSummary(min, max) {
         "q3": q3,
         "max": max,
     }
-} 
+}
 
 function mostrarLista(num) {
     if (num == 1) {
@@ -266,7 +344,7 @@ function mostrarLista(num) {
         document.getElementById("wide-server-list").style.display = "none";
         document.getElementById("info-server-list").style.display = "block";
     }
-    
+
 }
 /* Inicialização */
 async function start() {
@@ -276,6 +354,9 @@ async function start() {
     setChartStateData();
     let result = changeOrderMachine(true)
     appendMachine(result);
+    /* setInterval(reloadMachine(), 10000); */
 }
 
 start();
+
+

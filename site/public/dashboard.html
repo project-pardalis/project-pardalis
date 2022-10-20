@@ -68,7 +68,7 @@
         <div class="chart maquinas-estado" style="opacity: 0;">
           <canvas id="chart-maquinas-estado" ></canvas>
         </div>
-        <div class="chart">
+        <div class="chart armazenamento-total" style="opacity: 0;">
           <canvas id="chart-armazenamento-total"></canvas>
         </div>
         <!-- <div class="card text-bg-danger p-3 ">
@@ -104,7 +104,12 @@
 
         <div class=".container serverContainer card">
           <div class="server-cont p-2" id="wide-server-list" style="height: 9%;"></div>
-          <div class="server-cont" id="micro-server-list" style="display: none;">
+          <div class="server-cont" id="info-server-list" style="display: none;">
+            <div class="d-flex px-2 flex-row" style="border-bottom: 1px solid black">
+              
+              
+              
+            </div>
           </div>
         </div>
         <div class="filterStyle d-flex flex-column" style="height: 65vh !important;">
@@ -125,7 +130,7 @@
 
 
   </div>
-
+  <script src="./js/moment-with-locales.js"></script>
   <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
   <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"

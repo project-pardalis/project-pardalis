@@ -3,7 +3,6 @@
   --secundaryColor: rgb(0, 0, 0);
   --thirdColor: #6B46D7;
   --hoverColor: #5431d4;
-  --carrossel-position-x: 14;
 }
 
 
@@ -34,15 +33,9 @@ main {
 .sidebar {
   position: fixed;
   top: 0;
-  /* rtl:raw:
-  right: 0;
-  */
   bottom: 0;
-  /* rtl:remove */
   left: 0;
-  /* Behind the navbar */
   padding: 48px 0 0;
-  /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   top: 0;
   right: 0;
@@ -101,12 +94,9 @@ header {
 
 /*  dashboard.rtl */
 
-
 /*
  * Sidebar
  */
-
-
 
 .sidebar-heading {
   font-size: .75rem;
@@ -114,9 +104,6 @@ header {
 
 
 /*  dashboard.css pasta css */
-
-
-
 
 .button {
   width: 10vw;
@@ -374,16 +361,8 @@ header {
   margin-left: 0.6vw;
 }
 
-.serverLista {
-  width: 100%;
-  height: 13vh;
-  border-bottom: 2px solid black;
-}
-
-.serverSvg {
+.server-svg {
   height: 11vh;
-  margin-left: 1vw;
-  margin-top: 0.8vh;
   opacity: 0.8;
 }
 
@@ -397,42 +376,6 @@ header {
   margin-top: 6.5vh;
   margin-left: 0.8vw;
   opacity: 0.7;
-}
-
-.statusServer {
-  border-radius: 5rem;
-  height: 2vh;
-  width: 0.9vw;
-  margin-left: 4.5vw;
-  margin-top: 7.7vh;
-}
-
-.armazemProgress {
-  border-radius: 5rem;
-  background-color: grey;
-  width: 20vw;
-  height: 2vh;
-  margin-top: -3vh;
-  margin-left: 36vw;
-}
-
-.armazemHas {
-  border-radius: 5rem;
-  height: 2vh;
-  margin-top: -3vh;
-  margin-left: 36vw;
-}
-
-.qtdArmazem {
-  margin-top: 5vh;
-  margin-left: 31vw;
-  font-size: 2.5vh;
-}
-
-.cpuTemperatura {
-  margin-left: 47vw;
-  margin-top: 1vh;
-  font-size: 2.8vh;
 }
 
 .bd-placeholder-img {
@@ -479,6 +422,22 @@ header {
   text-align: center;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
+}
+
+.server-background {
+  border-bottom: 1px solid black;
+}
+
+.disk-background {
+  height: 20px;
+  border-radius: 50px;
+  background-color: #d3d3d9;
+}
+
+.disk-usage {
+  background-color: #47408e;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
 }
 
 /* dashboard min.css */

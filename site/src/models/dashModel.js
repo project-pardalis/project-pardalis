@@ -106,7 +106,7 @@ async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
 }
 
 async function createView(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomeMetrica) {
-    let sql = "CREATE VIEW OR REPLACE" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
+    let sql = "CREATE VIEW " + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
     sql += `AS
         SELECT nomeMaquina, nomeComponente, nomeMetrica, 
         unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 
