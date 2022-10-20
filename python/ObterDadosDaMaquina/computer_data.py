@@ -1,16 +1,26 @@
-import os, platform, psutil as ps, socket
+import os
+import platform
+import psutil as ps
+import socket
 
 # Transforma bytes em GB
-def transform_to_gb(value : int, n_decimal=0):
+
+
+def transform_to_gb(value: int, n_decimal=0):
     return round(value / pow(1024, 3), n_decimal)
 
 # Transforma bytes em MB
-def transform_to_mb(value : int, n_decimal=0):
+
+
+def transform_to_mb(value: int, n_decimal=0):
     return round(value / pow(1024, 2), n_decimal)
 
 # Retorna o tipo da CPU
+
+
 def get_cpu_type():
     cpu_data = (os.popen("lscpu").read()).split("\n")
+
     for i in range(len(cpu_data)):
         cpu_data[i] = (cpu_data[i].strip()).split(':')
 
@@ -38,17 +48,19 @@ def get_cpu_type():
     ]
 
     for j in necessary_data:
-            for k in range(len(necessary_data[j])):
-                try:
-                    for l in range(len(cpu_data)):
-                        if cpu_data[l][0] == necessary_data[j][k]:
-                            data[k]['value'] = cpu_data[l][1].strip()
-                except:
-                    print("Não foi encontrado as especificações do computador.")
-        
+        for k in range(len(necessary_data[j])):
+            try:
+                for l in range(len(cpu_data)):
+                    if cpu_data[l][0] == necessary_data[j][k]:
+                        data[k]['value'] = cpu_data[l][1].strip()
+            except:
+                print("Não foi encontrado as especificações do computador.")
+
     return data
 
 # Retorna as informações da CPU
+
+
 def get_cpu_info():
     cpu_type = get_cpu_type()
     temperature = ps.sensors_temperatures()['coretemp'][0].current
@@ -63,6 +75,8 @@ def get_cpu_info():
     }
 
 # Retorna Informações da Memória RAM
+
+
 def get_memory_info():
     memory = ps.virtual_memory()
 
@@ -73,6 +87,8 @@ def get_memory_info():
     }
 
 # Retorna as informações do disco
+
+
 def get_disk_info():
     disk = ps.disk_usage('/')
 
@@ -85,6 +101,8 @@ def get_disk_info():
     }
 
 # Retorna as informações da rede
+
+
 def get_network_info():
     network = ps.net_io_counters()
 
@@ -96,6 +114,8 @@ def get_network_info():
     }
 
 # Retorna as informações do sistema
+
+
 def get_system_info():
     return {
         'system': platform.system(),
@@ -104,6 +124,8 @@ def get_system_info():
     }
 
 # Função principal que retorna todos os dados
+
+
 def get_all_info():
     return {
         'cpu': get_cpu_info(),
@@ -112,4 +134,3 @@ def get_all_info():
         'network': get_network_info(),
         'system': get_system_info()
     }
-

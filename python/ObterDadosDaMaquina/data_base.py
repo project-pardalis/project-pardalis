@@ -141,7 +141,7 @@ def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmp
                 value = data[name_component][metrica]
                 if type == 0 and static == True:
                     insert_metrica_component(
-                    fkComponente, idMetrica, fkMaquina, fkEmpresa, value)
+                        fkComponente, idMetrica, fkMaquina, fkEmpresa, value)
                     print(f"Metrica {metrica} Estatica Adicionada/Atualizada")
                 else:
                     insert_metrica_component(
@@ -151,20 +151,25 @@ def insert_metrica(name_component: str, fkComponente: int, fkMaquina: int, fkEmp
                 break
 
 # Insere as métricas na tabela Leitura
+
+
 def insert_metrica_component(fkComponente: int, fkMetrica: int, fkMaquina: int, fkEmpresa: int, valorLeitura: int, type=0):
     dataColeta = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if (type == 0):
-        result = run_sql_command(f"SELECT idLeitura FROM Leitura WHERE fkComponente = {fkComponente} AND fkMetrica = {fkMetrica} AND fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} LIMIT 1;")
+        result = run_sql_command(
+            f"SELECT idLeitura FROM Leitura WHERE fkComponente = {fkComponente} AND fkMetrica = {fkMetrica} AND fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} LIMIT 1;")
         print(result)
         if (len(result) > 0):
             command = f"INSERT INTO Leitura VALUES ({result[0][0]}, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura}) ON DUPLICATE KEY UPDATE valorLeitura = {valorLeitura}, dataColeta = '{dataColeta}';"
-        else: 
+        else:
             command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura});"
     else:
         command = f"INSERT INTO Leitura VALUES (null, {fkComponente}, {fkMetrica}, {fkMaquina}, {fkEmpresa}, '{dataColeta}', {valorLeitura})"
     run_sql_command(command)
 
 # Cria os componentes no banco de dados
+
+
 def create_components(fkMaquina: int, fkEmpresa: int):
     get_component_command = f"SELECT nomeComponente from Componente WHERE fkMaquina = {fkMaquina} AND fkEmpresa = {fkEmpresa} LIMIT 3"
     components = run_sql_command(get_component_command)

@@ -1,4 +1,5 @@
-import json, data_base as db
+import json
+import data_base as db
 
 
 # Tenta salvar o hash digitado no json
@@ -15,6 +16,8 @@ def save_hash():
         print("Erro ao salvar o hash do computador")
 
 # Carrega o hash do json, se não existir o arquivo, cria um novo
+
+
 def load_hash():
     try:
         with open('hash.json', 'r') as openfile:
@@ -24,7 +27,7 @@ def load_hash():
             else:
                 return False
 
-    except :
+    except:
         with open("hash.json", "w") as file:
             json.dump({
                 "hash": ""
@@ -32,7 +35,9 @@ def load_hash():
         print("Arquivo de hash não encontrado, criando arquivo...")
 
 # Verifica se o hash existe no banco de dados
-def check_hash(hash : str):
+
+
+def check_hash(hash: str):
     exists_in_database = db.verify_if_hash_exists_in_database(hash)
     if exists_in_database:
         print(f"Hash {hash} no banco de dados!")
