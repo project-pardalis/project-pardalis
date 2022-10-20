@@ -5,15 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Dashboard | Pardalis</title>
+    <title>Análise de servidor | Pardalis</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
-    <!--Verificar se necessário-->
     <link href="css/dashboard.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-
-    <!-- Custom styles for this template -->
 
 </head>
 
@@ -43,9 +40,6 @@
                     <li class="nav-item">
                         <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="./dados-gerais.html">
                             Dados Gerais</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="">Mês atual</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;">Análise de dados</a>
@@ -119,13 +113,12 @@
                         <p class="fw-semibold h4 w-auto" id="component-name">CPU</p>
                         <p class="fw-semibold h4 w-auto" id="component-complement"></p>
                     </div>
-                    
-                    <div class="h-50 w-100 chart" style="position: relative;">
-                        <canvas id="big-chart"></canvas>
+                    <div class="w-100 text-end">
+                        <p class="fw-lighter h5" id="last-update"></p>
                     </div>
-                    <div class="card">
-                        Características: <br>
-                            Arquitetura: x86_64 <br> Thread per núcleo: 2 <br> Núcleo por soquete: 2
+                    
+                    <div class="h-25 w-100 chart" style="position: relative;">
+                        <canvas id="big-chart"></canvas>
                     </div>
                     <!-- <div class="text-center">
                         <div class="center-row">
@@ -141,16 +134,25 @@
                 </div>
             </div>
 
-            <div class="card mt-4 p-4 d-flex flex-row" style="height: fit-content; width: 95%;">
-                
+            <div class="card mt-4 p-4 d-flex flex-column" style="height: fit-content; width: 95%;">
+                <div>
+                    <p class="fw-semibold h4 w-auto" id="component-name">Informações do dia</p>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-outline-secondary fw-bold" style="box-shadow: none !important;" onclick="changeChartStyle('line')">Linha</button>
+                        <button class="btn btn-sm btn-outline-secondary fw-bold" style="box-shadow: none !important;" onclick="changeChartStyle('bar')">Barra</button>
+                    </div>
+                </div>
+                <div class="h-50 w-50 chart" style="position: relative;">
+                    <canvas id="day-chart"></canvas>
+                </div>
             </div>
 
         </div>
     </div>
 
     <!--Verificar se necessário-->
+    <script src="./js/moment-with-locales.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
@@ -165,6 +167,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
