@@ -44,6 +44,67 @@ async function getMachine() {
 
 /* Event Clicks */
 
+function appendMachineDataBase() {
+    let machineName, hash;
+    swal.fire({
+        title: "Adicione o nome da máquina",
+        html: `<input type="text" id="machineNameInput" class="swal2-input w-75" placeholder="Nome da máquina" pattern=".{,50}">
+        <input type="text" id="hashMachine" class="swal2-input w-75" placeholder="Mac Address da máquina" pattern=".{,12}">`,
+        showCancelButton: true,
+        confirmButtonText: 'Adicionar',
+        preConfirm: (inputResult) => {
+            machineName = machineNameInput.value;
+            hash = hashMachine.value.replaceAll(":", "").toUpperCase();
+        }
+
+    }).then(async (result) => {
+        console.log(machineName)
+        console.log(hash)
+
+        if (machineName === undefined || hash === undefined) return;
+
+        if (result.isConfirmed) {
+            let response = await (await fetch("/maquina/appendMaquina", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "fkEmpresa": fkEmpresa,
+                    "nomeMaquina": machineName,
+                    "hashMaquina": hash
+                })
+            })).json();
+            console.log(response)
+            if (response.hash) {
+                swal.fire(
+                    {
+                        title: "Máquina adicionada com sucesso!",
+                        text: "Agora você pode começar a obter os dados da máquina",
+                        icon: "success",
+                        confirmButtonText: "Continuar"
+                    }
+                ).then((confirmed) => {
+                    if (confirmed.isConfirmed) {
+                        reloadMachine();
+                    }
+
+                })
+            } else {
+                swal.fire(
+                    {
+                        title: "Não foi possível adicionar a sua máquina",
+                        text: "Chame o nosso suporte",
+                        icon: "error",
+                        confirmButtonText: "Continuar"
+                    }
+                )
+            }
+        }
+    });
+
+}
+
 /* Ir para a página de máquina separada */
 function trocarPagina(idMaquina) {
     window.location.href = `./server-analysys.html?idMaquina=${idMaquina}`;

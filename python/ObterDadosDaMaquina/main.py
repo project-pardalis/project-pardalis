@@ -55,7 +55,7 @@ def select_menu():
             print("Opções Dinponíveis:")
             print("1 - Obter Dados do Computador") # 1 - Padrão adicionado no Banco
             print("2 - Atualizar Componentes do Computador")
-            print("3 - Adicionar Hash do Computador") # 1234567890 - Padrão adicionado no Banco
+            print("3 - Obter Endereço / Hash do Computador") # 1234567890 - Padrão adicionado no Banco
             print("0 - Sair")
 
             hash_computer = hash.load_hash()
@@ -79,7 +79,7 @@ def select_menu():
                     update_components()
                     
             elif option == 3:
-                hash.save_hash()
+                hash.get_mac_address()
                 
             elif option == 0:
                 print("Obrigado por utilizar o Pardalis!")

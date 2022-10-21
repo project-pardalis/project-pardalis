@@ -8,7 +8,7 @@ const PORTA = 3000;
 const app = express();
 
 const indexRouter = require("./src/routes/index");
-const registrosRouter = require("./src/routes/registros");
+const maquinaRouter = require("./src/routes/maquina");
 const usuariosRouter = require("./src/routes/usuarios");
 const dashRouter = require("./src/routes/dash");
 
@@ -20,7 +20,7 @@ app.use(cors());
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuariosRouter);
-app.use("/registros", registrosRouter);
+app.use("/maquina", maquinaRouter);
 app.use('/dash', dashRouter);
 
 app.listen(PORTA, function(){

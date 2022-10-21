@@ -1,10 +1,10 @@
-import json
+import json, getmac
 import data_base as db
 
 
 # Tenta salvar o hash digitado no json
-def save_hash():
-    hash_computer = input("Digite o hash do computador: ")
+def save_hash(mac_address):
+    hash_computer = mac_address
     try:
         with open("hash.json", "w") as file:
             json.dump({
@@ -35,15 +35,18 @@ def load_hash():
         print("Arquivo de hash não encontrado, criando arquivo...")
 
 # Verifica se o hash existe no banco de dados
-
-
 def check_hash(hash: str):
-    exists_in_database = db.verify_if_hash_exists_in_database(hash)
+    exists_in_database = db.verify_if_hash_exists_in_database(hash.replace(":", "").upper())
     if exists_in_database:
         print(f"Hash {hash} no banco de dados!")
         return exists_in_database
     else:
         print("Hash não encontrado no banco de dados!")
-        print("Crie um novo hash no seu perfil no site!")
+        print("Pegue o seu hash na opção 3 e adiciione na sua infraestrutura no site!")
         return False
-    # Acessar o banco de dados e verificar se o hash existe e se está ativo?
+
+#Pega o Mac Address do computador para adicionar como hash
+def get_mac_address():
+    mac_address = getmac.get_mac_address()
+    print("O seu hash/mac address é: ", mac_address)
+    save_hash(mac_address)
