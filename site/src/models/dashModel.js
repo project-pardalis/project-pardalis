@@ -18,7 +18,7 @@ async function getMaquinas(fkEmpresa) {
     for (let i = 0; i < res.length; i++) {
         res[i].lastData.estatico = (await getView(res[i].nomeEmpresa, res[i].nomeMaquina, "estatico", true));
     }
-    
+
     return res;
 
 
@@ -60,7 +60,7 @@ async function getView(nomeEmpresa, nomeMaquina, nomeMetrica, order, limit) {
         teste = [];
     }
     return teste;
-    
+
 }
 
 function getMaquinaInfo(fkEmpresa, fkMaquina) {
@@ -106,7 +106,7 @@ async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
 }
 
 async function createView(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomeMetrica) {
-    let sql = "CREATE VIEW " + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
+    let sql = "CREATE VIEW IF NOT EXISTS " + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
     sql += `AS
         SELECT nomeMaquina, nomeComponente, nomeMetrica, 
         unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 
@@ -130,7 +130,7 @@ async function createViewEstatica(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
             nomesMetrica2 += "'" + nomesMetrica[i] + "', ";
         }
     }
-    let sql = "CREATE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + "estatico`";
+    let sql = "CREATE VIEW IF NOT EXISTS" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + "estatico`";
     sql += `AS
         SELECT nomeMaquina, nomeComponente, nomeMetrica, 
         unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 

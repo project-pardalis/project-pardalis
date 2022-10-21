@@ -1,7 +1,7 @@
 var database = require("../database/config")
 
 async function appendMachine(fkEmpresa, hashMaquina, nomeMaquina) {
-    let existsHash = await database.executar(`SELECT * FROM maquina WHERE hashMaquina = '${hashMaquina}'`);
+    let existsHash = await database.executar(`SELECT * FROM Maquina WHERE hashMaquina = '${hashMaquina}'`);
     if (existsHash.length == 0) {
         try {
             await database.executar(`INSERT INTO Maquina (fkEmpresa, hashMaquina, nomeMaquina, sistemaOperacional, onCloud) VALUES ('${fkEmpresa}', '${hashMaquina}', '${nomeMaquina}', "", 0)`);

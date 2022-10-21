@@ -2,8 +2,8 @@ from datetime import datetime
 import pymysql.cursors
 
 connection = pymysql.connect(host='localhost',
-                             user='aluno',
-                             password='sptech',
+                             user='rafael',
+                             password='akemisql',
                              database='PARDALIS')
 
 cursor = connection.cursor()

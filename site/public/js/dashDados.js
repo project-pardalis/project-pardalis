@@ -23,7 +23,7 @@ let colors = {
 function getParams() {
     fkEmpresa = sessionStorage.FK_EMPRESA;
     if (fkEmpresa == undefined) {
-        windows.location.href = "./login.html";
+        window.location.href = "../login.html";
     }
 }
 
@@ -75,7 +75,9 @@ function appendMachineDataBase() {
                     "hashMaquina": hash
                 })
             })).json();
-            console.log(response)
+            response.hash = hash
+            console.log(response.hash)
+
             if (response.hash) {
                 swal.fire(
                     {

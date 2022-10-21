@@ -1,4 +1,5 @@
-import json, getmac
+import json
+import getmac
 import data_base as db
 
 
@@ -22,6 +23,7 @@ def load_hash():
     try:
         with open('hash.json', 'r') as openfile:
             result = check_hash(json.load(openfile)["hash"])
+            print(result)
             if result:
                 return result
             else:
@@ -35,8 +37,11 @@ def load_hash():
         print("Arquivo de hash não encontrado, criando arquivo...")
 
 # Verifica se o hash existe no banco de dados
+
+
 def check_hash(hash: str):
-    exists_in_database = db.verify_if_hash_exists_in_database(hash.replace(":", "").upper())
+    exists_in_database = db.verify_if_hash_exists_in_database(
+        hash.replace(":", "").upper())
     if exists_in_database:
         print(f"Hash {hash} no banco de dados!")
         return exists_in_database
@@ -45,7 +50,9 @@ def check_hash(hash: str):
         print("Pegue o seu hash na opção 3 e adiciione na sua infraestrutura no site!")
         return False
 
-#Pega o Mac Address do computador para adicionar como hash
+# Pega o Mac Address do computador para adicionar como hash
+
+
 def get_mac_address():
     mac_address = getmac.get_mac_address()
     print("O seu hash/mac address é: ", mac_address)
