@@ -4,15 +4,16 @@
  */
 package com.mycompany.looca.api.pardalis;
 
+import com.mycompany.looca.api.pardalis.Dash;
 import javax.swing.JFrame;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
  * @author Windows 10
  */
 public class TelaAcesso extends javax.swing.JFrame {
+    
+    private Dash dash = new Dash();
 
     /**
      * Creates new form TelaAcesso
@@ -84,8 +85,13 @@ public class TelaAcesso extends javax.swing.JFrame {
         jTextField2.setFont(new java.awt.Font("Elephant", 0, 12)); // NOI18N
         jTextField2.setText("**************");
 
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Documents\\NetBeansProjects\\screen\\src\\main\\resources\\user-icon.png")); // NOI18N
+
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Documents\\NetBeansProjects\\screen\\src\\main\\resources\\padlock.png")); // NOI18N
+
         jLabel3.setFont(new java.awt.Font("Elephant", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Documents\\NetBeansProjects\\screen\\src\\main\\resources\\logo.png")); // NOI18N
         jLabel3.setText("Acesso");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -160,8 +166,11 @@ public class TelaAcesso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        
        
+        dash.setVisible(true);
+        dash.setResizable(false);
+   
+        
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
