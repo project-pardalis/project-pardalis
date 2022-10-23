@@ -289,6 +289,7 @@ function saveMachineInfo(machineName, hashMaquina) {
     serverName.innerHTML = machineName;
     let serverNum = document.getElementById("server-num");
     let macAddress;
+    hashMaquina = hashMaquina.split("");
     for (let i = 0; i < hashMaquina.length; i += 2) {
         if (i % 2 == 0) {
             if (i == hashMaquina.length - 2) macAddress += hashMaquina[i-1] + hashMaquina[i];
