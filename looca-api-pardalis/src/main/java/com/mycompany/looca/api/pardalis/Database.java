@@ -33,6 +33,18 @@ public class Database {
         
     }
     
+    public Integer verificarLogin(String email, String senha) {
+       
+        Integer resultado = 
+        
+        jdbcTemplate.update("SELEC * FROM usuario WHERE emailUsuario = ? ",
+                email);    
+        
+       
+        
+        return resultado;
+    }
+    
     public void insertComponente(Integer fkMaquina, Integer fkEmpresa) {
 
         // sem sistema anti-repetição 
