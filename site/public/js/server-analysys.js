@@ -297,7 +297,7 @@ function saveMachineInfo(machineName, hashMaquina) {
             
         }
     }
-    serverNum.innerHTML = "Mac Address: " + macAddress.split('');
+    serverNum.innerHTML = "Mac Address: " + macAddress;
     /* Deixar o setor para depois */
 }
 
