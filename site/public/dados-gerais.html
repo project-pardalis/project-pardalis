@@ -13,12 +13,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
-    <!-- Custom styles for this template -->\
+    <!-- Custom styles for this template -->
 
 </head>
 
 <body>
-    <header class="sticky-top bg-dark d-flex m-0 p-0 vw-auto shadow d-flex justify-content-between">
+    <header class="sticky-top  d-flex m-0 p-0 vw-auto shadow d-flex justify-content-between">
         <a class="navbar-brand px-2 fs-4 text-light" style="width: 15%;">Pardalis</a>
         <input class="form-control form-control-dark w-50 rounded-0 border-0" type="text" placeholder="Setor"
             aria-label="Setor">
@@ -45,9 +45,7 @@
                         <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;">
                             Dados Gerais</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="">Mês atual</a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link active h6 p-2 m-0" style="width: fit-content;"
                             href="./server-analysys.html">Análise de dados</a>
@@ -108,7 +106,7 @@
             </div>
             <div class="center-row box-general justify-content-evenly" style="width:90%;">
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
-                    style="height: fit-content; width: 25%; ">
+                    style="height: fit-content; width: 45%; ">
                     <div class="h2">Servers em risco</div>
                     <p class="lead small-font">Ideais / Risco / Alerta
                     </p>
@@ -118,7 +116,7 @@
                 </div>
 
                 <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
-                    style="height: fit-content; width: 25%; ">
+                    style="height: fit-content; width: 45%; ">
                     <div class="h2">Sistema operacional </div>
                     <p class="lead small-font">Gráfico de barra (linux / mac / windows )
                     </p>
@@ -126,17 +124,7 @@
                     <hr>
 
                 </div>
-                <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
-                    style="height: fit-content; width: 45%; ">
-                    <div class="h2">Média armazenamento </div>
-                    <p class="lead small-font"> chart linha => (semana / média de uso gb de todos os discos )
 
-                    </p>
-                    <div class="box-minichart-general"> <canvas id="chart-avgstorage" class="chart"></canvas>
-                    </div>
-                    <hr>
-
-                </div>
             </div>
 
             <div class="center box-general justify-content-evenly flex-column" style="width:90%;">
@@ -208,32 +196,9 @@
             <div class="center-row">
 
             </div>
-            <div class="center-row box-general justify-content-evenly" style="width:90%;">
-                <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
-                    style="height: fit-content; width: 45%; ">
-                    <div class="h2">Temperatura </div>
-                    <p class="lead small-font">chart line temp / mes
-                    </p>
-                    <div class="box-minichart-general">
-                        <canvas class="mini-chart" id="chart-temperature">
-                    </div>
-                </div>
-                <hr>
 
-
-
-
-                <div class="card cards-general-data mt-4 p-4 d-flex flex-column"
-                    style="height: fit-content; width: 45%; ">
-                    <div class="h2">RAM </div>
-                    <p class="lead small-font">chart line ram / mes
-                    </p>
-                    <div class="box-minichart-general"> <canvas class="chart" id="chart-ram"></canvas></div>
-                    <hr>
-
-                </div>
-            </div>
         </div>
+    </div>
     </div>
 
 

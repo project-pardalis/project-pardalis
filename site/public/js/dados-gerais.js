@@ -1,4 +1,8 @@
 
+
+ideal = '#aa98ed'
+risco = 'rgb(255, 205, 86)'
+alerta = '#d93675'
 const data = {
 
     labels: [
@@ -12,9 +16,9 @@ const data = {
         label: 'Servidores em risco',
         data: [300, 50, 100],
         backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
+            ideal,
+            alerta,
+            risco
         ],
     }]
 };
@@ -34,9 +38,9 @@ const dataSo = {
         label: 'Servidores com SO',
         data: [600, 20, 10],
         backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
+            ideal,
+            alerta,
+            risco
         ],
     }]
 };
@@ -49,12 +53,12 @@ const dataStorageAvg = {
     datasets: [{
         data: [200, 220, 240, 260, 280, 290, 300, 350, 400],
         backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
+            ideal,
+            alerta,
+            risco
         ],
         fill: false,
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: ideal,
         tension: 0.3,
         borderWidth: 8,
         data: [100, 999, 400],
@@ -69,9 +73,9 @@ const dataStorageAvg = {
 const dataDynamic = {
     datasets: [{
         backgroundColor: [
-            'rgb(255, 99, 132)',
+            ideal,
         ],
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: ideal,
         tension: 0.3,
         borderWidth: 10,
         data: [100, 999, 400],
@@ -83,9 +87,9 @@ const dataDynamic = {
 const dataTemperature = {
     datasets: [{
         backgroundColor: [
-            'rgb(255, 99, 132)',
+            ideal,
         ],
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: ideal,
         tension: 0.3,
         borderWidth: 10,
         data: [100, 999, 400],
@@ -96,9 +100,9 @@ const dataTemperature = {
 const dataRam = {
     datasets: [{
         backgroundColor: [
-            'rgb(255, 99, 132)',
+            ideal,
         ],
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: ideal,
         tension: 0.3,
         borderWidth: 10,
         data: [100, 999, 400],
@@ -121,20 +125,7 @@ const configServerRisk = new Chart(
 
 
 
-const configStorageAvg = new Chart(
-    document.getElementById('chart-avgstorage'), {
-    type: 'line',
-    data: dataStorageAvg,
 
-    options: {
-        maintainAspectRatio: true,
-        responsive: true,
-        legend: {
-            display: false,
-        }
-    }
-
-})
 
 
 const configDynamicChart = new Chart(

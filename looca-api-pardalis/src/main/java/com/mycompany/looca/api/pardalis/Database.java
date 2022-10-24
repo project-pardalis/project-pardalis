@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.checkerframework.checker.units.qual.Length;
 
 /**
@@ -33,12 +34,11 @@ public class Database {
         
     }
     
-    public Integer verificarLogin(String email, String senha) {
+    public List<Map<String, Object>> verificarLogin(String email, String senha) {
        
-        Integer resultado = 
+        List<Map<String, Object>> resultado = 
         
-        jdbcTemplate.update("SELEC * FROM usuario WHERE emailUsuario = ? ",
-                email);    
+        jdbcTemplate.queryForList("SELECT * FROM Usuario WHERE emailUsuario = ? ", email);    
         
        
         

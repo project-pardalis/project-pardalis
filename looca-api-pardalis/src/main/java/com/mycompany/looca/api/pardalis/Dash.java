@@ -6,13 +6,15 @@ import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
 import com.github.britooo.looca.api.group.sistema.Sistema;
 import com.github.britooo.looca.api.group.temperatura.Temperatura;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author Windows 10
@@ -22,15 +24,12 @@ public class Dash extends javax.swing.JFrame {
     /**
      * Creates new form Dash
      */
-    
     static private Looca looca = new Looca();
     Memoria memoria = new Memoria();
     Temperatura temperatura = new Temperatura();
     Processador processador = new Processador();
     Sistema sistema = new Sistema();
-    
-    
-    
+
     public Dash() {
         initComponents();
     }
@@ -300,57 +299,53 @@ public class Dash extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        
-        
-        Long memo = memoria.getDisponivel()/1073741824 ;
-        Long dispMemo = memoria.getTotal()/1073741824;
-        Double temp = temperatura.getTemperatura();
-        String proc = processador.getNome();
-        Integer cor = processador.getNumeroCpusFisicas();
-        Integer thre = processador.getNumeroCpusLogicas();
-        String fabric = sistema.getSistemaOperacional();
-        String fabricant = sistema.getFabricante();
-        
-        
-        
-        String teste = String.valueOf(temp + "ºC");
-        String teste1 = String.valueOf(dispMemo + "GB");
-        String teste2 = String.valueOf(memo + "GB");
-        String teste3 = String.valueOf(cor);
-        String teste4 = String.valueOf(thre);
-        
-        
-        
-        
-        
-       
-       
-        
-        jLabel7.setText(teste2);
-        jLabel2.setText(teste1);
-        jLabel4.setText(teste);
-        jLabel8.setText(proc);
-        jLabel12.setText(teste3);
-        jLabel14.setText(teste4);
-        jLabel10.setText(fabric);
-        jLabel17.setText(fabricant);
-        
+
+        ScheduledExecutorService scheduleService = Executors.newSingleThreadScheduledExecutor();
+        scheduleService.scheduleAtFixedRate(new Runnable() {
+
+            @Override
+            public void run() {
+                Long memo = memoria.getDisponivel() / 1073741824;
+                Long dispMemo = memoria.getTotal() / 1073741824;
+                Double temp = temperatura.getTemperatura();
+                String proc = processador.getNome();
+                Integer cor = processador.getNumeroCpusFisicas();
+                Integer thre = processador.getNumeroCpusLogicas();
+                String fabric = sistema.getSistemaOperacional();
+                String fabricant = sistema.getFabricante();
+                Long frec = processador.getFrequencia() / 10000000;
+
+                String teste = String.valueOf(temp + "ºC");
+                String teste1 = String.valueOf(dispMemo + "GB");
+                String teste2 = String.valueOf(memo + "GB");
+                String teste3 = String.valueOf(cor);
+                String teste4 = String.valueOf(thre);
+                String teste5 = String.valueOf(frec);
+
+                jLabel7.setText(teste2);
+                jLabel2.setText(teste1);
+                jLabel4.setText(teste);
+                jLabel8.setText(proc);
+                jLabel12.setText(teste3);
+                jLabel14.setText(teste4);
+                jLabel10.setText(fabric);
+                jLabel17.setText(fabricant);
+
+            }
+        }, 1, 1, TimeUnit.SECONDS);
+
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-       
-        
-       
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Dash().setVisible(true);
-               
-        
-               
+
             }
         });
     }

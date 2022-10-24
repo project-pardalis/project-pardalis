@@ -4,8 +4,13 @@
  */
 package com.mycompany.looca.api.pardalis;
 
+import static com.mycompany.looca.api.pardalis.App.jdbcTemplate;
 import com.mycompany.looca.api.pardalis.Dash;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  *
@@ -15,7 +20,7 @@ public class TelaAcesso extends javax.swing.JFrame {
     
     private Dash dash = new Dash();
     private Database db = new Database();
-
+ 
     /**
      * Creates new form TelaAcesso
      */
@@ -172,12 +177,17 @@ public class TelaAcesso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        
+    BasicDataSource dataSource = new BasicDataSource();
+        jdbcTemplate.setDataSource(dataSource);
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/PARDALIS");
+        dataSource.setUsername("aluno");
+        dataSource.setPassword("sptech");
         
         String email = jTextField1.getText();
         String senha = jTextField2.getText();
         
-        Integer resultado = db.verificarLogin(email, senha);
+        List<Map<String, Object>> resultado = db.verificarLogin(email, senha);
         String teste = String.valueOf(resultado);
         
         if (teste != null) {

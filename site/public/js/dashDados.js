@@ -16,7 +16,7 @@ let colors = {
     "normal": "#00FF00",
     "alerta": "#FFFF00",
     "risco": "#FF0000",
-    "nenhum": "#808080"
+    "nenhum": "#aa98ed"
 }
 
 /* Pegar dados da empresa */

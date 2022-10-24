@@ -18,8 +18,8 @@ public class Config {
         jdbcTemplate.setDataSource(dataSource);
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/PARDALIS");
-        dataSource.setUsername("standart");
-        dataSource.setPassword("MIrai123@");
+        dataSource.setUsername("aluno");
+        dataSource.setPassword("sptech");
     }
 
 }

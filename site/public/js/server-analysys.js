@@ -78,6 +78,26 @@ charts.disk = new Chart(
                     pointRadius: 0,
                     hoverPointRadius: 0,
                     borderWidth: 0.5
+                },
+                {
+                    backgroundColor: "#1b717145",
+                    label: 'Velocidade de Escrita',
+                    borderColor: '#1b7171',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 0,
+                    hoverPointRadius: 0,
+                    borderWidth: 0.5
+                },
+                {
+                    backgroundColor: "#6a46d742",
+                    label: 'Velocidade de Leitura',
+                    borderColor: '#6B46D7',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 0,
+                    hoverPointRadius: 0,
+                    borderWidth: 0.5
                 }]
         },
         options: {
@@ -172,6 +192,26 @@ charts.dayChart = new Chart(
                     pointRadius: 2,
                     hoverPointRadius: 0,
                     borderWidth: 1.5
+                },
+                {
+                    backgroundColor: "#1b717145",
+                    label: 'Velocidade de Escrita',
+                    borderColor: '#1b7171',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 0,
+                    hoverPointRadius: 0,
+                    borderWidth: 0.5
+                },
+                {
+                    backgroundColor: "#6a46d742",
+                    label: 'Velocidade de Leitura',
+                    borderColor: '#6B46D7',
+                    data: [],
+                    tension: 0.1,
+                    pointRadius: 0,
+                    hoverPointRadius: 0,
+                    borderWidth: 0.5
                 }]
         },
         options: {
@@ -198,6 +238,14 @@ var chartsColors = {
     "disco_Usado": {
         "backgroundColor": "#b8ff8684",
         "borderColor": "#62b02a"
+    },
+    "disco_write_time": {
+        "backgroundColor": "#1b717145",
+        "borderColor": "#1b7171"
+    }, 
+    "disco_read_time": {
+        "backgroundColor": "#6a46d742",
+        "borderColor": "#6B46D7"
     }
 }
 
@@ -250,6 +298,26 @@ var bigChart = {
                 pointRadius: 1.5,
                 hoverPointRadius: 0,
                 borderWidth: 1.5
+            },
+            {
+                backgroundColor: "#1b717145",
+                label: 'Velocidade de Escrita',
+                borderColor: '#1b7171',
+                data: [],
+                tension: 0.1,
+                pointRadius: 0,
+                hoverPointRadius: 0,
+                borderWidth: 0.5
+            },
+            {
+                backgroundColor: "#6a46d742",
+                label: 'Velocidade de Leitura',
+                borderColor: '#6B46D7',
+                data: [],
+                tension: 0.1,
+                pointRadius: 0,
+                hoverPointRadius: 0,
+                borderWidth: 0.5
             }]
 
     }
@@ -288,13 +356,13 @@ function saveMachineInfo(machineName, hashMaquina) {
     let serverName = document.getElementById("server-name");
     serverName.innerHTML = machineName;
     let serverNum = document.getElementById("server-num");
-    let macAddress;
+    let macAddress = '';
     hashMaquina = hashMaquina.split("");
-    for (let i = 0; i < hashMaquina.length; i += 2) {
+    for (let i = 2; i < hashMaquina.length; i += 2) {
         if (i % 2 == 0) {
-            if (i == hashMaquina.length - 2) macAddress += hashMaquina[i-1] + hashMaquina[i];
-            else macAddress += hashMaquina[i-1] + hashMaquina[i] + ":";
-            
+            if (i == hashMaquina.length - 2) macAddress += hashMaquina[i - 1] + hashMaquina[i];
+            else macAddress += hashMaquina[i - 1] + hashMaquina[i] + ":";
+
         }
     }
     serverNum.innerHTML = "Mac Address: " + macAddress;
@@ -348,8 +416,8 @@ async function getServerInfo(order = false, limit = true) {
             "limit": limit
         })
     })).json();
-    return response.metricas;
     console.log("Metrica Atualizada")
+    return response.metricas;
 
 }
 
@@ -372,13 +440,13 @@ function getSummary(min, max) {
         "q3": q3,
         "max": max,
     }
-} 
+}
 
 /* Chart */
 
 /* Carrega os dados do gráfico */
 async function appendChartData(chart, chartName, label, repeat = false, reverse = false) {
-    if (label == "disco_read_time" || label == "disco_write_time") return;
+    //if (label == "disco_read_time" || label == "disco_write_time") return;
     console.log("Carregando dados do gráfico: " + chartName + " | Métrica: " + label);
 
     if (chartName != "bigChart") {
@@ -408,6 +476,11 @@ async function appendChartData(chart, chartName, label, repeat = false, reverse 
     chart.update();
 }
 
+function sair() {
+    sessionStorage.clear();
+    window.location.href = "./login.html";
+}
+
 /* Seleciona um dataset para adicionar os dados */
 function selectDatasetToAppend(chart, label, data, repeat = true) {
     let dataset = chart.data.datasets.filter((dataset) => {
@@ -420,6 +493,10 @@ function selectDatasetToAppend(chart, label, data, repeat = true) {
                 return dataset.label == "Usado";
             case "disco_Usado":
                 return dataset.label == "Usado";
+            case "disco_read_time":
+                return dataset.label == "Velocidade de Leitura";
+            case "disco_write_time":
+                return dataset.label == "Velocidade de Escrita";
         }
     })[0];
 
@@ -436,18 +513,24 @@ function selectDatasetToAppend(chart, label, data, repeat = true) {
             break;
         case "ram_Usada":
             let ramTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "ram_Total")[0];
-            summary = getSummary(0, ramTotalData); 
+            summary = getSummary(0, ramTotalData);
             break;
         case "disco_Usado":
             let discoTotalData = metricas.estatico.filter((metrica) => metrica.nomeMetrica == "disco_Total")[0];
             summary = getSummary(0, discoTotalData);
             break;
+        case 'disco_write_time':
+            summary = getSummary(0, metricas.disco_write_time.sort( (a, b) => a.valorMetrica - b.valorMetrica)[0].valorLeitura);
+            break;
+        case 'disco_read_time':
+            summary = getSummary(0, metricas.disco_read_time.sort( (a, b) => a.valorMetrica - b.valorMetrica)[0].valorLeitura);
+            break;
     }
     data.valorLeitura = parseFloat(data.valorLeitura);
-    if (data.valorLeitura >= summary.max) {
+    if (data.valorLeitura >= summary.max && label != "disco_read_time" && label != "disco_write_time") {
         dataset.backgroundColor = "#F04A5B";
         dataset.borderColor = "#F04A5B";
-    } else if (data.valorLeitura >= summary.q3) {
+    } else if (data.valorLeitura >= summary.q3 && label != "disco_read_time" && label != "disco_write_time") {
         dataset.backgroundColor = "#FFCD56";
         dataset.borderColor = "#FFCD56";
     } else {
@@ -461,19 +544,18 @@ function selectDatasetToAppend(chart, label, data, repeat = true) {
 function updateDataNum(name, data, label) {
     if (label == "cpu_Temperature") return;
     let element = document.getElementById(name + "-data");
-    console.log(data)
     if (data === undefined) {
         clearInterval(interval);
-        swal.fire( {
+        swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Não foi possível carregar os dados do servidor!',
             confirmButtonText: 'Entendi',
-        }).then( (result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 window.location.href = "./dashboard.html";
             }
-            
+
         })
     }
     let valorLeitura = parseFloat(data.valorLeitura).toFixed(1);
@@ -541,7 +623,6 @@ async function setEventClick(componentName) {
                 element.innerHTML = "Cpu";
 
                 specification = await getCPUInfo()
-                console.log(specification)
                 element2.innerHTML = specification["Nome do modelo"];
                 let textSpecification = "";
                 for (const key in specification) {
@@ -596,6 +677,7 @@ async function start() {
     console.log('Iniciando plotagem do gráfico...');
     loadCpuInfo();
     metricas = await getServerInfo(true);
+    console.log(metricas);
     await getMachineInfo();
 
     for (const key in charts) {
@@ -695,6 +777,13 @@ function findDataset(metrica, data) {
             break;
         case 'disco_Usado':
             labelName = "Disco Usado";
+            break;
+        case 'disco_write_time':
+            labelName = "Velocidade de Escrita";
+            break;
+        case 'disco_read_time':
+            labelName = "Velocidade de Leitura";
+            break;
     }
     for (let i = 0; i < charts.dayChart.data.datasets.length; i++) {
         if (charts.dayChart.data.datasets[i].label == labelName) {
