@@ -150,18 +150,7 @@ public class Dash extends javax.swing.JFrame {
 
         jLabel16.setFont(new java.awt.Font("Elephant", 0, 36)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel16.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Desktop\\project-pardalis\\looca-api-pardalis\\icons\\logo.redimensionada.png")); // NOI18N
-        jLabel16.setText("Dash");
-
-        jLabel19.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Desktop\\project-pardalis\\looca-api-pardalis\\icons\\re1.png")); // NOI18N
-
-        jLabel18.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Desktop\\project-pardalis\\looca-api-pardalis\\icons\\re5.png")); // NOI18N
-
-        jLabel21.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Desktop\\project-pardalis\\looca-api-pardalis\\icons\\re4.png")); // NOI18N
-
-        jLabel20.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Desktop\\project-pardalis\\looca-api-pardalis\\icons\\re3.png")); // NOI18N
-
-        jLabel22.setIcon(new javax.swing.ImageIcon("C:\\Users\\Windows 10\\Desktop\\project-pardalis\\looca-api-pardalis\\icons\\re2.png")); // NOI18N
+        jLabel16.setText("Dados da máquina");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -203,11 +192,9 @@ public class Dash extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addGap(149, 149, 149)
-                            .addComponent(jLabel16)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(367, 367, 367)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,12 +206,15 @@ public class Dash extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
-                .addContainerGap(206, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +226,9 @@ public class Dash extends javax.swing.JFrame {
                                 .addGap(128, 128, 128)
                                 .addComponent(jLabel19))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(135, 135, 135)
+                                .addContainerGap()
+                                .addComponent(jLabel16)
+                                .addGap(80, 80, 80)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
@@ -254,9 +246,7 @@ public class Dash extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(jLabel16)
-                                        .addGap(124, 124, 124)
+                                        .addGap(179, 179, 179)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel3)
                                             .addComponent(jLabel4))

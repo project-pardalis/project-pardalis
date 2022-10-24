@@ -1,2 +1,13 @@
-com\mycompany\looca\api\pardalis\Dash.class
-com\mycompany\looca\api\pardalis\Dash$1.class
+com/mycompany/looca/api/pardalis/ConexaoBanco.class
+com/mycompany/looca/api/pardalis/Dash$1.class
+com/mycompany/looca/api/pardalis/Database.class
+com/mycompany/looca/api/pardalis/TelaAcesso$4.class
+com/mycompany/looca/api/pardalis/Config.class
+com/mycompany/looca/api/pardalis/TelaAcesso$3.class
+com/mycompany/looca/api/pardalis/TelaAcesso$2.class
+com/mycompany/looca/api/pardalis/Dash.class
+com/mycompany/looca/api/pardalis/TelaAcesso.class
+com/mycompany/looca/api/pardalis/Hash.class
+com/mycompany/looca/api/pardalis/Dash$2.class
+com/mycompany/looca/api/pardalis/App.class
+com/mycompany/looca/api/pardalis/TelaAcesso$1.class
