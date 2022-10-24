@@ -23,7 +23,7 @@ public class ConexaoBanco {
         
         datasource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         
-        datasource.setUrl("jdbc:mysql://127.0.0.1:3306/teste_de_banco");
+        datasource.setUrl("jdbc:mysql://127.0.0.1:3306/PARDALIS");
         
         datasource.setUsername("aluno");
         
