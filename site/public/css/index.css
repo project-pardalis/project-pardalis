@@ -3,13 +3,14 @@
     --secundaryColor: rgb(0, 0, 0);
     --thirdColor: #6B46D7;
     --hoverColor: #5431d4;
+    --blue: rgba(107, 163, 236, 1);
     --carrossel-position-x: 19;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 @font-face {
-    font-family: "Nunito", sans-serif;
+    font-family: "Verdana", sans-serif;
     src: url(./assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
 }
 
@@ -19,13 +20,13 @@ body {
     margin: 0;
     padding: 0;
     /* background: black; */
-    font-family: 'Nunito', 'Open Sans', sans-serif !important;
+    filter: hue-rotate(-30deg);
     overflow-x: hidden;
 }
 
 a {
     text-decoration: none !important;
-    color: black !important;
+
 }
 
 /* SCROLL BAR - COMEÇO */
@@ -44,10 +45,18 @@ a {
 }
 
 
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    position: relative;
+    letter-spacing: 0.04em;
+}
 
 /* HEADER - COMEÇO */
 .fundo {
-    background-color: whitesmoke;
+    background-color: #721ab4;
+
     width: 100%
 }
 
@@ -55,11 +64,17 @@ a {
 
 .header {
     display: flex;
-    /* background-color: yellow; */
+
+
 
 }
 
+.logo {
+    filter: brightness(6000%)
+}
+
 .header .container {
+
     justify-content: space-between;
 }
 
@@ -84,13 +99,96 @@ a {
 }
 
 .register {
+    border: 0.5px solid yellow;
+    border-radius: 5px;
+    padding: 0.5rem;
     display: flex;
     list-style: none;
     justify-content: space-evenly;
     align-items: center;
-    height: 100%;
+
     margin: 0;
-    width: 25%;
+    width: 55%;
+    color: white;
+}
+
+.img-marketing {
+    width: 8rem;
+}
+
+.hr {
+    border-bottom: 2px solid rgb(244, 204, 129);
+    width: 10%;
+}
+
+.marcas {
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    height: 6rem;
+
+
+}
+
+.img-marcas {
+    width: 4rem;
+    height: 4rem;
+    border: 2px solid white;
+    border-radius: 0.5rem;
+    filter: brightness(60%);
+
+    transition: 350ms;
+
+}
+
+.img-marcas:hover {
+    transform: scale(1.2);
+    filter: brightness(100%);
+    box-shadow: 0.2rem 0.3rem 0.6rem rgba(35, 3, 51, 0.6);
+    transition: 350ms;
+}
+
+.cards-marketing {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 2rem;
+    width: 100%;
+
+
+}
+
+.cards-marketing .card {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 20rem;
+    background-color: var(--thirdColor);
+    color: white;
+    border: none !important;
+
+}
+
+.down-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-arrow-down {
+    width: 10%;
+    filter: hue-rotate(85deg) brightness(70%);
+}
+
+.text-card {
+    width: 80%;
+    font-size: 0.52em;
+}
+
+.font-nav {
+
+    color: rgb(255, 247, 165) !important;
 }
 
 .cadastro_botao {
@@ -111,28 +209,49 @@ a {
     border-radius: 5%;
 }
 
+.v-hr {
+    border-left: 0.5px solid white;
+    height: 2rem;
+}
+
 .ver-planos-botao,
 .login-botao {
     border: 0 !important;
-    background-color: var(--thirdColor) !important;
+    background-color: white !important;
     transition: all 300ms;
-    color: white !important;
+    color: rgb(23, 23, 23) !important;
 }
 
 .ver-planos-botao:hover,
 .login-botao:hover {
     border: 0 !important;
-    background-color: var(--hoverColor) !important;
+    background-color: rgb(0, 0, 0) !important;
     color: rgb(203, 203, 203) !important;
+    box-shadow: 0.2rem 0.3rem 0.1rem rgba(35, 3, 51, 0.3);
+    transition: 300ms;
 }
 
 /* HEADER - FIM */
 
 /* BANNER - COMEÇO */
 
+.img-icon-user {
+    width: 2rem;
+    height: 2rem;
+    filter: invert();
+}
+
 .banner {
-    height: 500px;
+    padding: 2rem;
+    padding-bottom: 5%;
     overflow: hidden;
+
+    background-image: url(https://outfunnel.com/wp-content/uploads/2020/12/of-bg-logo-1.png), linear-gradient(0deg, rgba(107, 163, 236, 1) 0%, rgba(114, 26, 180, 1) 100%);
+    color: white;
+}
+
+.cadastro {
+    padding: 0.5rem;
 }
 
 #slider {
@@ -177,7 +296,10 @@ a {
     font-weight: lighter;
 }
 
-.parte1, .parte2, .parte3, .parte4 {
+.parte1,
+.parte2,
+.parte3,
+.parte4 {
     display: flex;
     width: 100%;
     padding-top: 36px;
@@ -188,7 +310,10 @@ a {
     background-color: whitesmoke;
 }
 
-.parte1 .container, .parte2 .container, .parte3 .container, .parte4 .container {
+.parte1 .container,
+.parte2 .container,
+.parte3 .container,
+.parte4 .container {
     justify-content: space-around
 }
 
@@ -198,7 +323,9 @@ a {
     align-items: center;
 }
 
-#greenhouse, #graphs, #loss {
+#greenhouse,
+#graphs,
+#loss {
     width: 100%;
     border-radius: 32px;
 }
@@ -274,12 +401,15 @@ a {
     .banner {
         height: 280px;
     }
+
     #slider {
         transform: translateX(0)
     }
+
     .titulo {
         width: 10%;
     }
+
     .register {
         width: 65%;
     }
@@ -288,7 +418,9 @@ a {
         height: 90% !important;
     }
 
-    #greenhouse, #graphs, #loss {
+    #greenhouse,
+    #graphs,
+    #loss {
         width: 70% !important;
     }
 }
