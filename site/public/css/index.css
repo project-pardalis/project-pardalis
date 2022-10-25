@@ -3,6 +3,7 @@
     --secundaryColor: rgb(0, 0, 0);
     --thirdColor: #6B46D7;
     --hoverColor: #5431d4;
+    --blue: rgba(107, 163, 236, 1);
     --carrossel-position-x: 19;
 }
 
@@ -19,7 +20,7 @@ body {
     margin: 0;
     padding: 0;
     /* background: black; */
-
+    filter: hue-rotate(-30deg);
     overflow-x: hidden;
 }
 
@@ -44,6 +45,13 @@ a {
 }
 
 
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    position: relative;
+    letter-spacing: 0.04em;
+}
 
 /* HEADER - COMEÇO */
 .fundo {
@@ -59,6 +67,10 @@ a {
 
 
 
+}
+
+.logo {
+    filter: brightness(6000%)
 }
 
 .header .container {
@@ -87,8 +99,8 @@ a {
 }
 
 .register {
-    border: 2px solid yellow;
-    border-radius: 20px;
+    border: 0.5px solid yellow;
+    border-radius: 5px;
     padding: 0.5rem;
     display: flex;
     list-style: none;
@@ -98,6 +110,10 @@ a {
     margin: 0;
     width: 55%;
     color: white;
+}
+
+.img-marketing {
+    width: 8rem;
 }
 
 .hr {
@@ -130,6 +146,44 @@ a {
     filter: brightness(100%);
     box-shadow: 0.2rem 0.3rem 0.6rem rgba(35, 3, 51, 0.6);
     transition: 350ms;
+}
+
+.cards-marketing {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 2rem;
+    width: 100%;
+
+
+}
+
+.cards-marketing .card {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 20rem;
+    background-color: var(--thirdColor);
+    color: white;
+    border: none !important;
+
+}
+
+.down-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-arrow-down {
+    width: 10%;
+    filter: hue-rotate(85deg) brightness(70%);
+}
+
+.text-card {
+    width: 80%;
+    font-size: 0.52em;
 }
 
 .font-nav {
@@ -188,10 +242,11 @@ a {
 }
 
 .banner {
+    padding: 2rem;
     padding-bottom: 5%;
     overflow: hidden;
-    background: rgb(107, 163, 236);
-    background: linear-gradient(0deg, rgba(107, 163, 236, 1) 0%, rgba(114, 26, 180, 1) 100%);
+
+    background-image: url(https://outfunnel.com/wp-content/uploads/2020/12/of-bg-logo-1.png), linear-gradient(0deg, rgba(107, 163, 236, 1) 0%, rgba(114, 26, 180, 1) 100%);
     color: white;
 }
 
