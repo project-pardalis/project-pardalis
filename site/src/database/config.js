@@ -22,19 +22,19 @@ var sqlServerConfig = {
  var mySqlConfig = {
     host: "localhost",
     database: "PARDALIS",
-    user: "aluno",
-    password: "sptech",
+    user: "pateta",
+    password: "teste@123",
 };
  
 function executar(instrucao) {
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        console.log("Executando a instrução SQL: \n" + instrucao);
+        //console.log("Executando a instrução SQL: \n" + instrucao);
         return new Promise(function (resolve, reject) {
             sql.connect(sqlServerConfig).then(function () {
                 return sql.query(instrucao);
             }).then(function (resultados) {
-                console.log(resultados);
+                //console.log(resultados);
                 resolve(resultados.recordset);
             }).catch(function (erro) {
                 reject(erro);
@@ -53,7 +53,7 @@ function executar(instrucao) {
                 if (erro) {
                     reject(erro);
                 }
-                console.log(resultados);
+                //console.log(resultados);
                 resolve(resultados);
             });
             conexao.on('error', function (erro) {
