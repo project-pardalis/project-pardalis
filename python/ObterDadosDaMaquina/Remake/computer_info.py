@@ -12,16 +12,7 @@ def transform_to_mb(value: int, n_decimal=0):
     return round(value / pow(1024, 2), n_decimal)
 
 # Retorna o tipo da CPU
-def get_cpu_type():
-    cpu_data = (os.popen("lscpu").read()).split("\n")
-
-    for i in range(len(cpu_data)):
-        cpu_data[i] = (cpu_data[i].strip()).split(':')
-
-    necessary_data = {
-        'portuguese': ['Núcleo(s) por soquete', 'Nome do modelo', 'Arquitetura', 'Thread(s) per núcleo'],
-        'english': ['Core(s) per socket', 'Model name', 'Architecture', 'Thread(s) per core']
-    }
+def get_cpu_type_linux():
     data = [
         {
             'type': 'Núcleo(s) por soquete',
@@ -40,6 +31,15 @@ def get_cpu_type():
             'value': None
         }
     ]
+    cpu_data = (os.popen("lscpu").read()).split("\n")
+
+    for i in range(len(cpu_data)):
+        cpu_data[i] = (cpu_data[i].strip()).split(':')
+
+    necessary_data = {
+        'portuguese': ['Núcleo(s) por soquete', 'Nome do modelo', 'Arquitetura', 'Thread(s) per núcleo'],
+        'english': ['Core(s) per socket', 'Model name', 'Architecture', 'Thread(s) per core']
+    }
 
     for j in necessary_data:
         for k in range(len(necessary_data[j])):
@@ -52,11 +52,62 @@ def get_cpu_type():
 
     return data
 
+def get_cpu_type_windows():
+    data = [
+        {
+            'type': 'Núcleo(s) por soquete',
+            'value': None
+        },
+        {
+            'type': 'Nome do modelo',
+            'value': None
+        },
+        {
+            'type': 'Arquitetura',
+            'value': None
+        },
+        {
+            'type': 'Thread(s) per núcleo',
+            'value': None
+        }
+    ]
+    commands = [
+        {
+            'numberofcores': None,
+        }, {
+            'name': None,
+        },
+        {
+            'architecture': None,
+        },
+        {
+            'numberoflogicalprocessors': None,
+        }
+    ]
+
+    for i in range(len(commands)):
+        key = list(commands[i].keys())[0]
+        result = (os.popen("wmic cpu get " + key).read()).split("\n")
+        result = filter_result(result)
+        data[i]['value'] = result
+    print(data)
+
+def filter_result(result: list):
+    new_result = []
+    for i in range(len(result)):
+        if result[i] != "":
+            new_result.append(result[i].strip())
+    return new_result[1]
+
 # Retorna as informações da CPU
 def get_cpu_info():
-    cpu_type = get_cpu_type()
-    temperature = ps.sensors_temperatures()['coretemp'][0].current
-
+    if platform.system() == "Linux":
+        cpu_type = get_cpu_type_linux()
+        temperature = ps.sensors_temperatures()['coretemp'][0].current
+    elif platform.system() == "Windows":
+        cpu_type = get_cpu_type_windows()
+        temperature = -500
+    
     return {
         'cpu_type': cpu_type,
         'cpu_Temperature': temperature,
@@ -100,8 +151,6 @@ def get_network_info():
     }
 
 # Retorna as informações do sistema
-
-
 def get_system_info():
     return {
         'system': platform.system(),
@@ -110,8 +159,6 @@ def get_system_info():
     }
 
 # Função principal que retorna todos os dados
-
-
 def get_all_info():
     return {
         'cpu': get_cpu_info(),
