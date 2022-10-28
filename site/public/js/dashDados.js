@@ -312,10 +312,10 @@ function verifiyColorInfoCpuTemperature(maq) {
     let color;
 
     let summary = filterSummary(null, maq, "cpu_Temperature").summary
-
-
+    
     if (maq.lastData.cpu_Temperature.valorLeitura > summary.max) color = colors.risco;
     if (maq.lastData.cpu_Temperature.valorLeitura > summary.q3) color = colors.alerta;
+    if (maq.lastData.cpu_Temperature.valorLeitura == '-500.00') color = colors.nenhum;
     else color = colors.normal;
 
     return `color: ${color}`;
@@ -342,20 +342,22 @@ function verificarCor(server, element) {
     let filterResponse = filterSummary(element, server);
     let summary = filterResponse.summary;
     element = filterResponse.element;
+    let color = colors.nenhum;
+    console.log()
 
     if (filter == "name") return element;
-    else if (server.lastData[filter] > summary.max) {
-        /* VERMELHO */
-        element.style.backgroundColor = colors.risco;
+    else if (server.lastData.estatico.length == 0 || (server.lastData.cpu_Temperature.valorLeitura == "-500.00" && filter == "cpu_Temperature")) {
+        color = colors.nenhum;
+    } else if (server.lastData[filter] > summary.max) {
+        color = colors.risco;
     } else if (server.lastData[filter] > summary.q3) {
-        element.style.backgroundColor = colors.alerta;
-    } else if (server.lastData[filter] == null) {
-        element.style.backgroundColor = colors.nenhum;
-
+        color = colors.alerta;
     } else {
-        element.style.backgroundColor = colors.normal;
+        color = colors.normal;
     }
-    return element
+    
+    element.style.backgroundColor = color;
+    return element;
 }
 
 /* Pegar o summary baseado no filtro atual */

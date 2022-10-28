@@ -56,7 +56,7 @@ function setChartStateData() {
         let machine = machines[i];
 
         if (filter == "name") return;
-        else if (machine.lastData[filter] === undefined) {
+        else if (machine.lastData[filter] === undefined || machine.lastData[filter].valorLeitura == '-500.00') {
             notEstablished++;
             continue;
         }
