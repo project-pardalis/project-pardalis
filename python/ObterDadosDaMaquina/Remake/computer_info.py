@@ -90,7 +90,6 @@ def get_cpu_type_windows():
         result = (os.popen("wmic cpu get " + key).read()).split("\n")
         result = filter_result(result)
         data[i]['value'] = result
-    print(data)
 
 def filter_result(result: list):
     new_result = []
