@@ -106,17 +106,8 @@ async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
 }
 
 async function createView(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina, nomeMetrica) {
-    let sql = "CREATE VIEW IF NOT EXISTS " + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
-    sql += `AS
-        SELECT nomeMaquina, nomeComponente, nomeMetrica, 
-        unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 
-        JOIN Componente on idComponente = Leitura.fkComponente
-        JOIN Metrica on idMetrica = Leitura.fkMetrica
-        JOIN Maquina on idMaquina = Leitura.fkMaquina 
-        and Maquina.fkEmpresa = ${fkEmpresa} 
-        and Maquina.idMaquina = ${fkMaquina}
-        and Metrica.nomeMetrica = '${nomeMetrica}'
-    `
+    let sql = "CREATE OR REPLACE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
+    sql += ` AS SELECT nomeMaquina, nomeComponente, nomeMetrica, unidadeDeMedida, dataColeta, valorLeitura FROM Leitura  JOIN Componente on idComponente = Leitura.fkComponente JOIN Metrica on idMetrica = Leitura.fkMetrica JOIN Maquina on idMaquina = Leitura.fkMaquina  and Maquina.fkEmpresa = ${fkEmpresa}  and Maquina.idMaquina = ${fkMaquina} and Metrica.nomeMetrica = '${nomeMetrica}';`
     let res = await database.executar(sql);
     return res;
 }
@@ -130,17 +121,8 @@ async function createViewEstatica(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina
             nomesMetrica2 += "'" + nomesMetrica[i] + "', ";
         }
     }
-    let sql = "CREATE VIEW IF NOT EXISTS" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + "estatico`";
-    sql += `AS
-        SELECT nomeMaquina, nomeComponente, nomeMetrica, 
-        unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 
-        JOIN Componente on idComponente = Leitura.fkComponente
-        JOIN Metrica on idMetrica = Leitura.fkMetrica
-        JOIN Maquina on idMaquina = Leitura.fkMaquina 
-        and Maquina.fkEmpresa = ${fkEmpresa} 
-        and Maquina.idMaquina = ${fkMaquina}
-        and Metrica.nomeMetrica in (${nomesMetrica2});
-    `
+    let sql = "CREATE OR REPLACE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + "estatico` ";
+    sql += `AS SELECT nomeMaquina, nomeComponente, nomeMetrica, unidadeDeMedida, dataColeta, valorLeitura FROM Leitura  JOIN Componente on idComponente = Leitura.fkComponente JOIN Metrica on idMetrica = Leitura.fkMetrica JOIN Maquina on idMaquina = Leitura.fkMaquina  and Maquina.fkEmpresa = ${fkEmpresa}  and Maquina.idMaquina = ${fkMaquina} and Metrica.nomeMetrica in (${nomesMetrica2});`
     let res = await database.executar(sql);
     return res;
 }

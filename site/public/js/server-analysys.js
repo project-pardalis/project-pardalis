@@ -242,7 +242,7 @@ var chartsColors = {
     "disco_write_time": {
         "backgroundColor": "#1b717145",
         "borderColor": "#1b7171"
-    }, 
+    },
     "disco_read_time": {
         "backgroundColor": "#6a46d742",
         "borderColor": "#6B46D7"
@@ -389,16 +389,21 @@ async function getComponent(componentName) {
 
 async function getCPUInfo() {
     let specification = await getComponent("cpu");
-    specification.descricao = specification.descricao.split("'")
-    let jsonSpecification = {};
+    if (specification.descricao !== null) {
+        specification.descricao = specification.descricao.split("'")
+        let jsonSpecification = {};
 
-    for (let i = 0; i < specification.descricao.length; i++) {
-        if (specification.descricao[i].indexOf("Arquitetura") != -1 || specification.descricao[i].indexOf("Nome do modelo") != -1 || specification.descricao[i].indexOf("Núcleo por soquete") != -1 ||
-            specification.descricao[i].indexOf("Thread per núcleo") != -1) {
-            jsonSpecification[specification.descricao[i]] = specification.descricao[i + 2];
+        for (let i = 0; i < specification.descricao.length; i++) {
+            if (specification.descricao[i].indexOf("Arquitetura") != -1 || specification.descricao[i].indexOf("Nome do modelo") != -1 || specification.descricao[i].indexOf("Núcleo por soquete") != -1 ||
+                specification.descricao[i].indexOf("Thread per núcleo") != -1) {
+                jsonSpecification[specification.descricao[i]] = specification.descricao[i + 2];
+            }
         }
+        return jsonSpecification;
+    } else {
+        return null;
     }
-    return jsonSpecification;
+
 }
 
 /* Metricas */
@@ -520,13 +525,14 @@ function selectDatasetToAppend(chart, label, data, repeat = true) {
             summary = getSummary(0, discoTotalData);
             break;
         case 'disco_write_time':
-            summary = getSummary(0, metricas.disco_write_time.sort( (a, b) => a.valorMetrica - b.valorMetrica)[0].valorLeitura);
+            summary = getSummary(0, metricas.disco_write_time.sort((a, b) => a.valorMetrica - b.valorMetrica)[0].valorLeitura);
             break;
         case 'disco_read_time':
-            summary = getSummary(0, metricas.disco_read_time.sort( (a, b) => a.valorMetrica - b.valorMetrica)[0].valorLeitura);
+            summary = getSummary(0, metricas.disco_read_time.sort((a, b) => a.valorMetrica - b.valorMetrica)[0].valorLeitura);
             break;
     }
     data.valorLeitura = parseFloat(data.valorLeitura);
+    if (data.valorLeitura == -500) return;
     if (data.valorLeitura >= summary.max && label != "disco_read_time" && label != "disco_write_time") {
         dataset.backgroundColor = "#F04A5B";
         dataset.borderColor = "#F04A5B";
@@ -622,17 +628,8 @@ async function setEventClick(componentName) {
                 bigChart.clickedChart = "cpu";
                 element.innerHTML = "Cpu";
 
-                specification = await getCPUInfo()
-                element2.innerHTML = specification["Nome do modelo"];
-                let textSpecification = "";
-                for (const key in specification) {
-                    let specificationData = specification[key];
-                    if (key == "Nome do modelo") continue;
-                    if (Object.keys(specification).indexOf(key) == Object.keys(specification).length - 1) textSpecification += `${key}: ${specificationData}`;
-                    else textSpecification += ` ${key}: ${specificationData}, `;
-                }
-                element2.title = textSpecification;
-                /* Colocar para pegar informações da cpu */
+                loadCpuInfo();
+                
                 break;
             case 'ram':
                 bigChart.clickedChart = "ram";
@@ -658,7 +655,8 @@ async function setEventClick(componentName) {
 async function loadCpuInfo() {
     let element = document.getElementById(`component-complement`);
     let specification = await getCPUInfo();
-    element.innerHTML = specification["Nome do modelo"];
+    if (specification != null) element.innerHTML = specification["Nome do modelo"];
+    
     let textSpecification = "";
     for (const key in specification) {
         let specificationData = specification[key];
@@ -718,8 +716,8 @@ async function separateData(data) {
     let dataSeparated = data.filter(
         (data) => {
             let date = new Date(data.dataColeta);
-            return true;
-            //return (date.getDate() == todayDate.getDate() && date.getMonth() == todayDate.getMonth() && date.getFullYear() == todayDate.getFullYear());
+            //return true;
+            return (date.getDate() == todayDate.getDate() && date.getMonth() == todayDate.getMonth() && date.getFullYear() == todayDate.getFullYear());
         }
     )
     let hours = await separateHours(dataSeparated);
@@ -785,6 +783,8 @@ function findDataset(metrica, data) {
             labelName = "Velocidade de Leitura";
             break;
     }
+    if (data.indexOf('-500.00') != -1) return;
+
     for (let i = 0; i < charts.dayChart.data.datasets.length; i++) {
         if (charts.dayChart.data.datasets[i].label == labelName) {
             charts.dayChart.data.datasets[i].data = data;
