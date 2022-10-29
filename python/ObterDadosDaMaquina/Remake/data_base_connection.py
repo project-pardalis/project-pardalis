@@ -9,6 +9,9 @@ connection = pymysql.connect(host='localhost',
 
 cursor = connection.cursor()
 
+def rename_hash(hash: str):
+    return hash.replace(':', '').upper()
+
 def string_index(text: str, string: str):
     try:
         text.index(string)
@@ -28,15 +31,15 @@ def run_sql_command(command: str, fetchall: bool = False):
     return False
 
 def get_computer_hash(hash: str):
-    command = f"SELECT * FROM Maquina WHERE hashMaquina = '{hash.replace(':', '').upper()}';"
+    command = f"SELECT * FROM Maquina WHERE hashMaquina = '{rename_hash(hash)}';"
     return run_sql_command(command, False)
 
 def get_computer_with_hash(hash: str):
-    command = f"SELECT count(*) as qtdServidores FROM Maquina WHERE hashMaquina = '{hash.replace(':', '').upper()}' LIMIT 1;"
+    command = f"SELECT count(*) as qtdServidores FROM Maquina WHERE hashMaquina = '{rename_hash(hash)}' LIMIT 1;"
     return run_sql_command(command, False)
 
 def get_componentes_computer(hash: str):
-    command = f"SELECT * FROM Componente JOIN Maquina on idMaquina = fkMaquina where hashMaquina = '{hash.replace(':', '').upper()}';"
+    command = f"SELECT * FROM Componente JOIN Maquina on idMaquina = fkMaquina where hashMaquina = '{rename_hash(hash)}';"
     return run_sql_command(command, True)
 
 def get_metricas(component_name : str = None):
@@ -61,7 +64,7 @@ def update_static_metrica(value: float, fk_component: int, fk_maquina: int, fk_e
 def recreate_cpu_dist(descricao: list):
     new_description = {}
     for desc in descricao:
-        new_description[desc['name']] = desc['value']
+        new_description[desc['type']] = desc['value']
     return json.dumps(new_description)
 
 def create_components(fk_maquina: int, fk_empresa: int, components: dict, descricao: list = None):
@@ -69,7 +72,8 @@ def create_components(fk_maquina: int, fk_empresa: int, components: dict, descri
         component_state = components[key]
         if (key == "cpu"):
             descricao = recreate_cpu_dist(descricao)
-            command = f"INSERT INTO Componente (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa, descricao) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa}, {descricao});"
+            command = f"INSERT INTO Componente (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa, descricao) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa}, '{descricao}');"
+            
         else:
             command = f"INSERT INTO Componente (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa});"
         run_sql_command(command)
@@ -80,7 +84,7 @@ def create_component_connection_with_metrica(component_name : str, fk_maquina: i
     for metrica in metricas:
         command = (f"INSERT INTO Componente_has_Metrica SELECT idComponente, {metrica['idMetrica']}, {fk_maquina}, {fk_empresa}" +
             f" FROM Componente WHERE nomeComponente = '{component_name}' AND Componente.fkMaquina = {fk_maquina} AND Componente.fkEmpresa = {fk_empresa};")
-        print(command)
+        
         run_sql_command(command)
             
 
@@ -95,3 +99,11 @@ def clear_components(hashMaquina : str):
     for component in components:
         command = "DELETE FROM Componente WHERE idComponente = {0} AND fkMaquina = {1} AND fkEmpresa = {2};".format(component["idComponente"], computer["idMaquina"], computer["fkEmpresa"])
         run_sql_command(command)
+
+def change_component_state(nome_componente: str, hash_maquina : str, state: int):
+    try:
+        command = f"UPDATE Componente SET isComponenteValido = {state} WHERE nomeComponente = '{nome_componente}' AND fkMaquina = {get_computer_hash(hash_maquina)['idMaquina']};"
+        run_sql_command(command)
+        print("Componente atualizado com sucesso!")
+    except Exception as e:
+        print("Erro ao atualizar componente: ", e)

@@ -28,14 +28,16 @@ def run_command_verifying_hash(command):
 def menu_select():
     while True:
         clear_screen()
-        print("==========================================")
-        print("=              Mac Address:              =")
-        print(f"=           {computer_hash}            =")
-        print("=                                        =")
-        print("= 1 - Obter informações do Computador    =")
-        print("= 2 - Obter Estado dos Componentes       =")
-        print("= 3 - Sair                               =")
-        print("=                                        =")
+        print("=========================================")
+        print("|                PARDALIS                |")
+        print("|========================================|")
+        print("|              Mac Address:              |")
+        print(f"|           {computer_hash}            |")
+        print("|                                        |")
+        print("| 1 - Obter informações do Computador    |")
+        print("| 2 - Obter Estado dos Componentes       |")
+        print("| 3 - Sair                               |")
+        print("|                                        |")
         print("==========================================")
         option = input("Escolha uma opção: ")
         if option == "1":
@@ -48,9 +50,8 @@ def menu_select():
             exit()
 
 # ----------------------------------------------------------------------------------------------------------------------
+
 # Opção 1
-
-
 def get_computer_info():
 
     computer_components = db.get_componentes_computer(computer_hash)
@@ -83,7 +84,6 @@ def update_static_metricas(computer_components : list):
                                         component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"])
         print("Informações estáticas do computador adicionadas/atualizadas.")
 
-
 def send_informations_to_db(computer_components : list):
     while True:
         clear_screen()
@@ -91,11 +91,12 @@ def send_informations_to_db(computer_components : list):
             computer_info = ci.get_all_info()
 
             for component in computer_components:
-                metricas_component = db.get_metricas_connection(
-                    component["idComponente"], component["fkMaquina"], component["fkEmpresa"])
-                
-                for metrica in metricas_component:
-                    db.append_information(component["idComponente"], component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"], computer_info[component["nomeComponente"]][metrica["nomeMetrica"]])
+                if component["isComponenteValido"] == 1:
+                    metricas_component = db.get_metricas_connection(
+                        component["idComponente"], component["fkMaquina"], component["fkEmpresa"])
+                    
+                    for metrica in metricas_component:
+                        db.append_information(component["idComponente"], component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"], computer_info[component["nomeComponente"]][metrica["nomeMetrica"]])
             print("Informações do Computador adicionadas.")
             time.sleep(1)
         except KeyboardInterrupt:
@@ -106,12 +107,57 @@ def send_informations_to_db(computer_components : list):
 def change_components_state():
     components = db.get_componentes_computer(computer_hash)
 
-    print("{:<8} {:<5} {:<30}".format(
+    if len(components) == 0:
+        print("Não há componentes cadastrados.")
+        return
+    
+    print("{0:<25} {1:<10} {2}".format(
         "Nome do Componente", "Estado", "Descrição"))
     for component in components:
-        print("{:<8} {:<5} {:<30}".format(
-            component["nomeComponente"], component["isComponenteValido"], component["descricao"]))
+        if component["descricao"] == None:
+            descricao = "Sem descrição"
+        else:
+            descricao = component["descricao"]
 
+        if component["isComponenteValido"] == 1:
+            estado = "Ativo"
+        else:
+            estado = "Inativo"
+
+        print("{0:<25} {1:<10} {2}".format(
+            component["nomeComponente"][0].upper() + component["nomeComponente"][1:], estado, descricao))
+
+    res = input("Gostaria de mudar o estado de algum componente? (S/N): ")
+    
+    if res.upper() == "S":
+        change_component_state(components)
+        
+
+    elif res.upper() == "N":
+        print("Voltando ao menu...")
+        time.sleep(1)
+    else:
+        print("Opção inválida!")
+
+def change_component_state(components : list):
+    state = None
+    while True:
+        res = input("Digite o nome do componente: ")
+        for component in components:
+            if component["nomeComponente"] == res.lower():
+                if component["isComponenteValido"] == 1:
+                    state = 0
+                else:
+                    state = 1
+                break
+        if state != None:
+            db.change_component_state(res.lower(), computer_hash, state)
+            break
+        else:
+            print("Componente não encontrado!")
+            state 
+            time.sleep(1)
+    
 # ----------------------------------------------------------------------------------------------------------------------
 
 
