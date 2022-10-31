@@ -1,0 +1,12 @@
+.input-f {
+    width: 20rem;
+    height: 2rem;
+    background: 0 0;
+    outline: none;
+    border-bottom: 2px solid white;
+
+}
+
+.input-container {
+    width: auto;
+}
