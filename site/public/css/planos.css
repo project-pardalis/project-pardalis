@@ -10,7 +10,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 body {
-  background: linear-gradient(45deg, #c42ba8, 35%, var(--thirdColor), var(--hoverColor) 100%);
+  background: linear-gradient(45deg, rgb(24, 143, 190) 35%, var(--thirdColor) 100%);
   background-size: 400% 400%;
   margin: 0;
   padding: 0;
@@ -84,14 +84,11 @@ a {
 .card {
   height: 20rem !important;
   transition: 200ms;
-  box-shadow: 6px 6px 6px black !important;
 }
 
 .card:hover {
   transform: scale(1.1);
-  transition: 200ms;
-  box-shadow: 1rem 1rem 1rem hsl(273, 93%, 23%, 0.3) !important;
-
+  transition: 200ms
 }
 
 .footer {

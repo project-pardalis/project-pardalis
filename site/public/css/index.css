@@ -1,7 +1,7 @@
 :root {
     --primaryColor: rgb(255, 255, 255);
     --secundaryColor: rgb(0, 0, 0);
-    --thirdColor: #2D2DBF;
+    --thirdColor: #6B46D7;
     --hoverColor: #5431d4;
     --blue: rgba(107, 163, 236, 1);
     --carrossel-position-x: 19;
@@ -20,7 +20,7 @@ body {
     margin: 0;
     padding: 0;
     /* background: black; */
-
+    filter: hue-rotate(-30deg);
     overflow-x: hidden;
 }
 
@@ -55,7 +55,7 @@ a {
 
 /* HEADER - COMEÇO */
 .fundo {
-    background-color: var(--thirdColor);
+    background-color: #721ab4;
 
     width: 100%
 }
@@ -266,7 +266,7 @@ a {
     padding-bottom: 5%;
     overflow: hidden;
 
-    background-image: url(https://outfunnel.com/wp-content/uploads/2020/12/of-bg-logo-1.png), linear-gradient(0deg, rgba(107, 163, 236, 1) 0%, var(--thirdColor) 100%);
+    background-image: url(https://outfunnel.com/wp-content/uploads/2020/12/of-bg-logo-1.png), linear-gradient(0deg, rgba(107, 163, 236, 1) 0%, rgba(114, 26, 180, 1) 100%);
     color: white;
 }
 
