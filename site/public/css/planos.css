@@ -9,7 +9,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 body {
-  background: linear-gradient(45deg, #c42ba8, 35%, var(--thirdColor), var(--hoverColor) 100%);
+  background:linear-gradient(45deg, rgb(24, 143, 190) 35%, var(--thirdColor) 100%);
   background-size: 400% 400%;
   margin: 0;
   padding: 0;
@@ -79,7 +79,14 @@ a {
   text-align: center;
   white-space: nowrap;
 }
-
+.card{ 
+  height: 20rem !important;
+  transition: 200ms;
+}
+.card:hover{ 
+  transform: scale(1.1);
+  transition: 200ms 
+}
 .footer {
   background-color: transparent !important;
 }

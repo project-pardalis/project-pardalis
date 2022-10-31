@@ -368,13 +368,23 @@ a {
 
 .alertas-receba{ 
     display:flex;
-    width: 100%;
+    width: 60%;
     justify-content: space-around;
     padding: 1rem;
+    font-size: 2px;
 
 }
+.alertas-parte { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alertas-txt{ 
+    text-align: center;
+}
 .danger ,.warning, .ok { 
-    width: 3rem;
+    width: 4rem;
     height: 3rem;
     border-radius:20px;
     text-align: center;
