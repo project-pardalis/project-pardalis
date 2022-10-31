@@ -35,8 +35,6 @@ sleep 2
   cd ~/Documentos
   git clone https://github.com/project-pardalis/project-pardalis
   cd project-pardalis/site 
+  npm start
   
-  #criando tabelas
- # npm start para rodarr paralelo
-  sudo npm i 
-  
+

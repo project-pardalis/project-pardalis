@@ -1,7 +1,7 @@
 import os
 import platform
 import time
-from tkinter import N
+
 import getmac
 import computer_info as ci
 import data_base_connection as db
