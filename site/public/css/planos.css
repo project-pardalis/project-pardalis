@@ -82,10 +82,13 @@ a {
 .card{ 
   height: 20rem !important;
   transition: 200ms;
+  box-shadow: 6px 6px 6px black !important;
 }
 .card:hover{ 
   transform: scale(1.1);
-  transition: 200ms 
+  transition: 200ms ;
+  box-shadow:1rem 1rem 1rem hsl(273, 93%, 23%, 0.3) !important;
+  
 }
 .footer {
   background-color: transparent !important;

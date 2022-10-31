@@ -334,6 +334,41 @@ a {
 .parte4 .container {
     justify-content: space-around
 }
+.parte3 {
+    padding-bottom: 3rem ; 
+    color:white;
+    justify-content: center;
+    align-items:center;
+    border-bottom: 0.5px solid yellow;
+    
+    background-image: linear-gradient(0deg,var(--thirdColor)  0%, rgb(31, 28, 223) 100%);
+}
+.todo-pt3{ 
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    
+}
+.parte3 button{ 
+    background-color: rgb(243, 221, 24);
+    color:black;
+    font-weight: bolder;
+    font-size: 0.8em;
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+
+    transition: 200ms 
+
+}
+
+.parte3 button:hover{ 
+    transform: scale(1.1);
+    transition: 200ms  ; 
+    
+}
 
 .parte4 .container {
     flex-direction: row-reverse;
@@ -348,10 +383,7 @@ a {
     border-radius: 32px;
 }
 
-.parte3{ 
-    justify-content: center;
-    border-bottom: 2px solid rgb(201, 226, 255);
-}
+
 
 .last-part-home { 
     display:flex;
@@ -401,17 +433,19 @@ a {
     background-color: rgb(44, 170, 160); 
 }
 .desc-last { 
-    width: 70%;
+    padding: 0.8rem;
+    width: 60%;
 }
 /* SOCIAL - FIM */
 
 /* FOOTER - COMEÇO */
 
 .footer {
+
     background-color: var(--thirdColor);
     width: 100%;
     color: white;
-    padding-top: 2rem;
+    padding-top: 4rem;
     padding-bottom: 2rem;
     font-size: 0.8rem;
 }
@@ -432,6 +466,7 @@ a {
 
 .slogan_footer {
     width: 20rem;
+  
 }
 
 .listas_footer {
