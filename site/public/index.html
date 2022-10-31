@@ -146,33 +146,24 @@
             <img class='img-arrow-down' src="https://cdn-icons-png.flaticon.com/512/747/747894.png" alt="">
         </div>
         <div class="parte1">
-            <div class="video-container">
-               
-                   <div class="video-apresentacao">
-
-                   </div>
-   
-               
-                <div class="page-apresentacao d-flex m-0 p-0" style="flex-direction: column;">
-                    <p class="h2 mt-5 mt-md-0">Quem somos? </p>
-                    <p class="h6 fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores rerum recusandae culpa quidem, impedit velit tempore quibusdam, id accusamus ea omnis sed explicabo corrupti aliquid cum expedita, illo modi reprehenderit!</p>
+            <div class="container d-flex flex-md-row flex-column-reverse">
+                <div class="col-md-6 col-12 d-flex m-0 p-0" style="flex-direction: column;">
+                    <p class="h2 mt-5 mt-md-0">Análise de dados</p>
+                    <p class="h6 fw-light">Telas intuitivas e completas a cerca de todos os dados necessarios. </p>
                 </div>
-               
+                <div class="col-md-3 col-12 d-flex align-items-center justify-content-center">
+                    <img class="img-fluid" id="greenhouse" src="./assets/imgs/trancodingVetor.png" alt="">
+                </div>
             </div>
         </div>
 
         <div class="parte2">
             <div class="container d-flex flex-column-reverse flex-md-row-reverse">
-                <div class=" alertas-parte col-md-6 col-12 d-flex m-0 p-0" style="flex-direction: column;">
-                    <p class="h2  alertas-txt mt-5 mt-md-0">Receba alertas</p>
-                    <div class="alertas-receba">
-                        <div class="danger"></div>
-                        <div class="warning"></div>
-                        <div class="ok"></div>
-                    </div>
+                <div class="col-md-6 col-12 d-flex m-0 p-0" style="flex-direction: column;">
+                    <p class="h2 mt-5 mt-md-0">Receba alertas</p>
                     <p class="h6 fw-light">Através do nosso sitema, iremos estabelecer métricas para que ao seu sistema
                         der problema ou der suspeitas para isso,
-                        nós enviamos um alerta através do seu slack, para que você saiba qual é a máquina com o problema.
+                        irá enviar um alerta através do seu slack, para que você saiba qual é a máquina com o problema.
                     </p>
                 </div>
                 <div class="col-md-3 col-12 d-flex align-items-center justify-content-center">
@@ -183,16 +174,15 @@
         </div>
 
         <div class="parte3">
-
-        </div>
-
-        <div class="parte3">
-            <div class="last-part-home">
-
-                    <p class="fw-bolder h2 mt-5 mt-md-0">Se interessou no nosso sistema? </p>
-           
-                <p class="h6 desc-last fw-light">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius ipsa neque animi dolores provident. Voluptatibus, vitae? Voluptas porro nam aut, quisquam repudiandae, libero cumque repellat impedit illo vitae qui. Incidunt?</p>
-              <button class="btn login-botao" onclick="redirectUserToPlanos()">Veja nossos planos</button>
+            <div class="container d-flex flex-column-reverse flex-md-row">
+                <div class="col-md-6 col-12 d-flex m-0 p-0" style="flex-direction: column;">
+                    <p class="h2 mt-5 mt-md-0">Monitore seus processos!</p>
+                    <p class="h6 fw-light">Com a nossa dash intuitiva, iremos permitir que você crie maquinas e
+                        verifique as informações de cada uma delas.</p>
+                </div>
+                <div class="col-md-3 col-12 d-flex align-items-center justify-content-center">
+                    <img class="img-fluid" id="greenhouse" src="./assets/imgs/GraficosVetor.png" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -298,9 +288,7 @@
     } setCarrossel(); </script>
 
 <script>
-    function redirectUserToPlanos() { 
-        window.location.href = './planos.html'
-    }
+
     function redirectUserToLogin() {
         window.location.href = "./login.html";
     }

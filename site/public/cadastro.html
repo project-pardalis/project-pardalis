@@ -12,27 +12,38 @@
     <link rel="shortcut icon" href="./assets/imgs/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/login-cadastro.css">
     <link rel="stylesheet" href="./css/cadastro.css">
+    <link rel="stylesheet" href="css/index.css">
 
 </head>
 
 <body>
-        <div class="header">
-            <div class="container d-flex my-2 w-100">
-                <a href="./index.html" class="titulo">
-                    <img class="img-fluid" src="./assets/imgs/logo.png" alt="">
-                    <h1 class="m-0 p-0">Pardalis</h1>
-                </a>
-                <ul class="register">
-                    <li>
-                        <a class="text-dark" href="./index.html">Home</a>
-                    </li>
-                    <li id="here">
-                        <a class="text-dark" href="./planos.html">Planos</a>
-                    </li>
+    <div class="header">
+        <div class="container d-flex my-2 w-100">
+            <a href="index.html" class="titulo">
+                <img class="logo" src="./assets/imgs/logo.png" alt=""> <!-- Mudar com media -->
 
-                </ul>
-            </div>
+            </a>
+            <ul class="register">
+                <li>
+                    <a class="font-nav fw-bolder">Home</a>
+                </li>
+                <li>
+                    <a class=" font-nav" href="./planos.html">Planos</a>
+                </li>
+                <div class="v-hr"></div>
+                <li>
+                    <img class='img-icon-user' src="http://cdn.onlinewebfonts.com/svg/img_184513.png" alt="">
+                </li>
+                <li>
+
+                    <button class="ms-1 btn fw-semibold login-botao"
+                        onclick="redirectUserToLogin()">Cadastrar</button>
+                </li>
+
+            </ul>
         </div>
+    </div>
+
 
         <div class="container-elements-page p-0 pt-5 p-md-5 vh-100">
             <div class="container form-container-cadastro">
@@ -78,10 +89,10 @@
     
                     </div>
     
-                   
+                    <button class="buttom" onclick="cadastrar()">Entrar</button>
     
                 </div>
-                <button class="buttom" onclick="cadastrar()">Entrar</button>
+                
             </div>
 
 
