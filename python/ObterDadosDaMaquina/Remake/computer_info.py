@@ -4,11 +4,11 @@ import psutil as ps
 import socket
 
 # Transforma bytes em GB
-def transform_to_gb(value: int, n_decimal=0):
+def transform_to_gb(value: int, n_decimal=2):
     return round(value / pow(1024, 3), n_decimal)
 
 # Transforma bytes em MB
-def transform_to_mb(value: int, n_decimal=0):
+def transform_to_mb(value: int, n_decimal=2):
     return round(value / pow(1024, 2), n_decimal)
 
 # Retorna o tipo da CPU
@@ -120,7 +120,6 @@ def get_cpu_info():
 # Retorna Informações da Memória RAM
 def get_memory_info():
     memory = ps.virtual_memory()
-
     return {
         'ram_Total': transform_to_gb(memory.total),
         'ram_Disponivel': transform_to_gb(memory.available),
