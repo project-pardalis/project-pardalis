@@ -106,7 +106,7 @@ def change_component_state(nome_componente: str, hash_maquina : str, state: int)
         run_sql_command(command)
         print("Componente atualizado com sucesso!")
     except Exception as e:
-        print("Erro ao atualizar componente: ", e)from datetime import datetime
+        print("Erro ao atualizar componente: ", e)
 import pymysql.cursors, json
 
 connection = pymysql.connect(host='localhost',

@@ -1,7 +1,6 @@
 import os
 import platform
 import time
-
 import getmac
 import computer_info as ci
 import data_base_connection as db
