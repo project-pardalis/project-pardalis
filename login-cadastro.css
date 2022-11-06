@@ -91,32 +91,22 @@ a {
     background-size: 400% 400%;
     animation: animation-body 8s ease infinite;
 }
-.h1-login{
-    color: black;
-    
-    font-size: 1.2rem;
-    display: flex;
-    margin-bottom: -2.5rem;
-    margin-left: 1rem;
-    
+.h1{
+    color: white;
+    margin-top: 2rem;
 
 
-}
-.a-login{
-    margin-left: 1rem;
-    color: black;
 
 }
 .h1-cadastro{
     color: black;
-   
+    margin-top: 2rem;
     font-size: 2.5rem;
-    margin-left: 18rem;
+    margin-left: 25rem;
 }
 
 .mb-1{
-    color: black;
-    margin-left: 4rem;
+    color: white;
 }
 @keyframes animation-body {
   0% {
@@ -135,30 +125,97 @@ a {
 .col-6{
     margin-right: 2rem;
 }
+/* Login começo */
+.caixa-login{
+    margin-top: 5rem;
+    width: 70%;
+    height: 80%;
+    display: flex;
+    
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 0.5rem;
+
+}
+.imagem-login{
+
+    background-image: url('../assets/imgs/giphy.gif');
+    background-size: 30rem;
+    background-repeat: no-repeat;
+    
+    margin-top: 4rem;
+    width: 50%;
+    height: 80%;
+    
+    
+
+}
+
+.scault{
+    width: 100%;
+    height: 1rem;
+
+}
+.forma-login{
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 3rem;
+    margin-top: 3rem;
+    width: 40%;
+    height: 80%;
+    
+}
 
 .form-container {
 
-   
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    
+    border-radius: 10px;
+    align-items: center;
     flex-direction: column;
     width: 40%;
     height: 92%;
     justify-content: space-between;
-    background-color:white;
-    box-shadow: 5px 5px 5px 1px;
-
+    background-color: rgba(128, 128, 128, 0.096);
+    box-shadow:8px 5px 15px;
     
     
 }
-.maestro{
-    width: 40%;
-    height: 92%;
-    background: white;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    box-shadow: 6px 5px 5px 1px;
+.linha {
+    background-color:black;
+    height: 0.1rem;
+    width: 10rem;
+}
+/* login final */
+
+/*cadastro inicio*/
+.caixa-cadastro{
+    margin-top: 5rem;
+    width: 70%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    
+    background-color: white;
+    border-radius: 0.5rem;
+
+}
+.caixas{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    margin-top: 1rem;
+}
+.caixa-um{
+    margin-left: 4%;
+    width: 45%;
+    height: 100%;
+    margin-right: 1rem;
+}
+.caixa-dois{
+    width: 45%;
+    height: 100%;
+    
 }
 .form-container-cadastro{
     border-radius: 10px;
@@ -170,19 +227,8 @@ a {
     background-color: rgba(128, 128, 128, 0.096);
     box-shadow:8px 5px 15px;}
 
-.linha-login {
-    background-color:black;
-    height: 0.1rem;
-    width: 4.5%;
-    margin-left: 1rem;
-}
-.linha-cadastro {
-    background-color:black;
-    height: 0.1rem;
-    width: 20rem;
-    margin-left: 13rem;
-    margin-bottom: 3rem;
-}
+
+
 
 .form {
     width: 100%;
@@ -203,7 +249,7 @@ label {
     font-weight: bolder;
     display: flex;
     flex-direction: column;
-    margin-left: -12rem;
+    align-items: center;
     margin-bottom: 0rem;
 }
 
@@ -217,7 +263,8 @@ label {
     background: 0 0;
     outline: none;
     border-bottom: 2px solid black;
-    margin-left: 4rem ;
+    margin-top: 1rem;
+
 
 }
 .input-cadastro {
@@ -233,6 +280,7 @@ input{
     outline: none;
     border: none;
 }
+/*cadastro final*/
 
 .input-f:focus,
 .input-f:hover {
@@ -240,7 +288,7 @@ input{
     
 }
 
- .form-button {
+.form-button {
     color: white;
     background-color: var(--thirdColor);
     height: 3rem;
@@ -258,15 +306,29 @@ input{
     
 }
 .buttom{
-    margin-left: 11rem;
-    box-shadow: 4px 5px 6px 1px;
+    margin-top: 6rem;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     outline: none;
     border: none;
-    height: 10%;
-    width: 12rem;
-    margin-top: 2rem;
+    height: 8%;
+    width: 95%;
     margin-bottom: 3rem;
+    margin-left: 0.5rem;
+    background-color: black;
+    color: white;   
     
+}
+.buttom-cadastrar{
+    margin-top: 1rem;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    outline: none;
+    border: none;
+    height: 8%;
+    width: 95%;
+    margin-bottom: 3rem;
+    margin-left: 1.7rem;
+    background-color: black;
+    color: white;   
     
 }
 .form .form-button:after {
