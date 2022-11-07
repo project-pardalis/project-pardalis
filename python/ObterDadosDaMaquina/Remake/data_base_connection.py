@@ -1,10 +1,12 @@
 from datetime import datetime
-import pymysql.cursors, json, pyodbc
+import pymysql.cursors 
+import pymssql, json, pyodbc
 
 #0 = DESENVOLVIMENTO
 #1 = PRODUCAO
 
-AMBIENTE = 0
+
+AMBIENTE = 1
 
 connection = pymysql.connect(host='localhost',
                              user='aluno',
@@ -12,17 +14,22 @@ connection = pymysql.connect(host='localhost',
                              database='PARDALIS',
                              cursorclass=pymysql.cursors.DictCursor)
 
-connServer = pyodbc.connect('DRIVER='+'{ODBC Driver 17 for SQL Server}'+
-    ';SERVER=tcp:'+'svr-pardalis.database.windows.net'+
-    ';PORT=1433'+
-    ';DATABASE='+'pardalis'+
-    ';UID='+'Pardalis'+
-    ';PWD='+'{#urubu100}') 
+# connectionSQL = pyodbc.connect('DRIVER='+'{ODBC Driver 17 for SQL Server}'+
+#     ';SERVER=tcp:'+'svr-pardalis.database.windows.net'+
+#     ';PORT=1433'+
+#     ';DATABASE='+'pardalis'+
+#     ';UID='+'pardalis'+
+#     ';PWD='+'{#urubu100}') 
 
+connectionSQL = pymssql.connect(host='svr-pardalis.database.windows.net',
+                             user='pardalis',
+                             password='#urubu100',
+                             database='pardalis',
+                             as_dict=True)
 if AMBIENTE == 0:        
     cursor = connection.cursor()
 elif AMBIENTE == 1:
-    cursor = connServer.cursor()
+    cursor = connectionSQL.cursor()
 
 def rename_hash(hash: str):
     return hash.replace(':', '').upper()
@@ -34,17 +41,20 @@ def string_index(text: str, string: str):
     except:
         return False
 
-def run_sql_command(command: str, fetchall: bool = False):
+
+
+def run_sql_command(command: str, fetchall: bool = False ):
     cursor.execute(command)
     if string_index(command.lower(), "select") and fetchall:
-        return cursor.fetchall()
+        return cursor.fetchone()
     elif string_index(command.lower(), "select") and not fetchall:
+
         return cursor.fetchone()
     elif string_index(command.lower(), "insert") or string_index(command.lower(), "update"):
         if AMBIENTE == 0:
             connection.commit()
         elif AMBIENTE == 1:
-            connServer.commit()
+            connectionSQL.commit()
 
     return False
 
@@ -57,10 +67,11 @@ def get_computer_hash(hash: str):
 
 def get_computer_with_hash(hash: str):
     if AMBIENTE == 0:
-        command = f"SELECT count(*) as qtdServidores FROM Maquina WHERE hashMaquina = '{rename_hash(hash)}' LIMIT 1;" 
+        command = f"SELECT count(*) as qtdServidores FROM Maquina WHERE hashMaquina = '{rename_hash(hash)}' LIMIT 1 ;" 
+        
     elif AMBIENTE == 1:
-        command = f"SELECT count(*) as qtdServidores FROM [PARDALIS].[dbo].[Maquina] where (hashMaquina = '{rename_hash(hash)}' LIMIT 1);"
-
+        command = f"SELECT TOP 1 count(*) as qtdServidores FROM [PARDALIS].[dbo].[Maquina] where hashMaquina = '{rename_hash(hash)}' ;"
+        
     return run_sql_command(command, False)
 
 def get_componentes_computer(hash: str):
@@ -99,9 +110,11 @@ def get_metricas_connection(id_component: str, fk_maquina: int, fk_empresa: int,
 
 def get_leituras(fk_component : int, fk_maquina : int, fk_empresa : int, fk_metrica : int, limit: int = 1):
     if AMBIENTE == 0:
-        command = f"SELECT * FROM Metrica JOIN Componente_has_Metrica on idMetrica = fkMetrica WHERE fkComponente = {id_component} AND fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} AND Metrica.isEstatico = {is_estatico};" 
+        command = f"SELECT * FROM Leitura WHERE fkComponente = {fk_component} AND fkMetrica = {fk_metrica} AND fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} LIMIT {limit};"  
     if AMBIENTE == 1:
-        command = f"SELECT * FROM [PARDALIS].[dbo].[Leitura] WHERE fkComponente = {fk_component} AND Leitura.fkMetrica = {fk_metrica} AND Leitura.fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} LIMIT {limit};"
+        
+        command = f"SELECT TOP {limit} * FROM [PARDALIS].[dbo].[Leitura] WHERE fkComponente = {fk_component} AND Leitura.fkMetrica = {fk_metrica} AND Leitura.fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} ;"
+
     return run_sql_command(command, True)
 
 def update_static_metrica(value: float, fk_component: int, fk_maquina: int, fk_empresa: int, fk_metrica: int):
@@ -185,3 +198,5 @@ def change_component_state(nome_componente: str, hash_maquina : str, state: int)
         print("Componente atualizado com sucesso!")
     except Exception as e:
         print("Erro ao atualizar componente: ", e)
+
+

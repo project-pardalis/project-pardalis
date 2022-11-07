@@ -17,10 +17,12 @@ def clear_screen():
 
 
 def run_command_verifying_hash(command):
-    if (db.get_computer_with_hash(computer_hash))["qtdServidores"] == 1:
-        command()
-    else:
-        print("Adicione a máquina pelo nosso site!")
+ 
+        print((db.get_computer_with_hash(computer_hash)))
+        if (db.get_computer_with_hash(computer_hash))["qtdServidores"] == 1:
+            command()
+
+        
 # ----------------------------------------------------------------------------------------------------------------------
 
 
