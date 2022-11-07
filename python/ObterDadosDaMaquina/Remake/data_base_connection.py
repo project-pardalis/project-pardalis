@@ -157,19 +157,30 @@ def create_component_connection_with_metrica(component_name : str, fk_maquina: i
 
 def append_information(fk_component: int, fk_maquina: int, fk_empresa: int, fk_metrica: int, value: float):
     data = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    command = f"INSERT INTO Leitura VALUES (null, {fk_component}, {fk_metrica}, {fk_maquina}, {fk_empresa}, '{data}', {value});"
+    if AMBIENTE == 0:
+        command = f"INSERT INTO Leitura VALUES (null, {fk_component}, {fk_metrica}, {fk_maquina}, {fk_empresa}, '{data}', {value});"
+    if AMBIENTE == 1:
+        command = f"INSERT INTO [Pardalis].[dbo].[Leitura] VALUES (null, {fk_component}, {fk_metrica}, {fk_maquina}, {fk_empresa}, '{data}', {value});"
+
     run_sql_command(command)
 
 def clear_components(hashMaquina : str):
     computer = get_computer_hash(hashMaquina)
     components = get_componentes_computer(hashMaquina)
     for component in components:
-        command = "DELETE FROM [Pardalis].[dbo].[Componente] WHERE idComponente = {0} AND fkMaquina = {1} AND fkEmpresa = {2};".format(component["idComponente"], computer["idMaquina"], computer["fkEmpresa"])
+        if AMBIENTE == 0:
+            command = "DELETE FROM Componente WHERE idComponente = {0} AND fkMaquina = {1} AND fkEmpresa = {2};".format(component["idComponente"], computer["idMaquina"], computer["fkEmpresa"]) 
+
+        if AMBIENTE == 1:
+            command = "DELETE FROM [Pardalis].[dbo].[Componente] WHERE idComponente = {0} AND fkMaquina = {1} AND fkEmpresa = {2};".format(component["idComponente"], computer["idMaquina"], computer["fkEmpresa"])
         run_sql_command(command)
 
 def change_component_state(nome_componente: str, hash_maquina : str, state: int):
     try:
-        command = f"UPDATE [Pardalis].[dbo].[Componente] SET [isComponenteValido] = {state} WHERE nomeComponente = '{nome_componente}' AND fkMaquina = {get_computer_hash(hash_maquina)['idMaquina']};"
+        if AMBIENTE == 0:
+            command = f"UPDATE Componente SET isComponenteValido = {state} WHERE nomeComponente = '{nome_componente}' AND fkMaquina = {get_computer_hash(hash_maquina)['idMaquina']};" 
+        if AMBIENTE == 1:
+            command = f"UPDATE [Pardalis].[dbo].[Componente] SET [isComponenteValido] = {state} WHERE nomeComponente = '{nome_componente}' AND fkMaquina = {get_computer_hash(hash_maquina)['idMaquina']};"
         run_sql_command(command)
         print("Componente atualizado com sucesso!")
     except Exception as e:
