@@ -9,6 +9,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,6 +25,9 @@ public class ConexaoSqlServer {
     private String database;
     private String username;
     private String password;
+
+    DateTimeFormatter dataModel = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
     
     public ConexaoSqlServer(String serverName, String database, String username, String password) {
         this.serverName = serverName;
@@ -27,15 +35,15 @@ public class ConexaoSqlServer {
         this.username = username;
         this.password = password;
     }
+
+    String connectionUrl = "jdbc:sqlserver://"+serverName+".database.windows.net:1433;"
+            + "database="+database+";"
+            + "user="+database+"@"+serverName+";"
+            + "password="+password+";"
+            + "encrypt=true;"
+            + "trustServerCertificate=false;";
     
     public String execute(String query) {
-        
-        String connectionUrl = "jdbc:sqlserver://"+serverName+".database.windows.net:1433;"
-                        + "database="+database+";"
-                        + "user="+database+"@"+serverName+";"
-                        + "password="+password+";"
-                        + "encrypt=true;"
-                        + "trustServerCertificate=false;";
         
         ResultSet resultSet = null;
         String text = "";
@@ -66,6 +74,50 @@ public class ConexaoSqlServer {
             e.printStackTrace();
         }
         return text;
+    }
+
+    public String getHash(String nome) {
+        return execute(String.format("SELECT hashMaquina FROM [dbo].[Maquina] WHERE nomeMaquina = '%s'",nome));
+    }
+
+    public void insertMaquina(String so, Integer hash, Integer fkEmpresa) {
+
+        String dataColeta = dataModel.format(now);
+        execute(String.format("INSERT INTO [dbo].[Maquina] (nomeMaquina, sistemaOperacional, oncloud, dataCriacao, hashMaquina, fkEmpresa)" +
+                "VALUES (%s, %s, %b, %s, %s, %d)", so+"-"+hash,so,1,dataColeta,hash,1));
+
+    }
+
+    public void insertComponente(Componente processador, Componente disco, Componente memoria) {
+
+        List<Componente> componentes = new ArrayList();
+
+        componentes.add(processador);
+        componentes.add(disco);
+        componentes.add(memoria);
+
+        for (int x = 0; x < componentes.size(); x++) {
+            execute(String.format("INSERT INTO [dbo].[Componente] (nomeComponente, isComponenteValido, descricao, [fkMaquina], fkEmpresa)" +
+                    " VALUES (%s, %d, %s, %d, 1)", componentes.get(x).getNome(), 1,componentes.get(x).getDescricao(), componentes.get(x).getFkMaquina()));
+        }
+
+    }
+
+    public void insertComponenteMetrica() {
+
+        ResultSet resultSet = null;
+        String sqlIns = "SELECT * FROM [dbo].[Componente_Has_Metrica]";
+
+        try (Connection connection = DriverManager.getConnection(connectionUrl);
+             Statement statement = connection.createStatement();) {
+            resultSet = statement.executeQuery(sqlIns);
+
+
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+
     }
     
 }

@@ -26,17 +26,11 @@ public class App {
         Looca looca = new Looca();
         Hash isHash = new Hash();
         Scanner in = new Scanner(System.in);
+        Config conf = new Config();
+        Database db = new Database();
+        conf.configuration();
+        ConexaoSqlServer conn = new ConexaoSqlServer("svr-pardalis","pardalis","pardalis","#urubu100");
 
-        if (AMBIENTE == 0) {
-            Config conf = new Config();
-            Database db = new Database();
-            conf.configuration();   
-        }
-        else if (AMBIENTE == 1) {
-            
-            ConexaoSqlServer conn = new ConexaoSqlServer("svr-pardalis","pardalis","pardalis","#urubu100");
-            
-        }
             while (true) {
                 System.out.println("1 - Cadastrar Máquina \n 2 - Ver dados  \n  0 - Encerrar ");
                 choose = in.nextInt();
@@ -49,9 +43,17 @@ public class App {
                         if (isHash.hashExists(hashUser)) {
                             System.out.println("Sua máquina já está cadastrada!!");
                         } else {
-                            db.insertMaquina(looca.getSistema().getSistemaOperacional(), looca.getSistema().getFabricante(), hashUser, 1, true);
-                            db.insertMetricaComponente(1, 1, 1, 1, 1, 1);
-                            db.insertComponente(1, 1);
+                            if (AMBIENTE == 0) {
+                                db.insertMaquina(looca.getSistema().getSistemaOperacional(), looca.getSistema().getFabricante(), hashUser, 1, true);
+                                db.insertMetricaComponente(1, 1, 1, 1, 1, 1);
+                                db.insertComponente(1, 1);
+                            } else if (AMBIENTE == 1) {
+                                conn.insertMaquina(looca.getSistema().getSistemaOperacional(), hashUser, 1);
+                                Componente processador = new Componente(looca.getProcessador().getNome(), looca.getProcessador().getIdentificador(), hashUser);
+                                Componente disco = new Componente(looca.getGrupoDeDiscos().getDiscos().get(0).getModelo(), looca.getGrupoDeDiscos().getDiscos().get(0).getNome(), hashUser);
+                                Componente memoria = new Componente("Memoria Ram","Memoria Ram", hashUser);
+                                conn.insertComponente(processador, disco, memoria);
+                            }
                             System.out.println("Máquina cadastrada! ");
                         }
                         break;
@@ -75,4 +77,5 @@ public class App {
                 }
             }
     }
+
 }

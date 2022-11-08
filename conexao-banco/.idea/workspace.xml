@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="92a68896-84ad-49fa-9a66-183561487492" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/src/main/java/com/mycompany/looca/api/pardalis/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/src/main/java/com/mycompany/looca/api/pardalis/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/src/main/java/com/mycompany/looca/api/pardalis/ConexaoSqlServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/src/main/java/com/mycompany/looca/api/pardalis/ConexaoSqlServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/.netbeans_automatic_build" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/ConexaoSqlServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/ConexaoSqlServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Dash$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Dash$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Dash$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Dash$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Dash.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Dash.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Database.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Hash.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/Hash.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/TelaAcesso$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/TelaAcesso$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/TelaAcesso$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/TelaAcesso$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/TelaAcesso$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/TelaAcesso$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/TelaAcesso.class" beforeDir="false" afterPath="$PROJECT_DIR$/../looca-api-pardalis/target/classes/com/mycompany/looca/api/pardalis/TelaAcesso.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../looca-api-pardalis/target/test-classes/.netbeans_automatic_build" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2HFEyKlKc4FilMci8EgXxRSLBXJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/Administrator/Desktop/New folder/SPTECH/project-pardalis/looca-api-pardalis"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="92a68896-84ad-49fa-9a66-183561487492" name="Changes" comment="" />
+      <created>1667872684493</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667872684493</updated>
+    </task>
+    <servers />
+  </component>
+</project>
