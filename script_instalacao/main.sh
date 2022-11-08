@@ -2,17 +2,31 @@
 #PARDALIS -> GNU/GPL3 LICENSE 
  
 
-echo "  _____        _____  _____          _      _____  _____ 
- |  __ \ /\   |  __ \|  __ \   /\   | |    |_   _|/ ____|
- | |__) /  \  | |__) | |  | | /  \  | |      | | | (___  
- |  ___/ /\ \ |  _  /| |  | |/ /\ \ | |      | |  \___ \ 
- | |  / ____ \| | \ \| |__| / ____ \| |____ _| |_ ____) |
- |_| /_/    \_\_|  \_\_____/_/    \_\______|_____|_____/ 
-                                                         
-  Best video monitors system                                                        "
+#vendo permissao root 
+if [  `id -u ` != 0 ] ; then 
+  echo "Execute como administrador a aplicação para funcionar"
+  exit 0 
+fi
 
+#vendo lingua
+
+SENHA= ''
+DOCKERID=''
+
+
+printf "\e[33m_____        _____  _____          _      _____  _____\e[0m 
+ \e[32m|  __ \ /\   |  __ \|  __ \   /\   | |    |_   _|/ ____|\e[0m 
+ \e[33m| |__) /  \  | |__) | |  | | /  \  | |      | | | (___\e[0m  
+ \e[31m|  ___/ /\ \ |  _  /| |  | |/ /\ \ | |      | |  \___ \e[0m 
+ \e[35m| |  / ____ \| | \ \| |__| / ____ \| |____ _| |_ ____) |\e[0m
+ \e[36m|_| /_/    \_\_|  \_\_____/_/    \_\______|_____|_____/\e[0m 
+                                                         
+  \e[1;96m Best video monitors system \e[0m                                                        "
+
+  echo "Para que a instalação funcione perfeitamente, insira uma senha para login nas aplicações necessárias"
+  read $SENHA 
   echo "Verificando se dependências estão instaladas..."
-  sleep 1
+  sleep 2
   
   j=0 
   if which java >/dev/sda1 ; then 
@@ -28,7 +42,7 @@ echo "  _____        _____  _____          _      _____  _____
   else 
       echo "Python []"
   fi 
-  
+  sleep 1  
   if [ $j -lt 2 ] ; then
     printf "Deseja instalar as dependências?\n1 - Sim \n2 - Não"
     read  choose 
@@ -39,28 +53,27 @@ echo "  _____        _____  _____          _      _____  _____
 while [ $j -lt 2 ]; do 
   if [ $choose -eq 1 ] ; then
     echo "Instalando aplicações..."
+	#install docker
     sudo apt install git -y 
-    sudo apt install docker.io 
+    sudo apt install docker.io -y 
+    sudo apt install systemd -y 
     systemctl start docker
     systemctl enable docker 
 
     #instalando java
-    sudo apt install default-jre -y 
-
-    clear
-
-    sudo apt install default-jre default-jdk -y ; 
-    echo "Java instalado! "
-
+    sudo apt install default-jre default-jdk -y 
     sudo apt install python3 -y
     #instalando python
     sudo apt install python3 pip -y 
 
     #instalando dependencias python 
-    pip install pymysql psutil datetime getmac json platform 
+    pip install pymysql psutil datetime getmac platform 
     sudo apt upgrade -y 
     sudo apt update -y 
     let j=2
+
+    #configurando docker 
+
     break  
   elif [ $choose -eq 2 ]; then   
     echo "Não será possível continuar nosso software sem as dependências necessárias. "
@@ -74,16 +87,29 @@ done
  
 
 
-#clonando nosso projeto
-
-clear 
+#clonando nosso projeto 
 printf "Gostaria de continuar?\n 1-Sim \n 2-Não "
 read choose 
-if [ $choose -eq 1 ]; then 
-  cd ~/Documentos
+if [ $choose -eq 1 ]; then
+  #configurando docker
+  echo "Instalando projeto... "
+  sleep 1
+
+  
+  cd ~
   git clone https://github.com/project-pardalis/project-pardalis
-  cd project-pardalis/site 
-  npm start
+  cd project-pardalis/ 
+  #configurando docker 
+  bar='|'
+  echo "Configurando container, a aplicação irá pedir a senha que inseriu anteriormente, com isso, insira a mesma aqui. "
+  
+  sudo docker rm -f pardalis_sql #se tiver, starta pra config
+
+  sudo docker pull mysql/mysql-server:latest 
+  sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:latest
+  docker exec -it pardalis_sql mysql -uroot -p < ~/Documentos/project-pardalis/banco-de-dados/SQL-PARDALIS.sql bash
+   
+
 else 
   echo "Certo! Clone manualmente em  https://github.com/project-pardalis/project-pardalis
 "
