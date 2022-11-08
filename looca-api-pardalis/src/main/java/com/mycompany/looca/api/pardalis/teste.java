@@ -22,12 +22,14 @@ public class teste {
         Looca looca = new Looca();
 
         ResultSet resultSet = null;
-        String sqlIns = "SELECT * FROM [dbo].[Componente_Has_Metrica]";
+        String sqlIns = "SELECT * FROM [dbo].[Componente_Has_Metrica] ORDER BY fkComponente DESC OFFSET 1 ROW";
 
         try (Connection connection = DriverManager.getConnection(connectionUrl);
              Statement statement = connection.createStatement();) {
+
             resultSet = statement.executeQuery(sqlIns);
-            System.out.println(resultSet.last());
+            resultSet.next();
+            System.out.println(resultSet.getString(1));
 
         }
         catch(SQLException e) {

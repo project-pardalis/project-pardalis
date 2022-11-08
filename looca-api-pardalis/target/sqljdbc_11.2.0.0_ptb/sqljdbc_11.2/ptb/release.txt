@@ -1,0 +1,190 @@
+Informações sobre a versão
+Microsoft JDBC Driver 11.2 para SQL Server
+
+------------
+INTRODUÇÃO
+------------
+Este arquivo contém as últimas novidades e outras informações importantes que complementam a documentação do Microsoft JDBC 
+Documentação do Driver 11.2 para SQL Server. Você deve ler este arquivo inteiramente antes de instalar 
+o driver JDBC.
+
+Seus comentários são muito importantes para nós e procuraremos responder a eles de maneira 
+oportuna. Para obter informações sobre como fornecer comentários usando os blogs do driver JDBC e os fóruns online, 
+confira a página do Microsoft JDBC Driver 11.2 para SQL Server em https://aka.ms/mssql-jdbc-feedback
+
+
+------------
+INSTALAÇÃO
+------------
+As instruções de instalação do driver JDBC estão no arquivo install.txt. Consulte esse arquivo para 
+obter informações sobre a instalação do driver JDBC nos sistemas operacionais Windows, Linux e macOS.
+
+
+---------------------------
+SISTEMAS OPERACIONAIS COMPATÍVEIS
+---------------------------
+Os sistemas operacionais compatíveis com o Microsoft JDBC Driver 11.2 para SQL Server são:
+  Windows Server 2012
+  Windows Server 2012 R2
+  Windows Server 2016
+  Windows Server 2019
+  Windows Server 2022
+  Windows 8.1
+  Windows 10
+  Windows 11
+  Linux
+  macOS
+
+A lista acima é um exemplo de alguns sistemas operacionais compatíveis. O driver JDBC foi desenvolvido 
+para funcionar em qualquer sistema operacional que dê suporte ao uso de uma JVM (Máquina Virtual Java). 
+
+No entanto, a compatibilidade e o suporte foram testados somente nos sistemas operacionais mais recentes do Linux e do macOS (Ubuntu 20.04, Ubuntu 18.04,
+ CentOS 7, SUSE 12, macOS 11).
+
+
+-----------------------
+VERSÕES DO JAVA COM SUPORTE
+-----------------------
+O Microsoft JDBC Driver 11.2 para SQL Server foi testado e é compatível com as versões mais recentes dos builds do JDK (Kit 
+de Desenvolvimento Java) do Open JDK e Zulu em sistemas operacionais com suporte, conforme mencionado acima.
+As versões de família abaixo da Biblioteca do Sistema JRE (Java Runtime Environment) têm suporte:
+
+  ----------------------------------------------------------------------
+  Versão da Família JRE | Driver JAR para Suporte Máximo
+  ----------------------------------------------------------------------
+  8+                 | mssql-jdbc-11.2.0.jre8.jar
+  11+                | mssql-jdbc-11.2.0.jre11.jar
+  17+                | mssql-jdbc-11.2.0.jre17.jar
+  18+                | mssql-jdbc-11.2.0.jre18.jar
+
+
+----------------
+CONTEÚDO DA VERSÃO
+----------------
+O arquivo zip ou tar do Microsoft JDBC Driver 11.2 para SQL Server desempacota os seguintes arquivos 
+nos locais especificados, relativo ao diretório de instalação selecionado:
+
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\install.txt
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\release.txt
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\license.txt
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\thirdpartynotices.txt
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\mssql-jdbc-11.2.0.jre8.jar
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\mssql-jdbc-11.2.0.jre11.jar
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\mssql-jdbc-11.2.0.jre17.jar
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\auth\x86\mssql-jdbc_auth-11.2.0.x86.dll
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\auth\x64\mssql-jdbc_auth-11.2.0.x64.dll
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\samples\<arquivos de exemplos...>
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\xa\xa_install.sql
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\xa\x86\sqljdbc_xa.dll
+<diretório de instalação>\sqljdbc_<versão>\<idioma>\xa\x64\sqljdbc_xa.dll
+
+Para obter informações detalhadas sobre cada componente, veja a documentação online,
+Documentação do Microsoft JDBC Driver para SQL Server: https://aka.ms/mssql-jdbc
+
+
+-------------
+DOCUMENTAÇÃO
+-------------
+Essas informações de versão, as instruções de instalação e os termos de licença estão incluídos neste pacote. 
+Todas as outras documentações podem ser encontradas online.
+
+Observe que os arquivos de ajuda offline foram descontinuados. 
+
+
+---------
+ARQUIVOS JAR
+---------
+Para compatibilidade com versões anteriores e possíveis cenários de atualização, o JDBC Driver 11.2 inclui 
+três bibliotecas de classes JAR em cada pacote de instalação:
+	mssql-jdbc-11.2.0.jre8.jar
+	mssql-jdbc-11.2.0.jre11.jar
+	mssql-jdbc-11.2.0.jre17.jar
+	mssql-jdbc-11.2.0.jre18.jar
+
+
+----------------------
+ARQUIVOS ESPECÍFICOS DE RECURSO
+----------------------
+O Azure Active Directory e os componentes de Autenticação Integrada (no Windows) estão incluídos 
+no diretório “auth”.
+
+Os componentes de transação distribuída do JDBC estão incluídos no diretório “xa”.
+
+
+--------------------
+DEPENDÊNCIAS DE RECURSO
+--------------------
+Alguns recursos no Microsoft JDBC Driver 11.2 para SQL Server dependem de bibliotecas externas 
+como listado abaixo:
+
+1. Usando “Always Encrypted” com o provedor do Azure Key Vault
+   Bibliotecas dependentes: azure-keyvault (versão 4.3.6) e azure-identity (versão 1.4.3)
+
+2. Usando 'Always Encrypted com enclaves seguros'
+   Bibliotecas dependentes: com.google.code.gson (versão 2.8.9)
+   e org.bouncycastle (versão 1.70). A org.bouncycastle só é necessária para o JDK 8.
+   
+3. Usando “Autenticação do Azure Active Directory” nos sistemas operacionais Windows, Linux e macOS
+   Bibliotecas dependentes: azure-identity (versão 1.4.3)
+   
+4. Usando 'useFmtOnly' para recuperar metadados de parâmetro
+   Bibliotecas dependentes: antlr-runtime (versão 4.9.3)
+   
+Informações detalhadas sobre a inclusão dessas bibliotecas dependentes em um aplicativo Java padrão 
+ou um aplicativo Maven podem ser encontradas aqui: https://go.microsoft.com/fwlink/?linkid=867575
+
+-------
+SAMPLES
+-------
+Os aplicativos de exemplo que demonstram vários recursos do driver JDBC estão incluídos no diretório
+"samples". Para obter mais detalhes sobre cada exemplo e como executá-los, veja a documentação 
+online.
+
+
+-----------
+LISTA DE ALTERAÇÕES
+-----------
+Para obter uma lista detalhada de alterações, correções e aprimoramentos feitos em cada versão, confira: https://aka.ms/mssql-jdbc-release-notes
+
+------------
+PROBLEMAS CONHECIDOS
+------------
+Veja a seguir os problemas conhecidos com o Microsoft JDBC Driver 11.2 para SQL Server:
+
+1) REMOÇÃO DE CONEXÕES COM O SQL DO AZURE
+
+Ao se conectar ao SQL Azure, conexões ociosas podem ser finalizadas por um componente de rede (como um 
+firewall) após um período de inatividade. Para evitar a remoção de conexões ociosas por um componente de rede, 
+as seguintes configurações do registro (ou seus equivalentes não Windows) devem ser definidas no sistema 
+operacional em que o driver foi carregado:
+           
+Configuração do Registro                                                                     Valor recomendado
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveTime            30000
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\KeepAliveInterval         1000
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpMaxDataRetransmission  10
+
+2) QUANDO USAR TVP COM SQL_VARIANT 
+
+2.a) PARA VALORES DE DATA
+
+Ao usar TVP para popular uma tabela que contém os valores datetime/smalldatetime/date armazenados na coluna sql_variant, 
+chamar getDateTime()/getSmallDateTime()/getDate() em ResultSet não funciona e gera a seguinte exceção:
+
+	Não é possível converter java.lang.String em java.sql.Timestamp
+
+Solução alternativa: use getString() ou getObject().
+
+2.b) USANDO TVP COM SQL_VARIANT PARA VALORES NULL
+
+Se você estiver usando um TVP para popular uma tabela e enviar um valor NULL para o tipo de coluna sql_variant, encontrará
+uma exceção, uma vez que a inserção do valor NULL com o tipo de coluna sql_Variant no TVP não é compatível no momento.
+
+
+3) AO USAR A AUTENTICAÇÃO NTLM
+
+No momento, não é possível habilitar a Proteção Estendida e as conexões criptografadas ao mesmo tempo.
+
+4) AO USAR useFmtOnly
+
+Há alguns problemas com o recurso, causados por deficiências na lógica de análise do SQL.
+Confira https://aka.ms/mssql-jdbc-usefmtonly para saber mais detalhes e sugestões de soluções alternativas.
