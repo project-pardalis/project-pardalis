@@ -208,10 +208,11 @@ def SO_isNull(hash_maquina : str):
     return result['sistemaOperacional'] == ""
 
 def appendSO(hash_maquina : str, so: str):
+    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if AMBIENTE == 0:
-            command = f"UPDATE Maquina SET sistemaOperacional = '{so}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
+            command = f"UPDATE Maquina SET sistemaOperacional = '{so}', dataCriacao = '{date}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
     else:
-        command = f"UPDATE [pardalis].[dbo].[Maquina] SET [sistemaOperacional] = '{so}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
+        command = f"UPDATE [pardalis].[dbo].[Maquina] SET [sistemaOperacional] = '{so}', dataCriacao = '{date}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
     run_sql_command(command)
 
 
