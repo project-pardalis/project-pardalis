@@ -43,8 +43,8 @@ CREATE TABLE Componente(
     nomeComponente VARCHAR(50) NOT NULL,	
     isComponenteValido bit NOT NULL,	
     descricao varchar(128),	
-    idMaquina INT NOT NULL ,	
-    FOREIGN KEY (idMaquina) REFERENCES Maquina(idMaquina),	
+    fkMaquina INT NOT NULL ,	
+    FOREIGN KEY (fkMaquina) REFERENCES Maquina(idMaquina),	
     fkEmpresa INT NOT NULL,
     FOREIGN KEY (fkEmpresa) REFERENCES Empresa(idEmpresa),	
     PRIMARY KEY(idComponente)	
