@@ -18,8 +18,8 @@ def clear_screen():
 
 def run_command_verifying_hash(command):
  
-        print((db.get_computer_with_hash(computer_hash)))
         if (db.get_computer_with_hash(computer_hash))["qtdServidores"] == 1:
+            print("Computador Encontrado.")
             command()
 
         
@@ -28,7 +28,7 @@ def run_command_verifying_hash(command):
 
 def menu_select():
     while True:
-        clear_screen()
+        """ clear_screen() """
         print("=========================================")
         print("|                PARDALIS                |")
         print("|========================================|")
@@ -56,7 +56,8 @@ def menu_select():
 def get_computer_info():
 
     computer_components = db.get_componentes_computer(computer_hash)
-    if len(computer_components) == 0:
+    
+    if computer_components == None or len(computer_components) == 0:
         ask_for_active_components()
     elif len(computer_components) == 1 or len(computer_components) == 2 :
         db.clear_components(computer_hash)
@@ -64,7 +65,11 @@ def get_computer_info():
     else:
         print("Componentes já cadastrados")
 
+    if (db.SO_isNull(computer_hash)):
+        db.appendSO(computer_hash, platform.system())
+
     computer_components = db.get_componentes_computer(computer_hash)
+
     update_static_metricas(computer_components)
     send_informations_to_db(computer_components)
 

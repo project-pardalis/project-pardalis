@@ -35,7 +35,7 @@ async function getMachine() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkEmpresa
+            fkEmpresa: fkEmpresa
         })
     })).json();
     let maquinas = response.maquinas;
@@ -348,7 +348,7 @@ function verificarCor(server, element) {
     if (filter == "name") return element;
     else if (server.lastData.estatico.length == 0 || (server.lastData.cpu_Temperature.valorLeitura == "-500.00" && filter == "cpu_Temperature")) {
         color = colors.nenhum;
-    } else if (server.lastData[filter] > summary.max) {
+    } else if (server.lastData[filter] > (summary.max + summary.q3) / 2) {
         color = colors.risco;
     } else if (server.lastData[filter] > summary.q3) {
         color = colors.alerta;

@@ -15,7 +15,7 @@ def transform_to_mb(value: int, n_decimal=2):
 def get_cpu_type_linux():
     data = [
         {
-            'type': 'Núcleo(s) por soquete',
+            'type': 'Nucleo(s) por soquete',
             'value': None
         },
         {
@@ -27,7 +27,7 @@ def get_cpu_type_linux():
             'value': None
         },
         {
-            'type': 'Thread(s) per núcleo',
+            'type': 'Thread(s) per nucleo',
             'value': None
         }
     ]
@@ -55,7 +55,7 @@ def get_cpu_type_linux():
 def get_cpu_type_windows():
     data = [
         {
-            'type': 'Núcleo(s) por soquete',
+            'type': 'Nucleo(s) por soquete',
             'value': None
         },
         {
@@ -67,7 +67,7 @@ def get_cpu_type_windows():
             'value': None
         },
         {
-            'type': 'Thread(s) per núcleo',
+            'type': 'Thread(s) per nucleo',
             'value': None
         }
     ]

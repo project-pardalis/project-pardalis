@@ -1,6 +1,6 @@
 from datetime import datetime
 import pymysql.cursors 
-import pymssql, json, pyodbc
+import pymssql, json, time
 
 #0 = DESENVOLVIMENTO
 #1 = PRODUCAO
@@ -11,15 +11,8 @@ AMBIENTE = 1
 connection = pymysql.connect(host='localhost',
                              user='aluno',
                              password='sptech',
-                             database='PARDALIS',
+                             database='pardalis',
                              cursorclass=pymysql.cursors.DictCursor)
-
-# connectionSQL = pyodbc.connect('DRIVER='+'{ODBC Driver 17 for SQL Server}'+
-#     ';SERVER=tcp:'+'svr-pardalis.database.windows.net'+
-#     ';PORT=1433'+
-#     ';DATABASE='+'pardalis'+
-#     ';UID='+'pardalis'+
-#     ';PWD='+'{#urubu100}') 
 
 connectionSQL = pymssql.connect(host='svr-pardalis.database.windows.net',
                              user='pardalis',
@@ -28,7 +21,7 @@ connectionSQL = pymssql.connect(host='svr-pardalis.database.windows.net',
                              as_dict=True)
 if AMBIENTE == 0:        
     cursor = connection.cursor()
-elif AMBIENTE == 1:
+else:
     cursor = connectionSQL.cursor()
 
 def rename_hash(hash: str):
@@ -41,19 +34,17 @@ def string_index(text: str, string: str):
     except:
         return False
 
-
-
 def run_sql_command(command: str, fetchall: bool = False ):
     cursor.execute(command)
     if string_index(command.lower(), "select") and fetchall:
-        return cursor.fetchone()
+        return cursor.fetchall()
     elif string_index(command.lower(), "select") and not fetchall:
 
         return cursor.fetchone()
     elif string_index(command.lower(), "insert") or string_index(command.lower(), "update"):
         if AMBIENTE == 0:
             connection.commit()
-        elif AMBIENTE == 1:
+        else:
             connectionSQL.commit()
 
     return False
@@ -61,26 +52,36 @@ def run_sql_command(command: str, fetchall: bool = False ):
 def get_computer_hash(hash: str):
     if AMBIENTE == 0:
         command = f"SELECT * FROM Maquina WHERE hashMaquina = '{rename_hash(hash)}';" 
-    elif AMBIENTE == 1:
-        command = f"SELECT * FROM [PARDALIS].[dbo].[Maquina] where (hashMaquina = '{rename_hash(hash)}');"
+    else:
+        command = f"SELECT * FROM [pardalis].[dbo].[Maquina] where (hashMaquina = '{rename_hash(hash)}');"
     return run_sql_command(command, False)
 
 def get_computer_with_hash(hash: str):
     if AMBIENTE == 0:
         command = f"SELECT count(*) as qtdServidores FROM Maquina WHERE hashMaquina = '{rename_hash(hash)}' LIMIT 1 ;" 
         
-    elif AMBIENTE == 1:
-        command = f"SELECT TOP 1 count(*) as qtdServidores FROM [PARDALIS].[dbo].[Maquina] where hashMaquina = '{rename_hash(hash)}' ;"
+    else:
+        command = f"SELECT TOP 1 count(*) as qtdServidores FROM [pardalis].[dbo].[Maquina] where hashMaquina = '{rename_hash(hash)}' ;"
         
     return run_sql_command(command, False)
 
 def get_componentes_computer(hash: str):
     if AMBIENTE == 0:
         command = f"SELECT * FROM Componente JOIN Maquina on idMaquina = fkMaquina where hashMaquina = '{rename_hash(hash)}';" 
-    elif AMBIENTE == 1:
-        command = f"SELECT * FROM [PARDALIS].[dbo].[Componente] JOIN Maquina ON Maquina.idMaquina = fkMaquina where (hashMaquina = '{rename_hash(hash)}');"
+    else:
+        command = f"SELECT * FROM [pardalis].[dbo].[Componente] JOIN [pardalis].[dbo].[Maquina] ON Maquina.idMaquina = fkMaquina where (hashMaquina = '{rename_hash(hash)}');"
 
     return run_sql_command(command, True)
+
+def get_component(nome_componente: str, fk_empresa: int, fk_maquina: int):
+    nome_componente = nome_componente.lower()
+    if AMBIENTE == 0:
+        command = f"SELECT idComponente FROM Componente where nomeComponente = '{nome_componente}' and fkEmpresa = {fk_empresa} and fkMaquina = {fk_maquina};" 
+    else:
+        command = f"SELECT idComponente FROM [pardalis].[dbo].[Componente] where nomeComponente = '{nome_componente}' and fkEmpresa = {fk_empresa} and fkMaquina = {fk_maquina};"
+
+    return run_sql_command(command)
+
 
 def get_metricas(component_name : str = None):
 
@@ -91,8 +92,8 @@ def get_metricas(component_name : str = None):
 
             command += f" WHERE nomeMetrica LIKE '%{component_name}%'" 
 
-    elif AMBIENTE == 1:
-        command = f"SELECT * FROM [PARDALIS].[dbo].[Metrica]"
+    else:
+        command = f"SELECT * FROM [pardalis].[dbo].[Metrica]"
         if component_name != None:
             command += f" WHERE (nomeMetrica LIKE '%{component_name}%')"
 
@@ -103,17 +104,17 @@ def get_metricas_connection(id_component: str, fk_maquina: int, fk_empresa: int,
     if AMBIENTE == 0:
         command = f"SELECT * FROM Metrica JOIN Componente_has_Metrica on idMetrica = fkMetrica WHERE fkComponente = {id_component} AND fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} AND Metrica.isEstatico = {is_estatico};"
 
-    elif AMBIENTE == 1:
-        command = f"SELECT * FROM [PARDALIS].[dbo].[Metrica] JOIN Componente_has_Metrica on idMetrica = fkMetrica WHERE Leitura.fkComponente = {id_component} AND Leitura.fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} AND Metrica.isEstatico = {is_estatico};"
+    else:
+        command = f"SELECT * FROM [pardalis].[dbo].[Metrica] JOIN [pardalis].[dbo].[Componente_has_Metrica] on idMetrica = fkMetrica WHERE fkComponente = {id_component} AND fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} AND Metrica.isEstatico = {is_estatico};"
 
     return run_sql_command(command, True)
 
 def get_leituras(fk_component : int, fk_maquina : int, fk_empresa : int, fk_metrica : int, limit: int = 1):
     if AMBIENTE == 0:
         command = f"SELECT * FROM Leitura WHERE fkComponente = {fk_component} AND fkMetrica = {fk_metrica} AND fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} LIMIT {limit};"  
-    if AMBIENTE == 1:
+    else:
         
-        command = f"SELECT TOP {limit} * FROM [PARDALIS].[dbo].[Leitura] WHERE fkComponente = {fk_component} AND Leitura.fkMetrica = {fk_metrica} AND Leitura.fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} ;"
+        command = f"SELECT TOP {limit} * FROM [pardalis].[dbo].[Leitura] WHERE fkComponente = {fk_component} AND Leitura.fkMetrica = {fk_metrica} AND Leitura.fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa} ;"
 
     return run_sql_command(command, True)
 
@@ -122,8 +123,8 @@ def update_static_metrica(value: float, fk_component: int, fk_maquina: int, fk_e
 
     if AMBIENTE == 0:
         command = f"UPDATE Leitura SET valorLeitura = {value}, dataColeta = '{data}' WHERE fkComponente = {fk_component} AND fkMetrica = {fk_metrica} AND fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa};"
-    if AMBIENTE == 1:
-        command = f"UPDATE [Pardalis].[dbo].[Leitura] SET valorLeitura = {value}, dataColeta = '{data}' WHERE fkComponente = {fk_component} AND fkMetrica = {fk_metrica} AND fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa};"
+    else:
+        command = f"UPDATE [pardalis].[dbo].[Leitura] SET valorLeitura = {value}, dataColeta = '{data}' WHERE fkComponente = {fk_component} AND fkMetrica = {fk_metrica} AND fkMaquina = {fk_maquina} AND fkEmpresa = {fk_empresa};"
 
     run_sql_command(command)
 
@@ -140,15 +141,15 @@ def create_components(fk_maquina: int, fk_empresa: int, components: dict, descri
             descricao = recreate_cpu_dist(descricao)
             if AMBIENTE == 0:
                     command = f"INSERT INTO Componente (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa, descricao) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa}, '{descricao}');" 
-            if AMBIENTE == 1:
-                    command = f"INSERT INTO [Pardalis].[dbo].[Componente] (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa, descricao) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa}, '{descricao}');"
+            else:
+                    command = f"INSERT INTO [pardalis].[dbo].[Componente] (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa, descricao) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa}, '{descricao}');"
             
         else:
 
             if AMBIENTE == 0:
                 command = f"INSERT INTO Componente (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa});" 
-            if AMBIENTE == 1:
-                command = f"INSERT INTO [Pardalis].[dbo].[Componente] (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa});"
+            else:
+                command = f"INSERT INTO [pardalis].[dbo].[Componente] (nomeComponente, isComponenteValido, fkMaquina, fkEmpresa) VALUES ('{key}', {component_state},  {fk_maquina}, {fk_empresa});"
 
         run_sql_command(command)
         create_component_connection_with_metrica(key, fk_maquina, fk_empresa)
@@ -157,14 +158,13 @@ def create_component_connection_with_metrica(component_name : str, fk_maquina: i
     metricas = get_metricas(component_name.lower())
     for metrica in metricas:
 
-        if AMBIENTE == 0:
-            command = (f"INSERT INTO Componente_has_Metrica SELECT idComponente, {metrica['idMetrica']}, {fk_maquina}, {fk_empresa}" + 
-            f" FROM Componente WHERE nomeComponente = '{component_name}' AND Componente.fkMaquina = {fk_maquina} AND Componente.fkEmpresa = {fk_empresa};") 
+        component = get_component( component_name, fk_empresa, fk_maquina)["idComponente"]
 
-        if AMBIENTE == 1:
-            command = (f"INSERT INTO [Pardalis].[dbo].[Componente_has_Metrica] SELECT idComponente, {metrica['idMetrica']}, {fk_maquina}, {fk_empresa}" +
-            f" FROM [Pardalis].[dbo].[Componente] WHERE nomeComponente = '{component_name}' AND Componente.fkMaquina = {fk_maquina} AND Componente.fkEmpresa = {fk_empresa};")
-        
+        if AMBIENTE == 0:
+            command = f"INSERT INTO Componente_has_Metrica values ({component}, {metrica['idMetrica']}, {fk_maquina}, {fk_empresa});"
+        else:
+            command = f"INSERT INTO [pardalis].[dbo].[Componente_has_Metrica] values ({component}, {metrica['idMetrica']}, {fk_maquina}, {fk_empresa});"
+
         run_sql_command(command)
             
 
@@ -172,8 +172,8 @@ def append_information(fk_component: int, fk_maquina: int, fk_empresa: int, fk_m
     data = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     if AMBIENTE == 0:
         command = f"INSERT INTO Leitura VALUES (null, {fk_component}, {fk_metrica}, {fk_maquina}, {fk_empresa}, '{data}', {value});"
-    if AMBIENTE == 1:
-        command = f"INSERT INTO [Pardalis].[dbo].[Leitura] VALUES (null, {fk_component}, {fk_metrica}, {fk_maquina}, {fk_empresa}, '{data}', {value});"
+    else:
+        command = f"INSERT INTO [pardalis].[dbo].[Leitura] (fkComponente, fkMetrica, fkMaquina, fkEmpresa, dataColeta, valorLeitura) VALUES ({fk_component}, {fk_metrica}, {fk_maquina}, {fk_empresa}, '{data}', {value});"
 
     run_sql_command(command)
 
@@ -184,19 +184,34 @@ def clear_components(hashMaquina : str):
         if AMBIENTE == 0:
             command = "DELETE FROM Componente WHERE idComponente = {0} AND fkMaquina = {1} AND fkEmpresa = {2};".format(component["idComponente"], computer["idMaquina"], computer["fkEmpresa"]) 
 
-        if AMBIENTE == 1:
-            command = "DELETE FROM [Pardalis].[dbo].[Componente] WHERE idComponente = {0} AND fkMaquina = {1} AND fkEmpresa = {2};".format(component["idComponente"], computer["idMaquina"], computer["fkEmpresa"])
+        else:
+            command = "DELETE FROM [pardalis].[dbo].[Componente] WHERE idComponente = {0} AND fkMaquina = {1} AND fkEmpresa = {2};".format(component["idComponente"], computer["idMaquina"], computer["fkEmpresa"])
         run_sql_command(command)
 
 def change_component_state(nome_componente: str, hash_maquina : str, state: int):
     try:
         if AMBIENTE == 0:
             command = f"UPDATE Componente SET isComponenteValido = {state} WHERE nomeComponente = '{nome_componente}' AND fkMaquina = {get_computer_hash(hash_maquina)['idMaquina']};" 
-        if AMBIENTE == 1:
-            command = f"UPDATE [Pardalis].[dbo].[Componente] SET [isComponenteValido] = {state} WHERE nomeComponente = '{nome_componente}' AND fkMaquina = {get_computer_hash(hash_maquina)['idMaquina']};"
+        else:
+            command = f"UPDATE [pardalis].[dbo].[Componente] SET [isComponenteValido] = {state} WHERE nomeComponente = '{nome_componente}' AND fkMaquina = {get_computer_hash(hash_maquina)['idMaquina']};"
         run_sql_command(command)
         print("Componente atualizado com sucesso!")
+        time.sleep(3)
     except Exception as e:
         print("Erro ao atualizar componente: ", e)
+
+def SO_isNull(hash_maquina : str):
+    if AMBIENTE == 0:
+            result = run_sql_command("SELECT sistemaOperacional FROM Maquina WHERE hashMaquina = '{0}';".format(rename_hash(hash_maquina)))
+    else:
+        result = run_sql_command("SELECT [sistemaOperacional] FROM [pardalis].[dbo].[Maquina] WHERE hashMaquina = '{0}';".format(rename_hash(hash_maquina)))
+    return result['sistemaOperacional'] == ""
+
+def appendSO(hash_maquina : str, so: str):
+    if AMBIENTE == 0:
+            command = f"UPDATE Maquina SET sistemaOperacional = '{so}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
+    else:
+        command = f"UPDATE [pardalis].[dbo].[Maquina] SET [sistemaOperacional] = '{so}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
+    run_sql_command(command)
 
 

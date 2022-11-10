@@ -93,6 +93,23 @@ INSERT INTO [PARDALIS].[dbo].[Usuario]
 VALUES
        ('João', 'joao@gmail.com', hashbytes('SHA2_256', 'Teste@123'), 'Analista', 1, null);
 
+-- Metricas
+
+INSERT INTO [dbo].[Metrica] (nomeMetrica, unidadeDeMedida, isEstatico) VALUES('cpu_Utilizacao', '%', 0),	
+						  ('cpu_Frequencia_Maxima', 'HZ', 1),	
+                          ('cpu_Frequencia_Atual', 'HZ', 0),	
+                          ('cpu_Temperature', '°C', 0),	
+                          ('cpu_Frequencia_Minima', 'HZ', 1); -- CPU	
+                          
+INSERT INTO [dbo].[Metrica] (nomeMetrica, unidadeDeMedida, isEstatico) VALUES('ram_Total', 'GB', 1),	
+						  ('ram_Usada', 'GB', 0); -- RAM	
+
+INSERT INTO [dbo].[Metrica] (nomeMetrica, unidadeDeMedida, isEstatico) VALUES('disco_Total', 'GB', 1),	
+						  ('disco_read_time', 'MB', 0),	
+						  ('disco_write_time', 'MB', 0),	
+						  ('disco_Usado', 'GB', 0); -- DISCO
+
+
 CREATE VIEW [dbo].[vw_empresa_sptech_maquina_componentes] 
 	AS SELECT nomeComponente, isComponenteValido, descricao, nomeEmpresa, nomeMaquina 	
 FROM [dbo].[Empresa] 	
