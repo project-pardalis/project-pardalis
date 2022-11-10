@@ -28,7 +28,7 @@ def run_command_verifying_hash(command):
 
 def menu_select():
     while True:
-        """ clear_screen() """
+        clear_screen()
         print("=========================================")
         print("|                PARDALIS                |")
         print("|========================================|")
