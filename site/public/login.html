@@ -31,13 +31,12 @@
                 </li>
                 <div class="v-hr"></div>
                 <li>
-                    <a href="./login.html"> <img class='img-icon-user' src="http://cdn.onlinewebfonts.com/svg/img_184513.png" alt="" draggable="false"> </a>
+                    <img class='img-icon-user' src="http://cdn.onlinewebfonts.com/svg/img_184513.png" alt="">
                 </li>
                 <li>
 
-                    <a class="ms-1 btn fw-semibold login-botao"
-                    onclick="redirectUserToLogin()" href="./cadastro.html">Cadastrar</a> <!-- Era um botão-->
-                    
+                    <button class="ms-1 btn fw-semibold login-botao"
+                        onclick="redirectUserToCadastro()">Cadastrar</button>
                 </li>
 
             </ul>
@@ -45,38 +44,47 @@
     </div>
 
     <div class="container-elements-page p-0 pt-5 p-md-5 vh-100">
-        <div class="container form-container d-flex m-0 p-3">
-            <img src="assets/" alt="">
-            <p class="h1">Login</p>
-            <div class="linha w-50 mt-2 mb-5"></div>
-            <div class="form">
-                <div class="input-container mb-3">
-                    <label for="ipt_email" class="mb-1">Email</label>
-                    <input type="text" autofocus class="input-f" placeholder="pardalis@pardalisenterprise.com"
-                        id="ipt_email" onkeypress="key()">
+
+
+
+        <div class="caixa-login">
+
+            <div class="forma-login">
+                <p class="h1 fw-bolder title-login">Login</p>
+                <div class="linha"></div>
+                <div class="scault"></div>
+
+                <div class="form-outline mb-4">
+                    <input type="email" id="form2Example11" class="form-control" placeholder="E-mail" />
+
                 </div>
 
-                <div class="input-container">
-                    <label for="ipt_password" class="mb-1">Senha</label>
-                    <input type="password" class="input-f" placeholder="**************" id="ipt_password"
-                        onkeypress="key()">
+
+                <div class="form-outline mb-4">
+                    <input type="password" id="form2Example22" class="form-control" placeholder="Senha" />
+
                 </div>
 
-                
 
+                <button class="buttom" onclick="login()">
+                    <h5>Entrar</h5>
+                </button>
+
+                <div class="linha" style="width:100%;"></div>
+                <div class="box-cadastro">
+                    <p>Não possui uma conta?</p>
+                    <button class="buttom" style="height: 40%;">
+                        <h6 style="font-weight:bolder; text-align:center;">Cadastre-se</h6>
+                    </button>
+                </div>
             </div>
-                    <button class="buttom" onclick="login()">Entrar</button>
+            <div class="imagem-login">
+                <div class="camaleao"></div>
+            </div>
         </div>
-        
-
-
-
-
 
     </div>
-    <div class="footer">
-        <h1>anana</h1>
-    </div>
+
 </body>
 
 </html>
@@ -87,7 +95,9 @@
             return login()
         }
     }
-
+    function redirectUserToCadastro() {
+        window.location.href = './cadastro.html'
+    }
     // Validaçao abas de Login. 
     function login() {
 
@@ -122,7 +132,7 @@
                         sessionStorage.ID_USUARIO = json.idUsuario;
                         sessionStorage.EMAIL_USUARIO = json.emailUsuario;
                         sessionStorage.FK_EMPRESA = json.fkEmpresa;
-                        
+
                         if (json.idUsuario != null) window.location.href = "/dashboard.html";
                     });
                 }

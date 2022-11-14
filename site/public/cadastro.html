@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro | Pardallis</title>
+    <title>Cadastro | Pardalis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="icon" href="./assets/imgs/logo.png">
@@ -32,12 +32,13 @@
                 </li>
                 <div class="v-hr"></div>
                 <li>
-                    <a href="./login.html"> <img class='img-icon-user' src="http://cdn.onlinewebfonts.com/svg/img_184513.png" alt="" draggable="false"> </a>
+                    <img class='img-icon-user' onclick="window.location.href='./login.html'"
+                        src="http://cdn.onlinewebfonts.com/svg/img_184513.png" alt="">
                 </li>
                 <li>
 
-                    <a class="ms-1 btn fw-semibold login-botao"
-                    onclick="redirectUserToLogin()" href="./cadastro.html">Cadastrar</a> <!-- Era um botão-->
+                    <button class="ms-1 btn fw-semibold login-botao"
+                        onclick="window.location.href = './cadastrar.html'">Cadastrar</button>
                 </li>
 
             </ul>
@@ -45,61 +46,61 @@
     </div>
 
 
-        <div class="container-elements-page p-0 pt-5 p-md-5 vh-100">
-            <div class="container form-container-cadastro">
-                <p class="h1-cadastro">Cadastro</p>
-                <div class="linha-cadastro"></div>
-                <div class="form">
-                    <div class="col-12 d-flex" style="flex-direction: row !important;">
-                        <div class="col-6 d-flex justify-content-between" style="flex-direction: column;">
-                            <div class="col-12 input-container mb-2">
-                                <label for="ipt_empresa" class="mb-1">Nome da Empresa</label>
-                                <input type="text" autofocus class="input-cadastro" placeholder="Pardalis" id="ipt_empresa"
-                                    onkeypress="key()">
-                            </div>
-    
-                            <div class="col-12 input-container mb-2">
-                                <label for="ipt_CNPJ" class="mb-1">CNPJ</label>
-                                <input type="text" class="input-cadastro" placeholder="333.333.333.333/333.333" id="ipt_cnpj"
-                                    onkeypress="key()">
-                            </div>
-                            <div class="col-12 input-container mb-2">
-                                <label for="ipt_admin" class="mb-1">Nome do administrador</label>
-                                <input type="text" class="input-cadastro" placeholder="Arthur Douglas" id="ipt_admin"
-                                    onkeypress="key()">
-                            </div>
-                        </div>
-                        <div class="col-6 d-flex justify-content-between" style="flex-direction: column;">
-                            <div class="col-12 input-container mb-2">
-                                <label for="ipt_email" class="mb-1">E-mail</label>
-                                <input type="text" class="input-cadastro" placeholder="pardalis@pardalisenterprise.com"
-                                    id="ipt_email" onkeypress="key()">
-                            </div>
-                            <div class="col-12 input-container mb-2">
-                                <label for="ipt_senha" class="mb-1">Senha</label>
-                                <input type="password" class="input-cadastro" placeholder="**************" id="ipt_senha"
-                                    onkeypress="key()">
-                            </div>
-                            <div class="col-12 input-container mb-2">
-                                <label for="ipt_confirmar_senha" class="mb-1">Confirmar Senha</label>
-                                <input type="password" class="input-cadastro" placeholder="**************"
-                                    id="ipt_confirmar_senha" onkeypress="key()">
-                            </div>
-                        </div>
-    
+    <div class="container-elements-page p-0 pt-5 p-md-5 vh-100">
+
+        <div class="caixa-cadastro">
+            <h1 class="h1-cadastro">Cadastrar</h1>
+            <div class="linha-cad"></div>
+            <hr>
+
+            <div class="caixas">
+
+                <div class="caixa-um">
+                    <div class="form-outline mb-4">
+
+                        <input type="email" id="form2Example11" class="form-control" placeholder="Nome empresa"
+                            id="ipt_empresa" />
+
                     </div>
-    
-                    <button class="buttom" onclick="cadastrar()">Entrar</button>
-    
+                    <div class="form-outline mb-4">
+                        <input type="email" id="form2Example11" class="form-control" placeholder="CNPJ" id="ipt_cnpj" />
+
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input type="email" id="form2Example11" class="form-control" placeholder="Administrador"
+                            id="ipt_admin" />
+
+                    </div>
                 </div>
-                
+                <div class="caixa-dois">
+                    <div class="form-outline mb-4">
+                        <input type="email" id="form2Example11" class="form-control" placeholder="email@exemplo.com"
+                            id="ipt_email" />
+
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input type="email" id="form2Example11" class="form-control" placeholder="Digite a senha"
+                            id="ipt_senha" />
+
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input type="email" id="form2Example11" class="form-control" placeholder="Confirme a senha"
+                            id="ipt_confirmar_senha" />
+
+                    </div>
+                </div>
             </div>
-
-
+            <button class="buttom-cadastrar" onclick="cadastrar()">Cadastrar</button>
 
 
 
         </div>
+
+
+
+
+
+    </div>
     </div>
 </body>
 

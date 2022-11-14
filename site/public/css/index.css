@@ -350,12 +350,43 @@ a {
     border-radius: 32px;
 }
 
-.parte3 {
+.todo-pt3 {
+    padding: 3rem;
+    width: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    border-bottom: 2px solid rgb(201, 226, 255);
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    color: rgb(255, 255, 255);
+}
+
+.parte3 {
+    background-color: var(--thirdColor);
+    border-bottom: 2px solid white;
+
+}
+
+.button-pt3 {
+    font-size: 1em;
+    font-weight: bolder;
+    border-radius: 0.5rem;
+    border: none;
+    width: 12rem;
+    padding: 0.8rem;
+    color: white;
+    background-color: yellow;
+    color: black;
+    transition: 200ms;
+
+}
+
+.button-pt3:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 0.5rem 0.5rem 0.5rem rgba(177, 224, 238, 0.5);
+    transition: 200ms;
 }
 
 .last-part-home {
@@ -415,6 +446,7 @@ a {
 
 .desc-last {
     width: 70%;
+    text-align: center;
 }
 
 

@@ -9,15 +9,17 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Nunito', 'Open Sans', sans-serif !important;
-    overflow: hidden;
-    
+
+
 }
 
 :root {
     --primaryColor: rgb(255, 255, 255);
     --secundaryColor: rgb(0, 0, 0);
-    --thirdColor: #6B46D7;
+    --thirdColor: #2D2DBF;
     --hoverColor: #5431d4;
+    --blue: rgba(107, 163, 236, 1);
+    --carrossel-position-x: 19;
 
 }
 
@@ -25,7 +27,7 @@ body {
 /* HEADER - COMEÇO */
 
 .header {
-    background: linear-gradient(0deg, #5431d4 0%, rgba(114, 26, 180, 1) 100%);
+    background: linear-gradient(0deg, #5431d4 100%, var(--thirdColor) 0%);
     background-size: 400% 400%;
     color: black;
     display: flex;
@@ -83,47 +85,99 @@ a {
 /* LOGIN | CADASTRO - COMEÇO */
 
 .container-elements-page {
-    
+
     height: 100%;
     display: flex;
     justify-content: center;
-    background: linear-gradient(0deg, #5431d4 0%, rgba(114, 26, 180, 1) 100%);
+    background: linear-gradient(0deg, #674bd4 20%, var(--thirdColor) 80%);
     background-size: 400% 400%;
     animation: animation-body 8s ease infinite;
 }
-.h1{
+
+.h1 {
     color: white;
     margin-top: 2rem;
 
 
 
 }
-.h1-cadastro{
-    color: white;
-   
+
+.h1-cadastro {
+    color: black;
+    margin-top: 2rem;
     font-size: 2.5rem;
-    margin-left: 18rem;
+    font-weight: bolder;
+    text-align: center;
 }
 
-.mb-1{
+.mb-1 {
     color: white;
 }
+
 @keyframes animation-body {
-  0% {
-      background-position: 0% 50%;
-  }
+    0% {
+        background-position: 0% 50%;
+    }
 
-  50% {
-      background-position: 100% 50%;
-  }
+    50% {
+        background-position: 100% 50%;
+    }
 
-  100% {
-      background-position: 0% 50%;
-  }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
-.col-6{
+.col-6 {
     margin-right: 2rem;
+}
+
+/* Login começo */
+.caixa-login {
+    margin-top: 5rem;
+    width: 100rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-radius: 0.5rem;
+
+}
+
+.imagem-login {
+
+    background-image: url('../assets/imgs/giphy.gif');
+    background-size: 30rem;
+    background-repeat: no-repeat;
+
+    margin-top: 4rem;
+    width: 50%;
+    height: 80%;
+
+
+
+}
+
+.scault {
+    width: 100%;
+    height: 1rem;
+
+}
+
+.title-login {
+    color: black;
+}
+
+.forma-login {
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 3rem;
+    margin-top: 3rem;
+    width: 40%;
+    height: 80%;
+
 }
 
 .form-container {
@@ -135,11 +189,61 @@ a {
     height: 92%;
     justify-content: space-between;
     background-color: rgba(128, 128, 128, 0.096);
-    box-shadow:8px 5px 15px;
-    
-    
+    box-shadow: 8px 5px 15px;
+
+
 }
-.form-container-cadastro{
+
+.linha {
+
+    border-top: 2px solid black;
+    padding: 1rem;
+
+    width: 10rem;
+}
+
+/* login final */
+
+/*cadastro inicio*/
+.caixa-cadastro {
+    margin-top: 5rem;
+    width: 70%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    border-radius: 0.5rem;
+
+}
+
+.caixas {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.caixa-um {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 45%;
+    height: 100%;
+    margin-right: 1rem;
+}
+
+.caixa-dois {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.form-container-cadastro {
     border-radius: 10px;
     align-items: center;
     flex-direction: column;
@@ -147,19 +251,11 @@ a {
     height: 95%;
     justify-content: space-between;
     background-color: rgba(128, 128, 128, 0.096);
-    box-shadow:8px 5px 15px;}
+    box-shadow: 8px 5px 15px;
+}
 
-.linha {
-    background-color:white;
-    height: 0.1rem;
-}
-.linha-cadastro {
-    background-color:white;
-    height: 0.1rem;
-    width: 20rem;
-    margin-left: 13rem;
-    margin-bottom: 3rem;
-}
+
+
 
 .form {
     width: 100%;
@@ -193,10 +289,12 @@ label {
     height: 2rem;
     background: 0 0;
     outline: none;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid black;
+    margin-top: 1rem;
 
 
 }
+
 .input-cadastro {
     width: 16rem;
     height: 2rem;
@@ -206,18 +304,18 @@ label {
     margin-right: 2rem;
 
 }
-input{
+
+input {
     outline: none;
     border: none;
 }
 
+/*cadastro final*/
+
 .input-f:focus,
-.input-f:hover {
+.input-f:hover {}
 
-    
-}
-
- .form-button {
+.form-button {
     color: white;
     background-color: var(--thirdColor);
     height: 3rem;
@@ -230,21 +328,70 @@ input{
     transition: all 0.3s ease;
     position: relative;
     display: inline-block;
-   
-   
-    
+
+
+
 }
-.buttom{
-    margin-top: 6rem;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+.buttom {
+
+
+    outline: none;
+    border: 0.1rem solid black;
+
+    height: 8%;
+    border-radius: 0.5rem;
+    font-weight: bolder;
+    font-size: 1rem;
+
+    width: 40%;
+    margin-bottom: 3rem;
+    margin-left: 0.5rem;
+    background-color: black;
+    color: white;
+    transition: 300ms
+}
+
+.buttom:hover {
+    background-color: white;
+    border: 0.1rem solid black;
+    color: black;
+    transition: 300ms;
+    box-shadow: 0.3rem 0.3rem 0.3rem rgb(0, 0, 0, 0.3);
+}
+
+.buttom h5 {
+    font-weight: bolder;
+}
+
+.buttom-cadastrar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     outline: none;
     border: none;
-    height: 25%;
-    width: 12rem;
-    margin-bottom: 3rem;
-    
-    
+    font-weight: bolder;
+    font-size: 1.2rem;
+    width: 100%;
+    background-color: black;
+    color: white;
+    transition: 400ms
 }
+
+.buttom-cadastrar:hover {
+    font-size: 1.4rem;
+    transition: 400ms;
+}
+
+
+.box-cadastro {
+    display: flex;
+    justify-content: center;
+
+}
+
 .form .form-button:after {
     position: absolute;
     content: "";
@@ -285,7 +432,8 @@ input{
     padding-bottom: 72px;
 
 }
-.tex{
+
+.tex {
 
     width: 100%;
     height: 50%;
@@ -397,6 +545,7 @@ input{
     .form-container {
         width: 100% !important;
     }
+
     .register {
         width: 50%;
     }
