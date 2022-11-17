@@ -44,7 +44,7 @@ printf "\e[33m_____        _____  _____          _      _____  _____\e[0m
   fi 
   sleep 1  
   if [ $j -lt 2 ] ; then
-    printf "Deseja instalar as dependências?\n1 - Sim \n2 - Não"
+    printf "Deseja instalar as dependências?\n1 - Sim \n2 - Não\n"
     read  choose 
   else 
     echo "Todas suas dependências estão instaladas! "
@@ -102,8 +102,8 @@ if [ $choose -eq 1 ]; then
   echo "Configurando container, a aplicação irá pedir a senha que inseriu anteriormente, com isso, insira a mesma aqui. "
   
   sudo docker rm -f pardalis_sql #se tiver, starta pra config
-  sudo docker pull mysql/mysql-server:latest 
-  sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:5.8 
+  sudo docker pull mysql/mysql-server:5.7 
+  sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:5.7 
   sudo docker exec -it pardalis_sql mysql -h localhost -uroot -p --protocol=tcp 
 
 else 
