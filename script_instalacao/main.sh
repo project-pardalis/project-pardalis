@@ -105,7 +105,7 @@ if [ $choose -eq 1 ]; then
   echo "Aguardando servidor subir ... "
   docker cp ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql pardalis_sql:/home
   sleep 3
-  echo "EXECUTE O COMANDO: PARDALIS < /home/SQL-PARDALIS.sql 
+  echo "EXECUTE O COMANDO: PARDALIS < /home/SQL-PARDALIS.sql" 
   sudo docker exec -it pardalis_sql mysql -uroot -p 
 
 else 
