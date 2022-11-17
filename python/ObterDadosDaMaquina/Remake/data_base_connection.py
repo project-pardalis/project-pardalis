@@ -8,20 +8,22 @@ import pymssql, json, time
 
 AMBIENTE = 1
 
-connection = pymysql.connect(host='localhost',
+
+
+
+if AMBIENTE == 0:        
+    connection = pymysql.connect(host='localhost',
                              user='aluno',
                              password='sptech',
                              database='pardalis',
                              cursorclass=pymysql.cursors.DictCursor)
-
-connectionSQL = pymssql.connect(host='svr-pardalis.database.windows.net',
+    cursor = connection.cursor()
+else:
+    connectionSQL = pymssql.connect(host='svr-pardalis.database.windows.net',
                              user='pardalis',
                              password='#urubu100',
                              database='pardalis',
                              as_dict=True)
-if AMBIENTE == 0:        
-    cursor = connection.cursor()
-else:
     cursor = connectionSQL.cursor()
 
 def rename_hash(hash: str):
