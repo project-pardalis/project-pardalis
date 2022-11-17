@@ -31,7 +31,7 @@ printf "\e[33m_____        _____  _____          _      _____  _____\e[0m
   j=0 
   if which java >/dev/sda1 ; then 
     echo "Java [X]"
-    let j=j+1  
+    j=j+1  
   else 
     echo "Java []"
   fi 
