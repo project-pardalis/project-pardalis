@@ -55,7 +55,7 @@ while [ $j -lt 2 ]; do
     echo "Instalando aplicações..."
 	#install docker
     sudo apt install git -y 
-    sudo apt install docker.io -y 
+    sudo apt install docker -y 
     sudo apt install systemd -y 
     systemctl start docker
     systemctl enable docker 
