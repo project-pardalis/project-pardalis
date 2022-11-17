@@ -112,6 +112,7 @@ if [ $choose -eq 1 ]; then
     cat ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql 
     echo "\n\n"
     sudo docker exec -it pardalis_sql mysql -uroot -p 
+
   else 
     echo "Nosso sistema está conectado na Azure! Contudo, não terás o backup local"
     exit 
@@ -120,3 +121,9 @@ else
   echo "Certo! Clone manualmente em  https://github.com/project-pardalis/project-pardalis
 "
 fi
+
+echo "INSTRUÇÕES : 
+\n 
+Para executar nosso site, acesse a pasta /site e execute npm run dev\n
+Para executar nossa aplicação python, acesse a pasta /python e execute o main.py \n 
+Após executar nossa aplicação Python, apenas abra o site, cadastre-se e acesse nossa dashboard para ter acesso aos dados, clique em + e pegue o endereço mac pelo python"
