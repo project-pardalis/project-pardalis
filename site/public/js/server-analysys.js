@@ -154,6 +154,7 @@ charts.dayChart = new Chart(
             labels: [],
             datasets: [
                 {
+                    spanGaps: false,
                     backgroundColor: "#9cdbffa0",
                     label: 'Utilização da Cpu',
                     borderColor: '#117dbb',
@@ -164,6 +165,7 @@ charts.dayChart = new Chart(
                     borderWidth: 1.5
                 },
                 {
+                    spanGaps: false,
                     backgroundColor: "#7fffe86e",
                     label: 'Temperatura da Cpu',
                     borderColor: '#45a593',
@@ -174,6 +176,7 @@ charts.dayChart = new Chart(
                     borderWidth: 1.5
                 },
                 {
+                    spanGaps: false,
                     backgroundColor: "#eba4ff7e",
                     label: 'Ram Usada',
                     borderColor: '#9528b4',
@@ -184,6 +187,7 @@ charts.dayChart = new Chart(
                     borderWidth: 1.5
                 },
                 {
+                    spanGaps: false,
                     backgroundColor: "#b8ff8684",
                     label: 'Disco Usado',
                     borderColor: '#62b02a',
@@ -194,6 +198,7 @@ charts.dayChart = new Chart(
                     borderWidth: 1.5
                 },
                 {
+                    spanGaps: false,
                     backgroundColor: "#1b717145",
                     label: 'Velocidade de Escrita',
                     borderColor: '#1b7171',
@@ -204,6 +209,7 @@ charts.dayChart = new Chart(
                     borderWidth: 0.5
                 },
                 {
+                    spanGaps: false,
                     backgroundColor: "#6a46d742",
                     label: 'Velocidade de Leitura',
                     borderColor: '#6B46D7',
@@ -390,16 +396,8 @@ async function getComponent(componentName) {
 async function getCPUInfo() {
     let specification = await getComponent("cpu");
     if (specification.descricao !== null) {
-        specification.descricao = specification.descricao.split("'")
-        let jsonSpecification = {};
 
-        for (let i = 0; i < specification.descricao.length; i++) {
-            if (specification.descricao[i].indexOf("Arquitetura") != -1 || specification.descricao[i].indexOf("Nome do modelo") != -1 || specification.descricao[i].indexOf("Núcleo por soquete") != -1 ||
-                specification.descricao[i].indexOf("Thread per núcleo") != -1) {
-                jsonSpecification[specification.descricao[i]] = specification.descricao[i + 2];
-            }
-        }
-        return jsonSpecification;
+        return specification.descricao;
     } else {
         return null;
     }
@@ -622,7 +620,6 @@ async function setEventClick(componentName) {
     document.getElementById(`${componentName}-card`).onclick = async function (evt) {
         let element = document.getElementById(`component-name`);
         let element2 = document.getElementById(`component-complement`);
-        let specification;
         switch (componentName) {
             case 'cpu':
                 bigChart.clickedChart = "cpu";
@@ -655,16 +652,10 @@ async function setEventClick(componentName) {
 async function loadCpuInfo() {
     let element = document.getElementById(`component-complement`);
     let specification = await getCPUInfo();
-    if (specification != null) element.innerHTML = specification["Nome do modelo"];
     
-    let textSpecification = "";
-    for (const key in specification) {
-        let specificationData = specification[key];
-        if (key == "Nome do modelo") continue;
-        if (Object.keys(specification).indexOf(key) == Object.keys(specification).length - 1) textSpecification += `${key}: ${specificationData}`;
-        else textSpecification += ` ${key}: ${specificationData}, `;
-    }
-    element.title = textSpecification;
+    if (specification != null) element.innerHTML = specification["Nome do modelo"];
+
+    element.title = `Nucleos: ${specification["Nucleo(s) por soquete"]} Threads: ${specification["Thread(s) per nucleo"]}`;
 
 }
 
@@ -699,47 +690,39 @@ start();
 
 /* ----------------------------- DAY CHART ------------------------------------------- */
 
-async function loadDataDayChart() {
-    let metricasDayChart = await getServerInfo(true, false);
-    let metricasDayChartKeys = Object.keys(metricasDayChart);
-    for (let i = 0; i < metricasDayChartKeys.length; i++) {
-        let data;
-        data = await separateData(metricasDayChart[metricasDayChartKeys[i]]);
-        findDataset(metricasDayChartKeys[i], data)
-    }
-    charts.dayChart.update();
+async function getMeanDates() {
+    let response = await (await fetch(`http://localhost:3000/maquina/getMeanDates/${fkEmpresa}&${idMaquina}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })).json();
+    console.log("Metrica Atualizada")
+    return response;
 }
 
-async function separateData(data) {
-    if (data.length == 0) return;
-    let todayDate = new Date();
-    let dataSeparated = data.filter(
-        (data) => {
-            let date = new Date(data.dataColeta);
-            //return true;
-            return (date.getDate() == todayDate.getDate() && date.getMonth() == todayDate.getMonth() && date.getFullYear() == todayDate.getFullYear());
-        }
-    )
-    let hours = await separateHours(dataSeparated);
-    let dataSeparatedByHour = []
-    for (let i = 0; i < hours.length; i++) {
-        let dataByHour = dataSeparated.filter(
-            (data) => {
-                let date = new Date(data.dataColeta);
-                return (date.getHours() == hours[i]);
-            }
-        )
-        let mean = getMean(dataByHour);
-        dataSeparatedByHour.push(mean);
-        let labelsHours = charts.dayChart.data.labels.filter(
-            (label) => {
-                return label == `${hours[i]}h`;
-            }
-        )
-        if (labelsHours.length == 0) charts.dayChart.data.labels.push(`${hours[i]}h`);
+async function loadDataDayChart() {
+    let metricasDayChart = await getMeanDates();
+
+    for (let key in metricasDayChart) {
+        charts.dayChart.data.labels.push(key+"h");
+        
     }
 
-    return dataSeparatedByHour;
+
+    for (const metrica in chartsColors) {
+        for (let day in metricasDayChart) {
+            if (metricasDayChart[day][metrica] == undefined) {
+                findDataset(metrica, null);
+            } else {
+                findDataset(metrica, metricasDayChart[day][metrica]);
+               
+            }
+        }
+    }
+    
+
+    charts.dayChart.update();
 }
 
 async function separateHours(data) {
@@ -761,7 +744,7 @@ function getMean(data) {
     return mean.toFixed(2);
 }
 
-function findDataset(metrica, data) {
+function findDataset2(metrica) {
     let labelName;
     switch (metrica) {
         case 'cpu_Utilizacao':
@@ -783,11 +766,42 @@ function findDataset(metrica, data) {
             labelName = "Velocidade de Leitura";
             break;
     }
-    if (data.indexOf('-500.00') != -1) return;
 
     for (let i = 0; i < charts.dayChart.data.datasets.length; i++) {
         if (charts.dayChart.data.datasets[i].label == labelName) {
-            charts.dayChart.data.datasets[i].data = data;
+            return i;
+        }
+    }
+}
+
+function findDataset(metrica, value) {
+    let labelName;
+    switch (metrica) {
+        case 'cpu_Utilizacao':
+            labelName = "Utilização da Cpu";
+            break;
+        case 'cpu_Temperature':
+            labelName = "Temperatura da Cpu";
+            break;
+        case 'ram_Usada':
+            labelName = "Ram Usada";
+            break;
+        case 'disco_Usado':
+            labelName = "Disco Usado";
+            break;
+        case 'disco_write_time':
+            labelName = "Velocidade de Escrita";
+            break;
+        case 'disco_read_time':
+            labelName = "Velocidade de Leitura";
+            break;
+    }
+    if (value == -500.00) return;
+
+    for (let i = 0; i < charts.dayChart.data.datasets.length; i++) {
+        if (charts.dayChart.data.datasets[i].label == labelName) {
+            if (value == null) charts.dayChart.data.datasets[i].data.push(value);
+            else charts.dayChart.data.datasets[i].data.push(parseFloat(value.toFixed(2)));
         }
     }
 }

@@ -152,5 +152,6 @@ module.exports = {
     analysys,
     createViews,
     getMaquinaInfo,
-    getComponente
+    getComponente,
+    getMetricas
 }

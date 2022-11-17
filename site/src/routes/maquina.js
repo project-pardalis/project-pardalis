@@ -7,4 +7,8 @@ router.post("/appendMaquina", function(req, res){
     maquinaController.appendMachine(req, res);
 });
 
+router.get("/getMeanDates/:fkEmpresa&:fkMaquina", function(req, res){
+    maquinaController.getMeanDates(req, res);
+});
+
 module.exports = router;

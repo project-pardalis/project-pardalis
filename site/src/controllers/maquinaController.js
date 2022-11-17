@@ -9,6 +9,13 @@ async function appendMachine(req, res) {
     res.json({'hash': resultMachine});
 }
 
+async function getMeanDates(req, res) {
+  let fkEmpresa = req.params.fkEmpresa;
+  let fkMaquina = req.params.fkMaquina;
+  res.json(await maquinaModel.getMeanDates(fkEmpresa, fkMaquina));
+}
+
 module.exports = {
   appendMachine,
+  getMeanDates
 };
