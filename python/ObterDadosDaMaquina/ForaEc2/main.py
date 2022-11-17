@@ -21,6 +21,9 @@ def run_command_verifying_hash(command):
         if (db.get_computer_with_hash(computer_hash))["qtdServidores"] == 1:
             print("Computador Encontrado.")
             command()
+        else:
+            print("Computador não encontrado!")
+            time.sleep(3)
 
         
 # ----------------------------------------------------------------------------------------------------------------------
