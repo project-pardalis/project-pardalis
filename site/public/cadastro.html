@@ -58,39 +58,39 @@
                 <div class="caixa-um">
                     <div class="form-outline mb-4">
 
-                        <input type="email" id="form2Example11" class="form-control" placeholder="Nome empresa"
+                        <input type="email" class="form-control" placeholder="Nome empresa"
                             id="ipt_empresa" />
 
                     </div>
                     <div class="form-outline mb-4">
-                        <input type="email" id="form2Example11" class="form-control" placeholder="CNPJ" id="ipt_cnpj" />
+                        <input type="email" class="form-control" placeholder="CNPJ" id="ipt_cnpj" />
 
                     </div>
                     <div class="form-outline mb-4">
-                        <input type="email" id="form2Example11" class="form-control" placeholder="Administrador"
+                        <input type="email" class="form-control" placeholder="Administrador"
                             id="ipt_admin" />
 
                     </div>
                 </div>
                 <div class="caixa-dois">
                     <div class="form-outline mb-4">
-                        <input type="email" id="form2Example11" class="form-control" placeholder="email@exemplo.com"
+                        <input type="email" class="form-control" placeholder="email@exemplo.com"
                             id="ipt_email" />
 
                     </div>
                     <div class="form-outline mb-4">
-                        <input type="email" id="form2Example11" class="form-control" placeholder="Digite a senha"
+                        <input type="email" class="form-control" placeholder="Digite a senha"
                             id="ipt_senha" />
 
                     </div>
                     <div class="form-outline mb-4">
-                        <input type="email" id="form2Example11" class="form-control" placeholder="Confirme a senha"
+                        <input type="email" class="form-control" placeholder="Confirme a senha"
                             id="ipt_confirmar_senha" />
 
                     </div>
                 </div>
             </div>
-            <button class="buttom-cadastrar" onclick="cadastrar()">Cadastrar</button>
+            <button class="buttom-cadastrar" onclick="pegarInfoUsuario()">Cadastrar</button>
 
 
 
@@ -103,7 +103,7 @@
     </div>
     </div>
 </body>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     //Fazendo o enter funcionar quando da um Enter no input
     function key() {
@@ -119,59 +119,75 @@
         let confirmarSenhaAdmin = ipt_confirmar_senha.value;
         if (verificarDadosColocados(nomeEmpresa, cnpjEmpresa, adminEmpresa,
             emailEmpresa, senhaAdmin, confirmarSenhaAdmin)) {
-            cadastrar(nomeEmpresa, cnpjEmpresa, adminEmpresa, emailEmpresa, senhaAdmin, confirmarSenhaAdmin)
+            cadastrar(nomeEmpresa, ipt_cnpj.value, adminEmpresa, emailEmpresa, senhaAdmin, confirmarSenhaAdmin)
         }
     }
 
     function verificarDadosColocados(nomeEmpresa, cnpjEmpresa, adminEmpresa, emailEmpresa, senhaAdmin, confirmarSenhaAdmin) {
 
-        if (empresaVar == "" || cnpjEmpresa == "" || adminEmpresa == "" ||
+        if (nomeEmpresa == "" || cnpjEmpresa == "" || adminEmpresa == "" ||
             emailEmpresa == "" || senhaAdmin == "" || confirmarSenhaAdmin == "") {
 
-            error_msg.style.display = 'block'
-            error_msg.innerHTML = 'Todos os campos devem ser preenchidos';
+            swal.fire({
+                title: 'Erro',
+                text: 'Preencha todos os campos',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
             return false;
         } else if (senhaAdmin != confirmarSenhaAdmin) {
-            error_msg.style.display = 'block'
-            error_msg.innerHTML = 'As senhas não são iguais';
+            swai.fire({
+                title: 'Erro',
+                text: 'As senhas não são iguais',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
             return false;
         } else {
             return true;
         }
     }
 
-    function cadastrar(nomeEmpresa, cnpjEmpresa, adminEmpresa, emailEmpresa, senhaAdmin, confirmarSenhaAdmin) {
-        fetch("/usuarios/cadastrar", {
+    async function cadastrar(nomeEmpresa, cnpjEmpresa, adminEmpresa, emailEmpresa, senhaAdmin, confirmarSenhaAdmin) {
+        let res = await fetch("/usuarios/cadastrar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 empresaServer: nomeEmpresa,
-                cnpjServer: cnpjEmpresa,
+                cnpjServer: cnpjEmpresa.replaceAll(".", "").replaceAll("/", "").replaceAll("-", ""),
                 adminServer: adminEmpresa,
                 emailServer: emailEmpresa,
                 senhaServer: senhaAdmin,
             })
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                console.log(resposta);
-                window.location.href = "login.html";
-            }
-            else {
-                console.log("Houve um erro ao tentar realizar o cadastro!");
-                resposta.text().then((texto) => {
-                    console.error(texto);
-                    error_msg.innerHTML = texto;
-                    setTimeout(() => {
-                        error_msg.innerHTML = '';
-                    }, 4000);
-                })
-            }
-        }).catch(function (erro) {
-            console.log(erro);
         })
-
+        if (res.ok) {
+            let json = await res.json();
+            if (json.erro) {
+                swal.fire({
+                    title: 'Erro',
+                    text: json.erro,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
+            } else {
+                swal.fire({
+                    title: 'Sucesso',
+                    text: 'Usuário cadastrado com sucesso',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                })
+                window.location.href = "./login.html"
+            }
+        } else {
+            swal.fire({
+                title: 'Erro',
+                text: 'Erro ao cadastrar usuário',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        }
     }
 
 </script>

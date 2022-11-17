@@ -42,13 +42,14 @@ function entrar(req, res) {
   }
 }
 
-function cadastrar(req, res) {
+async function cadastrar(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
   var empresa = req.body.empresaServer;
   var cnpj = req.body.cnpjServer;
-  var gerente = req.body.gerenteServer;
+  var gerente = req.body.adminServer;
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
+
 
   // Faça as validações dos valores
   if (empresa == undefined) {
@@ -63,27 +64,21 @@ function cadastrar(req, res) {
     res.status(400).send("A senha está undefined!");
   } else {
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    usuarioModel
-      .cadastrarEmpresa(empresa, cnpj)
-      .then(function (resultado) {
-        // console.log(resultado);
-        usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), 1, resultado.insertId)
-          .then(function (resultado) {
-            res.json(resultado);
-          })
-          .catch((erro) => {
-            console.log('Houve um erro ao realizar o cadastro do funcionário. Erro: ', erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-          });
-      })
-      .catch(function (erro) {
-        console.log(erro);
-        console.log(
-          "\nHouve um erro ao realizar o cadastro! Erro: ",
-          erro.sqlMessage
-        );
-        res.status(500).json(erro.sqlMessage);
-      });
+    let resEmpresa;
+    try {
+      resEmpresa = await usuarioModel.cadastrarEmpresa(empresa, cnpj);
+      try {
+        let resultado = await usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), resEmpresa[0].idEmpresa)
+        res.json({"ok": true});
+      } catch (error) {
+        res.status(500).json({"erro": error.sqlMessage});
+      }
+    } catch (error) {
+        res.status(500).json({"erro": error.sqlMessage});
+        usuarioModel.deleteEmpresa(resEmpresa[0].idEmpresa);
+
+    }
+
   }
 }
 

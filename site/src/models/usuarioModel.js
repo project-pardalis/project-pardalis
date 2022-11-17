@@ -11,31 +11,46 @@ function entrar(email, senha) {
     `;
     }
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
-    
+
     return database.executar(instrucao);
 }
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
-function cadastrarEmpresa(nome, cnpj) {
+async function cadastrarEmpresa(nome, cnpj) {
     var instrucao = `
         INSERT INTO Empresa (nomeEmpresa, cnpjEmpresa) VALUES ('${nome}', '${cnpj}');
     `;
-    return database.executar(instrucao);
+    await database.executar(instrucao);
+    return await database.executar(`SELECT TOP 1 idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC;`);
 }
 
-function cadastrarFuncionario(nome, email, senha, nivelAcesso, fkEmpresa) {
-    var instrucao = `
-    INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, fkEmpresa, fkAdministrador)
-    SELECT ${nome}, ${email}, ${senha}, ${fkEmpresa}, idUsuario FROM Usuario
-    WHERE fkEmpresa = ${fkEmpresa} AND fkAdministrador IS NULL LIMIT 1;
-    `;
-    return database.executar(instrucao);
+async function cadastrarFuncionario(nome, email, senha, fkEmpresa, tipo = "gerente") {
+    var instrucao;
+    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucao = `
+        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, fkEmpresa, fkAdministrador)
+        SELECT '${nome}', '${email}', '${senha}', ${fkEmpresa}, idUsuario FROM Usuario
+        WHERE fkEmpresa = ${fkEmpresa} AND fkAdministrador IS NULL LIMIT 1;
+        `;
+    } else {
+        instrucao = `
+            INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, fkEmpresa, fkAdministrador)`;
+        if (tipo == "funcionario") {
+            instrucao += `
+            SELECT TOP 1 '${nome}', '${email}', '${senha}', ${fkEmpresa}, idUsuario FROM Usuario
+            WHERE fkEmpresa = ${fkEmpresa} AND fkAdministrador IS NULL;`;
+        } else {
+            instrucao += ` VALUES ('${nome}', '${email}', '${senha}', ${fkEmpresa}, NULL);`;
+        }
+
+    }
+    return await database.executar(instrucao);
 }
 
-function updatePassword(idUsuario, novaSenha){
+function updatePassword(idUsuario, novaSenha) {
 
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function updatePassword:","" );
-    
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function updatePassword:", "");
+
     var instrucao = `
    
     UPDATE Usuario SET senhaUsuario = '${novaSenha}' WHERE idUsuario = '${idUsuario}';
@@ -44,7 +59,12 @@ function updatePassword(idUsuario, novaSenha){
     return database.executar(instrucao);
 }
 
-
+function deleteEmpresa(idEmpresa) {
+    var instrucao = `
+        DELETE FROM Empresa WHERE idEmpresa = ${idEmpresa};
+    `;
+    return database.executar(instrucao);
+}
 
 
 
@@ -52,5 +72,6 @@ module.exports = {
     entrar,
     cadastrarEmpresa,
     updatePassword,
-    cadastrarFuncionario
+    cadastrarFuncionario,
+    deleteEmpresa
 };
