@@ -24,7 +24,7 @@ printf "\e[33m_____        _____  _____          _      _____  _____\e[0m
   \e[1;96m Best video monitors system \e[0m                                                        "
 
   echo "Para que a instalação funcione perfeitamente, insira uma senha para login nas aplicações necessárias"
-  read $SENHA 
+ 
   echo "Verificando se dependências estão instaladas..."
   sleep 2
   
@@ -96,18 +96,16 @@ if [ $choose -eq 1 ]; then
   sleep 1
 
   
-  cd ~
-  git clone https://github.com/project-pardalis/project-pardalis
-  cd project-pardalis/ 
+  cd ~ && git clone https://github.com/project-pardalis/project-pardalis
+  cd project-pardalis 
   #configurando docker 
-  bar='|'
   echo "Configurando container, a aplicação irá pedir a senha que inseriu anteriormente, com isso, insira a mesma aqui. "
   
   sudo docker rm -f pardalis_sql #se tiver, starta pra config
 
   sudo docker pull mysql/mysql-server:latest 
   sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:latest
-  docker exec -it pardalis_sql mysql -uroot -p < ~/Documentos/project-pardalis/banco-de-dados/SQL-PARDALIS.sql bash
+  docker exec -it pardalis_sql mysql -uroot -p < ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql bash
    
 
 else 
