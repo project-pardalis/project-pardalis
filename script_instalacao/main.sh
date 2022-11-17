@@ -1,4 +1,4 @@
-#!bin/bash 
+#!/bin/bash 
 #PARDALIS -> GNU/GPL3 LICENSE 
  
 
