@@ -102,12 +102,20 @@ if [ $choose -eq 1 ]; then
   sudo docker pull mysql/mysql-server:5.7 
   sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:5.7 
   clear
-  echo "Aguardando servidor subir ... "
-  docker cp ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql pardalis_sql:/home
+  echo "Aguardando servidor subir ... " 
   sleep 3
-  echo "EXECUTE O COMANDO: PARDALIS < /home/SQL-PARDALIS.sql" 
-  sudo docker exec -it pardalis_sql mysql -uroot -p 
-
+  echo "1 - Banco Local de Backup \n2 - Sem banco local para Backup \n " 
+  read choose_banco 
+  if [ $choose_banco -eq 1 ] ; then 
+    echo "Por favor, copie o código abaixo no mysql : Nosso software não tem permissão para criar o Banco de Dados"
+    sleep 1 
+    cat ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql 
+    echo "\n\n"
+    sudo docker exec -it pardalis_sql mysql -uroot -p 
+  else 
+    echo "Nosso sistema está conectado na Azure! Contudo, não terás o backup local"
+    exit 
+  fi 
 else 
   echo "Certo! Clone manualmente em  https://github.com/project-pardalis/project-pardalis
 "
