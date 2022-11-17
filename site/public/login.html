@@ -86,7 +86,7 @@
     </div>
 
 </body>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>
 <script>
     //Fazendo o enter funcionar quando da um Enter no input
@@ -95,64 +95,64 @@
             return login()
         }
     }
-    function redirectUserToCadastro() {
-        window.location.href = './cadastro.html'
-    }
-    // Validaçao abas de Login. 
-    function login() {
 
-        var userEmailVar = ipt_email.value;
-        var senhaVar = ipt_password.value;
+    function validationLogin() {
+        let email = document.getElementById('ipt_email').value
+        let password = document.getElementById('ipt_password').value
 
-        if (userEmailVar == '' || senhaVar == '') {
-            error_msg.style.display = 'block'
-            error_msg.innerHTML = 'Todos os campos devem ser preenchidos';
-
+        if (email == '' || password == '') {
+            return "Preencha todos os campos";
+        } else if (email.indexOf('@') == -1 || email.indexOf('.') == -1) {
+            return "Email inválido";
+        } else {
+            return true;
         }
-        else {
-            // Pegando aqui o select do Username e da senha..
-            fetch("/usuarios/autenticar", {
+
+    }
+
+    // Validaçao abas de Login. 
+    async function login() {
+        let email = document.getElementById('ipt_email').value
+        let password = document.getElementById('ipt_password').value
+        if (validationLogin()) {
+            let res = await fetch("/usuarios/autenticar", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    userEmailServer: userEmailVar,
-                    senhaServer: senhaVar,
+                    userEmailServer: email,
+                    senhaServer: password,
                 })
-            }).then(function (resposta) {
-                console.log("ESTOU NO THEN DO entrar()!")
-                // Se o comando rodar então vai entrar nesse if
-                if (resposta.ok) {
-                    console.log(resposta);
-                    resposta.json().then(json => {
-                        console.log(json);
-
-                        sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                        sessionStorage.ID_USUARIO = json.idUsuario;
-                        sessionStorage.EMAIL_USUARIO = json.emailUsuario;
-                        sessionStorage.FK_EMPRESA = json.fkEmpresa;
-
-                        if (json.idUsuario != null) window.location.href = "/dashboard.html";
-                    });
-                }
+            });
+            if (res.ok) {
+                let resJson = await res.json();
+                sessionStorage.ID_USUARIO = resJson.idUsuario;
+                sessionStorage.EMAIL_USUARIO = resJson.emailUsuario;
+                sessionStorage.FK_EMPRESA = resJson.fkEmpresa;
+                sessionStorage.FK_ADMINISTRADOR = resJson.fkEmpresa;
+                if (resJson.idUsuario != null) window.location.href = "/dashboard.html";
                 else {
-                    console.log("Houve um erro ao tentar realizar o login!");
-                    resposta.text().then(texto => {
-                        console.error(texto);
-                        error_msg.innerHTML = `Email ou Senha inválida`;
-                        setTimeout(() => {
-                            error_msg.innerHTML = '';
-                        }, 4000)
-                    });
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Email ou senha incorretos!',
+                    })
                 }
-            }).catch(function (erro) {
-                console.log(erro);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Não foi possível comunicar com o servidor!',
+                })
+            }
+        } else {
+            console.log(validationLogin())
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: validationLogin(),
             })
-            return false;
         }
-        setTimeout(() => {
-            error_msg.innerHTML = '';
-        }, 4000)
     }
 </script>

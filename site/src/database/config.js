@@ -27,6 +27,7 @@ var sqlServerConfig = {
 };
  
 function executar(instrucao) {
+    console.log(instrucao)
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         //console.log("Executando a instrução SQL: \n" + instrucao);
@@ -38,8 +39,8 @@ function executar(instrucao) {
                 resolve(resultados.recordset);
             }).catch(function (erro) {
                 reject(erro);
-                console.log('ERRO: ', erro);
-            });
+/*                 console.log('ERRO: ', erro);
+ */            });
             sql.on('error', function (erro) {
                 return ("ERRO NO SQL SERVER (Azure): ", erro);
             });
