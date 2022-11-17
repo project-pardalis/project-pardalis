@@ -104,7 +104,7 @@ if [ $choose -eq 1 ]; then
   sudo docker rm -f pardalis_sql #se tiver, starta pra config
   sudo docker pull mysql/mysql-server:5.7 
   sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:5.7 
-  sudo docker exec -it pardalis_sql mysql -h localhost -uroot -p --protocol=tcp 
+  sudo docker exec -it pardalis_sql mysql -h 0.0.0.0 -uroot -p --protocol=tcp 
 
 else 
   echo "Certo! Clone manualmente em  https://github.com/project-pardalis/project-pardalis
