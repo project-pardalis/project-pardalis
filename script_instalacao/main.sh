@@ -104,7 +104,7 @@ if [ $choose -eq 1 ]; then
   clear
   echo "Aguardando servidor subir ... "
   sleep 3
-  sudo docker exec -it pardalis_sql mysql -uroot -p    
+  sudo docker exec -it pardalis_sql mysql -uroot -p < ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql
 
 else 
   echo "Certo! Clone manualmente em  https://github.com/project-pardalis/project-pardalis
