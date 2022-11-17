@@ -201,5 +201,6 @@ module.exports = {
     createViews,
     getMaquinaInfo,
     getComponente,
-    getMetricas
+    getMetricas,
+    getView
 }

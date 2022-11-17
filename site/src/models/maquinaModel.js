@@ -5,7 +5,8 @@ async function appendMachine(fkEmpresa, hashMaquina, nomeMaquina) {
     let existsHash = await database.executar(`SELECT * FROM Maquina WHERE hashMaquina = '${hashMaquina}'`);
     if (existsHash.length == 0) {
         try {
-            await database.executar(`INSERT INTO Maquina (fkEmpresa, hashMaquina, nomeMaquina, sistemaOperacional, onCloud) VALUES ('${fkEmpresa}', '${hashMaquina}', '${nomeMaquina}', "", 0)`);
+            if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") await database.executar(`INSERT INTO Maquina (fkEmpresa, hashMaquina, nomeMaquina, sistemaOperacional, onCloud) VALUES ('${fkEmpresa}', '${hashMaquina}', '${nomeMaquina}', "", 0)`);
+            else await database.executar(`INSERT INTO Maquina (fkEmpresa, hashMaquina, nomeMaquina, sistemaOperacional, onCloud) VALUES ('${fkEmpresa}', '${hashMaquina}', '${nomeMaquina}', '', 0)`);
             console.log(`Maquina ${nomeMaquina} cadastrada com sucesso!`);
             return true
         } catch (error) {
@@ -23,7 +24,7 @@ async function getMeanDates(fkEmpresa, fkMaquina) {
     for (let i = 0; i < metricas.length; i++) {
         let element = metricas[i];
         if (element.isEstatico == 0) {
-            view = await getView(maquinaInfo[0].nomeEmpresa, maquinaInfo[0].nomeMaquina, element.nomeMetrica, false, false);
+            view = await dashModel.getView(maquinaInfo[0].nomeEmpresa, maquinaInfo[0].nomeMaquina, element.nomeMetrica, false, false);
             
             view.forEach((element, i, arr) => {
                 if (i == 0) return;
@@ -74,22 +75,6 @@ function organizeData(data) {
         newData = {...newData, [keys[i]]: data[keys[i]]};
     }
     return newData;
-}
-
-async function getView(nomeEmpresa, nomeMaquina, nomeMetrica, order, limit) {
-    let teste;
-    try {
-        let sql = "SELECT * FROM `vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "`";
-        if (order) {
-            sql += ` ORDER BY dataColeta DESC `;
-        }
-        if (limit) sql += "LIMIT 10;"
-        teste = database.executar(sql);
-    } catch {
-        teste = [];
-    }
-    return teste;
-
 }
 
 function getMean(data) {
