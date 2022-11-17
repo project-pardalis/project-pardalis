@@ -55,7 +55,7 @@ while [ $j -lt 2 ]; do
     echo "Instalando aplicações..."
 	#install docker
     sudo apt install git -y 
-    sudo apt install docker -y 
+    sudo apt install docker.io -y 
     sudo apt install systemd -y 
     systemctl start docker
     systemctl enable docker 
@@ -70,7 +70,7 @@ while [ $j -lt 2 ]; do
     pip install pymysql psutil datetime getmac platform 
     sudo apt upgrade -y 
     sudo apt update -y 
-    let j=2
+    j=2
 
     #configurando docker 
 
@@ -102,11 +102,10 @@ if [ $choose -eq 1 ]; then
   echo "Configurando container, a aplicação irá pedir a senha que inseriu anteriormente, com isso, insira a mesma aqui. "
   
   sudo docker rm -f pardalis_sql #se tiver, starta pra config
-
   sudo docker pull mysql/mysql-server:latest 
   sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:latest
   docker exec -it pardalis_sql mysql -uroot -p < ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql bash
-   
+
 
 else 
   echo "Certo! Clone manualmente em  https://github.com/project-pardalis/project-pardalis
