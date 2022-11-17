@@ -1,6 +1,6 @@
 from datetime import datetime
 import pymysql.cursors 
-import pymssql, json, time
+import pymssql, json, time, psutil as ps
 
 #0 = DESENVOLVIMENTO
 #1 = PRODUCAO
@@ -211,8 +211,14 @@ def SO_isNull(hash_maquina : str):
 
 def appendSO(hash_maquina : str, so: str):
     date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    isCloud = False
+    try:
+        ps.cpu_freq().current
+        isCloud = True
+    except:
+        pass
     if AMBIENTE == 0:
-            command = f"UPDATE Maquina SET sistemaOperacional = '{so}', dataCriacao = '{date}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
+            command = f"UPDATE Maquina SET sistemaOperacional = '{so}', dataCriacao = '{date}', isCloud = {isCloud} WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
     else:
         command = f"UPDATE [pardalis].[dbo].[Maquina] SET [sistemaOperacional] = '{so}', dataCriacao = '{date}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
     run_sql_command(command)
