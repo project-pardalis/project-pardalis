@@ -817,3 +817,8 @@ function changeChartStyle(chartType) {
     }
     charts.dayChart.update();
 } 
+
+function logout() {
+    sessionStorage.clear();
+    window.location.href = "./index.html";
+}

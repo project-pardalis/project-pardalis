@@ -66,12 +66,39 @@ function deleteEmpresa(idEmpresa) {
     return database.executar(instrucao);
 }
 
+function getInfo(idUsuario) {
+    let instrucao;
+    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucao = `
+        SELECT idUsuario, nomeUsuario, emailUsuario, cargo, fkEmpresa, fkAdministrador FROM Usuario WHERE idUsuario = '${idUsuario}' LIMIT 1;`;
+    } else {
+        instrucao = `
+        SELECT TOP 1 idUsuario, nomeUsuario, emailUsuario, cargo, fkEmpresa, fkAdministrador FROM Usuario WHERE idUsuario = '${idUsuario}';`;
+    }
+    return database.executar(instrucao);
+}
 
+function updateUser(idUsuario, nome, email, senha) {
+    let instrucao;
+    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}' WHERE idUsuario = '${idUsuario}';`;
+    } else {
+        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}' WHERE idUsuario = '${idUsuario}';`;
+    }
 
+    try {
+        database.executar(instrucao);
+        return true;
+    } catch (error) {
+        return error;
+    }
+}
 module.exports = {
     entrar,
     cadastrarEmpresa,
     updatePassword,
     cadastrarFuncionario,
-    deleteEmpresa
+    deleteEmpresa,
+    getInfo,
+    updateUser
 };

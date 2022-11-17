@@ -2,11 +2,6 @@ var usuarioModel = require("../models/usuarioModel");
 var sha512 = require('js-sha512');
 var sessoes = [];
 
-function testar(req, res) {
-  console.log("ENTRAMOS NA usuarioController");
-  res.json("ESTAMOS FUNCIONANDO!");
-}
-
 function entrar(req, res) {
   var email = req.body.userEmailServer;
   var senha = req.body.senhaServer;
@@ -69,13 +64,13 @@ async function cadastrar(req, res) {
       resEmpresa = await usuarioModel.cadastrarEmpresa(empresa, cnpj);
       try {
         let resultado = await usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), resEmpresa[0].idEmpresa)
-        res.json({"ok": true});
+        res.json({ "ok": true });
       } catch (error) {
-        res.status(500).json({"erro": error.sqlMessage});
+        res.status(500).json({ "erro": error.sqlMessage });
       }
     } catch (error) {
-        res.status(500).json({"erro": error.sqlMessage});
-        usuarioModel.deleteEmpresa(resEmpresa[0].idEmpresa);
+      res.status(500).json({ "erro": error.sqlMessage });
+      usuarioModel.deleteEmpresa(resEmpresa[0].idEmpresa);
 
     }
 
@@ -111,10 +106,23 @@ function updatePassword(req, res) {
   }
 }
 
+async function getInfo(req, res) {
+  let idUsuario = req.params.idUsuario;
+  res.json(await usuarioModel.getInfo(idUsuario));
+}
+
+async function updateUser(req, res) {
+  let idUsuario = req.body.ID_USUARIO;
+  let nome = req.body.NOME_USUARIO;
+  let email = req.body.EMAIL_USUARIO;
+  let senha = req.body.SENHA_USUARIO;
+  res.json(await usuarioModel.updateUser(idUsuario, nome, email, sha512(senha)));
+}
 
 module.exports = {
   entrar,
   cadastrar,
   updatePassword,
-  testar
+  getInfo,
+  updateUser
 };
