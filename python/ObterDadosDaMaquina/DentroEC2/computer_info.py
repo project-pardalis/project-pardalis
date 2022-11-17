@@ -134,8 +134,8 @@ def get_disk_info():
         'disco_Total': transform_to_gb(disk.total),
         'disco_Usado': transform_to_gb(disk.used),
         'free_disk': transform_to_gb(disk.free),
-        'disco_read_time': ps.disk_io_counters().read_time >> 15,
-        'disco_write_time': ps.disk_io_counters().write_time >> 15
+        'disco_read_time': -500,
+        'disco_write_time': -500
     }
 
 # Retorna as informações da rede
