@@ -36,7 +36,7 @@ printf "\e[33m_____        _____  _____          _      _____  _____\e[0m
     echo "Java []"
   fi 
   sleep 1
-  if which python >/dev/sdba ; then
+  if which python >/dev/sda1 ; then
     j=$((j+1))  
     echo "Python [x]"
   else 
