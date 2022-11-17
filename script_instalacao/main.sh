@@ -8,10 +8,7 @@ if [  `id -u ` != 0 ] ; then
   exit 0 
 fi
 
-#vendo lingua
 
-SENHA= ''
-DOCKERID=''
 
 
 printf "\e[33m_____        _____  _____          _      _____  _____\e[0m 
@@ -104,7 +101,7 @@ if [ $choose -eq 1 ]; then
   sudo docker rm -f pardalis_sql #se tiver, starta pra config
   sudo docker pull mysql/mysql-server:5.7 
   sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:5.7 
-  sudo docker exec -it pardalis_sql mysql -h 0.0.0.0 -uroot -p --protocol=tcp 
+  sudo docker exec -it pardalis_sql mysql -uroot -p   
 
 else 
   echo "Certo! Clone manualmente em  https://github.com/project-pardalis/project-pardalis
