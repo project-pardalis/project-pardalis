@@ -24,7 +24,7 @@ printf "\e[33m_____        _____  _____          _      _____  _____\e[0m
  
   echo "Verificando se dependências estão instaladas..."
   sleep 2
-  
+    
   j=0 
   if which java >/dev/sda1 ; then 
     echo "Java [X]"
@@ -51,6 +51,8 @@ while [ $j -lt 2 ]; do
   if [ $choose -eq 1 ] ; then
     echo "Instalando aplicações..."
 	#install docker
+    sudo apt update 
+    sudo apt upgrade 
     sudo apt install git -y 
     sudo apt install docker.io -y 
     sudo apt install systemd -y 
