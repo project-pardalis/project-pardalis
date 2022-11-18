@@ -66,7 +66,7 @@ while [ $j -lt 2 ]; do
     sudo apt install python3 pip -y 
 
     #instalando dependencias python 
-    pip install pymysql psutil datetime getmac lib-platform 
+    pip install pymysql psutil datetime getmac lib-platform pymssql 
     sudo apt upgrade -y 
     sudo apt update -y 
     j=2
