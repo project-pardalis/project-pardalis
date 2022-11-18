@@ -51,8 +51,8 @@ while [ $j -lt 2 ]; do
   if [ $choose -eq 1 ] ; then
     echo "Instalando aplicações..."
 	#install docker
-    sudo apt update 
-    sudo apt upgrade 
+    sudo apt update -y  
+    sudo apt upgrade -y 
     sudo apt install git -y 
     sudo apt install docker.io -y 
     sudo apt install systemd -y 
@@ -66,7 +66,7 @@ while [ $j -lt 2 ]; do
     sudo apt install python3 pip -y 
 
     #instalando dependencias python 
-    pip install pymysql psutil datetime getmac platform 
+    pip install pymysql psutil datetime getmac lib-platform 
     sudo apt upgrade -y 
     sudo apt update -y 
     j=2
