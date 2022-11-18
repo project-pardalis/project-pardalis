@@ -108,21 +108,3 @@ INSERT INTO [dbo].[Metrica] (nomeMetrica, unidadeDeMedida, isEstatico) VALUES('d
 						  ('disco_read_time', 'MB', 0),	
 						  ('disco_write_time', 'MB', 0),	
 						  ('disco_Usado', 'GB', 0); -- DISCO
-
-
-CREATE VIEW [dbo].[vw_empresa_sptech_maquina_componentes] 
-	AS SELECT nomeComponente, isComponenteValido, descricao, nomeEmpresa, nomeMaquina 	
-FROM [dbo].[Empresa] 	
-JOIN Maquina ON (idEmpresa = Maquina.fkEmpresa) 	
-JOIN Componente ON (Componente.idMaquina = Maquina.idMaquina and Componente.fkEmpresa = idEmpresa);	
-
-CREATE VIEW [dbo].[vw_empresa_sptech_maquina1_leitura]
-AS SELECT nomeMaquina, dataCriacao, nomeComponente, nomeMetrica, 	
-	   unidadeDeMedida, dataColeta, valorLeitura FROM [dbo].[Leitura] 	
-       JOIN Componente on idComponente = Leitura.fkComponente	
-	   JOIN Metrica on idMetrica = Leitura.fkMetrica	
-       JOIN Maquina on Maquina.idMaquina = Leitura.fkMaquina and nomeMaquina = 'Servidor-SPTECH';
-
-CREATE VIEW [dbo].[vw_empresa_sptech_maquinas] AS	
-SELECT nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina 	
-FROM [dbo].[Empresa] JOIN Maquina ON idEmpresa = fkEmpresa;	

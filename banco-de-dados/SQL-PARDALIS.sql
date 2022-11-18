@@ -95,28 +95,3 @@ INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("disco_Tot
 						  ("disco_read_time", "MB", 0),	
 						  ("disco_write_time", "MB", 0),	
 						  ("disco_Usado", "GB", 0); -- DISCO	
-
--- Não rodar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
-
-INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("Dados Recebidos", "MB", 0),	
-						  ("Dados Enviados", "MB", 0);	
-
-
--- Views	
-
-CREATE VIEW `vw_empresa_sptech_maquina_componentes` AS	
-SELECT nomeComponente, isComponenteValido, descricao, nomeEmpresa, nomeMaquina 	
-FROM Empresa 	
-JOIN Maquina ON idEmpresa = Maquina.fkEmpresa 	
-JOIN Componente ON Componente.fkMaquina = idMaquina and Componente.fkEmpresa = idEmpresa;	
-
-CREATE VIEW `vw_empresa_sptech_maquina1_leitura` AS	
-SELECT nomeMaquina, dataCriacao, nomeComponente, nomeMetrica, 	
-	   unidadeDeMedida, dataColeta, valorLeitura FROM Leitura 	
-       JOIN Componente on idComponente = Leitura.fkComponente	
-	   JOIN Metrica on idMetrica = Leitura.fkMetrica	
-       JOIN Maquina on idMaquina = Leitura.fkMaquina and nomeMaquina = 'Servidor-SPTECH';	
-
-CREATE VIEW `vw_empresa_sptech_maquinas` AS	
-SELECT nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina 	
-FROM Empresa JOIN Maquina ON idEmpresa = fkEmpresa;	
