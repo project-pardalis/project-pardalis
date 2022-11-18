@@ -682,7 +682,7 @@ async function start() {
         for (const key in charts) {
             startChart(key, true);
         }
-    }, 1000);
+    }, 5000);
 }
 
 start();
