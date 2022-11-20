@@ -44,9 +44,7 @@ async function getMachine() {
 }
 
 
-function getDataComponentPercent() {
 
-}
 /* Event Clicks */
 
 function appendMachineDataBase() {

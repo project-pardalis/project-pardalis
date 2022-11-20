@@ -454,6 +454,8 @@ header {
 }
 
 .cards-general-data {
+  display: flex;
+  justify-content: center;
   height: fit-content;
   width: 20%;
 }

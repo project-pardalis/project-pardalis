@@ -21,6 +21,41 @@ let chartMaquinasEstado = new Chart(
     }
 });
 
+
+
+const dataSo = {
+
+    labels: [
+        'LINUX',
+        'WINDOWS',
+        'MAC'
+    ],
+
+    datasets: [{
+
+        label: 'Servidores com SO',
+        data: [600, 20, 10],
+        backgroundColor: [
+            ideal,
+            alerta,
+            risco
+        ],
+    }]
+};
+
+const chartSistemaOperacionalMaquinas = new Chart(
+    document.getElementById("chart-so"), {
+    data: dataSo,
+    type: 'bar',
+    options: {
+        maintainAspectRatio: false,
+        legend: {
+            display: false,
+        }
+    }
+}
+)
+
 let chartMaquinasArmazenamentoTotal = new Chart(
     document.getElementById("chart-armazenamento-total"), {
     type: 'doughnut',
@@ -48,7 +83,7 @@ function setChartStateData() {
     if (filter == "name") document.getElementsByClassName('maquinas-estado')[0].style.opacity = '0';
     else document.getElementsByClassName('maquinas-estado')[0].style.opacity = '100';
 
-    if(machines.length == 0) document.getElementsByClassName('armazenamento-total')[0].style.opacity = '0';
+    if (machines.length == 0) document.getElementsByClassName('armazenamento-total')[0].style.opacity = '0';
     else document.getElementsByClassName('armazenamento-total')[0].style.opacity = '100';
 
     setChartDiskTotal();
@@ -62,12 +97,12 @@ function setChartStateData() {
         }
 
         let data = machine.lastData[filter].valorLeitura;
-        let summary = filterSummary(null , machine).summary;
+        let summary = filterSummary(null, machine).summary;
 
         if (data >= summary.max) alerta++;
         else if (data > summary.q3) risco++;
         else normal++;
-        
+
     }
 
     console.log("Risco: " + risco + " Alerta: " + alerta + " Normal: " + normal + " Não Estabelecido: " + notEstablished)
@@ -78,7 +113,7 @@ function setChartStateData() {
 
 function setChartDiskTotal() {
     let total = 0, used = 0;
-    
+
     for (let i = 0; i < machines.length; i++) {
         let machine = machines[i];
 
