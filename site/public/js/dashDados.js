@@ -418,13 +418,13 @@ function mostrarLista(num) {
 async function start() {
     getParams();
     machines = await getMachine();
+    plotMachinesChart(machines)
     console.log(machines)
     setChartStateData();
     let result = changeOrderMachine(true)
     appendMachine(result);
     /* setInterval(reloadMachine(), 10000); */
+
 }
-
-start();
-
+start()
 

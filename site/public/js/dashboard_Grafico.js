@@ -1,3 +1,13 @@
+
+
+ideal = '#aa98ed'
+risco = 'rgb(255, 205, 86)'
+alerta = '#d93675'
+
+
+
+
+
 let chartMaquinasEstado = new Chart(
     document.getElementById("chart-maquinas-estado"), {
     type: 'doughnut',
@@ -23,6 +33,29 @@ let chartMaquinasEstado = new Chart(
 
 
 
+
+
+function plotMachinesChart() {
+    countWindows = 0
+    countLinux = 0
+    countMac = 0
+
+    for (i = 0; i < this.machines.length; i++) {
+        switch (machines[i].sistemaOperacional) {
+            case "Linux":
+                countLinux++;
+            case "Mac":
+                countMac++;
+            case "Windows":
+                countWindows;
+        }
+    }
+    console.log(countLinux)
+
+    return [countLinux, countMac, countWindows]
+}
+
+console.log(plotMachinesChart())
 const dataSo = {
 
     labels: [
@@ -34,7 +67,7 @@ const dataSo = {
     datasets: [{
 
         label: 'Servidores com SO',
-        data: [600, 20, 10],
+        data: plotMachinesChart(),
         backgroundColor: [
             ideal,
             alerta,
@@ -46,7 +79,7 @@ const dataSo = {
 const chartSistemaOperacionalMaquinas = new Chart(
     document.getElementById("chart-so"), {
     data: dataSo,
-    type: 'bar',
+    type: 'pie',
     options: {
         maintainAspectRatio: false,
         legend: {
@@ -55,6 +88,12 @@ const chartSistemaOperacionalMaquinas = new Chart(
     }
 }
 )
+
+
+
+
+
+
 
 let chartMaquinasArmazenamentoTotal = new Chart(
     document.getElementById("chart-armazenamento-total"), {
