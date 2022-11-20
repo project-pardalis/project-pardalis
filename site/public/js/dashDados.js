@@ -39,9 +39,14 @@ async function getMachine() {
         })
     })).json();
     let maquinas = response.maquinas;
+
     return maquinas;
 }
 
+
+function getDataComponentPercent() {
+
+}
 /* Event Clicks */
 
 function appendMachineDataBase() {
@@ -312,7 +317,7 @@ function verifiyColorInfoCpuTemperature(maq) {
     let color;
 
     let summary = filterSummary(null, maq, "cpu_Temperature").summary
-    
+
     if (maq.lastData.cpu_Temperature.valorLeitura > summary.max) color = colors.risco;
     if (maq.lastData.cpu_Temperature.valorLeitura > summary.q3) color = colors.alerta;
     if (maq.lastData.cpu_Temperature.valorLeitura == '-500.00') color = colors.nenhum;
@@ -355,7 +360,7 @@ function verificarCor(server, element) {
     } else {
         color = colors.normal;
     }
-    
+
     element.style.backgroundColor = color;
     return element;
 }

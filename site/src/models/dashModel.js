@@ -59,10 +59,10 @@ async function getView(nomeEmpresa, nomeMaquina, nomeMetrica, order, limit) {
             if (limit) sql += "LIMIT 10;"
         } else {
             sql = "SELECT "
-                    
+
             if (limit) sql += "TOP 10"
             sql += " * FROM [vw_" + nomeEmpresa + "_" + nomeMaquina + "_" + nomeMetrica + "]";
-            
+
             if (order) {
                 sql += ` ORDER BY dataColeta DESC `;
             }
@@ -81,8 +81,10 @@ function getMaquinaInfo(fkEmpresa, fkMaquina) {
     } else {
         sql = `SELECT nomeMaquina, nomeEmpresa, hashMaquina, sistemaOperacional, onCloud, dataCriacao FROM Maquina JOIN Empresa on idEmpresa = Maquina.fkEmpresa WHERE idMaquina = ${fkMaquina} AND fkEmpresa = ${fkEmpresa} LIMIT 1`
     }
-        return database.executar(sql)
+    return database.executar(sql)
 }
+
+
 
 async function checkIfViewExists(nomeEmpresa, nomeMaquina, nomeMetrica) {
     let sql;
@@ -92,7 +94,7 @@ async function checkIfViewExists(nomeEmpresa, nomeMaquina, nomeMetrica) {
         sql = `SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'vw_${nomeEmpresa}_${nomeMaquina}_${nomeMetrica}'`
     }
     let res = await database.executar(sql)
-    
+
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         res = res.filter((table) => {
             if (table.Table_type == 'VIEW' && table.Tables_in_pardalis == "vw_" + nomeEmpresa.toLowerCase() + "_" + nomeMaquina.toLowerCase() + "_" + nomeMetrica.toLowerCase()) {
@@ -107,7 +109,7 @@ async function checkIfViewExists(nomeEmpresa, nomeMaquina, nomeMetrica) {
             return true;
         }
     }
-   
+
 }
 
 async function createViewMetricas(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina) {
@@ -190,7 +192,7 @@ async function getComponente(fkEmpresa, fkMaquina, nomeComponente) {
     } else {
         sql = `SELECT nomeComponente, isComponenteValido, descricao FROM Componente WHERE nomeComponente = '${nomeComponente}' AND fkEmpresa = ${fkEmpresa} AND fkMaquina = ${fkMaquina} LIMIT 1`;
     }
-        let res = await database.executar(sql);
+    let res = await database.executar(sql);
     return res;
 }
 

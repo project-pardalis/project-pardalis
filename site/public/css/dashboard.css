@@ -135,6 +135,12 @@ header {
   display: flex;
 }
 
+.cards-kpi {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 .logo {
   height: 8vh;
   margin-left: 0vw;
@@ -277,7 +283,7 @@ header {
 
 .kpis-flex {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 1rem;
 }
 
@@ -486,6 +492,25 @@ header {
 
   min-height: 100%;
   max-height: 100%;
+}
+
+.text-title-center {
+  font-weight: bolder;
+  font-size: 3em;
+
+  padding: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.kpi-charts {
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.card-kpi {
+  border-radius: 40px;
+  text-align: center;
 }
 
 .small-font {

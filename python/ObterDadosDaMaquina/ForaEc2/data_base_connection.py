@@ -6,7 +6,7 @@ import pymssql, json, time, psutil as ps
 #1 = PRODUCAO
 
 
-AMBIENTE = 1
+AMBIENTE = 0
 
 
 
@@ -14,8 +14,8 @@ AMBIENTE = 1
 if AMBIENTE == 0:        
     connection = pymysql.connect(host='localhost',
                              user='aluno',
-                             password='sptech',
-                             database='pardalis',
+                             password='urubu100',
+                             database='PARDALIS',
                              cursorclass=pymysql.cursors.DictCursor)
     cursor = connection.cursor()
 else:
@@ -218,7 +218,7 @@ def appendSO(hash_maquina : str, so: str):
     except:
         pass
     if AMBIENTE == 0:
-            command = f"UPDATE Maquina SET sistemaOperacional = '{so}', dataCriacao = '{date}', isCloud = {isCloud} WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
+            command = f"UPDATE Maquina SET sistemaOperacional = '{so}', dataCriacao = '{date}', onCloud = {isCloud} WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
     else:
         command = f"UPDATE [pardalis].[dbo].[Maquina] SET [sistemaOperacional] = '{so}', dataCriacao = '{date}' WHERE hashMaquina = '{rename_hash(hash_maquina)}';"
     run_sql_command(command)
