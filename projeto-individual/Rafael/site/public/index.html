@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="nav">
+        <a href="abrirChamados.html">Abrir Chamado </a>
+    </div>
+    <div class="analitics">
+        Total chamados abertos: <div id="totalChamadosAbertos"></div>
+        Total chamados fechados: <div id="totalChamadosFechados"></div>
+        Categoria com mais chamados: <div id="categoriaMaisChamados"></div>
+        Cliente que mais cadastra chamados: <div id="clienteMaisChamados"></div>
+        Mês com maior quantidade de chamados: <div id="mesQuantidadeChamados"></div>
+    </div>
+    <div class="content">
+        <div id='cardsContent' class="cards-content">
+            <div class='cards' id="cards"></div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+<script>
+    lista = {}
+    function listarChamados() {
+        //aguardar();
+
+        //aguardar();
+        fetch("/listarChamados").then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+
+
+                    plotarPagina(resposta)
+
+                });
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+        fetch("/analytics").then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+
+
+                    demonstrarDados(resposta[0].selectChamadoAberto)
+
+                });
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    }
+
+    functionDemonstrarDados()
+
+    function plotarPagina(lista) {
+        console.log(lista)
+
+        for (i = 0; i < lista.length; i++) {
+            data = new Date(String(lista[i].dataChamado)).toLocaleDateString()
+
+            document.getElementById(`cards`).innerHTML +=
+                `       
+                        <div class='card-chamado'> 
+                        <div class="assunto-chamado">${lista[i].assuntoChamado}</div>
+                        <div class="categoria-chamado">Categoria: ${lista[i].categoriaChamado}</div>
+                        <hr>
+                        <div class="descricao-chamado">${lista[i].descricaoChamado}</div>
+                       
+                        <div class="usuario-chamado">${lista[i].nomeUsuario}</div > 
+                        <div class="data-chamado">${data}</div>
+
+                        <button>Selecionar</button>
+                   </div>
+            `
+        }
+    }
+    listarChamados()
+
+</script>

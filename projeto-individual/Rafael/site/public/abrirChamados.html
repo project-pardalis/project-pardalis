@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="title">Chamados</div>
+    <div class="content">
+        <div class="inputs">
+            <label for="">E-mail</label>
+            <input type="email" id="emailUsuario">
+            <label for="">Categoria</label>
+            <select name="" id="categoriaUsuario">
+                <option value="Dúvidas e informação">Dúvidas e informação</option>
+                <option value="Problema no sistema">Problema no sistema</option>
+                <option value="Lentidão">Lentidão</option>
+                <option value="Outros">Outros</option>
+            </select>
+            <label for="">Assunto</label>
+            <input type="text" id="assuntoUsuario">
+            <label for="">Descrição</label>
+            <textarea name="" id="descricaoUsuario" cols="30" rows="10"></textarea>
+            <button onclick="abrirChamado()">Enviar</button>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+<script>
+    function validarChamado(email, categoria, assunto, descricao) {
+        if (email == "" || categoria == "" || assunto == "" || descricao == "") {
+            alert("Algum campo está vazio")
+            console.log([
+                email, categoria, assunto, descricao
+            ])
+            return false
+        }
+
+        else if (email.indexOf('@') == -1 || email.indexOf('.com') == -1) {
+            alert("Email inválido")
+            return false
+        }
+        else {
+            return true
+        }
+
+
+    }
+    async function abrirChamado() {
+        let email = document.getElementById('emailUsuario').value
+        let categoria = document.getElementById('categoriaUsuario').value
+
+        let assunto = document.getElementById('assuntoUsuario').value
+
+        let descricao = document.getElementById('descricaoUsuario').value
+
+        if (validarChamado(email, categoria, assunto, descricao)) {
+
+            console.log([email, categoria, assunto, descricao])
+
+            let res = await fetch("/abrirChamados/adicionarChamado", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    emailChamado: email,
+                    categoriaChamado: categoria,
+                    assuntoChamado: assunto,
+                    descricaoChamado: descricao,
+                    categoriaChamado: categoria
+                })
+            });
+            console.log(res)
+            console.log("Enviado! Indo para o Controller")
+            if (res.ok) {
+                let resJson = await res.json();
+                console.log(resJson)
+            }
+        }
+
+
+    }
+</script>
