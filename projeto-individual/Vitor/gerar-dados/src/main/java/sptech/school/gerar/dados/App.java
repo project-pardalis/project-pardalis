@@ -15,9 +15,17 @@ public class App {
     public static void main(String[] args) {
         
         Main main  = new Main();
-        
+
         main.criarMaquinas();
-        
+        main.criarComponentes();
+        main.criarComponenteHasMetrica();
+
+//        List<Maquina> maquinas = main.jdbcTemplate.query("SELECT * FROM [dbo].[Maquina]", new MaquinaRowMapper());
+//        List<Componente> componentes = main.jdbcTemplate.query("SELECT * FROM [dbo].[Componente]", new ComponenteRowMapper());
+//        List<ComponenteHasMetrica> compHasMetricas = main.jdbcTemplate.query("SELECT * FROM [dbo].[Componente_has_Metrica]", new ComponenteHasMetricaRowMapper());
+//
+//        System.out.println(compHasMetricas);
+//        System.out.println(componentes);
     }
     
 }

@@ -9,10 +9,16 @@ package sptech.school.gerar.dados;
  * @author aluno
  */
 public class Metrica {
-    
+
+    private Integer idMetrica;
+
     private String nomeMetrica;
     private String unidadeMedida;
     private Boolean isEstatico;
+
+    public Integer getId() { return idMetrica; }
+
+    public void setIdMetrica(Integer idMetrica) { this.idMetrica = idMetrica; }
 
     public String getNomeMetrica() {
         return nomeMetrica;
@@ -37,5 +43,14 @@ public class Metrica {
     public void setIsEstatico(Boolean isEstatico) {
         this.isEstatico = isEstatico;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Metrica{" +
+                "idMetrica=" + idMetrica +
+                ", nomeMetrica='" + nomeMetrica + '\'' +
+                ", unidadeMedida='" + unidadeMedida + '\'' +
+                ", isEstatico=" + isEstatico +
+                '}';
+    }
 }

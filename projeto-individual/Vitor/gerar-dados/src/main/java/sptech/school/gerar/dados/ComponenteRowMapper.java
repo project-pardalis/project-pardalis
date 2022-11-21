@@ -16,8 +16,8 @@ public class ComponenteRowMapper implements RowMapper<Componente> {
     
     @Override
     public Componente mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Componente componente = new Componente(rs.getString("nomeComponente"), 
-                rs.getArray("descricao").toString(),rs.getInt("fkMaquina"));
+        Componente componente = new Componente(rs.getInt("idComponente"),rs.getString("nomeComponente"),
+                null ,rs.getInt("fkMaquina"));
         return componente;
     }
     

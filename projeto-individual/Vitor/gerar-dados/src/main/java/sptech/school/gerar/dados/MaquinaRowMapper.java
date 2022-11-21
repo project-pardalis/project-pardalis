@@ -16,7 +16,7 @@ public class MaquinaRowMapper implements RowMapper<Maquina> {
     
     @Override
     public Maquina mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Maquina maquina = new Maquina(rs.getString("nomeMaquina"),
+        Maquina maquina = new Maquina(rs.getInt("idMaquina") ,rs.getString("nomeMaquina"),
                 rs.getString("sistemaOperacional"),rs.getString("hashMaquina"));
         return maquina;
     }

@@ -17,6 +17,7 @@ public class MetricaRowMapper implements RowMapper<Metrica> {
         @Override
         public Metrica mapRow(ResultSet rs, int rowNum) throws SQLException {
             Metrica metrica = new Metrica();
+            metrica.setIdMetrica(rs.getInt("idMetrica"));
             metrica.setNomeMetrica(rs.getString("nomeMetrica"));
             metrica.setUnidadeMedida(rs.getString("unidadeDeMedida"));
             metrica.setIsEstatico(rs.getBoolean("isEstatico"));
