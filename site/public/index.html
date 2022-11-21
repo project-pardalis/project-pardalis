@@ -154,7 +154,9 @@
             <div class="video-container">
 
                 <div class="video-apresentacao">
-
+                    <div class="ratio ratio-16x9">
+                        <iframe src="https://www.youtube.com/embed/watch?v=yJDBmP9Mexk" title="YouTube video" allowfullscreen></iframe>
+                      </div>
                 </div>
 
 
@@ -221,27 +223,27 @@
                             <p class="h5">Empresa</p>
                         </li>
                         <li>
-                            <p class="h6 fw-light">Sobre</p>
+                            <p class="h6 fw-light" onclick="redirectUserToPrivacidade()">Sobre</p>
                         </li>
                         <li>
-                            <p class="h6 fw-light">Marca</p>
+                            <p class="h6 fw-light" onclick="redirectUserToPrivacidade()">Marca</p>
                         </li>
                         <li>
-                            <p class="h6 fw-light">Empregos</p>
+                            <p class="h6 fw-light" onclick="redirectUserToPrivacidade()">Empregos</p>
                         </li>
                     </ul>
                     <ul class="ul_footer m-0 p-0 mt-3 mt-md-0 ms-0 ms-md-3">
                         <li>
-                            <p class="h5">Política</p>
+                            <p class="h5 fw-light" onclick="redirectUserToPrivacidade()">Política de Privacidade</p>
                         </li>
                         <li>
-                            <p class="h6 fw-light">Termos</p>
+                            <p class="h6 fw-light" onclick="redirectUserToPrivacidade()">Termos</p>
                         </li>
                         <li>
-                            <p class="h6 fw-light">Configurações de cookies</p>
+                            <p class="h6 fw-light" onclick="redirectUserToPrivacidade()">Configurações de cookies</p>
                         </li>
                         <li>
-                            <p class="h6 fw-light">Diretrizes</p>
+                            <p class="h6 fw-light" onclick="redirectUserToPrivacidade()">Diretrizes</p>
                         </li>
                     </ul>
                     <ul class="ul_footer m-0 p-0 mt-3 mt-md-0 ms-0 ms-md-3">
@@ -265,43 +267,12 @@
 </html>
 
 <script>
-    var selectedImgIndex = 0;
-
-    function setCarrossel() {
-        let images = document.querySelectorAll(' #slider img'); for (let i = 0; i < images.length; i++) {
-            images[i].addEventListener('click', (event) => {
-
-                let sliderElement = document.querySelector('#slider');
-
-                let imgIndex = parseInt(event.target.id);
-                if (imgIndex == selectedImgIndex) return 0;
-
-                switch (imgIndex) {
-                    case 1:
-                        carrosselAtualPosition = 19;
-                        break;
-                    case 2:
-                        carrosselAtualPosition = -63;
-                        break;
-                    case 3:
-                        carrosselAtualPosition = -120;
-                        break;
-                    case 4:
-                        carrosselAtualPosition = -170;
-                        break;
-                }
-
-                for (let j = 0; j < images.length; j++) { images[j].classList.remove('selected'); } images[imgIndex
-                    - 1].classList.add('selected'); var cssRoot = document.querySelector(':root');
-                cssRoot.style.setProperty('--carrossel-position-x', `${carrosselAtualPosition}`);
-                selectedImgIndex = imgIndex;
-            });
-        }
-    } setCarrossel(); </script>
-
-<script>
 
     function redirectUserToLogin() {
         window.location.href = "./login.html";
+    }
+
+    function redirectUserToPrivacidade() {
+        window.location.href = "./privacidade.html";
     }
 </script>
