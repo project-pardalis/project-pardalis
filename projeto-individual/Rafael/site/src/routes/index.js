@@ -12,10 +12,6 @@ router.get("/listarChamados", function (req, res) {
 });
 
 
-router.get("/analytics", function (req, res) {
-    visualizarChamadosController.getAnalitycs(req, res);
-});
-
 
 
 module.exports = router;

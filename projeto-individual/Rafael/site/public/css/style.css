@@ -39,3 +39,8 @@
 .categoria-chamado {
     font-size: 0.6em;
 }
+
+.chart {
+    width: 8rem;
+    height: 8rem;
+}

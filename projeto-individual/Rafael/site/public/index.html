@@ -17,8 +17,14 @@
         Total chamados abertos: <div id="totalChamadosAbertos"></div>
         Total chamados fechados: <div id="totalChamadosFechados"></div>
         Categoria com mais chamados: <div id="categoriaMaisChamados"></div>
-        Cliente que mais cadastra chamados: <div id="clienteMaisChamados"></div>
         Mês com maior quantidade de chamados: <div id="mesQuantidadeChamados"></div>
+        <div class="chart">
+            <canvas id="graficoChamadosAbertosFechados"></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="graficoChamadosBarraPorData"></canvas>
+        </div>
+
     </div>
     <div class="content">
         <div id='cardsContent' class="cards-content">
@@ -30,6 +36,8 @@
 </body>
 
 </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./js/chartsVIsualizacaoChamados.js"></script>
 <script>
     lista = {}
     function listarChamados() {
@@ -40,7 +48,7 @@
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
 
-
+                    demonstrarDados(resposta)
                     plotarPagina(resposta)
 
                 });
@@ -49,22 +57,71 @@
             console.error(resposta);
         });
 
-        fetch("/analytics").then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
 
-
-                    demonstrarDados(resposta[0].selectChamadoAberto)
-
-                });
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
 
     }
 
-    functionDemonstrarDados()
+    function demonstrarDados(res) {
+        countAbertos = 0
+
+        for (i = 0; i < res.length; i++) {
+            if (res[i].isAberto == 1) { // chamados abertos 
+                countAbertos++;
+            }
+        }
+        countFechados = countAbertos - res.length
+        categoria = getCategoriaRepeticao(res)
+
+        document.getElementById('totalChamadosAbertos').innerHTML = countAbertos;
+        document.getElementById('totalChamadosFechados').innerHTML = countAbertos - res.length;
+        document.getElementById('categoriaMaisChamados').innerHTML = categoria
+
+        plotarGraficoPizzaChamados(countAbertos, countFechados)
+        plotarGraficoDataChamados(getDataChamados(res))
+        console.log(getDataChamados(res))
+    }
+
+    function getDataChamados(arr) {
+        datasChamado = []
+        for (i = 0; i < arr.length; i++) {
+            data = new Date(String(arr[i].dataChamado)).toLocaleDateString()
+
+
+        }
+        return datasChamado
+    }
+    function getCategoriaRepeticao(arr) {
+        //add categoria json
+        valores = [0, 0, 0, 0, 0]
+        categorias = ["Dúvidas e informação",
+            "Instabilidade_do_servidor",
+            "Incongruencia_dos_dados",
+            "Pedido",
+            "Outros"]
+        max = 0
+
+        for (i = 0; i < arr.length; i++) {
+            bool = false;
+            for (j = 0; j < categorias.length; j++) {
+                if (categorias.indexOf(arr[i].categoriaChamado >= 0)) {
+
+                    bool = true
+                }
+            }
+            if (bool == true) {
+                valores[categorias.indexOf(arr[i].categoriaChamado)]++;
+            }
+        }
+        for (i = 0; i < valores.length; i++) {
+            if (valores[i] > max) {
+                max = valores[i]
+            }
+        }
+
+        return categorias[valores.indexOf(max)]
+
+
+    }
 
     function plotarPagina(lista) {
         console.log(lista)
