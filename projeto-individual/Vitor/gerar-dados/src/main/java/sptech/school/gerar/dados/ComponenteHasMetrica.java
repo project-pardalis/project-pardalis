@@ -1,5 +1,7 @@
 package sptech.school.gerar.dados;
 
+import java.util.Objects;
+
 public class ComponenteHasMetrica {
 
     private Integer fkComponente;
@@ -54,5 +56,9 @@ public class ComponenteHasMetrica {
                 ", fkMaquina=" + fkMaquina +
                 ", fkEmpresa=" + fkEmpresa +
                 '}';
+    }
+
+    public Boolean existsId(Integer fkMaquina, Integer fkComponente) {
+        return !fkMaquina.equals(this.fkMaquina) || !fkComponente.equals(this.fkComponente);
     }
 }

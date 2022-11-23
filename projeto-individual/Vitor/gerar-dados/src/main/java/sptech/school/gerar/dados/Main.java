@@ -6,6 +6,8 @@ package sptech.school.gerar.dados;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -89,20 +91,23 @@ public class Main {
 
         System.out.println("Criando Componentes relacionados a metricas...");
 
-        for (Componente componente : componentes) {
-            for (Metrica metrica : metricas) {
-                if (metrica.getNomeMetrica().contains(componente.getNome())) {
-                    ComponenteHasMetrica compHM = new ComponenteHasMetrica(componente.getId(), metrica.getId(),
-                            componente.getFkMaquina(), 1);
-                    compHasMetrica.add(compHM);
-                    jdbcTemplate.update(String.format("INSERT INTO [dbo].[Componente_has_Metrica] " +
-                            "(fkComponente, fkMetrica, fkMaquina, fkEmpresa) VALUES " +
-                            "(%d, %d, %d , 1)", componente.getId(), metrica.getId(), componente.getFkMaquina()));
+            for (Componente componente : componentes) {
+                int cont = 0;
+                for (ComponenteHasMetrica compHasMet : compHasMetrica) {
+                    if (compHasMet.getFkComponente().equals(componente.getId())) {
+                        cont++;
+                    }
+                }
+                while (cont < 11) {
+                        ComponenteHasMetrica compHM = new ComponenteHasMetrica(componente.getId(), metricas.get(cont).getId(),
+                                componente.getFkMaquina(), 1);
+                        compHasMetrica.add(compHM);
+                        jdbcTemplate.update(String.format("INSERT INTO [dbo].[Componente_has_Metrica] " +
+                                "(fkComponente, fkMetrica, fkMaquina, fkEmpresa) VALUES " +
+                                "(%d, %d, %d , 1)", componente.getId(), metricas.get(cont).getId(), componente.getFkMaquina()));
+                        cont++;
+                    System.out.println("Componente_has_Metrica Inserido");
+                    }
                 }
             }
-        }
-
-        System.out.println(compHasMetrica);
-
-        }
     }
