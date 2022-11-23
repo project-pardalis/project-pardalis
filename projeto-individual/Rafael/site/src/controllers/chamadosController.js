@@ -28,18 +28,18 @@ function getDataLeituraMetrica(req, res) {
 
 
     let dataChamado = new Date(req.query.dataChamado)
-
+    let metrica = req.query.metrica
     let dataComparacao = dataChamado - 1000 * 60 * 30
     dataComparacao = new Date(dataComparacao)
-    dataChamado = String(`${dataChamado.getUTCFullYear()}-${dataChamado.getUTCMonth()}-${corrigirData(dataChamado.getUTCDay())} ${dataChamado.getHours()}:${dataChamado.getMinutes()}:${dataChamado.getSeconds()}`)
+    dataChamado = String(`${dataChamado.getUTCFullYear()}-${dataChamado.getUTCMonth() + 2}-${dataChamado.getDate() + 20} ${dataChamado.getHours()}:${dataChamado.getMinutes()}:${dataChamado.getSeconds()}`)
 
-    dataComparacao = String(`${dataComparacao.getUTCFullYear()}-${dataComparacao.getUTCMonth()}-${corrigirData(dataComparacao.getUTCDay())} ${dataComparacao.getHours()}:${dataComparacao.getMinutes()}:${dataComparacao.getSeconds()}`)
+    dataComparacao = String(`${dataComparacao.getUTCFullYear()}-${dataComparacao.getUTCMonth() + 2}-${dataComparacao.getDate() + 20} ${dataComparacao.getHours()}:${dataComparacao.getMinutes()}:${dataComparacao.getSeconds()}`)
 
     idMaquina = req.query.idMaquina
 
 
     if (idMaquina >= 0) {
-        chamadoModel.getDataLeituraMetrica(idMaquina, dataChamado, dataComparacao).then(function (resultado) {
+        chamadoModel.getDataLeituraMetrica(idMaquina, dataChamado, dataComparacao, metrica).then(function (resultado) {
             if (resultado.length >= 0) {
                 console.log(req.query)
                 res.status(200).json(resultado);

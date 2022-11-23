@@ -1,12 +1,12 @@
 var database = require("../database/config")
 
+dataAtual = new Date()
+dataAtual = String(`${dataAtual.getUTCFullYear()}-${dataAtual.getUTCMonth()}-${corrigirData(dataAtual.getUTCDay())} ${dataAtual.getHours()}:${dataAtual.getMinutes()}:${dataAtual.getSeconds()}`)
 
-dataAtual = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 
-
-function getDataLeituraMetrica(id, dataChamado, dataAntesChamado) {
-    instrucao = `select valorLeitura, nomeMetrica,dataColeta, unidadeDeMedida from Leitura JOIN Maquina Join Metrica  WHERE idMaquina=${id} and idMetrica=fkMetrica and fkMaquina=idMaquina BETWEEN '${dataAntesChamado}' and '${dataChamado}'  LIMIT 60 ;`
+function getDataLeituraMetrica(id, dataChamado, dataAntesChamado, metrica) {
+    instrucao = `select valorLeitura, nomeMetrica,dataColeta, unidadeDeMedida from Leitura JOIN Maquina Join Metrica  WHERE idMaquina=${id}  and fkMaquina=idMaquina and fkMetrica=idMetrica and nomeMetrica='${metrica}' and dataColeta BETWEEN '${dataAntesChamado}' and '${dataChamado}';`
     return database.executar(instrucao)
 }
 
@@ -61,6 +61,16 @@ function getDadosMaquina(id) {
     return database.executar(instrucao)
 
 }
+
+
+function corrigirData(dia) {
+    if (String(dia).length == 1) {
+        return `0${dia}`
+    }
+    console.log("tamanho dia : " + dia.length)
+    return dia
+}
+
 module.exports = {
     addChamado, listarChamados, fecharChamado, getDadosMaquina, getDataLeituraMetrica
 }

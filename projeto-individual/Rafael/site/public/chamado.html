@@ -22,14 +22,47 @@
         <button>Abrir relatório</button>
         <div class="relatorio">
 
+            <div class="graficos">
+                <div class="chart1">
+                    <canvas id="lineChartCompUse">
+
+                    </canvas>
+                </div>
+            </div>
+
+
+
+            Graficos:
+            - maior uso por cada componente
+            - uso do componente que ele escolheu (linha)
+            - temperatura da cpu
+            -kpis sinalizando media
+            -analise automatica se "alerta! ", "crítico" ou "tudo normal"
             <label for=""> Nome Máquina:</label>
             <div id="nomeMaquina"></div>
             <label for="">Hash máquina:</label>
             <div id="hashMaquina"></div>
 
+            Ver componentes:
+            <select name="" onchange='getDataLeitura(dadosMaquina)' id="selectComponente">
+                <option value="cpu">CPU</option>
+                <option value="ram">RAM</option>
+                <option value="disco">DISCO</option>
+            </select>
 
             <div class="dadosMaquina">
-
+                <p>
+                    Média de uso do
+                <div class="componente"></div> : <div id="mediaUso"></div>
+                </p>
+                <p>
+                    Máximo uso do
+                <div class="componente"></div> : <div id="maxUso"></div>
+                </p>
+                <p>A situação do
+                <div class="componente"></div> é :
+                <div id="alertasUso"></div>
+                </p>
             </div>
         </div>
 
@@ -42,21 +75,93 @@
 
 
     let dadosChamado = 0
+    let dadosMaquina = 0
+
+
+    function getMedia(res) {
+        med = 0
+        for (i = 0; i < res.length; i++) {
+            med += parseFloat(res[i].valorLeitura)
+        }
+        return Math.round(med / res.length, 2)
+    }
+    function getAlertas(res, comp) {
+        alerts = { 'risco': 0, 'alerta': 0, 'ok': 0 }
+        for (i = 0; i < res.length; i++) {
+            if (comp == 'cpu') {
+                if (res[i].valorLeitura > 80) {
+                    alerts.risco += 1;
+                }
+                else if (res[i].valorLeitura < 60 && res[i].valorLeitura >= 0) {
+                    alerts.ok += 1;
+                }
+                else {
+                    alerts.alerta += 1;
+                }
+            }
+        }
+        return alerts
+    }
+    function getMaiorUso(res, comp) {
+        max = 0
+        for (i = 0; i < res.length; i++) {
+            if (parseFloat(res[i].valorLeitura) > max) {
+                max = parseFloat(res[i].valorLeitura)
+            }
+        }
+        return max
+    }
+    function plotarAnalytics(res) {
+        media = getMedia(res)
+        alertas = getAlertas(res, selectComponente.value)
+        maiorUso = getMaiorUso(res)
+        valores = []
+        label = []
+        elements = document.getElementsByClassName('componente')
+        for (i = 0; i < elements.length; i++) {
+            elements[i].innerHTML = selectComponente.value
+        }
+        for (i = 0; i < res.length; i++) {
+            valores.push(parseInt(res[i].valorLeitura))
+            if (i % 5 == 0) {
+                label.push(i)
+            }
+        }
+        plotarGraficoPorChamadoDados(valores, label, selectComponente.value)
+
+        mediaUso.innerHTML = media + "%"
+        maxUso.innerHTML = maiorUso + "%"
+
+        alertasUso.innerHTML = `<div class='situacaoAlertas'> <div class='alertaTexto'> Ok: ${alertas.ok}x </div> 
+        <div class='alertaTexto'> Alerta: ${alertas.alerta}x </div>
+        <div class='alertaTexto'> Risco: ${alertas.risco}x </div></div>  `
+        console.log(alertas)
+        console.log(maiorUso)
+        console.log(media)
+    }
     function getDataLeitura(res) {
 
-        data = new Date(dadosChamado[0].dataChamado)
-        data = data - 1000 * 60 * 60 * 3
+        let data = new Date(dadosChamado[0].dataChamado)
+        data = data
         data = String(new Date(data).toISOString())
 
         console.log(data)
 
-
-        fetch("/getLeituraMetricaDados/?idMaquina=" + res[0].idMaquina + "&dataChamado=" + data).then(function (resposta) {
+        let metrica = ''
+        if (selectComponente.value == 'cpu') {
+            metrica = 'cpu_Utilizacao'
+        }
+        else if (selectComponente.value == 'ram') {
+            metrica = 'ram_Usada'
+        }
+        else {
+            metrica = 'disco_Usado'
+        }
+        fetch("/getLeituraMetricaDados/?idMaquina=" + res[0].idMaquina + "&dataChamado=" + data + "&metrica=" + metrica).then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
-                    console.log('work')
                     console.log(resposta)
-
+                    plotarAnalytics(resposta)
                 });
             }
         }).catch(function (resposta) {
@@ -92,8 +197,8 @@
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
 
+                    dadosMaquina = resposta
 
-                    getDataLeitura(resposta)
                 });
             }
         }).catch(function (resposta) {
@@ -164,5 +269,7 @@
     }
     listarChamados()
 </script>
+<script src="/js/chartsVisualizacaoChamados.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </html>
