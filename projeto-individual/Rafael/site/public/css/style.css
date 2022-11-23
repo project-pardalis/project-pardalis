@@ -10,6 +10,10 @@
 
 }
 
+#maquinaSelect {
+    display: none;
+}
+
 .card-chamado {
     margin: 1rem;
     flex: 1 0 21%;

@@ -26,8 +26,12 @@ router.post("/fecharChamado", function (req, res) {
     chamadosController.fecharChamado(req, res);
 });
 
-router.get("/pegarMaquinasCliente", function (req, res) {
-    chamadosController.pegarMaquinasCliente(req, res);
+router.get("/getDadosMaquina", function (req, res) {
+    chamadosController.getDadosMaquina(req, res);
+});
+
+router.get("/getLeituraMetricaDados", function (req, res) {
+    chamadosController.getDataLeituraMetrica(req, res);
 });
 
 

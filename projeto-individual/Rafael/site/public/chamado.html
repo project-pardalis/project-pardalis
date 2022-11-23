@@ -14,14 +14,23 @@
         <div class="title-webpage-chamado" id="titlePage"> </div>
         <div class="descricao-webpage-chamado" id="descricaoPage"></div>
         <div class="cliente-webpage-chamado" id="clientePage"></div>
+        <div id="emailPage"></div>
+        <div id="nomePage"></div>
         <div id="categoriaPage"></div>
         <div id="dataPage"> </div>
         <button onclick="fecharChamado()">Fechar chamado</button>
         <button>Abrir relatório</button>
         <div class="relatorio">
-            <p>
 
-            </p>
+            <label for=""> Nome Máquina:</label>
+            <div id="nomeMaquina"></div>
+            <label for="">Hash máquina:</label>
+            <div id="hashMaquina"></div>
+
+
+            <div class="dadosMaquina">
+
+            </div>
         </div>
 
 
@@ -32,16 +41,41 @@
 <script>
 
 
+    let dadosChamado = 0
+    function getDataLeitura(res) {
+
+        data = new Date(dadosChamado[0].dataChamado)
+        data = data - 1000 * 60 * 60 * 3
+        data = String(new Date(data).toISOString())
+
+        console.log(data)
+
+
+        fetch("/getLeituraMetricaDados/?idMaquina=" + res[0].idMaquina + "&dataChamado=" + data).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log('work')
+                    console.log(resposta)
+
+                });
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+    }
+
+
     function listarChamados() {
         //aguardar();
-
-        //aguardar();
-        fetch("/listarChamado").then(function (resposta) {
+        fetch("/listarChamado/?id=" + sessionStorage.IDUSUARIO).then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
 
-                    console.log(resposta)
+                    dadosChamado = resposta
                     plotarPagina(resposta)
+                    getDadosMaquina(resposta)
+
 
                 });
             }
@@ -52,9 +86,23 @@
 
 
     }
+    function getDadosMaquina(res) {
+        console.log(res)
+        fetch("/getDadosMaquina/?idMaquina=" + res[0].fkMaquina).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
 
-    console.log(sessionStorage.IDUSUARIO)
 
+                    getDataLeitura(resposta)
+                });
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+
+    }
     function fecharChamado() {
         let res = fetch("/fecharChamado", {
             method: "POST",
@@ -75,37 +123,32 @@
         }
     }
 
-    function getDadosMaquina(id) {
-        fetch("/pegarMaquinasCliente", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                idCliente: id,
-
-            })
-
-        })
 
 
-    }
 
     function plotarPagina(arr) {
-        userId = getUserId(arr)
-        getDadosMaquina(userId)
+
+        userEmail = getUserEmail(arr)
+
+        console.log("email: " + userEmail)
         res = getArrayJsonId(arr)
         data = new Date(String(res.dataChamado)).toLocaleDateString()
+
         titlePage.innerHTML = res.assuntoChamado;
         categoriaPage.innerHTML = res.categoriaChamado;
+        nomePage.innerHTML = res.nomeUsuario;
+        emailPage.innerHTML = userEmail
         dataPage.innerHTML = data;
         descricaoPage.innerHTML = res.descricaoChamado;
+        // nomeMaquina.innerHTML = res.nomeMaquina
+        // hashMaquina.innerHTML = res.hashMaquina
+
     }
 
-    function getUserId(res) {
+    function getUserEmail(res) {
         for (i = 0; i < res.length; i++) {
             if (res[i].idChamado == sessionStorage.IDUSUARIO) {
-                return res[i].idUsuario;
+                return res[i].emailUsuario;
             }
         }
     }

@@ -13,7 +13,7 @@
     <div class="content">
         <div class="inputs">
             <label for="">E-mail</label>
-            <input type="email" id="emailUsuario">
+            <input onblur="runFetchEmailOnBlur()" type="email" id="emailUsuario">
             <label for="">Categoria</label>
             <select name="" id="categoriaUsuario">
                 <option value="Duvidas_e_informacoes">Dúvidas e informação</option>
@@ -24,20 +24,52 @@
             </select>
             <label for="">Assunto</label>
             <input type="text" id="assuntoUsuario">
+            <label for="">Máquina</label>
+            <select name="" onchange='mudarDadosPagina()' id="maquinaSelect">
+
+            </select>
             <label for="">Descrição</label>
             <textarea name="" id="descricaoUsuario" cols="30" rows="10"></textarea>
-            <label for="">Hash da máquina (Opcional) </label>
-            <input type="text" id="hashUsuario">
             <button onclick="abrirChamado()">Enviar</button>
         </div>
     </div>
+    <div class="dadosMaquina">
+        Dados da maquina escolhida:
+        <p>
+            Nome:
+        <div id="nomeMaquina"></div><br>
+        Hash: <div id="hashMaquina"></div><br>
+        Sistema operacional : <div id="soMaquina"></div>
 
+        </p>
+    </div>
 
 </body>
 
 </html>
 <script>
-    whereUsuario = 0
+
+    maquinaSelect.style.display = 'none'
+    dadosMaquina = 0
+
+
+    function mudarDadosPagina() {
+        res = getMachineInJson(dadosMaquina, maquinaSelect.value)
+        nomeMaquina.innerHTML = res.nomeMaquina
+        hashMaquina.innerHTML = res.hashMaquina
+        soMaquina.innerHTML = res.sistemaOperacional
+    }
+
+    function getMachineInJson(arr, id) {
+        for (i = 0; i < arr.length; i++) {
+
+            if (arr[i].idMaquina == id) {
+
+                return arr[i]
+            }
+        }
+    }
+
     function validarChamado(email, categoria, assunto, descricao) {
         if (email == "" || categoria == "" || assunto == "" || descricao == "") {
             alert("Algum campo está vazio")
@@ -68,9 +100,7 @@
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
 
-                    console.log(resposta)
 
-                    whereUsuario = getIdCliente(resposta)
 
                 });
             }
@@ -81,18 +111,15 @@
 
 
     }
-    function getIdCliente(res) {
-        for (i = 0; i < res.length; i++) {
-            if (res[i].idChamado == parseInt(sessionStorage.IDUSUARIO)) {
-                return res[i].idUsuario
-            }
-
-        }
+    function runFetchEmailOnBlur() {
+        getDadosMaquina(emailUsuario.value)
     }
+
+
     function getChamadoJson(res) {
         for (i = 0; i < res.length; i++) {
             if (res[i].idChamado == sessionStorage.IDUSUARIO) {
-                console.log(res[i])
+
                 return res[i]
             }
             else {
@@ -102,23 +129,16 @@
     }
 
 
-    function pegarMaquinasCliente() {
-        fetch("/pegarMaquinasCliente").then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
 
-                    console.log(resposta)
-                    body: JSON.stringify({
-                        idUsuario: whereUsuario
-                    })
-
-                });
+    boolPopSelect = false
+    function popularSelect(res) {
+        if (!boolPopSelect) {
+            for (i = 0; i < res.length; i++) {
+                maquinaSelect.innerHTML += `<option value="${res[i].idMaquina}">${res[i].nomeMaquina}</option>`
+                maquinaSelect.style.display = 'block';
             }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        });
-
-
+        }
+        boolPopSelect = true
     }
     function abrirChamado() {
         let email = document.getElementById('emailUsuario').value
@@ -128,8 +148,7 @@
 
         let descricao = document.getElementById('descricaoUsuario').value
 
-        let hashUsuario = document.getElementById('hashUsuario').value
-
+        let fkMaquina = document.getElementById('maquinaSelect').value
         if (validarChamado(email, categoria, assunto, descricao)) {
 
             console.log([email, categoria, assunto, descricao])
@@ -145,7 +164,9 @@
                     assuntoChamado: assunto,
                     descricaoChamado: descricao,
                     categoriaChamado: categoria,
-                    hashChamado: hashUsuario
+                    fkMaquina: fkMaquina
+
+
                 })
             });
             console.log(res)
@@ -160,6 +181,31 @@
 
 
     }
+
+
+    function getDadosMaquina(email) {
+        fetch(`/getDadosMaquina/?emailCliente=${email}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+
+                    console.log(resposta)
+                    dadosMaquina = resposta
+                    popularSelect(resposta)
+
+
+                });
+            }
+        })
+    }
+
+
+
     listarChamados()
-    pegarMaquinasCliente()
+
 </script>

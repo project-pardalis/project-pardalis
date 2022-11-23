@@ -26,14 +26,16 @@ CREATE TABLE Usuario(
 
 
 CREATE TABLE Chamado( 
-    idChamado INT PRIMARY KEY AUTO_INCREMENT, 
+    idChamado INT PRIMARY KEY  AUTO_INCREMENT, 
     assuntoChamado VARCHAR(60) NOT NULL ,
     descricaoChamado VARCHAR(400) NOT NULL , 
     categoriaChamado VARCHAR(45) NOT NULL ,  
     dataChamado DATETIME   ,  
     isAberto BOOLEAN NOT NULL , 
-    fkUsuario INT NOT NULL ,  
+    fkUsuario INT NOT NULL ,
+    fkMaquina INT NOT NULL , 
     FOREIGN KEY (fkUsuario) REFERENCES Usuario(idUsuario)  
+    
 ); 
 CREATE TABLE Maquina(	
 	idMaquina INT AUTO_INCREMENT,	
