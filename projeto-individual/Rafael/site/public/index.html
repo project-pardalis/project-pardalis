@@ -9,29 +9,35 @@
     <title>Document</title>
 </head>
 
+
 <body>
-    <div class="nav">
-        <a href="abrirChamados.html">Abrir Chamado </a>
-    </div>
-    <div class="analitics">
-        Total chamados abertos: <div id="totalChamadosAbertos"></div>
-        Total chamados fechados: <div id="totalChamadosFechados"></div>
-        Categoria com mais chamados: <div id="categoriaMaisChamados"></div>
-        Mês com maior quantidade de chamados: <div id="mesQuantidadeChamados"></div>
-        <div class="chart">
-            <canvas id="graficoChamadosAbertosFechados"></canvas>
-        </div>
-        <div class="chart">
-            <canvas id="graficoChamadosBarraPorData"></canvas>
-        </div>
+    <div id="contentItem"></div>
+    <div id="contentMenu">
 
-    </div>
-    <div class="content">
-        <div id='cardsContent' class="cards-content">
-            <div class='cards' id="cards"></div>
+
+        <div class="nav">
+            <a href="abrirChamados.html">Abrir Chamado </a>
+            <button onclick="reloadPage() ">Atualizar</button>
+        </div>
+        <div class="analitics">
+            Total chamados abertos: <div id="totalChamadosAbertos"></div>
+            Total chamados fechados: <div id="totalChamadosFechados"></div>
+            Categoria com mais chamados: <div id="categoriaMaisChamados"></div>
+            Mês com maior quantidade de chamados: <div id="mesQuantidadeChamados"></div>
+            <div class="chart">
+                <canvas id="graficoChamadosAbertosFechados"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="graficoChamadosBarraPorData"></canvas>
+            </div>
+
+        </div>
+        <div class="content">
+            <div id='cardsContent' class="cards-content">
+                <div class='cards' id="cards"></div>
+            </div>
         </div>
     </div>
-
 
 </body>
 
@@ -44,7 +50,7 @@
         //aguardar();
 
         //aguardar();
-        fetch("/listarChamados").then(function (resposta) {
+        fetch("/listarChamado").then(function (resposta) {
             if (resposta.ok) {
                 resposta.json().then(function (resposta) {
 
@@ -69,11 +75,11 @@
                 countAbertos++;
             }
         }
-        countFechados = countAbertos - res.length
+        countFechados = res.length - countAbertos
         categoria = getCategoriaRepeticao(res)
 
         document.getElementById('totalChamadosAbertos').innerHTML = countAbertos;
-        document.getElementById('totalChamadosFechados').innerHTML = countAbertos - res.length;
+        document.getElementById('totalChamadosFechados').innerHTML = countFechados;
         document.getElementById('categoriaMaisChamados').innerHTML = categoria
 
         plotarGraficoPizzaChamados(countAbertos, countFechados)
@@ -128,22 +134,34 @@
 
         for (i = 0; i < lista.length; i++) {
             data = new Date(String(lista[i].dataChamado)).toLocaleDateString()
-
-            document.getElementById(`cards`).innerHTML +=
-                `       
+            if (lista[i].isAberto == 1) {
+                document.getElementById(`cards`).innerHTML +=
+                    `       
                         <div class='card-chamado'> 
                         <div class="assunto-chamado">${lista[i].assuntoChamado}</div>
-                        <div class="categoria-chamado">Categoria: ${lista[i].categoriaChamado}</div>
+                        <div class="categoria-chamado">Categoria: ${tratarCategoria(lista[i].categoriaChamado)}</div>
                         <hr>
-                        <div class="descricao-chamado">${lista[i].descricaoChamado}</div>
+                    
                        
                         <div class="usuario-chamado">${lista[i].nomeUsuario}</div > 
                         <div class="data-chamado">${data}</div>
 
-                        <button>Selecionar</button>
+                        <button onclick='redirectToUrl(${lista[i].idChamado})'>Selecionar</button>
                    </div>
             `
+            }
         }
+    }
+
+    function redirectToUrl(id) {
+        sessionStorage.IDUSUARIO = id;
+        window.location.href = 'chamado.html'
+    }
+    function reloadPage() {
+        document.location.reload();
+    }
+    function tratarCategoria(text) {
+        return text.replaceAll('_', ' ')
     }
     listarChamados()
 

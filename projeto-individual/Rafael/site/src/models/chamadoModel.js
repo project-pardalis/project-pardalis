@@ -19,6 +19,24 @@ async function addChamado(assuntoChamado, descricaoChamado, assuntoChamado, cate
     }
 }
 
+
+
+function listarChamados() {
+    instrucao = "SELECT idChamado, assuntoChamado, descricaoChamado, categoriaChamado, dataChamado, nomeUsuario, isAberto, idUsuario FROM Chamado JOIN Usuario ; "
+    return database.executar(instrucao)
+
+}
+
+function fecharChamado(idChamado) {
+    instrucao = `UPDATE Chamado SET isAberto=0 WHERE idChamado=${idChamado};`
+    return database.executar(instrucao)
+}
+
+function pegarMaquinasCliente(idCliente) {
+    instrucao = `select nomeMaquina, hashMaquina from Usuario JOIN Empresa JOIN Maquina WHERE idUsuario=${idCliente};`
+    return database.executar(instrucao)
+
+}
 module.exports = {
-    addChamado
+    addChamado, listarChamados, fecharChamado, pegarMaquinasCliente
 }

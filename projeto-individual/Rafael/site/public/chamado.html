@@ -11,18 +11,115 @@
 <body>
     <!-- Pegar id do chamado e criar essa webpage a partir disso. -->
     <div class="content">
-        <div class="title-webpage-chamado"> </div>
-        <div class="descricao-webpage-chamado"></div>
-        <div class="cliente-webpage-chamado"></div>
-        <div class="logs-chamado">
-            <button>Abrir relatório</button>
-            <div class="relatorio">
+        <div class="title-webpage-chamado" id="titlePage"> </div>
+        <div class="descricao-webpage-chamado" id="descricaoPage"></div>
+        <div class="cliente-webpage-chamado" id="clientePage"></div>
+        <div id="categoriaPage"></div>
+        <div id="dataPage"> </div>
+        <button onclick="fecharChamado()">Fechar chamado</button>
+        <button>Abrir relatório</button>
+        <div class="relatorio">
+            <p>
 
-            </div>
+            </p>
         </div>
+
 
 
     </div>
 </body>
+
+<script>
+
+
+    function listarChamados() {
+        //aguardar();
+
+        //aguardar();
+        fetch("/listarChamado").then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+
+                    console.log(resposta)
+                    plotarPagina(resposta)
+
+                });
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+
+    }
+
+    console.log(sessionStorage.IDUSUARIO)
+
+    function fecharChamado() {
+        let res = fetch("/fecharChamado", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idChamado: sessionStorage.IDUSUARIO
+            })
+        });
+
+        console.log("Enviado! Indo para o Controller")
+
+        if (res != undefined) {
+
+            alert("Chamado fechado!")
+            window.location.href = './index.html'
+        }
+    }
+
+    function getDadosMaquina(id) {
+        fetch("/pegarMaquinasCliente", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idCliente: id,
+
+            })
+
+        })
+
+
+    }
+
+    function plotarPagina(arr) {
+        userId = getUserId(arr)
+        getDadosMaquina(userId)
+        res = getArrayJsonId(arr)
+        data = new Date(String(res.dataChamado)).toLocaleDateString()
+        titlePage.innerHTML = res.assuntoChamado;
+        categoriaPage.innerHTML = res.categoriaChamado;
+        dataPage.innerHTML = data;
+        descricaoPage.innerHTML = res.descricaoChamado;
+    }
+
+    function getUserId(res) {
+        for (i = 0; i < res.length; i++) {
+            if (res[i].idChamado == sessionStorage.IDUSUARIO) {
+                return res[i].idUsuario;
+            }
+        }
+    }
+    function getArrayJsonId(arr) {
+        bool = false;
+        for (i = 0; i < arr.length; i++) {
+            if (arr[i].idChamado == parseInt(sessionStorage.IDUSUARIO)) {
+                bool = true;
+                return arr[i]
+            }
+        }
+        if (bool = false) return alert("Ocorreu um erro")
+    }
+    listarChamados()
+</script>
 
 </html>

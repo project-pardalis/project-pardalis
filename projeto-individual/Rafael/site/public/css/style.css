@@ -4,8 +4,10 @@
 
 .cards {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
     justify-content: space-around;
+
 }
 
 .card-chamado {

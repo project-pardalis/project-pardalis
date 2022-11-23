@@ -26,6 +26,8 @@
             <input type="text" id="assuntoUsuario">
             <label for="">Descrição</label>
             <textarea name="" id="descricaoUsuario" cols="30" rows="10"></textarea>
+            <label for="">Hash da máquina (Opcional) </label>
+            <input type="text" id="hashUsuario">
             <button onclick="abrirChamado()">Enviar</button>
         </div>
     </div>
@@ -35,6 +37,7 @@
 
 </html>
 <script>
+    whereUsuario = 0
     function validarChamado(email, categoria, assunto, descricao) {
         if (email == "" || categoria == "" || assunto == "" || descricao == "") {
             alert("Algum campo está vazio")
@@ -54,7 +57,70 @@
 
 
     }
-    async function abrirChamado() {
+
+
+
+    function listarChamados() {
+        //aguardar();
+
+        //aguardar();
+        fetch("/listarChamado").then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+
+                    console.log(resposta)
+
+                    whereUsuario = getIdCliente(resposta)
+
+                });
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+
+    }
+    function getIdCliente(res) {
+        for (i = 0; i < res.length; i++) {
+            if (res[i].idChamado == parseInt(sessionStorage.IDUSUARIO)) {
+                return res[i].idUsuario
+            }
+
+        }
+    }
+    function getChamadoJson(res) {
+        for (i = 0; i < res.length; i++) {
+            if (res[i].idChamado == sessionStorage.IDUSUARIO) {
+                console.log(res[i])
+                return res[i]
+            }
+            else {
+
+            }
+        }
+    }
+
+
+    function pegarMaquinasCliente() {
+        fetch("/pegarMaquinasCliente").then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+
+                    console.log(resposta)
+                    body: JSON.stringify({
+                        idUsuario: whereUsuario
+                    })
+
+                });
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+        });
+
+
+    }
+    function abrirChamado() {
         let email = document.getElementById('emailUsuario').value
         let categoria = document.getElementById('categoriaUsuario').value
 
@@ -62,11 +128,13 @@
 
         let descricao = document.getElementById('descricaoUsuario').value
 
+        let hashUsuario = document.getElementById('hashUsuario').value
+
         if (validarChamado(email, categoria, assunto, descricao)) {
 
             console.log([email, categoria, assunto, descricao])
 
-            let res = await fetch("/abrirChamados/adicionarChamado", {
+            let res = fetch("/adicionarChamado", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -76,17 +144,22 @@
                     categoriaChamado: categoria,
                     assuntoChamado: assunto,
                     descricaoChamado: descricao,
-                    categoriaChamado: categoria
+                    categoriaChamado: categoria,
+                    hashChamado: hashUsuario
                 })
             });
             console.log(res)
             console.log("Enviado! Indo para o Controller")
+            alert("Chamado aberto! ")
             if (res.ok) {
-                let resJson = await res.json();
-                console.log(resJson)
+                let resJson = res.json();
+
             }
+
         }
 
 
     }
+    listarChamados()
+    pegarMaquinasCliente()
 </script>

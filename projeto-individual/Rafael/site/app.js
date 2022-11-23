@@ -7,8 +7,8 @@ const PORTA = 3000;
 
 const app = express();
 
-const indexRouter = require("./src/routes/index");
-const abrirChamadosRouter = require("./src/routes/abrirChamados")
+const indexRouter = require("./src/routes/rotas");
+
 // const visualizarChamadosRouter = require("./src/routes/visualizarChamados")
 
 app.use(express.json());
@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 app.use("/", indexRouter);
-app.use("/abrirChamados", abrirChamadosRouter)
+
 // app.use("/visualizarChamados", visualizarChamadosRouter)
 
 app.set('view engine', 'html');
