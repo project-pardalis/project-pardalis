@@ -16,14 +16,31 @@ function addChamado(req, res) {
 
 
 
-function corrigirData(dia) {
-    if (String(dia).length == 1) {
-        return `0${dia}`
+function removeHours(data, value) {
+    if (data - value <= 0) {
+        if (data - value == 0) {
+            return '00'
+        }
+        return (data + 24) - value
     }
-    console.log("tamanho dia : " + dia.length)
-    return dia
+    return data
+}
+function sumDays(data, value) {
+    if (data + value > 31) {
+        return (data + value) - 30
+    }
+    return data + value
 }
 
+function conversor(data) {
+    return String(`${data.getUTCFullYear()}-${data.getUTCMonth() + 2}-${sumDays(data.getDate(), 20)} ${removeHours(data.getUTCHours(), 3)}:${corrigirLength1(data.getUTCMinutes())}:${data.getUTCSeconds()}`)
+}
+function corrigirLength1(number) {
+    if (String(number).length == 1) {
+        return String("0" + number)
+    }
+    return number
+}
 function getDataLeituraMetrica(req, res) {
 
 
@@ -31,10 +48,8 @@ function getDataLeituraMetrica(req, res) {
     let metrica = req.query.metrica
     let dataComparacao = dataChamado - 1000 * 60 * 30
     dataComparacao = new Date(dataComparacao)
-    dataChamado = String(`${dataChamado.getUTCFullYear()}-${dataChamado.getUTCMonth() + 2}-${dataChamado.getDate() + 20} ${dataChamado.getHours()}:${dataChamado.getMinutes()}:${dataChamado.getSeconds()}`)
-
-    dataComparacao = String(`${dataComparacao.getUTCFullYear()}-${dataComparacao.getUTCMonth() + 2}-${dataComparacao.getDate() + 20} ${dataComparacao.getHours()}:${dataComparacao.getMinutes()}:${dataComparacao.getSeconds()}`)
-
+    dataChamado = conversor(dataChamado)
+    dataComparacao = conversor(dataComparacao)
     idMaquina = req.query.idMaquina
 
 

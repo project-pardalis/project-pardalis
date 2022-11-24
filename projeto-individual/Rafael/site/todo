@@ -1,0 +1,11 @@
+Tela Chamado
+
+1. Conseguir ver hora dos incidentes (riscos) graficamente em linha
+2. Formulario para inspeção profunda
+3. KPI e + dados organizados
+4. Ver + dados usuario em grafico (qtd chamados abertos)
+5. Ver chamados com algum nome parecido (aviso de: "Existem 14 chamados com um título semelhante". )
+6. css 
+
+Bugs para arrumar: 
+1. Trocou componente e nao trocou dados que aparecem
