@@ -111,7 +111,7 @@ if [ $choose -eq 1 ]; then
   if [ $choose_banco -eq 1 ] ; then 
     echo "Por favor, copie o código abaixo no mysql : Nosso software não tem permissão para criar o Banco de Dados"
     sleep 2 
-    echo "source ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql" 
+    cat ~/project-pardalis/banco-de-dados/SQL-PARDALIS.sql 
     echo "\n\n"
     sudo docker exec -it pardalis_sql mysql -uroot -p 
 
