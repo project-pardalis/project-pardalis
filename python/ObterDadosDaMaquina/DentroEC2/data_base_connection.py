@@ -6,7 +6,7 @@ import pymssql, json, time, socket
 #1 = PRODUCAO
 
 
-AMBIENTE = 0
+AMBIENTE = 1
 
 
 
