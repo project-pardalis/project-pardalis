@@ -79,8 +79,8 @@ CREATE TABLE Leitura(
 INSERT INTO Empresa Values (null, "Sptech", "00000000000000");	
 INSERT INTO Usuario values (null, "João", "joao@gmail.com", SHA2('Teste@123', 512), "Analista", 1, null);	
 INSERT INTO Maquina VALUES (null, "Servidor-SPTECH", "", true, null, "201E88084FAD", 1);	
-INSERT INTO Maquina VALUES (null, "Servidor-SPTECH-1301", "", true, null, "1234567891", 1);	
-INSERT INTO Maquina VALUES (null, "Servidor-SPTECH-1302", "", true, null, "1234567892", 1);	
+CREATE USER 'userP' IDENTIFIED BY 'urubu100';
+
 
 INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("cpu_Utilizacao", "%", 0),	
 						  ("cpu_Frequencia_Maxima", "HZ", 1),	
