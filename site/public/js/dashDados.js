@@ -426,5 +426,5 @@ async function start() {
     /* setInterval(reloadMachine(), 10000); */
 
 }
-start()
+start();
 
