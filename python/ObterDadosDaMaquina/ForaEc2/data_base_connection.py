@@ -211,10 +211,11 @@ def SO_isNull(hash_maquina : str):
 
 def appendSO(hash_maquina : str, so: str):
     date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    isCloud = False
+    isCloud = True
     try:
         ps.cpu_freq().current
-        isCloud = True
+        ps.sensors_temperatures()['coretemp']
+        isCloud = False
     except:
         pass
     if AMBIENTE == 0:

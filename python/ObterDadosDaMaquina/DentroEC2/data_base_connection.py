@@ -13,9 +13,9 @@ AMBIENTE = 0
 ip_address = socket.gethostbyname(socket.gethostname())
 if AMBIENTE == 0:        
     connection = pymysql.connect(host=ip_address,
-                             user='aluno',
-                             password='sptech',
-                             database='pardalis',
+                             user='root',
+                             password='urubu100',
+                             database='PARDALIS',
                              cursorclass=pymysql.cursors.DictCursor)
     cursor = connection.cursor()
 else:

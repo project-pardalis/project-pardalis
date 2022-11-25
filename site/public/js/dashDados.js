@@ -174,7 +174,7 @@ function changeFilter(element) {
 
     let newOrder = changeOrderMachine();
     appendMachine(newOrder);
-    setChartStateData();
+    mainChart();
 }
 
 /* Escolhe qual função deve ser usada para aquele filtro */
@@ -412,19 +412,19 @@ function mostrarLista(num) {
         document.getElementById("wide-server-list").style.display = "none";
         document.getElementById("info-server-list").style.display = "block";
     }
-
 }
+
 /* Inicialização */
 async function start() {
     getParams();
     machines = await getMachine();
     plotMachinesChart(machines)
     console.log(machines)
-    setChartStateData();
+    mainChart();
     let result = changeOrderMachine(true)
     appendMachine(result);
     /* setInterval(reloadMachine(), 10000); */
 
 }
-start()
+start();
 
