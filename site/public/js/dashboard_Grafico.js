@@ -6,6 +6,35 @@ alerta = '#d93675'
 
 
 
+
+
+let chartMaquinasEstado = new Chart(
+    document.getElementById("chart-maquinas-estado"), {
+    type: 'doughnut',
+    data: {
+        labels: ["Não Encontrado", 'Normal', 'Risco', 'Alerta'],
+        datasets: [{
+            label: 'Maquinas',
+            data: [0, 0, 0, 0],
+            backgroundColor: [
+                'gray',
+                'rgb(25,135,84)',
+                'rgb(255,193,7)',
+                'rgb(220,53,69)',
+            ]
+        }]
+    },
+    options: {
+        legend: {
+            reverse: true
+        }
+    }
+});
+
+
+
+
+
 function plotMachinesChart() {
     countWindows = 0
     countLinux = 0
@@ -61,8 +90,42 @@ const chartSistemaOperacionalMaquinas = new Chart(
 )
 
 
+
+
+
+
+
+let chartMaquinasArmazenamentoTotal = new Chart(
+    document.getElementById("chart-armazenamento-total"), {
+    type: 'doughnut',
+    data: {
+        labels: ['Usado', 'Livre'],
+        datasets: [{
+            label: 'Armagenamento Gb',
+            data: [0, 0],
+            backgroundColor: [
+                '#47408e',
+                '#d3d3d9',
+            ]
+        }],
+    },
+    options: {
+        legend: {
+            reverse: true
+        }
+    }
+});
+
 function setChartStateData() {
-    /* let risco = 0, alerta = 0, normal = 0, notEstablished = 0;
+    let risco = 0, alerta = 0, normal = 0, notEstablished = 0;
+
+    if (filter == "name") document.getElementsByClassName('maquinas-estado')[0].style.opacity = '0';
+    else document.getElementsByClassName('maquinas-estado')[0].style.opacity = '100';
+
+    if (machines.length == 0) document.getElementsByClassName('armazenamento-total')[0].style.opacity = '0';
+    else document.getElementsByClassName('armazenamento-total')[0].style.opacity = '100';
+
+    setChartDiskTotal();
     for (let i = 0; i < machines.length; i++) {
         let machine = machines[i];
 
@@ -79,45 +142,15 @@ function setChartStateData() {
         else if (data > summary.q3) risco++;
         else normal++;
 
-    } */
-
-    /* if (filter == "name") document.getElementsByClassName('maquinas-estado')[0].style.opacity = '0';
-    else document.getElementsByClassName('maquinas-estado')[0].style.opacity = '100';
-
-    if (machines.length == 0) document.getElementsByClassName('armazenamento-total')[0].style.opacity = '0';
-    else document.getElementsByClassName('armazenamento-total')[0].style.opacity = '100';
-
-    
-    
+    }
 
     console.log("Risco: " + risco + " Alerta: " + alerta + " Normal: " + normal + " Não Estabelecido: " + notEstablished)
 
     chartMaquinasEstado.data.datasets[0].data = [notEstablished, normal, risco, alerta];
-    chartMaquinasEstado.update(); */
+    chartMaquinasEstado.update();
 }
 
 function setChartDiskTotal() {
-    let chartMaquinasArmazenamentoTotal = new Chart(
-        document.getElementById('chart-armazenamento-total'), {
-        type: 'doughnut',
-        data: {
-            labels: ['Usado', 'Livre'],
-            datasets: [{
-                label: 'Armagenamento Gb',
-                data: [0, 0],
-                backgroundColor: [
-                    '#47408e',
-                    '#d3d3d9',
-                ]
-            }],
-        },
-        options: {
-            legend: {
-                reverse: true
-            }
-        }
-    });
-
     let total = 0, used = 0;
 
     for (let i = 0; i < machines.length; i++) {
@@ -133,8 +166,4 @@ function setChartDiskTotal() {
 
     chartMaquinasArmazenamentoTotal.data.datasets[0].data = [used, total - used];
     chartMaquinasArmazenamentoTotal.update();
-}
-
-function mainChart() {
-    setChartDiskTotal();
 }
