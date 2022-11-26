@@ -101,8 +101,9 @@ if [ $choose -eq 1 ]; then
   echo "Configurando container, a aplicação irá pedir a senha que inseriu anteriormente, com isso, insira a mesma aqui. "
   
   sudo docker rm -f pardalis_sql #se tiver, starta pra config
-  sudo docker pull mysql/mysql-server:5.7 
-  sudo docker run -d -p 3306:3306 --name pardalis_sql -e MYSQL_ROOT_PASSWORD=urubu100 -e MYSQL_USER=root mysql/mysql-server:5.7 
+  sudo docker pull mysql:5.7 
+  sudo docker run -d -p 3306:3306 --name pardalis_sql -e "MYSQL_DATABASE=PARDALIS" -e "MYSQL_ROOT_PASSWORD=urubu100" -e "MYSQL_USER=root" mysql:5.7 
+  sudo docker start pardalis_sql
   clear
   echo "Aguardando servidor subir ... " 
   sleep 3
