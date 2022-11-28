@@ -505,9 +505,12 @@ header {
 }
 
 .kpi-charts {
-
   display: flex;
   justify-content: space-evenly;
+}
+
+.armazenamento-total {
+  width: 50%;
 }
 
 .card-kpi {

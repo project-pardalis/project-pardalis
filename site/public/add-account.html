@@ -1,11 +1,11 @@
-<!doctype html>
-<html lang="pt-br">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Análise de servidor | Pardalis</title>
+    <title>Adicionar Contas</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
     <link href="css/dashboard.css" rel="stylesheet">
@@ -19,14 +19,24 @@
         .fa-pen {
             cursor: pointer;
         }
+
+        .form-control,
+        .form-select {
+            width: 25rem;
+        }
     </style>
 </head>
+
+
+
+
 
 <body>
     <header class="sticky-top bg-dark d-flex m-0 p-0 vw-auto shadow d-flex justify-content-between">
         <a class="navbar-brand px-2 fs-4 text-light" style="width: 15%;" href="./index.html">Pardalis</a>
-        <!-- <input class="form-cont -->rol form-control-dark w-50 rounded-0 border-0" type="text" placeholder="Setor"
-        <!--     aria-label="Setor"> -->
+        <!-- <input class="form-cont ol form-control-dark w-50 rounded-0 border-0" type="text"
+            placeholder="Setor"
+                 aria-label="Setor"> -->
         <div class="navbar-nav w-auto">
             <div class="nav-item text-nowrap">
                 <a class="nav-link px-3 text-light" onclick="logout()" style="cursor: pointer;">Sair</a>
@@ -47,19 +57,19 @@
                             href="./dashboard.html">Home</a>
                     </li>
                     <!-- <li class="nav-item">
-                        <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="./dados-gerais.html">
-                            Dados Gerais</a>
-                    </li> -->
+                            <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="./dados-gerais.html">
+                                Dados Gerais</a>
+                        </li> -->
 
                 </ul>
                 <!-- <ul class="nav flex-column mt-2">
-                    <li class="nav-item">
-                        <p class="h5 text-muted fw-bolder">Usuários</p>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="">Verificar Usuários</a>
-                    </li>
-                </ul> -->
+                        <li class="nav-item">
+                            <p class="h5 text-muted fw-bolder">Usuários</p>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="">Verificar Usuários</a>
+                        </li>
+                    </ul> -->
                 <ul class="nav flex-column mt-2">
                     <li class="nav-item">
                         <p class="h5 text-muted fw-bolder">Conta</p>
@@ -72,33 +82,44 @@
         </nav>
 
         <div class="w-75 p-5">
-            <p class="h1 bolder">Alterar dados</p>
+            <p class="h1 bolder">Adicionar Usuário</p>
+            <hr style="width: 15rem;">
             <div id="nome" class="mb-2 d-flex align-items-center">
                 <span class="fs-5 me-1 fw-bolder">Nome: </span>
-                <span id="nome-usuario" class="fs-5">JoaoXXX</span>
-                <input type="nome" id="ipt-nome" class="form-control w-25 ms-2" style="display: none;"
-                    placeholder="Nome" />
-                <i class="fa-solid fa-pen ms-1" id="change-name" onclick="changeName()"></i>
+                <input class="form-control" type="text" id="nomeUsuario">
+
             </div>
             <div id="nome" class="mb-2 d-flex align-items-center">
                 <span class="fs-5 me-1 fw-bolder">Email: </span>
-                <span id="email-usuario" class="fs-5">JoaoXXX@gmail.com</span>
-                <input type="email" id="ipt-email" class="form-control w-25" style="display: none;"
-                    placeholder="E-mail" />
-                <i class="fa-solid fa-pen ms-1" id="change-passwd" onclick="changeEmail()"></i>
+
+                <input class="form-control" type="text" id="emailUsuario">
+
             </div>
-            <div id="nome" class="d-flex align-items-center justify-content-between w-50">
-                <span class="me-1 fw-bolder fs-5 w-25">Alterar Senha:</span>
-                <input type="password" id="ipt-passwd" class="form-control me-2" style="width: 40%;"
-                    placeholder="Senha" />
-                <input type="password" id="ipt-confirm-passwd" class="form-control" style="width: 40%;"
-                    placeholder="E-mail" />
+            <div id="nome" class="mb-2 d-flex align-items-center">
+                <span class="fs-5 me-1 fw-bolder">Senha: </span>
+
+                <input class="form-control" type="text" id="senhaUsuario">
+
+            </div>
+            <div id="nome" class="mb-2 d-flex align-items-center">
+                <span class="fs-5 me-1 fw-bolder">Cargo: </span>
+
+                <select class="form-select">
+                    <option value="Programador">Programador</option>
+                    <option value="DBA">DBA</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Tech Lead">Tech Lead</option>
+                    <option value="Outros">Outros</option>
+                </select>
+
             </div>
             <button class="btn confirmar-button mt-3" style="width: 10%; background-color: #2D2DBF; color: white;"
-                onclick="confirmClick()">Confirmar</button>
+                onclick="cadastrarUsuario()">Cadastrar</button>
 
 
         </div>
+    </div>
+
     </div>
 
     <!--Verificar se necessário-->
@@ -111,3 +132,12 @@
 </body>
 
 </html>
+<script>
+    function cadastrarUsuario() {
+        alert("Usuário cadastrado! Redirecionando para a página inicial... ")
+        redirectToPage('./dashboard.html')
+    }
+    function redirectToPage(page) {
+        window.location.href = page
+    }
+</script>
