@@ -287,10 +287,36 @@ function chartCpuTotal(ok, risco, alerta) {
 
 }
 function plotOnPage(ok, risco, alerta) {
-    riscoKpi.innerHTML = risco
-    alertaKpi.innerHTML = alerta
-    okKpi.innerHTML = ok
-    qtdServidores.innerHTML = machines.length
+    riscoKpi.innerHTML += risco
+    alertaKpi.innerHTML += alerta
+    okKpi.innerHTML += ok
+    qtdServidores.innerHTML += machines.length
+    lastServer.innerHTML += getLastServer()
+    serverMoreUse.innerHTML += getServerMoreUse()
+}
+function getLastServer() {
+    return machines[0].nomeMaquina
+}
+function getServerMoreUse() {
+    max = 0
+    indexMaxCpuFreq = 0
+    for (i = 0; i < machines.length; i++) {
+        try {
+            data = machines[i].lastData.cpu_Frequencia_Atual.valorLeitura
+        } catch {
+            console.log("valor undefined: getServerMoreUse() dashboard_Grafico.js")
+        }
+
+        if (data == -500 || data == undefined) {
+            data = 0
+        }
+        if (data > max) {
+            max = data
+            indexMaxCpuFreq = i
+        }
+
+    }
+    return machines[indexMaxCpuFreq].nomeMaquina;
 }
 function alertsRisk(val, risco, alerta) {
 

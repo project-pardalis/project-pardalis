@@ -68,17 +68,17 @@
         <div class="card-kpi text-bg-danger p-3 ">
           <p class="fw-semibold h4">Crítico</p>
           <p class="card-kpi-text fw-light">
-          <div id="riscoKpi">X</div> Servidores estão críticos </p>
+          <div id="riscoKpi"></div> Servidores estão críticos </p>
         </div>
         <div class="card-kpi text-bg-warning p-3 ">
           <p class="fw-semibold h4">Alerta</p>
           <p class="card-kpi-text fw-light">
-          <div id="alertaKpi">X</div> Servidor requer atenção </p>
+          <div id="alertaKpi"></div> Servidor requer atenção </p>
         </div>
         <div class="card-kpi text-bg-success p-3 ">
           <p class="fw-semibold h4">Ok</p>
           <p class="card-kpi-text fw-light">
-          <div id="okKpi">X</div> servidores estão OK! </p>
+          <div id="okKpi"></div> servidores estão OK! </p>
         </div>
       </div>
       <hr>
@@ -115,7 +115,20 @@
         </div>
         <span class="span1 fw-bold fs-3">Sua Infraestrutura </span>
         <span>
-          <div id="qtdServidores"></div>( Servidores )
+          <div class="dadosInfraestrutura">
+            <p>
+            <div id="qtdServidores"></div>(Servidores)
+            </p>
+            <p>
+            <div id="lastServer"> Último servidor cadastrado:</div>
+
+            </p>
+            <p>
+            <div id="serverMoreUse"> Servidor com maior uso:</div>
+
+            </p>
+          </div>
+
         </span>
 
       </div>
