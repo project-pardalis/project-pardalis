@@ -26,42 +26,113 @@ function plotMachinesChart() {
     return [countLinux, countMac, countWindows]
 }
 
-function setMbPerMachineUseRam() {
-    let chartDataAvgTemperature = new Chart(
-        document.getElementById('chartRam'), {
-        type: 'bar',
-        data: {
-            labels: [],
-            datasets: [{
-                label: 'Uso de Ram (MB) ',
-                data: [],
-                backgroundColor: [
-                    '#47408e',
-                    '#d3d3d9',
-                ]
-            }],
-        },
-        options: {
-            legend: {
-                reverse: true
+
+
+function setUsePeerComponent(component) {
+    if (component == 'ram') {
+        let chartDataComponent = new Chart(
+            document.getElementById('chartComponente'), {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Uso de Ram (MB) ',
+                    data: [],
+                    backgroundColor: [
+                        '#47408e',
+                        '#d3d3d9',
+                    ]
+                }],
+            },
+            options: {
+                legend: {
+                    reverse: true
+                }
             }
-        }
-    });
-    avgTemp = 0
-    for (i = 0; i < machines.length; i++) {
+        });
 
-
-        try {
-            chartDataAvgTemperature.data.labels.push(machines[i].nomeMaquina)
-            data = Math.round(machines[i].lastData.ram_Usada.valorLeitura * 1000, 2)
-            chartDataAvgTemperature.data.datasets[0].data.push(data)
-        } catch {
+        for (i = 0; i < machines.length; i++) {
+            try {
+                chartDataComponent.data.labels.push(machines[i].nomeMaquina)
+                data = Math.round(machines[i].lastData.ram_Usada.valorLeitura * 1000, 2)
+                chartDataComponent.data.datasets[0].data.push(data)
+            } catch {
+            }
 
         }
-
+        chartDataComponent.update()
     }
-    chartDataAvgTemperature.update()
+    else if (component == 'cpu') {
+        let chartDataComponent = new Chart(
+            document.getElementById('chartComponente'), {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Uso da CPU (mHZ) ',
+                    data: [],
+                    backgroundColor: [
+                        '#47408e',
+                        '#d3d3d9',
+                    ]
+                }],
+            },
+            options: {
+                legend: {
+                    reverse: true
+                }
+            }
+        });
+
+        for (i = 0; i < machines.length; i++) {
+
+            try {
+                chartDataComponent.data.labels.push(machines[i].nomeMaquina)
+                data = Math.round(machines[i].lastData.cpu_Frequencia_Atual.valorLeitura, 2)
+                if (data == -500) data = 0
+                chartDataComponent.data.datasets[0].data.push(data)
+            } catch {
+            }
+
+        }
+        chartDataComponent.update()
+    }
+    else if (component == 'disco') {
+        let chartDataComponent = new Chart(
+            document.getElementById('chartComponente'), {
+            type: 'bar',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Uso do disco (GB) ',
+                    data: [],
+                    backgroundColor: [
+                        '#47408e',
+                        '#d3d3d9',
+                    ]
+                }],
+            },
+            options: {
+                legend: {
+                    reverse: true
+                }
+            }
+        });
+
+        for (i = 0; i < machines.length; i++) {
+            try {
+                chartDataComponent.data.labels.push(machines[i].nomeMaquina)
+                data = Math.round(machines[i].lastData.disco_Usado.valorLeitura, 2)
+                chartDataComponent.data.datasets[0].data.push(data)
+            } catch {
+
+            }
+
+        }
+        chartDataComponent.update()
+    }
 }
+
 
 
 function setSoChart() {
@@ -188,12 +259,38 @@ function setAlertsMetricas() {
 
     console.log("ok: " + ok + "risco: " + risco + "alerta: " + alerta)
     plotOnPage(ok, risco, alerta)
+    chartCpuTotal(ok, risco, alerta)
 }
 
+//
+function chartCpuTotal(ok, risco, alerta) {
+    let chartMaquinasArmazenamentoTotal = new Chart(
+        document.getElementById('chart-cpu-total'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Normal', 'Alerta', 'Risco'],
+            datasets: [{
+                label: 'Métricas',
+                data: [ok, risco, alerta],
+                backgroundColor: [
+                    '#47408e',
+                    '#d3d3d9',
+                ]
+            }],
+        },
+        options: {
+            legend: {
+                reverse: true
+            }
+        }
+    });
+
+}
 function plotOnPage(ok, risco, alerta) {
     riscoKpi.innerHTML = risco
     alertaKpi.innerHTML = alerta
     okKpi.innerHTML = ok
+    qtdServidores.innerHTML = machines.length
 }
 function alertsRisk(val, risco, alerta) {
 
@@ -217,7 +314,7 @@ function tratarDados(data) {
 }
 function mainChart() {
     setChartDiskTotal();
-    setMbPerMachineUseRam();
+    // setUsePeerComponent
     setSoChart();
     setAlertsMetricas();
 }
