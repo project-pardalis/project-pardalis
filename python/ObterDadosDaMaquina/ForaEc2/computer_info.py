@@ -114,7 +114,8 @@ def get_cpu_info():
         'cpu_Frequencia_Atual': ps.cpu_freq().current,
         'cpu_Frequencia_Minima': ps.cpu_freq().min,
         'cpu_Frequencia_Maxima': ps.cpu_freq().max,
-        'cpu_Utilizacao': ps.cpu_percent()
+        'cpu_Utilizacao': ps.cpu_percent(),
+        'percent': ps.cpu_percent()
     }
 
 # Retorna Informações da Memória RAM
@@ -123,7 +124,8 @@ def get_memory_info():
     return {
         'ram_Total': transform_to_gb(memory.total),
         'ram_Disponivel': transform_to_gb(memory.available),
-        'ram_Usada': transform_to_gb(memory.used)
+        'ram_Usada': transform_to_gb(memory.used),
+        'percent': memory.percent
     }
 
 # Retorna as informações do disco
@@ -135,7 +137,8 @@ def get_disk_info():
         'disco_Usado': transform_to_gb(disk.used),
         'free_disk': transform_to_gb(disk.free),
         'disco_read_time': ps.disk_io_counters().read_time >> 15,
-        'disco_write_time': ps.disk_io_counters().write_time >> 15
+        'disco_write_time': ps.disk_io_counters().write_time >> 15,
+        'percent': (transform_to_gb(disk.used) / transform_to_gb(disk.total)) * 100
     }
 
 # Retorna as informações da rede

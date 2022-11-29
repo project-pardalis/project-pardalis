@@ -111,9 +111,9 @@ def get_cpu_info():
     return {
         'cpu_type': cpu_type,
         'cpu_Temperature': temperature,
-        'cpu_Frequencia_Atual': ps.cpu_freq().current,
-        'cpu_Frequencia_Minima': ps.cpu_freq().min,
-        'cpu_Frequencia_Maxima': ps.cpu_freq().max,
+        'cpu_Frequencia_Atual': -500,
+        'cpu_Frequencia_Minima': -500,
+        'cpu_Frequencia_Maxima': -500,
         'cpu_Utilizacao': ps.cpu_percent()
     }
 
