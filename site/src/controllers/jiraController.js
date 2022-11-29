@@ -11,13 +11,22 @@ async function createIssueMain(req, res) {
     let requestDescription = req.body.requestDescription;
 
     let userId = await getUserId(userEmail);
-    if (userId) res.status(400).send("Usuário não encontrado!");
-    else if (requestSummary == undefined) res.status(400).send("O Título do chamado está undefined!");
-    else if (requestDescription == undefined) res.status(400).send("A descrição do chamado está undefined!");
+    if (userId) {
+        res.status(400).send("Usuário não encontrado!");
+        return;
+    }
+    else if (requestSummary == undefined){
+        res.status(400).send("O Título do chamado está undefined!");
+        return;
+    }
+    else if (requestDescription == undefined){
+        res.status(400).send("A descrição do chamado está undefined!");
+        return;
+    }
     
     issue = createIssue(userId, requestSummary, requestDescription);
-    /* if (issue == 'Ticket criado com sucesso!') res.status(200).send("Chamado criado com sucesso!");
-    else res.status(400).send("Erro ao criar chamado!"); */
+    if (issue == 'Ticket criado com sucesso!') res.status(200).send("Chamado criado com sucesso!");
+    else res.status(400).send("Erro ao criar chamado!");
 }
 
 async function getUserId(email) {
@@ -34,11 +43,12 @@ async function createIssue(reporterId, summary, description) {
     const python = spawn('python', ['./src/controllers/jiraScript.py', summary, description, reporterId, jiraAccount.passwd]);
     python.stdout.on('data', (data) => {
         console.log(`stdout: ${data}`);
+        console.log("Chamado feito na hora: " + data.toString());
         /* console.log(data); */
     });
     python.stderr.on('data', (data) => {
         console.log("Error: " + data);
-        /* return data */
+        return data
     });
 }
 

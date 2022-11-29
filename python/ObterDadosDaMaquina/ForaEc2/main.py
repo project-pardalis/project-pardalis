@@ -103,7 +103,7 @@ def update_static_metricas(computer_components: list):
 
 def send_informations_to_db(computer_components: list):
     while True:
-        # clear_screen()
+        clear_screen()
         try:
             computer_info = ci.get_all_info()
 
@@ -161,7 +161,6 @@ def verify_max_min(informations, component):
         last_call_opened = datetime.datetime.now()
         print("Chamado aberto!")
         time.sleep(1)
-
 
 def get_summary(min, max):
     median = (min + max) / 2
