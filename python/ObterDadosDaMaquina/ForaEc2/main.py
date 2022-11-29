@@ -37,6 +37,12 @@ def menu_select():
         print("|              Mac Address:              |")
         print(f"|           {computer_hash}            |")
         print("|                                        |")
+        print("|          Abertura de chamados          |")
+        if not open_call:
+            print(f"|                 {verify_call()}              |")
+        else:
+            print(f"|                  {verify_call()}                |")
+        print("|                                        |")
         print("| 1 - Obter informações do Computador    |")
         print("| 2 - Obter Estado dos Componentes       |")
         print("| 3 - Ativar Abertura de chamados        |")
@@ -55,6 +61,12 @@ def menu_select():
             print("Saindo...")
             exit()
 
+def verify_call():
+    if (open_call):
+        return "Ligado"
+    else:
+        return "Desligado"
+    
 # ----------------------------------------------------------------------------------------------------------------------
 
 # Opção 1
@@ -129,7 +141,7 @@ def send_informations_to_db(computer_components: list):
 
 
 def verify_max_min(informations, component):
-    
+    global last_call_opened
     if (component == "cpu"):
         summary = get_summary(0, 100)
     elif (component == "ram"):
@@ -230,7 +242,7 @@ def change_component_state(components: list):
 
 # Opção 3
 def change_open_call():
-    global email_jira
+    global email_jira, open_call
 
     if email_jira == None:
         email_jira = input("Digite um email para abrir o chamado: ")
