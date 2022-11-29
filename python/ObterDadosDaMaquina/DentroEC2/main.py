@@ -84,13 +84,14 @@ def update_static_metricas(computer_components : list):
         metricas_component = db.get_metricas_connection(
             component["idComponente"], component["fkMaquina"], component["fkEmpresa"], 1)
         for metrica in metricas_component:
-            leituras = db.get_leituras(component["idComponente"], component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"])
-            
-            if len(leituras) == 0:  
-                db.append_information(component["idComponente"], component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"], computer_info[component["nomeComponente"]][metrica["nomeMetrica"]])
-            else:
-                db.update_static_metrica(computer_info[component["nomeComponente"]][metrica["nomeMetrica"]], component["idComponente"],
-                                        component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"])
+            if db.string_index(metrica["nomeMetrica"], component["nomeComponente"]):
+                leituras = db.get_leituras(component["idComponente"], component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"])
+                
+                if len(leituras) == 0:  
+                    db.append_information(component["idComponente"], component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"], computer_info[component["nomeComponente"]][metrica["nomeMetrica"]])
+                else:
+                    db.update_static_metrica(computer_info[component["nomeComponente"]][metrica["nomeMetrica"]], component["idComponente"],
+                                            component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"])
         print("Informações estáticas do computador adicionadas/atualizadas.")
 
 def send_informations_to_db(computer_components : list):
@@ -105,7 +106,8 @@ def send_informations_to_db(computer_components : list):
                         component["idComponente"], component["fkMaquina"], component["fkEmpresa"])
                     
                     for metrica in metricas_component:
-                        db.append_information(component["idComponente"], component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"], computer_info[component["nomeComponente"]][metrica["nomeMetrica"]])
+                        if db.string_index(metrica["nomeMetrica"], component["nomeComponente"]):
+                            db.append_information(component["idComponente"], component["fkMaquina"], component["fkEmpresa"], metrica["idMetrica"], computer_info[component["nomeComponente"]][metrica["nomeMetrica"]])
             print("Informações do Computador adicionadas.")
             time.sleep(1)
         except KeyboardInterrupt:
