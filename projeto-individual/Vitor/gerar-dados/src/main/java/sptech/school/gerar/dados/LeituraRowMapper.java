@@ -16,8 +16,8 @@ public class LeituraRowMapper implements RowMapper<Leitura>{
     
     @Override
     public Leitura mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Leitura leitura = new Leitura(rs.getInt("fkComponente"), rs.getInt("fkMetrica"),
-                rs.getInt("fkMaquina"), rs.getDate("dataColeta"), rs.getDouble("valorLeitura"));
+        Leitura leitura = new Leitura(rs.getInt("idLeitura"), rs.getInt("fkComponente"), rs.getInt("fkMetrica"),
+                rs.getInt("fkMaquina"), rs.getString("dataColeta"), rs.getDouble("valorLeitura"));
         return leitura;
     }
     

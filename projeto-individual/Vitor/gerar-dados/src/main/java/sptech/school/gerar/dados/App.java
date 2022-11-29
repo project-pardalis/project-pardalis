@@ -16,9 +16,7 @@ public class App {
         
         Main main  = new Main();
 
-        main.criarMaquinas();
-        main.criarComponentes();
-        main.criarComponenteHasMetrica();
+        main.gerarDados();
 
 //        List<Maquina> maquinas = main.jdbcTemplate.query("SELECT * FROM [dbo].[Maquina]", new MaquinaRowMapper());
 //        List<Componente> componentes = main.jdbcTemplate.query("SELECT * FROM [dbo].[Componente]", new ComponenteRowMapper());
