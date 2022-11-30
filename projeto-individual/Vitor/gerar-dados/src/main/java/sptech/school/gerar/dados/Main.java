@@ -14,17 +14,16 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author aluno
  */
 public class Main {
-    
-    private BasicDataSource dataSource = new BasicDataSource();
 
-    private BasicDataSource dataSourceLocal = new BasicDataSource();
-    private List<Maquina> maquinas;
-    private List<Componente> componentes;
-    private List<ComponenteHasMetrica> compHasMetrica;
+    private final BasicDataSource dataSource = new BasicDataSource();
+    private final BasicDataSource dataSourceLocal = new BasicDataSource();
+    private final List<Maquina> maquinas;
+    private final List<Componente> componentes;
+    private final List<ComponenteHasMetrica> compHasMetrica;
 
-    private List<Leitura> leituras;
+    private final List<Leitura> leituras;
 
-    private List<Metrica> metricas;
+    private final List<Metrica> metricas;
         
     public Main() {
             dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -51,11 +50,11 @@ public class Main {
         System.out.println("Criando Maquinas...");
         while (maquinas.size() < 8) {
             String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            String hex = "";
+            StringBuilder hex = new StringBuilder();
             for (int x = 0; x < 12; x++) {
-                hex += chars.charAt((int) Math.floor(Math.random() * 36));
+                hex.append(chars.charAt((int) Math.floor(Math.random() * 36)));
             }
-            Maquina maquina = new Maquina(maquinas.size()+1,"Maquina Projeto"+maquinas.size(),"Linux", hex);
+            Maquina maquina = new Maquina(maquinas.size()+1,"Maquina Projeto"+maquinas.size(),"Linux", hex.toString());
             maquinas.add(maquina);
             jdbcTemplate.update(String.format(
                     "INSERT INTO [dbo].[Maquina] "
@@ -71,7 +70,7 @@ public class Main {
 
         System.out.println("Criando Componentes...");
 
-        List<String> comps = new ArrayList();
+        List<String> comps = new ArrayList<>();
 
         comps.add("cpu");
         comps.add("ram");
@@ -121,25 +120,16 @@ public class Main {
             }
 
             public void gerarDados() {
-                char[] ano = new char[4];
-                char[] mes = new char[2];
-                char[] dia = new char[2];
-                char[] hora = new char[2];
-                char[] minuto = new char[2];
-                char[] segundo = new char[2];
+
                 String data = leituras.get(0).getDataColeta();
-                data.getChars(0,4,ano,0);
-                data.getChars(5,7,mes,0);
-                data.getChars(8,10,dia,0);
-                data.getChars(11,13,hora,0);
-                data.getChars(14,16,minuto,0);
-                data.getChars(17,19,segundo,0);
-                int anoS = Integer.parseInt(new String(ano));
-                int mesS = Integer.parseInt(new String(mes));
-                int diaS = Integer.parseInt(new String(dia));
-                int horaS = Integer.parseInt(new String(hora));
-                int minutoS = Integer.parseInt(new String(minuto));
-                int segundoS = Integer.parseInt(new String(segundo));
+                List<Integer> dataFormatada = formatarData(data);
+
+                int anoS = dataFormatada.get(0);
+                int mesS = dataFormatada.get(1);
+                int diaS = dataFormatada.get(2);
+                int horaS = dataFormatada.get(3);
+                int minutoS = dataFormatada.get(4);
+                int segundoS = dataFormatada.get(5);
 
                 Random gerador = new Random(1234);
 
@@ -198,6 +188,25 @@ public class Main {
                                     compHasMet.getFkMaquina(), compHasMet.getFkEmpresa(),
                                     dateTime, valor));
                             System.out.println("dado inserido no banco");
+
+                            List<Leitura> dataAtual = jdbcTemplateLocal.query("SELECT * FROM Leitura ORDER BY idLeitura DESC LIMIT 1", new LeituraRowMapper());
+                            List<Leitura> dataInicial = jdbcTemplateLocal.query("SELECT * FROM Leitura LIMIT 1", new LeituraRowMapper());
+
+                            String dataIn = dataInicial.get(0).getDataColeta();
+                            String dataAt = dataAtual.get(0).getDataColeta();
+
+                            List<Integer> dataFormatIn = formatarData(dataIn);
+                            List<Integer> dataFormat = formatarData(dataAt);
+
+                            Integer diaAtual = dataFormat.get(2);
+                            Integer mesAtual = dataFormat.get(1);
+
+                            Integer diaInicial = dataFormatIn.get(2);
+                            Integer mesInicial = dataFormatIn.get(1);
+
+                            if (diaAtual.equals(diaInicial) && mesAtual.equals(diaInicial+1)) {
+                                gerarSummary(dataInicial.get(0).getIdLeitura(), dataAtual.get(0).getIdLeitura());
+                            }
                         }
                     }
                     segundoS++;
@@ -218,5 +227,44 @@ public class Main {
                         anoS++;
                     }
                 }
+            }
+
+            public List formatarData(String data) {
+
+                char[] ano = new char[4];
+                char[] mes = new char[2];
+                char[] dia = new char[2];
+                char[] hora = new char[2];
+                char[] minuto = new char[2];
+                char[] segundo = new char[2];
+
+                data.getChars(0,4,ano,0);
+                data.getChars(5,7,mes,0);
+                data.getChars(8,10,dia,0);
+                data.getChars(11,13,hora,0);
+                data.getChars(14,16,minuto,0);
+                data.getChars(17,19,segundo,0);
+
+                int anoS = Integer.parseInt(new String(ano));
+                int mesS = Integer.parseInt(new String(mes));
+                int diaS = Integer.parseInt(new String(dia));
+                int horaS = Integer.parseInt(new String(hora));
+                int minutoS = Integer.parseInt(new String(minuto));
+                int segundoS = Integer.parseInt(new String(segundo));
+
+                List<Integer> dataFormat = new ArrayList();
+
+                dataFormat.add(anoS);
+                dataFormat.add(mesS);
+                dataFormat.add(diaS);
+                dataFormat.add(horaS);
+                dataFormat.add(minutoS);
+                dataFormat.add(segundoS);
+
+                return dataFormat;
+            }
+
+            public void gerarSummary(Integer idInicial, Integer idFinal) {
+
             }
     }
