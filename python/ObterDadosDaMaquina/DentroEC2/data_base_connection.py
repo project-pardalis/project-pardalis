@@ -6,25 +6,30 @@ import pymssql, json, time, socket
 #1 = PRODUCAO
 
 
-AMBIENTE = 1
 
+AMBIENTE = 0
 
 
 ip_address = socket.gethostbyname(socket.gethostname())
-if AMBIENTE == 0:        
-    connection = pymysql.connect(host=ip_address,
-                             user='userP',
-                             password='urubu100',
-                             database='PARDALIS',
-                             cursorclass=pymysql.cursors.DictCursor)
-    cursor = connection.cursor()
-else:
+try:
+    
     connectionSQL = pymssql.connect(host='svr-pardalis.database.windows.net',
                              user='pardalis',
                              password='#urubu100',
                              database='pardalis',
                              as_dict=True)
     cursor = connectionSQL.cursor()
+    AMBIENTE = 1
+    
+except:
+    connection = pymysql.connect(host=ip_address,
+                             user='root',
+                             password='urubu100',
+                             database='PARDALIS',
+                             cursorclass=pymysql.cursors.DictCursor)
+    cursor = connection.cursor()
+    AMBIENTE = 0
+
 
 def rename_hash(hash: str):
     return hash.replace(':', '').upper()
