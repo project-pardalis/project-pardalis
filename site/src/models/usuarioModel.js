@@ -24,23 +24,23 @@ async function cadastrarEmpresa(nome, cnpj) {
     return await database.executar(`SELECT TOP 1 idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC;`);
 }
 
-async function cadastrarFuncionario(nome, email, senha, fkEmpresa, tipo = "gerente") {
+async function cadastrarFuncionario(nome, email, senha, cargo, fkEmpresa, tipo = "gerente") {
     var instrucao;
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucao = `
-        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, fkEmpresa, fkAdministrador)
-        SELECT '${nome}', '${email}', '${senha}', ${fkEmpresa}, idUsuario FROM Usuario
+        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador)
+        SELECT '${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, idUsuario FROM Usuario
         WHERE fkEmpresa = ${fkEmpresa} AND fkAdministrador IS NULL LIMIT 1;
         `;
     } else {
         instrucao = `
-            INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, fkEmpresa, fkAdministrador)`;
+            INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador)`;
         if (tipo == "funcionario") {
             instrucao += `
-            SELECT TOP 1 '${nome}', '${email}', '${senha}', ${fkEmpresa}, idUsuario FROM Usuario
+            SELECT TOP 1 '${nome}', '${email}', '${senha}', "${cargo}" , "${fkEmpresa}", idUsuario FROM Usuario
             WHERE fkEmpresa = ${fkEmpresa} AND fkAdministrador IS NULL;`;
         } else {
-            instrucao += ` VALUES ('${nome}', '${email}', '${senha}', ${fkEmpresa}, NULL);`;
+            instrucao += ` VALUES ('${nome}', '${email}', '${senha}', '${cargo}' ,${fkEmpresa}, NULL);`;
         }
 
     }
@@ -93,6 +93,12 @@ function updateUser(idUsuario, nome, email, senha) {
         return error;
     }
 }
+
+function getAllUserInfo() {
+    let instrucao;
+    instrucao = 'SELECT * FROM Usuario';
+    return database.executar(instrucao)
+}
 module.exports = {
     entrar,
     cadastrarEmpresa,
@@ -100,5 +106,6 @@ module.exports = {
     cadastrarFuncionario,
     deleteEmpresa,
     getInfo,
-    updateUser
+    updateUser,
+    getAllUserInfo
 };

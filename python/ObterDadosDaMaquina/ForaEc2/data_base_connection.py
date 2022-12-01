@@ -6,7 +6,7 @@ import pymssql, json, time, psutil as ps
 #1 = PRODUCAO
 
 
-AMBIENTE = 0
+AMBIENTE = 1
 
 
 

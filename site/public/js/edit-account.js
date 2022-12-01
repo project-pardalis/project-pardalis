@@ -14,7 +14,7 @@ function changeName() {
         document.getElementById("ipt-nome").value = document.getElementById("nome-usuario").innerHTML;
         document.getElementById("ipt-nome").style.display = "block";
         document.getElementById("nome-usuario").style.display = "none";
-        
+
     } else {
         document.getElementById("ipt-nome").value = "";
         document.getElementById("ipt-nome").style.display = "none";
@@ -42,9 +42,21 @@ async function getUserInfo() {
         },
     });
     let data = await response.json();
+    console.log(data)
     return data;
 }
 
+async function getAllUserInfo() {
+    let response = await fetch(`http://localhost:3000/usuarios/getAllUser`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    let data = await response.json();
+    console.log(data)
+    return data;
+}
 async function updateUserInfo() {
     let data = await getUserInfo();
     data = data[0];
@@ -78,7 +90,7 @@ function confirmClick() {
             confirmButtonText: "Ok",
         });
     }
-    
+
 }
 
 function checkIfIsFull() {
@@ -103,37 +115,58 @@ function checkIfIsFull() {
 }
 
 async function updateAccount() {
-        let data = {
-            idUsuario: sessionStorage.ID_USUARIO,
-            userName: document.getElementById("ipt-nome").value,
-            userEmail: document.getElementById("ipt-email").value,
-            userPassword: document.getElementById("ipt-passwd").value
-        };
-        console.log(data)
-        let res = await fetch(`http://localhost:3000/usuarios/atualizar/`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                ID_USUARIO: data.idUsuario,
-                NOME_USUARIO: data.userName,
-                EMAIL_USUARIO: data.userEmail,
-                SENHA_USUARIO: data.userPassword,
-            }),
-        })
-        if (res.status == 200) {
-            swal.fire({
-                title: "Sucesso!",
-                text: "Dados atualizados com sucesso!",
-                icon: "success",
-                confirmButtonText: "Ok",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "./edit-account.html";
-                }
-            });
-        }
+    let data = {
+        idUsuario: sessionStorage.ID_USUARIO,
+        userName: document.getElementById("ipt-nome").value,
+        userEmail: document.getElementById("ipt-email").value,
+        userPassword: document.getElementById("ipt-passwd").value
+    };
+    console.log(data)
+    let res = await fetch(`http://localhost:3000/usuarios/atualizar/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            ID_USUARIO: data.idUsuario,
+            NOME_USUARIO: data.userName,
+            EMAIL_USUARIO: data.userEmail,
+            SENHA_USUARIO: data.userPassword,
+        }),
+    })
+    if (res.status == 200) {
+        swal.fire({
+            title: "Sucesso!",
+            text: "Dados atualizados com sucesso!",
+            icon: "success",
+            confirmButtonText: "Ok",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "./edit-account.html";
+            }
+        });
+    }
 }
 
+async function visualizarUsuario() {
+    let data = await getAllUserInfo()
+    for (i = 0; i < data.length; i++) {
+        lineCardsVisualizar.innerHTML += `<div class="card">
+        <div class="card-title flex justify-content-center">
+            <div class="h4 fw-bold" id="nomeUsuarioVisualizar${i}"> </div>
+        </div>
+        <hr>
+        <div class="card-body">
+            <div id="emailUsuarioVisualizar${i}"></div>
+            <div id="cargoUsuarioVisualizar${i}"></div>
+            <button>Deletar usuário</button>
+        </div>
+    </div>`
+        document.getElementById(`nomeUsuarioVisualizar${i}`).innerHTML = data[i].nomeUsuario
+        document.getElementById(`emailUsuarioVisualizar${i}`).innerHTML = data[i].emailUsuario
+        document.getElementById(`cargoUsuarioVisualizar${i}`).innerHTML = data[i].cargo
+
+    }
+}
 updateUserInfo();
+visualizarUsuario();

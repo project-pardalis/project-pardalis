@@ -241,8 +241,7 @@ function setAlertsMetricas() {
 
         for (j = 0; j < valores.length; j++) {
 
-            console.log(ramPercent + " ram percent ")
-            console.log(cpuPercent + ' cpu percent')
+
             condition = alertsRisk(valores[j], 80, 60)
             if (condition == 'risco') {
                 risco++;
@@ -257,7 +256,7 @@ function setAlertsMetricas() {
         }
     }
 
-    console.log("ok: " + ok + "risco: " + risco + "alerta: " + alerta)
+    ok = Math.floor(ok / 2)
     plotOnPage(ok, risco, alerta)
     chartCpuTotal(ok, risco, alerta)
 }
@@ -302,7 +301,7 @@ function getServerMoreUse() {
     indexMaxCpuFreq = 0
     for (i = 0; i < machines.length; i++) {
         try {
-            data = machines[i].lastData.cpu_Frequencia_Atual.valorLeitura
+            data = machines[i].lastData.cpu_Utilizacao.valorLeitura
         } catch {
             console.log("valor undefined: getServerMoreUse() dashboard_Grafico.js")
         }

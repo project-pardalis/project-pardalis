@@ -63,7 +63,7 @@ async function cadastrar(req, res) {
     try {
       resEmpresa = await usuarioModel.cadastrarEmpresa(empresa, cnpj);
       try {
-        let resultado = await usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), resEmpresa[0].idEmpresa)
+        let resultado = await usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), resEmpresa[0].idEmpresa, "Programador")
         res.json({ "ok": true });
       } catch (error) {
         res.status(500).json({ "erro": error.sqlMessage });
@@ -76,7 +76,24 @@ async function cadastrar(req, res) {
 
   }
 }
+async function cadastrarUsuario(req, res) {
+  // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+  var nome = req.body.nomeServer;
+  var email = req.body.userEmailServer;
+  var senha = req.body.senhaServer;
+  var cargo = req.body.cargoServer;
+  var empresa = req.body.empresaServer
 
+
+  resUsuario = await usuarioModel.cadastrarFuncionario(nome, email, senha, cargo, empresa)
+    .then(function (resposta) {
+      res.json(resposta)
+      console.log(resposta)
+    });
+
+
+
+}
 
 function updatePassword(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
@@ -119,10 +136,19 @@ async function updateUser(req, res) {
   res.json(await usuarioModel.updateUser(idUsuario, nome, email, sha512(senha)));
 }
 
+async function getAllUserInfo(req, res) {
+  resUsuario = await usuarioModel.getAllUserInfo()
+    .then(function (resposta) {
+      res.json(resposta)
+      console.log(resposta)
+    });
+}
 module.exports = {
   entrar,
   cadastrar,
   updatePassword,
   getInfo,
-  updateUser
+  updateUser,
+  cadastrarUsuario,
+  getAllUserInfo
 };
