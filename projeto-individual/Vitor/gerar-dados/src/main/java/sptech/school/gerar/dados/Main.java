@@ -4,7 +4,13 @@
  */
 package sptech.school.gerar.dados;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,9 +44,9 @@ public class Main {
             leituras = jdbcTemplate.query("SELECT TOP 1 * FROM [dbo].[Leitura] ORDER BY idLeitura DESC", new LeituraRowMapper());
 
             dataSourceLocal.setDriverClassName("com.mysql.cj.jdbc.Driver");
-            dataSourceLocal.setUrl("jdbc:mysql://127.0.0.1:3306/bancoLocal");
-            dataSourceLocal.setUsername("aluno");
-            dataSourceLocal.setPassword("sptech");
+            dataSourceLocal.setUrl("jdbc:mysql://127.0.0.1:3306/bancoLocal?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+            dataSourceLocal.setUsername("root");
+            dataSourceLocal.setPassword("1991");
         
     }
     
@@ -204,7 +210,7 @@ public class Main {
                             Integer diaInicial = dataFormatIn.get(2);
                             Integer mesInicial = dataFormatIn.get(1);
 
-                            if (diaAtual.equals(diaInicial) && mesAtual.equals(diaInicial+1)) {
+                            if (diaAtual.equals(diaInicial) && mesAtual.equals(mesInicial+1)) {
                                 gerarSummary(dataInicial.get(0).getIdLeitura(), dataAtual.get(0).getIdLeitura());
                             }
                         }
@@ -213,16 +219,20 @@ public class Main {
                     if (segundoS == 60) {
                         segundoS = 0;
                         minutoS++;
-                    } else if (minutoS == 60) {
+                    }
+                    if (minutoS == 60) {
                         minutoS = 0;
                         horaS++;
-                    } else if (horaS == 24) {
+                    }
+                    if (horaS == 24) {
                         horaS = 0;
                         diaS++;
-                    } else if (diaS == 32) {
+                    }
+                    if (diaS == 32) {
                         diaS = 1;
                         mesS++;
-                    } else if (mesS == 13) {
+                    }
+                    if (mesS == 13) {
                         mesS = 1;
                         anoS++;
                     }
@@ -265,6 +275,39 @@ public class Main {
             }
 
             public void gerarSummary(Integer idInicial, Integer idFinal) {
-
+                List<Leitura> dataValues = new ArrayList<>();
+                dataValues = jdbcTemplateLocal.query(String.format("SELECT * FROM Leitura WHERE idLeitura >= %d AND idLeitura <= %d", idInicial, idFinal), new LeituraRowMapper());
+                List<String[]> dataLines = new ArrayList<>();
+                for (Leitura leitura : dataValues) {
+                    dataLines.add(new String[] {
+                            leitura.getIdLeitura().toString(), leitura.getFkComponente().toString(), leitura.getFkMetrica().toString(), leitura.getValorLeitura().toString(), leitura.getDataColeta()
+                    });
+                }
+                File csvOutputFile = new File("DadosLeitura");
+                try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+                    dataLines.stream()
+                            .map(this::convertToCSV)
+                            .forEach(pw::println);
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                jdbcTemplateLocal.update(String.format("DELETE FROM Leitura WHERE idLeitura >= %d AND idLeitura <= %d", idInicial, idFinal));
             }
+
+    public String convertToCSV(String[] data) {
+        return Stream.of(data)
+                .map(this::escapeSpecialCharacters)
+                .collect(Collectors.joining(","));
+    }
+
+    public String escapeSpecialCharacters(String data) {
+        String escapedData = data.replaceAll("\\R", " ");
+        if (data.contains(",") || data.contains("\"") || data.contains("'")) {
+            data = data.replace("\"", "\"\"");
+            escapedData = "\"" + data + "\"";
+        }
+        return escapedData;
+    }
+
+
     }
