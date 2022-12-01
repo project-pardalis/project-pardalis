@@ -56,7 +56,7 @@ function plotarGraficoPorChamadoDados(data, label, comp) {
         case 'cpu':
             graficoCpuChamados = new Chart(
                 document.getElementById('lineChartCompUse' + comp), {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: label
                     ,
@@ -78,7 +78,7 @@ function plotarGraficoPorChamadoDados(data, label, comp) {
         case 'disco':
             graficoCpuChamados = new Chart(
                 document.getElementById('lineChartCompUse' + comp), {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: label
                     ,
@@ -100,7 +100,7 @@ function plotarGraficoPorChamadoDados(data, label, comp) {
         case 'ram':
             graficoCpuChamados = new Chart(
                 document.getElementById('lineChartCompUse' + comp), {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: label
                     ,
@@ -128,7 +128,7 @@ function maxUsoComp(data, label, comp) {
     console.log(comp + " COMPONENTE")
     switch (comp) {
         case 'cpu':
-            data.push(100)
+            data.push(100 - data)
             graficoCpuChamados = new Chart(
                 document.getElementById('maxUsoComp' + comp), {
                 type: 'pie',
@@ -350,4 +350,66 @@ function generalChartUsePercent(data, label, comp) {
 
             break;
     }
+}
+
+
+function plotarGraficoChamadosPorCategoria(categorias) {
+    // 0 - duvidas 
+    // 1 - instabilidade server 
+    // 2 - incongruencia dos dados 
+    // 3 - pedidos 
+    // 4 - outros 
+
+    label = ['Dúvidas e informação', 'Instabilidade do servidor', 'Incongruência dos dados', 'Pedidos', "Outros"]
+    chartChamadosPorCategoria = new Chart(
+        document.getElementById('graficoChamadoPorCategoria'), {
+        type: 'bar',
+        data: {
+            labels: label
+            ,
+            datasets: [{
+                label: 'cpu',
+                data: categorias,
+                backgroundColor: [
+
+                    'rgb(255, 205, 86)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 99, 132)'
+                ],
+                hoverOffset: 4
+            }]
+        }
+    }
+    )
+}
+
+
+function plotarGraficoChamadosPorPrioridade(prioridades) {
+    // 0 - duvidas 
+    // 1 - instabilidade server 
+    // 2 - incongruencia dos dados 
+    // 3 - pedidos 
+    // 4 - outros 
+
+    label = ['Normal', 'Alerta', 'Risco']
+    chartChamadosPorCategoria = new Chart(
+        document.getElementById('graficoChamadoPorPrioridade'), {
+        type: 'bar',
+        data: {
+            labels: label
+            ,
+            datasets: [{
+                label: 'cpu',
+                data: prioridades,
+                backgroundColor: [
+
+                    'rgb(255, 205, 86)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 99, 132)'
+                ],
+                hoverOffset: 4
+            }]
+        }
+    }
+    )
 }

@@ -34,6 +34,14 @@ router.get("/getLeituraMetricaDados", function (req, res) {
     chamadosController.getDataLeituraMetrica(req, res);
 });
 
+router.get("/updatePrioridade", (req, res) => {
+    chamadosController.updateChamado(req, res)
+})
+
+router.post("/responderChamado", (req, res) => {
+    chamadosController.responderChamado(req, res)
+})
+
 
 
 module.exports = router;

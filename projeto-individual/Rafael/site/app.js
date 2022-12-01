@@ -7,6 +7,7 @@ const PORTA = 3000;
 
 const app = express();
 
+
 const indexRouter = require("./src/routes/rotas");
 
 // const visualizarChamadosRouter = require("./src/routes/visualizarChamados")

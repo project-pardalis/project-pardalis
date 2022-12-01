@@ -32,6 +32,8 @@ CREATE TABLE Chamado(
     categoriaChamado VARCHAR(45) NOT NULL ,  
     dataChamado DATETIME   ,  
     isAberto BOOLEAN NOT NULL , 
+    prioridadeChamado VARCHAR(60) NOT NULL , 
+    respostaChamado VARCHAR(400),
     fkUsuario INT NOT NULL ,
     fkMaquina INT NOT NULL , 
     FOREIGN KEY (fkUsuario) REFERENCES Usuario(idUsuario)  
@@ -112,3 +114,4 @@ INSERT INTO Metrica (nomeMetrica, unidadeDeMedida, isEstatico) VALUES("disco_Tot
 						  ("disco_read_time", "MB", 0),	
 						  ("disco_write_time", "MB", 0),	
 						  ("disco_Usado", "GB", 0); 
+INSERT INTO Maquina VALUES (null, 'Rafael Machine','linux',0,'2022-11-30 22:38:42','988389018109',1)
