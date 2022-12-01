@@ -5,24 +5,37 @@ async function getMaquinas(fkEmpresa) {
     var sql = `SELECT idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
     let res = await database.executar(sql)
     let metricas = await getMetricas();
-    for (let i = 0; i < res.length; i++) {
-        res[i].lastData = {};
-    }
-    for (let i = 0; metricas.length > i; i++) {
-        for (let j = 0; j < res.length; j++) {
+    
+    let checker = arr => arr.every(v => v === true);
+
+    for (let j = 0; j < res.length; j++) {
+        res[j].lastData = {};
+        let isEmpty = [];
+        for (let i = 0; metricas.length > i; i++) {
+            if (checker(isEmpty) && i >= metricas.length / 2) {
+                console.log("Quebrei...........................................")
+                break;
+            }
             if (metricas[i].isEstatico == 0) {
                 res[j].lastData[metricas[i].nomeMetrica] = await getDados(res[j].nomeEmpresa, res[j].nomeMaquina, metricas[i].nomeMetrica);
+
+                if (res[j].lastData[metricas[i].nomeMetrica] == undefined) isEmpty.push(true);
+                else isEmpty.push(false);
             }
         }
+        if (checker(isEmpty)) {
+            for (let i = 0; i < metricas.length; i++) {
+                if (metricas[i].isEstatico == 0) {
+                    delete res[j].lastData[metricas[i].nomeMetrica];
+                }
+            }
+            res[j].lastData.estatico = [];
+        } else {
+            res[j].lastData.estatico = (await getView(res[j].nomeEmpresa, res[j].nomeMaquina, "estatico", true));
+        }
     }
-    for (let i = 0; i < res.length; i++) {
-        res[i].lastData.estatico = (await getView(res[i].nomeEmpresa, res[i].nomeMaquina, "estatico", true));
-    }
-
+    console.log("Finish")
     return res;
-
-
-
 }
 
 async function getDados(nomeEmpresa, nomeMaquina, nomeMetrica) {
@@ -35,9 +48,12 @@ async function analysys(fkEmpresa, fkMaquina, order, limit) {
     let maquinaInfo = await getMaquinaInfo(fkEmpresa, fkMaquina);
     let nomeEmpresa = maquinaInfo[0].nomeEmpresa, nomeMaquina = maquinaInfo[0].nomeMaquina;
     let metricas = await getMetricas();
+    
     let res = {};
+    
     for (let i = 0; i < metricas.length; i++) {
         let nomeMetrica = metricas[i].nomeMetrica;
+        
         if (metricas[i].isEstatico == 0) {
             res[nomeMetrica] = await getView(nomeEmpresa, nomeMaquina, nomeMetrica, order, limit);
         }
@@ -83,8 +99,6 @@ function getMaquinaInfo(fkEmpresa, fkMaquina) {
     }
     return database.executar(sql)
 }
-
-
 
 async function checkIfViewExists(nomeEmpresa, nomeMaquina, nomeMetrica) {
     let sql;
