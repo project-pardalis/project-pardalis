@@ -1,0 +1,8 @@
+.containerGeral {
+    position: relative;
+    border: 1px solid black;
+    width: 75vw;
+    height: 85vh;
+    margin-top: -90vh;
+    margin-left: 20vw;
+}
