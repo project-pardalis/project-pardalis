@@ -133,11 +133,15 @@ async function updateUser(req, res) {
   let nome = req.body.NOME_USUARIO;
   let email = req.body.EMAIL_USUARIO;
   let senha = req.body.SENHA_USUARIO;
-  res.json(await usuarioModel.updateUser(idUsuario, nome, email, sha512(senha)));
+
+  res.status(200).json(await usuarioModel.updateUser(idUsuario, nome, email, sha512(senha), req.body.CARGO_USUARIO));
+  
 }
 
 async function getAllUserInfo(req, res) {
-  resUsuario = await usuarioModel.getAllUserInfo()
+  let fkEmpresa = req.params.fkEmpresa;
+
+  resUsuario = await usuarioModel.getAllUserInfo(fkEmpresa)
     .then(function (resposta) {
       res.json(resposta)
       console.log(resposta)

@@ -24,25 +24,21 @@ async function cadastrarEmpresa(nome, cnpj) {
     return await database.executar(`SELECT TOP 1 idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC;`);
 }
 
-async function cadastrarFuncionario(nome, email, senha, cargo, fkEmpresa, tipo = "gerente") {
+async function cadastrarFuncionario(nome, email, senha, cargo, fkEmpresa, fkAdministrador='null') {
+    let funcionarios = await getAllUserInfo(fkEmpresa);
+    if (funcionarios.length == 0) fkAdministrador = 'null';
+    else fkAdministrador = funcionarios[0].idUsuario;
     var instrucao;
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucao = `
-        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador)
-        SELECT '${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, idUsuario FROM Usuario
-        WHERE fkEmpresa = ${fkEmpresa} AND fkAdministrador IS NULL LIMIT 1;
+        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
+        VALUES ('${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, ${fkAdministrador});
         `;
     } else {
         instrucao = `
-            INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador)`;
-        if (tipo == "funcionario") {
-            instrucao += `
-            SELECT TOP 1 '${nome}', '${email}', '${senha}', "${cargo}" , "${fkEmpresa}", idUsuario FROM Usuario
-            WHERE fkEmpresa = ${fkEmpresa} AND fkAdministrador IS NULL;`;
-        } else {
-            instrucao += ` VALUES ('${nome}', '${email}', '${senha}', '${cargo}' ,${fkEmpresa}, NULL);`;
-        }
-
+        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
+        VALUES ('${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, ${fkAdministrador});
+        `;
     }
     return await database.executar(instrucao);
 }
@@ -65,7 +61,7 @@ function deleteEmpresa(idEmpresa) {
     `;
     return database.executar(instrucao);
 }
-
+    
 function getInfo(idUsuario) {
     let instrucao;
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -78,12 +74,14 @@ function getInfo(idUsuario) {
     return database.executar(instrucao);
 }
 
-function updateUser(idUsuario, nome, email, senha) {
+function updateUser(idUsuario, nome, email, senha, cargo) {
+    if (cargo == undefined) cargo = 'Indefinido';
     let instrucao;
+    console.log("Atualizando Usuario")
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}' WHERE idUsuario = '${idUsuario}';`;
+        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}', cargo = '${cargo}' WHERE idUsuario = '${idUsuario}';`;
     } else {
-        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}' WHERE idUsuario = '${idUsuario}';`;
+        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}', cargo = '${cargo}' WHERE idUsuario = '${idUsuario}';`;
     }
 
     try {
@@ -94,9 +92,9 @@ function updateUser(idUsuario, nome, email, senha) {
     }
 }
 
-function getAllUserInfo() {
+function getAllUserInfo(fkEmpresa) {
     let instrucao;
-    instrucao = 'SELECT * FROM Usuario';
+    instrucao = 'SELECT * FROM Usuario WHERE fkEmpresa = ' + fkEmpresa + ';';
     return database.executar(instrucao)
 }
 module.exports = {

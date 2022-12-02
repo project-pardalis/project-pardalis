@@ -91,13 +91,20 @@
             </div>
         </nav>
 
-        <div class="w-75 p-5">
-            <div class="lineCard" id='lineCardsVisualizar'>
+        <div class="w-75 d-flex justify-content-center pt-2 px-5 ms-5">
+            <table class="w-100 table table-hover" style="height: fit-content;">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Função</th>
+                        <th>Email</th>
 
+                    </tr>
+                </thead>
+                <tbody id="usuarios-table">
 
-            </div>
-
-
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -108,18 +115,18 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
         integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
         crossorigin="anonymous"></script>
-    <script src="./js/edit-account.js"></script>
+    <script src="./js/manage-accounts.js"></script>
     <script src="https://kit.fontawesome.com/2eecc47c4e.js" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
 <script>
-    function cadastrarUsuario() {
+    /* function cadastrarUsuario() {
         alert("Usuário cadastrado! Redirecionando para a página inicial... ")
         redirectToPage('./dashboard.html')
     }
     function redirectToPage(page) {
         window.location.href = page
-    }
+    } */
 </script>

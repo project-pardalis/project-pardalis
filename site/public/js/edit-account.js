@@ -46,17 +46,6 @@ async function getUserInfo() {
     return data;
 }
 
-async function getAllUserInfo() {
-    let response = await fetch(`http://localhost:3000/usuarios/getAllUser`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
-    let data = await response.json();
-    console.log(data)
-    return data;
-}
 async function updateUserInfo() {
     let data = await getUserInfo();
     data = data[0];
@@ -121,7 +110,7 @@ async function updateAccount() {
         userEmail: document.getElementById("ipt-email").value,
         userPassword: document.getElementById("ipt-passwd").value
     };
-    console.log(data)
+
     let res = await fetch(`http://localhost:3000/usuarios/atualizar/`, {
         method: "POST",
         headers: {
@@ -148,25 +137,5 @@ async function updateAccount() {
     }
 }
 
-async function visualizarUsuario() {
-    let data = await getAllUserInfo()
-    for (i = 0; i < data.length; i++) {
-        lineCardsVisualizar.innerHTML += `<div class="card">
-        <div class="card-title flex justify-content-center">
-            <div class="h4 fw-bold" id="nomeUsuarioVisualizar${i}"> </div>
-        </div>
-        <hr>
-        <div class="card-body">
-            <div id="emailUsuarioVisualizar${i}"></div>
-            <div id="cargoUsuarioVisualizar${i}"></div>
-            <button>Deletar usuário</button>
-        </div>
-    </div>`
-        document.getElementById(`nomeUsuarioVisualizar${i}`).innerHTML = data[i].nomeUsuario
-        document.getElementById(`emailUsuarioVisualizar${i}`).innerHTML = data[i].emailUsuario
-        document.getElementById(`cargoUsuarioVisualizar${i}`).innerHTML = data[i].cargo
 
-    }
-}
 updateUserInfo();
-visualizarUsuario();
