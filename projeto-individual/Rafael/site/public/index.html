@@ -15,54 +15,126 @@
     <div id="contentMenu">
 
 
-        <div class="nav">
-            <a href="abrirChamados.html">Abrir Chamado </a>
-            <button onclick="reloadPage() ">Atualizar</button>
-        </div>
+
         <div class="analitics">
-            Total chamados abertos: <div id="totalChamadosAbertos"></div>
-            Total chamados fechados: <div id="totalChamadosFechados"></div>
-            Categoria com mais chamados: <div id="categoriaMaisChamados"></div>
-            Mês com maior quantidade de chamados: <div id="mesQuantidadeChamados"></div>
-            <div class="chart">
-                <canvas id="graficoChamadosAbertosFechados"></canvas>
+
+
+            <div class="nav">
+                <button class="botaoNav" onclick="window.location.href='./abrirChamados.html'">Abrir
+                    Chamado</button>
+                <button class="botaoNav" onclick="reloadPage() ">Atualizar</button>
             </div>
 
-            <div class="chart">
-                <canvas id="graficoChamadoPorCategoria"></canvas>
-            </div>
-            <div class="chart">
-                <canvas id="graficoChamadoPorPrioridade"></canvas>
-            </div>
-            <div class="chart">
-                <p>Wordcloud:</p>
-                <img style='width:25rem;' src="./assets/wordcloud.png" alt="">
-            </div>
+            <div class="content">
+                <div id='cardsContent' class="cards-content">
 
+                    <div class="cards">
+                        <div class="card borda-padrao">
+                            Média de resolução/dia: <div class='bold-kpi' id="mediaResolucaoDia"></div>
+                        </div>
+                        <div class="card borda-padrao">
+                            % de resolução: <div class='bold-kpi' id="percentResolucao"></div>
+                        </div>
+                        <div class="card borda-padrao">
+                            Total de Tickets: <div class='bold-kpi' id="chamadosAbertos"></div>
+                        </div>
+                        <div class="card borda-padrao"> Tickets criados hoje: <div class='bold-kpi'
+                                id="chamadosCriadosNow">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="ticketsCard">
+                        <div class="filtragem">
+                            <div class="filtroDoFiltro">
+
+
+                                <label for="filtro">Filtrar por: </label>
+                                <select name="" id="filtroSelectOpt" onchange='mostrarCategoriaFiltro()'>
+                                    <option value="categoria">Categoria</option>
+                                    <option value="prioridade">Prioridade</option>
+
+                                </select>
+                            </div>
+                            <div class="novoFiltro">
+                                <select name="" id="selectFiltroFiltro"
+                                    onchange='plotarPagina(dadosTodosChamados, selectFiltroFiltro.value)'>
+
+                                </select>
+                            </div>
+                            <div class="class">
+                                <button onclick="plotarPagina(dadosTodosChamados,undefined)">Resetar</button>
+                            </div>
+                        </div>
+                        <div class='cardsTicket' id="cards">
+                        </div>
+
+
+                    </div>
+                    <div class="lowCharts">
+                        <div class="chart borda-padrao">
+                            <div class="title-chart" style="padding:2rem;">Gráfico de frequência relacionado aos
+                                assuntos</div>
+                            <img class='' style='width:30rem; height: 15rem;' src="./assets/wordcloud.png" alt="">
+                        </div>
+                        <div class="lowKpis">
+                            <div class="card borda-padrao lowKpi">
+                                Mês com + chamados: <div class='bold-kpi' id="mesQuantidadeChamados">
+                                </div>
+                            </div>
+                            <div class="card borda-padrao lowKpi">
+                                Categoria com + chamados:<br>
+                                <div class='bold-kpi' id="categoriaMaisChamados"></div>
+                            </div>
+                            <div class="card borda-padrao lowKpi">
+                                Usuário que + abre chamados:<br>
+                                <div class='bold-kpi' id="usuarioMaisAbreChamados"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="footerTable">
+                        <div class="chartFooter">
+                            <div class="chart borda-padrao chart-small">
+                                <div class="title-chart">Top 5 Máquinas por chamado </div>
+                                <div class="chart chart-top-machines">
+                                    <canvas id="chartTopMachines"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart borda-padrao chart-small">
+                                <div class="title-chart">Ticket por hora (hoje)</div>
+                                <canvas id="chartTimePerDay"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="charts">
+
+                    <div class="title">
+                        <p>BI Chamados</p>
+                    </div>
+                    <div class="chart borda-padrao">
+                        <div class="title-chart">Chamados abertos x Chamados Fechados</div>
+                        <canvas id="graficoChamadosAbertosFechados"></canvas>
+                    </div>
+
+                    <div class="chart borda-padrao">
+                        <div class="title-chart">Chamados por categoria</div>
+                        <canvas id="graficoChamadoPorCategoria"></canvas>
+                    </div>
+
+
+                    <div class="chart borda-padrao">
+                        <div class="title-chart">Chamados por prioridade</div>
+                        <canvas id="graficoChamadoPorPrioridade"></canvas>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
-
-        <div class="filtragem">
-            <div class="filtroDoFiltro">
-
-
-                <label for="filtro">Filtrar por: </label>
-                <select name="" id="filtroSelectOpt" onchange='mostrarCategoriaFiltro()'>
-                    <option value="categoria">Categoria</option>
-                    <option value="prioridade">Prioridade</option>
-
-                </select>
-            </div>
-            <div class="novoFiltro">
-                <select name="" id="selectFiltroFiltro"
-                    onchange='plotarPagina(dadosTodosChamados, selectFiltroFiltro.value)'></select>
-            </div>
-        </div>
-        <div class="content">
-            <div id='cardsContent' class="cards-content">
-                <div class='cards' id="cards"></div>
-            </div>
-        </div>
-    </div>
 
 </body>
 
@@ -107,18 +179,134 @@
         countFechados = res.length - countAbertos
         categoria = getCategoriaRepeticao(res)
 
-        document.getElementById('totalChamadosAbertos').innerHTML = countAbertos;
-        document.getElementById('totalChamadosFechados').innerHTML = countFechados;
-        document.getElementById('categoriaMaisChamados').innerHTML = categoria
+        document.getElementById('chamadosAbertos').innerHTML = countAbertos;
+
+        document.getElementById('chamadosCriadosNow').innerHTML = chamadosCriadosHoje(new Date())
+
+        document.getElementById('mediaResolucaoDia').innerHTML = (countFechados / getMediaResolucaoDia())
+
+        document.getElementById('categoriaMaisChamados').innerHTML = tratarCategoria(categoria)
+
+        document.getElementById('percentResolucao').innerHTML = Math.round(countFechados * 100 / res.length) + "%"
+
+        document.getElementById("mesQuantidadeChamados").innerHTML = setMesMaiorChamados()
+
+        document.getElementById("usuarioMaisAbreChamados").innerHTML = setUsuarioMaisAbreChamado()
 
         res = removeChamadosFechados(res)
         plotarGraficoPizzaChamados(countAbertos, countFechados)
         plotarGraficoDataChamados(getDataChamados(res))
         plotarGraficoChamadosPorCategoria(getCategoriasJsonChamadoCount(res))
         plotarGraficoChamadosPorPrioridade(setJsonPrioridades(res))
-        console.log(getDataChamados(res))
+        plotarGraficoChamadosPorHora(getDataChamadoPorHora(1), getDataChamadoPorHora(0))
+        getMachinesNameOrderByData()
+        plotarMaquinasComMaisChamados(convertJsonToArray(getMachinesNameOrderByData(), 'maquina'), convertJsonToArray(getMachinesNameOrderByData(), 'count'))
+    }
+    function getMachinesNameOrderByData() {
+        machines = []
+        pointer = 0;
+        for (i = 0; i < dadosTodosChamados.length; i++) {
+
+            if (machines[i] == undefined && machines.length == 0) {
+                machines[pointer] = dadosTodosChamados[i].nomeMaquina
+            }
+
+            else if (machines[pointer].maquina != dadosTodosChamados[i].nomeMaquina) {
+                machines.push({ "maquina": dadosTodosChamados[i].nomeMaquina, "count": 0 })
+                pointer++;
+                machines[pointer].count++;
+
+            }
+            else {
+                machines[pointer].count++;
+            }
+        }
+
+
+        return machines
+    }
+    function convertJsonToArray(json, key) {
+        arr = []
+        for (i = 0; i < json.length; i++) arr.push(json[i][key])
+        return arr
+    }
+    function getDataChamadoPorHora(condition) {
+        horarios = Array(24)
+        for (i = 0; i < horarios.length; i++) horarios[i] = 0
+
+        for (i = 0; i < dadosTodosChamados.length; i++) {
+
+            if (new Date(dadosTodosChamados[i].dataChamado).getDate() == new Date().getDate() && dadosTodosChamados[i].isAberto == condition) {
+                hora = new Date(dadosTodosChamados[i].dataChamado).getHours()
+                horarios[hora]++;
+            }
+
+
+        }
+        return horarios
+    }
+    function setUsuarioMaisAbreChamado() {
+        arr = []
+        for (i = 0; i < dadosTodosChamados.length; i++) {
+            arr.push(dadosTodosChamados[i].nomeUsuario)
+        }
+
+        arr = arr.sort((a, b) => //sorta a partir de 
+            arr.filter(v => v === a).length // se v for == a 
+            - arr.filter(v => v === b).length //subtraia se v tbm === b
+        ).pop();
+        return arr
+    }
+    function setMesMaiorChamados() {
+        arr = []
+        for (i = 0; i < dadosTodosChamados.length; i++) {
+            arr.push(new Date(dadosTodosChamados[i].dataChamado).getMonth() + 1)
+        }
+
+        date = arr.sort((a, b) => //sorta a partir de 
+            arr.filter(v => v === a).length // se v for == a 
+            - arr.filter(v => v === b).length //subtraia se v tbm === b
+        ).pop();
+
+        return String(new Date(date).toLocaleString('default', { month: 'long' })).toUpperCase()
+    }
+    function getMediaResolucaoDia() {
+        countMediaDias = 1
+
+        data = ''
+        for (i = 0; i < dadosTodosChamados.length; i++) {
+            if (i == 0) {
+                data = getDia(dadosTodosChamados[i].dataChamado);
+            }
+            if (i != 0 && !(getDia(dadosTodosChamados[i].dataChamado) == getDia(data))) {
+                countMediaDias++;
+                data = getDia(dadosTodosChamados[i].dataChamado)
+            }
+
+        }
+
+
+        return countMediaDias
     }
 
+    function getDia(date) {
+        date = new Date(date)
+        return `${date.getDate()}/${date.getUTCDate()}/${date.getFullYear()}`
+    }
+    function chamadosCriadosHoje(data) {
+        chamadosHoje = 0
+        for (i = 0; i < dadosTodosChamados.length; i++) {
+
+            dataChamado = new Date(dadosTodosChamados[i].dataChamado)
+            if (dadosTodosChamados[i].isAberto == 1) {
+                if (data.getDate() == dataChamado.getDate() && data.getUTCMonth() + 1 == dataChamado.getUTCMonth() + 1 && data.getFullYear() == dataChamado.getFullYear()) {
+                    chamadosHoje++;
+                }
+            }
+
+        }
+        return chamadosHoje;
+    }
     function removeChamadosFechados(res) {
         for (i = 0; i < res.length; i++) {
             if (res[i].isAberto == 0) {
@@ -131,18 +319,18 @@
         prioridades = { 'Normal': 0, 'Alerta': 0, 'Risco': 0 }
         for (i = 0; i < res.length; i++) {
 
-            if (isAberto(res[i].isAberto)) {
-                console.log("quebrei ! ")
-                break;
-            };
+            if (res[i].isAberto == 1) {
 
-            if (res[i].prioridadeChamado == "Normal") prioridades.Normal++;
 
-            if (res[i].prioridadeChamado == "Alerta") prioridades.Alerta++;
 
-            if (res[i].prioridadeCHamado == "Risco") prioridades.Risco++;
-        }
-        console.log(prioridades)
+
+                if (res[i].prioridadeChamado == "Normal") prioridades.Normal++;
+
+                if (res[i].prioridadeChamado == "Alerta") prioridades.Alerta++;
+
+                if (res[i].prioridadeCHamado == "Risco") prioridades.Risco++;
+            }
+        };
         return prioridades
     }
     function isAberto(boolean) {
@@ -164,26 +352,26 @@
 
             categoria = res[i].categoriaChamado
 
-            if (isAberto(res[i].isAberto)) break;
+            if (res[i].isAberto == 1) {
+                if (categoria == "Duvidas_e_informacoes") {
+                    categoriasCountChamado[0]++;
+                }
+                else if (categoria == "Instabilidade_do_servidor") {
+                    categoriasCountChamado[1]++;
+                }
+                else if (categoria == "Incongruencia_dos_dados") {
+                    categoriasCountChamado[2]++;
+                }
+                else if (categoria == "Pedido") {
+                    categoriasCountChamado[3]++;
+                }
+                else {
+                    categoriasCountChamado[4]++;
+                }
+            }
 
-            if (categoria == "Duvidas_e_informacoes") {
-                categoriasCountChamado[0]++;
-            }
-            else if (categoria == "Instabilidade_do_servidor") {
-                categoriasCountChamado[1]++;
-            }
-            else if (categoria == "Incongruencia_nos_dados") {
-                categoriasCountChamado[2]++;
-            }
-            else if (categoria == "Pedido") {
-                categoriasCountChamado[3]++;
-            }
-            else {
-                categoriasCountChamado[4]++;
-            }
-            console.log(res[i])
         }
-
+        console.log(categoriasCountChamado)
         return categoriasCountChamado;
 
     }
@@ -192,7 +380,7 @@
         datasChamado = []
         for (i = 0; i < arr.length; i++) {
             data = new Date(String(arr[i].dataChamado)).toLocaleDateString()
-            console.log(data)
+
 
         }
         return datasChamado
@@ -229,52 +417,83 @@
 
 
     }
-    function pltPageHtml(lista, i) {
 
-        if (lista == undefined) {
-            document.getElementById(`cards`).innerHTML = ''
-            return undefined
-        }
-        if (lista[i].isAberto == 1) {
-            document.getElementById(`cards`).innerHTML +=
-                `       
-                        <div class='card-chamado'> 
-                        <div class="assunto-chamado">${lista[i].assuntoChamado}</div>
-                        <div class="categoria-chamado">Categoria: ${tratarCategoria(lista[i].categoriaChamado)}</div>
-                        <div class='prioridade-chamado'> Prioridade: ${lista[i].prioridadeChamado} </div> 
-                        <hr>
-                    
-                       
-                        <div class="usuario-chamado">${lista[i].nomeUsuario}</div > 
-                        <div class="data-chamado">${data}</div>
-
-                        <button onclick='redirectToUrl(${lista[i].idChamado})'>Selecionar</button>
-                   </div>
-            `
-        }
-
-    }
 
     function plotarPagina(lista, filtro) {
-        console.log(lista)
+
         catFiltro = filtroSelectOpt.value
+
         for (i = 0; i < lista.length; i++) {
-            console.log(lista[i])
-            if (catFiltro == 'prioridade')
-                if (filtro == lista[i].prioridadeChamado.toLowerCase()) {
-                    pltPageHtml(lista, i)
+            if (i == 0) {
+                document.getElementById(`cards`).innerHTML = ''
+            }
+            if (filtro == undefined && lista[i].isAberto == 1) {
+                plotElements(lista, i)
+            }
+        }
+
+        //plot com filtro
+        for (i = 0; i < lista.length; i++) {
+            if (i == 0 && filtro != undefined) {
+                document.getElementById(`cards`).innerHTML = ''
+            }
+            if (lista[i].isAberto == 1) {
+                if (catFiltro == 'prioridade') {
+                    if (lista[i].prioridadeChamado.toLowerCase() == filtro.toLowerCase()) {
+                        plotElements(lista, i)
+                    }
                 }
-                else {
-                    pltPageHtml(undefined, undefined) // zerar page
+                if (catFiltro == 'categoria') {
+                    if (lista[i].categoriaChamado.toLowerCase() == filtro.toLowerCase()) {
+                        plotElements(lista, i)
+                    }
                 }
 
+            }
         }
+
+        document.getElementById('cards').innerHTML += " </table>"
 
 
 
 
     }
+    function plotElements(lista, i) {
 
+        document.getElementById(`cards`).innerHTML +=
+            `
+            <div class='card-chamado'>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="assunto-chamado">${lista[i].assuntoChamado}</div>
+                        </td>
+                        <td class="categoria-tabela">
+                            <div class="categoria-chamado">Categoria: ${tratarCategoria(lista[i].categoriaChamado)}</div>
+                        </td>
+                        <td>
+                            <div class='prioridade-chamado'> Prioridade: ${lista[i].prioridadeChamado} </div>
+                        </td>
+
+
+
+                        <td>
+                            <div class="usuario-chamado">${lista[i].nomeUsuario}</div >
+                        </td>
+                        <td>
+                            <div class="data-chamado">${new Date(lista[i].dataChamado).toLocaleDateString()
+            }</div >
+                        </td >
+        <td>
+            <button onclick='redirectToUrl(${lista[i].idChamado})'>Selecionar</button>
+        </td>
+                    </tr >
+
+        <div class='separator'></div>
+            </div >
+        `
+
+    }
     function redirectToUrl(id) {
         sessionStorage.IDUSUARIO = id;
         window.location.href = 'chamado.html'
@@ -290,20 +509,23 @@
 
         if (filtro == 'prioridade') {
             selectFiltroFiltro.innerHTML =
-                `<option value="normal">Normal</option>
+                `
+                <option value="Normal" > Normal</option >
+
             <option value="alerta">Alerta</option>
-            <option value="risco">Risco</option>`
+            <option value="Urgente">Risco</option>`
         }
         else if (filtro == 'categoria') {
             selectFiltroFiltro.innerHTML =
-                `<option value="duvidas">Dúvidas e informação</option>
-            <option value="instabilidade">Instabilidade do servidor</option>
-            <option value="incongruencia">Incongruência</option>
-            <option value="pedido">Pedido</option>
-            <option value="outros">Outros</option>`
+                `< option value = "Duvidas_e_informacao" > Dúvidas e informação</option >
+            <option value="Instabilidade_do_servidor">Instabilidade do servidor</option>
+            <option value="Incongruencia_dos_dados">Incongruência dos dados</option>
+            <option value="Pedido">Pedido</option>
+            <option value="Outros">Outros</option>`
         }
 
     }
+
     listarChamados()
 
 </script>

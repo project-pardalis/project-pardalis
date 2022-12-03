@@ -1,5 +1,9 @@
 :root {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    ;
+
+    --soft-gray: rgb(241, 242, 247);
+
 }
 
 .cards {
@@ -14,12 +18,31 @@
     display: none;
 }
 
-.card-chamado {
-    margin: 1rem;
-    flex: 1 0 21%;
-    border: 2px solid rgb(113, 113, 113);
-    border-radius: 20px;
+td,
+th {
+    /* border: 1px solid black; */
+    width: 100%;
     padding: 1rem;
+    background-color: white;
+}
+
+.cardsTicket {
+    display: block;
+    padding: 0.2rem;
+    overflow: scroll;
+    height: 16rem;
+
+}
+
+.separator {
+    width: 100%;
+
+
+}
+
+.card-chamado {
+
+    width: 100%;
 }
 
 .card-chamado button {
@@ -28,8 +51,13 @@
     padding: 0.5rem;
     font-weight: bolder;
     color: white;
-
+    transition: 200ms;
     border-radius: 0.25rem;
+}
+
+.card-chamado button:hover {
+    background-color: rgb(46, 67, 140);
+    transition: 200ms;
 }
 
 .assunto-chamado {
@@ -37,16 +65,159 @@
     font-weight: bolder;
 }
 
-.descricao-chamado {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.categoria-chamado {
-    font-size: 0.6em;
-}
 
 .chart {
-    width: 24rem;
-    height: 24rem;
+    width: 30rem;
+    margin-top: 1rem;
+    background-color: white;
+    padding: 2rem;
+    padding: 1rem;
+
+}
+
+.title-chart {
+    font-size: large;
+    font-weight: 300;
+}
+
+.charts {
+    padding: 1rem;
+    background-color: var(--soft-gray);
+    display: flex;
+    justify-content: right;
+    flex-direction: column;
+
+}
+
+.cards {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem;
+
+}
+
+.card {
+    background-color: white;
+    width: 6rem;
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem;
+
+}
+
+.borda-padrao {
+    border-radius: 10px;
+    border: 3px solid rgb(180, 180, 180)
+}
+
+.bold-kpi {
+    font-weight: bolder;
+}
+
+.analitycs-text {
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+.cards-content {
+    width: 100%;
+
+}
+
+.content {
+
+    background-color: var(--soft-gray);
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem;
+}
+
+.lowCharts {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+
+}
+
+.lowKpis {
+    display: flex;
+    flex-direction: column;
+
+    padding: 2rem;
+}
+
+.lowKpi {
+    margin-top: 1rem;
+    width: 20rem;
+}
+
+.title {
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.filtragem {
+    display: flex;
+    width: 30rem;
+    justify-content: space-evenly;
+    padding: 0.2rem;
+    font-weight: 600;
+}
+
+select {
+    background-color: rgb(246, 246, 246);
+
+    border: rgb(88, 129, 146);
+}
+
+
+
+.chartFooter {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chart-small {
+    width: 25rem;
+}
+
+.ticketsCard {
+    border: 2px solid black;
+    width: 60rem;
+}
+
+.percent-bar {
+    width: 100%;
+    border: 2px solid black;
+    height: 1rem;
+    border-radius: 1rem;
+    background-color: red;
+}
+
+.componente {
+    text-align: center !important;
+    font-weight: 300 !important;
+}
+
+.chart-top-machines {
+    width: 23rem;
+}
+
+.botaoNav {
+    width: 5rem;
+    border: none;
+    background-color: rgb(35, 156, 217);
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    color: white;
+    font-weight: bold;
+    transition: 200ms;
+}
+
+.botaoNav:hover {
+    background-color: rgb(46, 67, 140);
+    transition: 200ms;
 }

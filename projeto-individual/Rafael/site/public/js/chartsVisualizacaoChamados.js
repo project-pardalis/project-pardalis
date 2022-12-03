@@ -57,18 +57,29 @@ function plotarGraficoPorChamadoDados(data, label, comp) {
             graficoCpuChamados = new Chart(
                 document.getElementById('lineChartCompUse' + comp), {
                 type: 'line',
+                options: {
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    },
+
+
+
+                },
                 data: {
                     labels: label
                     ,
                     datasets: [{
-                        label: 'cpu',
+                        label: 'PROCESSADOR',
                         data: data,
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
-                        ],
-                        hoverOffset: 4
+                        backgroundColor: '#859eed'
+                        ,
+                        borderColor: '#415aab',
+
+                        lineTension: 0.4,
+                        borderWidth: 2.3,
+                        fill: true
                     }]
                 }
             }
@@ -79,18 +90,27 @@ function plotarGraficoPorChamadoDados(data, label, comp) {
             graficoCpuChamados = new Chart(
                 document.getElementById('lineChartCompUse' + comp), {
                 type: 'line',
+                options: {
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    }
+                },
                 data: {
                     labels: label
                     ,
                     datasets: [{
-                        label: 'cpu',
+                        label: 'DISCO RÍGIDO',
                         data: data,
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
-                        ],
-                        hoverOffset: 4
+                        backgroundColor: '#f75e9e'
+                        ,
+                        borderColor: '#d11d68',
+                        hoverOffset: 4,
+                        bezierCurve: true,
+                        lineTension: 0.4,
+                        borderWidth: 2.3,
+                        fill: true
                     }]
                 }
             }
@@ -101,18 +121,27 @@ function plotarGraficoPorChamadoDados(data, label, comp) {
             graficoCpuChamados = new Chart(
                 document.getElementById('lineChartCompUse' + comp), {
                 type: 'line',
+                options: {
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    }
+                },
                 data: {
                     labels: label
                     ,
                     datasets: [{
-                        label: 'ram',
+                        label: 'MEMÓRIA RAM',
                         data: data,
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
-                        ],
-                        hoverOffset: 4
+                        backgroundColor: '#ffcd57'
+                        ,
+                        borderColor: '#d9a11e',
+                        hoverOffset: 4,
+                        bezierCurve: true,
+                        lineTension: 0.4,
+                        borderWidth: 2.3,
+                        fill: true
                     }]
                 }
             }
@@ -174,7 +203,7 @@ function maxUsoComp(data, label, comp) {
             break;
 
         case 'ram':
-            data.push(100)
+            data.push(8 - data)
             graficoCpuChamados = new Chart(
                 document.getElementById('maxUsoComp' + comp), {
                 type: 'pie',
@@ -201,7 +230,7 @@ function maxUsoComp(data, label, comp) {
 }
 
 function chartmetricasUsoComp(data, label, comp) {
-    console.log('metricasUsoComp' + comp + " <- COMPONENTE CHARTMETRICASUSOCOMP()")
+    compTitleChart.innerHTML = comp.toUpperCase()
     switch (comp) {
         case 'cpu':
             chartMetricaUsoCpu = new Chart(
@@ -211,13 +240,13 @@ function chartmetricasUsoComp(data, label, comp) {
                     labels: label
                     ,
                     datasets: [{
-                        label: 'cpu',
+                        label: 'PROCESSADOR',
                         data: data,
                         backgroundColor: [
 
-                            'rgb(255, 205, 86)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 99, 132)'
+                            '#60a1fc',
+                            '#fce260',
+                            '#fa1951'
                         ],
                         hoverOffset: 4
                     }]
@@ -226,7 +255,7 @@ function chartmetricasUsoComp(data, label, comp) {
             )
             break;
         case 'disco':
-            data.push(1000)
+
             chartMetricaUsoCpu = new Chart(
 
                 document.getElementById('metricasUsoComp' + comp), {
@@ -235,12 +264,13 @@ function chartmetricasUsoComp(data, label, comp) {
                     labels: label
                     ,
                     datasets: [{
-                        label: 'cpu',
+                        label: 'DISCO RÍGIDO',
                         data: data,
                         backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
+
+                            '#60a1fc',
+                            '#fce260',
+                            '#fa1951'
                         ],
                         hoverOffset: 4
                     }]
@@ -251,7 +281,7 @@ function chartmetricasUsoComp(data, label, comp) {
             break;
 
         case 'ram':
-            console.log('eroo eroo')
+
             chartMetricaUsoCpu = new Chart(
                 document.getElementById('metricasUsoComp' + comp), {
                 type: 'pie',
@@ -259,12 +289,13 @@ function chartmetricasUsoComp(data, label, comp) {
                     labels: label
                     ,
                     datasets: [{
-                        label: 'ram',
-                        data: [100, 200],
+                        label: 'MEMÓRIA RAM',
+                        data: data,
                         backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
+
+                            '#60a1fc',
+                            '#fce260',
+                            '#fa1951'
                         ],
                         hoverOffset: 4
                     }]
@@ -413,3 +444,88 @@ function plotarGraficoChamadosPorPrioridade(prioridades) {
     }
     )
 }
+
+function plotarGraficoChamadosPorHora(dadosPorHora, dadosFechadosPorHora) {
+    label = Array(24)
+    for (i = 0; i < label.length; i++) {
+        label[i] = i;
+    }
+    chartChamadoPorHora = new Chart(
+        document.getElementById('chartTimePerDay'), {
+        type: 'line',
+
+        options: {
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+        },
+        data: {
+            labels: label
+            ,
+            datasets: [{
+                label: 'Tickets abertos',
+                data: dadosPorHora,
+                backgroundColor: '#859eed',
+                borderColor: '#859eed',
+                fill: true,
+                bezierCurve: true,
+                hoverOffset: 4
+            }, {
+                label: 'Tickets fechados',
+                data: dadosFechadosPorHora,
+                backgroundColor: '#e6f518',
+                borderColor: '#e6f518',
+                fill: true,
+                bezierCurve: true,
+                hoverOffset: 4
+            }]
+        }
+    }
+    )
+}
+
+function plotarMaquinasComMaisChamados(label, data) {
+
+    chartChamadoPorHora = new Chart(
+        document.getElementById('chartTopMachines'), {
+        type: 'bar',
+
+
+        options: {
+            indexAxis: 'y',
+            // Elements options apply to all of the options unless overridden in a dataset
+            // In this case, we are setting the border of each horizontal bar to be 2px wide
+            elements: {
+                bar: {
+                    borderWidth: 2,
+                }
+            },
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                },
+
+            }
+        },
+
+        data: {
+            labels: label
+            ,
+            datasets: [{
+                label: 'Chamados abertos com essa máquina:',
+                data: data,
+                backgroundColor: '#859eed',
+                borderColor: '#859eed',
+                fill: true,
+                bezierCurve: true,
+                hoverOffset: 4
+            }]
+        }
+    })
+}
+
+
+

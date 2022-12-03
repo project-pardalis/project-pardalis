@@ -1,5 +1,6 @@
 chamadoModel = require('../models/chamadoModel')
 const axios = require('axios');
+tokenSlack = require('./token.js')
 function addChamado(req, res) {
     let emailUsuario = req.body.emailChamado;
     let tituloChamado = req.body.tituloChamado;
@@ -155,15 +156,16 @@ function updateChamado(req, res) {
 }
 
 function responderChamado(req, res) {
+
     let respostaChamado = req.body.respostaChamado
     let idChamado = req.body.idServer
-    const slackToken = 'xoxb-4452607343987-4450607489781-4NQCWKCtpt6QrR5JeZQNH705';
+    const slackToken = tokenSlack.token;
     chamadoModel.responderChamado(respostaChamado, idChamado)
 
-    const url = 'https://hooks.slack.com/services/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';
+    const url = 'https://hooks.slack.com/services/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';
     const resposta = axios.post(url, {
         channel: '#geral',
-        text: `Olá! O seu chamado acaba de ser resposta!\n De: Analista de sistemas (pardalisprojeto@gmail.com)\n \n Resposta:\n ${respostaChamado}   `
+        text: `Olá! O seu chamado acaba de ser respondido! 😅 \n De: Analista de sistemas (𝐩𝐚𝐫𝐝𝐚𝐥𝐢𝐬𝐩𝐫𝐨𝐣𝐞𝐭𝐨@𝐠𝐦𝐚𝐢𝐥.𝐜𝐨𝐦)\n \n Resposta:\n ${respostaChamado} \n\nᶜᵃˢᵒ ᵉˢˢᵃ ʳᵉˢᵖᵒˢᵗᵃ ⁿᵃᵒ ˢᵉʲᵃ ᵃ ˢᵒˡᵘᶜᵃᵒ ⁿᵒˢ ᶜᵒⁿᵗᵃᵗᵉ ᵖᵒʳ ᵉᵐᵃᶦˡ 📧   `
     }, { headers: { authorization: `Bearer ${slackToken}` } });
 
     console.log('Done', resposta.data);

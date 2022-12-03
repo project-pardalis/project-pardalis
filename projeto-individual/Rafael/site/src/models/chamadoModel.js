@@ -36,7 +36,7 @@ async function addChamado(assuntoChamado, descricaoChamado, assuntoChamado, cate
 // adicionar where nomeMaquina = maquina e ajustar o sistema para pegar o nome da maquina no chamado
 function listarChamados(conditionalId) {
     if (conditionalId == false) {
-        instrucao = "SELECT idChamado, assuntoChamado, descricaoChamado, categoriaChamado, dataChamado, nomeUsuario, emailUsuario,  isAberto, prioridadeChamado, idUsuario,fkMaquina FROM Chamado JOIN Usuario JOIN Maquina WHERE fkMaquina=idMaquina; "
+        instrucao = "SELECT idChamado, assuntoChamado, descricaoChamado, categoriaChamado, dataChamado, nomeUsuario, emailUsuario,  isAberto, prioridadeChamado, idUsuario,fkMaquina,nomeMaquina FROM Chamado JOIN Usuario JOIN Maquina WHERE fkMaquina=idMaquina; "
 
         return database.executar(instrucao)
     }
