@@ -78,19 +78,18 @@ async function cadastrar(req, res) {
 }
 async function cadastrarUsuario(req, res) {
   // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-  var nome = req.body.nomeServer;
-  var email = req.body.userEmailServer;
-  var senha = req.body.senhaServer;
-  var cargo = req.body.cargoServer;
-  var empresa = req.body.empresaServer
+  var nome = req.body.NOME_USUARIO;
+  var email = req.body.EMAIL_USUARIO;
+  var senha = req.body.SENHA_USUARIO;
+  var cargo = req.body.CARGO_USUARIO;
+  var empresa = req.body.FK_EMPRESA
 
 
   resUsuario = await usuarioModel.cadastrarFuncionario(nome, email, senha, cargo, empresa)
     .then(function (resposta) {
-      res.json(resposta)
-      console.log(resposta)
+      res.status(200).json(resposta)
     });
-
+  
 
 
 }
@@ -147,6 +146,18 @@ async function getAllUserInfo(req, res) {
       console.log(resposta)
     });
 }
+
+function deletarUsuario(req, res) {
+  let idUsuario = req.body.idUsuario;
+  usuarioModel.deletarUsuario(idUsuario)
+    .then(function (resposta) {
+      res.status(200).json(resposta);
+    })
+    .catch(function (erro) {
+      res.status(500).json(erro);
+    });
+}
+
 module.exports = {
   entrar,
   cadastrar,
@@ -154,5 +165,6 @@ module.exports = {
   getInfo,
   updateUser,
   cadastrarUsuario,
-  getAllUserInfo
+  getAllUserInfo,
+  deletarUsuario
 };
