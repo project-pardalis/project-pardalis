@@ -29,7 +29,17 @@ function plotMachinesChart() {
 
 
 function setUsePeerComponent(component) {
+
+
+    try {
+        chartDataComponent.destroy()
+    }
+    catch {
+
+        console.log("Não foi possível destruir o chart")
+    }
     if (component == 'ram') {
+
         let chartDataComponent = new Chart(
             document.getElementById('chartComponente'), {
             type: 'bar',
@@ -63,6 +73,7 @@ function setUsePeerComponent(component) {
         chartDataComponent.update()
     }
     else if (component == 'cpu') {
+
         let chartDataComponent = new Chart(
             document.getElementById('chartComponente'), {
             type: 'bar',
@@ -98,6 +109,7 @@ function setUsePeerComponent(component) {
         chartDataComponent.update()
     }
     else if (component == 'disco') {
+
         let chartDataComponent = new Chart(
             document.getElementById('chartComponente'), {
             type: 'bar',
@@ -131,6 +143,7 @@ function setUsePeerComponent(component) {
         }
         chartDataComponent.update()
     }
+    chartDataComponent.update()
 }
 
 
@@ -146,8 +159,8 @@ function setSoChart() {
                 label: ['Linux', 'Windows'],
                 data: [0, 0],
                 backgroundColor: [
-                    '#47408e',
-                    '#d3d3d9',
+                    '#466af0',
+                    '#f7b660',
                 ]
             }],
         },
@@ -190,8 +203,8 @@ function setChartDiskTotal() {
                 label: 'Armagenamento Gb',
                 data: [0, 0],
                 backgroundColor: [
-                    '#47408e',
-                    '#d3d3d9',
+                    '#f7b660',
+                    '#466af0'
                 ]
             }],
         },
@@ -211,7 +224,7 @@ function setChartDiskTotal() {
 
         let data = machine.lastData.disco_Usado.valorLeitura;
 
-        total += parseFloat((machine.lastData.estatico.filter((metrica) => metrica.nomeMetrica == "disco_Total")[0]).valorLeitura);
+        total += parseFloat((machines[i].lastData.estatico.filter((metrica) => metrica.nomeMetrica == "disco_Total")[0]).valorLeitura);
         used += data;
     }
 
@@ -224,7 +237,7 @@ function setAlertsMetricas() {
     alerta = 0
     risco = 0
 
-
+    cpuPercent = 0
 
     for (i = 0; i < machines.length; i++) {
         try {
@@ -272,8 +285,9 @@ function chartCpuTotal(ok, risco, alerta) {
                 label: 'Métricas',
                 data: [ok, risco, alerta],
                 backgroundColor: [
-                    '#47408e',
-                    '#d3d3d9',
+                    '#30bf7a',
+                    '#f5e462',
+                    '#fa3d39'
                 ]
             }],
         },

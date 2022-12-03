@@ -24,20 +24,20 @@ async function cadastrarEmpresa(nome, cnpj) {
     return await database.executar(`SELECT TOP 1 idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC;`);
 }
 
-async function cadastrarFuncionario(nome, email, senha, cargo, fkEmpresa, fkAdministrador='null') {
+async function cadastrarFuncionario(nome, email, senha, fk, fkEmpresa, fkAdministrador = 'null') {
     let funcionarios = await getAllUserInfo(fkEmpresa);
     if (funcionarios.length == 0) fkAdministrador = 'null';
-    else fkAdministrador = funcionarios[0].idUsuario;
+    // else fkAdministrador = funcionarios[0].idUsuario;
     var instrucao;
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucao = `
         INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
-        VALUES ('${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, ${fkAdministrador});
+        VALUES ('${nome}', '${email}', '${senha}', "${fk}" , ${fkEmpresa}, ${fkAdministrador});
         `;
     } else {
         instrucao = `
         INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
-        VALUES ('${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, ${fkAdministrador});
+        VALUES ('${nome}', '${email}', '${senha}', ${fk} , ${fkEmpresa}, ${fkAdministrador});
         `;
     }
     return await database.executar(instrucao);
@@ -61,7 +61,7 @@ function deleteEmpresa(idEmpresa) {
     `;
     return database.executar(instrucao);
 }
-    
+
 function getInfo(idUsuario) {
     let instrucao;
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {

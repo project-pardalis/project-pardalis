@@ -60,17 +60,20 @@ async function cadastrar(req, res) {
   } else {
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
     let resEmpresa;
+    resEmpresa = await usuarioModel.cadastrarEmpresa(empresa, cnpj);
+
+    let resultado = usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), resEmpresa[0].idEmpresa, 1)
+    console.log(resultado + "resultado")
     try {
-      resEmpresa = await usuarioModel.cadastrarEmpresa(empresa, cnpj);
+
       try {
-        let resultado = await usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), resEmpresa[0].idEmpresa, "Programador")
         res.json({ "ok": true });
       } catch (error) {
         res.status(500).json({ "erro": error.sqlMessage });
       }
     } catch (error) {
       res.status(500).json({ "erro": error.sqlMessage });
-      usuarioModel.deleteEmpresa(resEmpresa[0].idEmpresa);
+
 
     }
 
@@ -135,7 +138,7 @@ async function updateUser(req, res) {
   let senha = req.body.SENHA_USUARIO;
 
   res.status(200).json(await usuarioModel.updateUser(idUsuario, nome, email, sha512(senha), req.body.CARGO_USUARIO));
-  
+
 }
 
 async function getAllUserInfo(req, res) {
