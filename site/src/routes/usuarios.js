@@ -25,7 +25,7 @@ router.post("/cadastrarFuncionario", (req, res) => {
     usuarioController.cadastrarUsuario(req, res)
 })
 
-router.get("/getAllUser", (req, res) => {
+router.get("/getAllUser/:fkEmpresa", (req, res) => {
     usuarioController.getAllUserInfo(req, res)
 })
 
