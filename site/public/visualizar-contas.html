@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Análise de servidor | Pardalis</title>
+    <title>Visualizar Contas | Pardalis</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
     <link href="css/dashboard.css" rel="stylesheet">
@@ -16,31 +16,44 @@
             background-color: #5431d4 !important;
         }
 
-        .fa-pen {
+        .div:nth-child() {
             cursor: pointer;
         }
 
-        .lineCardsVisualizar {
-            display: flex;
-
-            justify-content: space-around;
-            width: 15rem;
-
+        #append-user i {
+            width: fit-content;
+            height: fit-content;
         }
 
-        .cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+        #append-user {
+            cursor: pointer;
+            height: fit-content;
+            width: auto;
+            border-radius: 50%;
+            padding: 5px 9px 5px 9px;
+            box-sizing: border-box !important;
+            -moz-box-sizing: border-box !important;
+            -webkit-box-sizing: border-box !important;
+            border: 0.5px solid white;
+            transition: all 0.5s;
         }
+
+        #append-user:hover {
+            border: 0.5px solid black;
+            background-color: #0000000d;
+        }
+
+        tbody tr {
+            cursor: pointer !important;
+            transition: all 0.5s !important;
+        }
+
     </style>
 </head>
 
 <body>
     <header class="sticky-top bg-dark d-flex m-0 p-0 vw-auto shadow d-flex justify-content-between">
         <a class="navbar-brand px-2 fs-4 text-light" style="width: 15%;" href="./index.html">Pardalis</a>
-        <!-- <input class="form-cont -->rol form-control-dark w-50 rounded-0 border-0" type="text" placeholder="Setor"
-        <!--     aria-label="Setor"> -->
         <div class="navbar-nav w-auto">
             <div class="nav-item text-nowrap">
                 <a class="nav-link px-3 text-light" onclick="logout()" style="cursor: pointer;">Sair</a>
@@ -78,9 +91,7 @@
                             <p class="h5 text-muted fw-bolder">Conta</p>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;"
-                                href="add-account.html">Adicionar
-                                Conta</a>
+                            <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;">Gerenciar Contas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active h6 p-2 m-0" style="width: fit-content;"
@@ -91,7 +102,7 @@
             </div>
         </nav>
 
-        <div class="w-75 d-flex justify-content-center pt-2 px-5 ms-5">
+        <div class="w-75 d-flex flex-column align-items-center pt-2 px-5 ms-5">
             <table class="w-100 table table-hover" style="height: fit-content;">
                 <thead>
                     <tr>
@@ -105,6 +116,9 @@
 
                 </tbody>
             </table>
+            <div id="append-user" onclick="appendUser()">
+                <i class="fa-solid fa-plus h3 m-0 p-0"></i>
+            </div>
         </div>
     </div>
 

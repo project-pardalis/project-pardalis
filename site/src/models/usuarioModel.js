@@ -37,7 +37,7 @@ async function cadastrarFuncionario(nome, email, senha, fk, fkEmpresa, fkAdminis
     } else {
         instrucao = `
         INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
-        VALUES ('${nome}', '${email}', '${senha}', ${fk} , ${fkEmpresa}, ${fkAdministrador});
+        VALUES ('${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, ${fkAdministrador});
         `;
     }
     return await database.executar(instrucao);
@@ -97,6 +97,11 @@ function getAllUserInfo(fkEmpresa) {
     instrucao = 'SELECT * FROM Usuario WHERE fkEmpresa = ' + fkEmpresa + ';';
     return database.executar(instrucao)
 }
+
+function deletarUsuario(idUsuario) {
+    return database.executar('DELETE FROM Usuario WHERE idUsuario = ' + idUsuario + ';')
+}
+
 module.exports = {
     entrar,
     cadastrarEmpresa,
@@ -105,5 +110,6 @@ module.exports = {
     deleteEmpresa,
     getInfo,
     updateUser,
-    getAllUserInfo
+    getAllUserInfo,
+    deletarUsuario
 };
