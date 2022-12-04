@@ -135,7 +135,7 @@
                 sessionStorage.ID_USUARIO = resJson.idUsuario;
                 sessionStorage.EMAIL_USUARIO = resJson.emailUsuario;
                 sessionStorage.FK_EMPRESA = resJson.fkEmpresa;
-                sessionStorage.FK_ADMINISTRADOR = resJson.fkEmpresa;
+                sessionStorage.FK_ADMINISTRADOR = resJson.fkAdministrador;
                 if (resJson.idUsuario != null) window.location.href = "/dashboard.html";
                 else {
                     Swal.fire({

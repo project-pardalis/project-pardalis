@@ -1,6 +1,6 @@
 var fkEmpresa;
 var machines = [];
-
+var alert;
 var possibleIcons = {
     "reload": ["fa-solid", "fa-rotate-right"],
     "name": ["fa-solid", "fa-arrow-up-a-z"],
@@ -61,8 +61,6 @@ function appendMachineDataBase() {
         }
 
     }).then(async (result) => {
-        console.log(machineName)
-        console.log(hash)
 
         if (machineName === undefined || hash === undefined) return;
 
@@ -79,8 +77,6 @@ function appendMachineDataBase() {
                 })
             })).json();
             response.hash = hash
-            console.log(response.hash)
-
             if (response.hash) {
                 swal.fire(
                     {
@@ -113,7 +109,6 @@ function appendMachineDataBase() {
 /* Ir para a página de máquina separada */
 function trocarPagina(idMaquina) {
     window.location.href = `./server-analysys.html?idMaquina=${idMaquina}`;
-    console.log(window.location.href)
     //window.focus();
 }
 
@@ -284,9 +279,13 @@ async function createInfoServer(maq) {
         diskUsage = maq.lastData.disco_Usado.valorLeitura;
         diskText = `<span>${diskUsage}`;
         diskPercentage = (diskUsage / diskMax) * 100;
-        temperatureColor = verifiyColorInfoCpuTemperature(maq).color;
-        if (temperatureColor !== null) temperatureText = maq.lastData.cpu_Temperature.valorLeitura + "°C";
     }
+
+    temperatureColor = verifiyColorInfoCpuTemperature(maq);
+    console.log("Cor da temperatura: " + temperatureColor);
+    if (temperatureColor != colors.nenhum) temperatureText = maq.lastData.cpu_Temperature.valorLeitura + "°C";
+
+
 
 
 
@@ -301,7 +300,7 @@ async function createInfoServer(maq) {
                 <span class="fw-light m-0" title="${diskTitle}">${diskDate}</span>
                 </div>
                 <div class="w-25 d-flex align-items-end flex-column">
-                  <span class="h5 fw-light" style="${temperatureColor}">${temperatureText}</span>
+                  <span class="h5 fw-light" style="color: ${temperatureColor}">${temperatureText}</span>
                   <span class="h5 fw-light" id="disk-element"><span style="${diskColor}">${diskUsage}</span> / ${diskMax} Gb</span>
                   <div class="w-100 disk-background">
                     <div class="disk-usage h-100" style="width:${diskPercentage}%"></div>
@@ -314,14 +313,16 @@ async function createInfoServer(maq) {
 function verifiyColorInfoCpuTemperature(maq) {
     let color;
 
-    let summary = filterSummary(null, maq, "cpu_Temperature").summary
+    let summary = (filterSummary(null, maq, "cpu_Temperature")).summary
 
-    if (maq.lastData.cpu_Temperature.valorLeitura > summary.max) color = colors.risco;
-    if (maq.lastData.cpu_Temperature.valorLeitura > summary.q3) color = colors.alerta;
-    if (maq.lastData.cpu_Temperature.valorLeitura == '-500.00') color = colors.nenhum;
+    
+    if (maq.lastData.cpu_Temperature === undefined) color = colors.nenhum;
+    else if (maq.lastData.cpu_Temperature.valorLeitura > summary.max) color = colors.risco;
+    else if (maq.lastData.cpu_Temperature.valorLeitura > summary.q3) color = colors.alerta;
+    else if (maq.lastData.cpu_Temperature.valorLeitura == -500) color = colors.nenhum;
     else color = colors.normal;
 
-    return `color: ${color}`;
+    return `${color}`;
 }
 
 function verifyColorInfoDisk(maq) {
@@ -329,8 +330,9 @@ function verifyColorInfoDisk(maq) {
     let summary = filterSummary(null, maq, "disco_Usado").summary
 
     if (maq.lastData.disco_Usado === undefined) return '???';
-    if (maq.lastData.disco_Usado.valorLeitura > summary.max) color = colors.risco;
-    if (maq.lastData.disco_Usado.valorLeitura > summary.q3) color = colors.alerta;
+    else if (maq.lastData.disco_Usado.valorLeitura > summary.max) color = colors.risco;
+    else if (maq.lastData.disco_Usado.valorLeitura > summary.q3) color = colors.alerta;
+    else if (maq.lastData.disco_Usado.valorLeitura === -500) color = colors.nenhum;
     else color = colors.normal;
 
     return {
@@ -346,7 +348,7 @@ function verificarCor(server, element) {
     let summary = filterResponse.summary;
     element = filterResponse.element;
     let color = colors.nenhum;
-    console.log()
+
 
     if (filter == "name") return element;
     else if (server.lastData.estatico.length == 0 || (server.lastData.cpu_Temperature.valorLeitura == "-500.00" && filter == "cpu_Temperature")) {
@@ -423,10 +425,30 @@ async function start() {
     mainChart();
     let result = changeOrderMachine(true)
     appendMachine(result);
+    alert.close();
     /* setInterval(reloadMachine(), 10000); */
 
 }
-start();
+
+alert = swal.fire(
+    {
+        title: "Carregando",
+        text: "Aguarde enquanto os dados são carregados",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showConfirmButton: false,
+        showCancelButton: false,
+        showCloseButton: false,
+
+        didOpen: () => {
+            Swal.showLoading()
+            start();
+        }
+
+    }
+)
+
 
 
 function getMachines() {

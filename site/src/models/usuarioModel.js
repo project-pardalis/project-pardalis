@@ -31,13 +31,13 @@ async function cadastrarFuncionario(nome, email, senha, cargo, fkEmpresa, fkAdmi
     var instrucao;
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucao = `
-        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
-        VALUES ('${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, ${fkAdministrador});
+        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, cargo, fkEmpresa, fkAdministrador) 
+        VALUES ('${nome}', '${email}', '${senha}', '${cargo}' , ${fkEmpresa}, ${fkAdministrador});
         `;
     } else {
         instrucao = `
-        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
-        VALUES ('${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, ${fkAdministrador});
+        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, cargo, fkEmpresa, fkAdministrador) 
+        VALUES ('${nome}', '${email}', '${senha}', '${cargo}' , ${fkEmpresa}, ${fkAdministrador});
         `;
     }
     return await database.executar(instrucao);
@@ -75,13 +75,19 @@ function getInfo(idUsuario) {
 }
 
 function updateUser(idUsuario, nome, email, senha, cargo) {
-    if (cargo == undefined) cargo = 'Indefinido';
+    
     let instrucao;
     console.log("Atualizando Usuario")
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}', cargo = '${cargo}' WHERE idUsuario = '${idUsuario}';`;
+        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}'`
+        if (senha != undefined) instrucao += `, senhaUsuario = '${senha}'`
+        if (cargo != undefined) instrucao += `, cargo = '${cargo}'`;
+        instrucao += ` WHERE idUsuario = '${idUsuario}';`;
     } else {
-        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}', cargo = '${cargo}' WHERE idUsuario = '${idUsuario}';`;
+        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}'`
+        if (senha != undefined) instrucao += `, senhaUsuario = '${senha}'`
+        if (cargo != undefined) instrucao += `, cargo = '${cargo}'`;
+        instrucao += ` WHERE idUsuario = '${idUsuario}';`;
     }
 
     try {
@@ -97,6 +103,11 @@ function getAllUserInfo(fkEmpresa) {
     instrucao = 'SELECT * FROM Usuario WHERE fkEmpresa = ' + fkEmpresa + ';';
     return database.executar(instrucao)
 }
+
+function deletarUsuario(idUsuario) {
+    return database.executar('DELETE FROM Usuario WHERE idUsuario = ' + idUsuario + ';')
+}
+
 module.exports = {
     entrar,
     cadastrarEmpresa,
@@ -105,5 +116,6 @@ module.exports = {
     deleteEmpresa,
     getInfo,
     updateUser,
-    getAllUserInfo
+    getAllUserInfo,
+    deletarUsuario
 };

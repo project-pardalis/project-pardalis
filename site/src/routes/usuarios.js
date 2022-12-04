@@ -29,4 +29,8 @@ router.get("/getAllUser/:fkEmpresa", (req, res) => {
     usuarioController.getAllUserInfo(req, res)
 })
 
+router.post("/deletarUsuario", (req, res) => {
+    usuarioController.deletarUsuario(req, res)
+})
+
 module.exports = router;

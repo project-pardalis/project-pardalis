@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Pardallis</title>
+    <link rel="shortcut icon" href="../public/icons marco/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="css/cssmarco.css">
+    <link rel="stylesheet" href="css/login-cadastro.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/1ab94d0eba.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    
+</head>
+<body>
+  
+<div class="universo">
+  
+
+    
+    
+
+  <header class="sticky-top bg-dark d-flex m-0 p-0 vw-auto shadow d-flex justify-content-between">
+    <a class="navbar-brand px-2 fs-4 text-light" style="width: 15%;">Pardalis</a>
+
+    <div class="navbar-nav w-auto">
+      <div class="nav-item text-nowrap">
+        <a class="nav-link px-3 text-light" onclick="sair()" style="cursor: pointer;">Sair</a>
+      </div>
+    </div>
+  </header>
+    
+
+
+
+
+<div class="corpo">
+
+
+  <div class="lateral-esquerda">
+    <div class="p-2 sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <p class="h5 text-muted fw-bolder">Dashboards</p>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content; color: black;">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="marco.html"> Dash temperatura</a>
+        </li>
+        <ul class="nav flex-column mt-2">
+          <li class="nav-item">
+            <p class="h5 text-muted fw-bolder">Teste de Servidor</p>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="area-de-analise.html"> Área de Análise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="download-teste.html">Instruções</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="performance.html">Visão Geral</a>
+          </li>
+        </ul>
+
+        <ul class="nav flex-column mt-2">
+          <li class="nav-item">
+            <p class="h5 text-muted fw-bolder">Conta</p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="visualizar-contas.html">Gerenciar Contas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="edit-account.html">Editar
+              Conta</a>
+          </li>
+        </ul>
+    </div>
+  </div>
+  
+  
+<div class="lateral-direita">
+
+    <div class="box-primaria">
+      <div class="part-um" >
+        
+        
+          <canvas id="primo" class="tamanho"></canvas>
+        
+      </div> 
+      <div class="part-um"> 
+       
+       
+          <canvas id="secu" class="tamanho"></canvas>
+        
+      </div>
+      <div class="part-um"> 
+       
+       
+          <canvas id="terc" class="tamanho"></canvas>
+        
+      </div>
+    </div>
+
+    <div class="box-secundaria">
+
+      <canvas id="grafico" class="pardal" ></canvas>
+    </div>
+
+    
+
+
+</div>
+
+
+  
+ 
+</div>
+
+
+<div class="pernas">
+
+  <div class="graficos-grupo">
+    <div class="part-tres">
+      <canvas id="g-um"></canvas>
+    </div>
+
+
+    <div class="part-tres">
+      <canvas id="g-dois"></canvas>
+    </div>
+
+    <div class="part-tres">
+      <canvas id="g-tres"></canvas>
+    </div>
+  </div>
+  <button onclick="mensagem()">nada</button>
+
+  
+</div>
+
+</div>
+
+
+</body>
+</html>
+
+
+<script>
+  var teste = [];
+  var id=[];
+  var temperatura = [];
+  var ram = [];
+  var frequencia = [];
+  var disco = [];
+  var media;
+
+
+setTimeout(function obter() {
+    
+  
+  fetch("/medidas/ultimas/1", {
+    method: "GET",
+    headers: {
+        "content-Type": "application/json"
+    }
+    
+  }).then(
+
+    (res) => {
+      res.json()
+      .then(
+        (json) => {
+
+
+
+
+          for (let i = 0; i < 100; i++) {
+          //definindo variaveis que receberam os dados do banco
+          teste = json;
+          temperatura.push(teste[0].temperatura)
+          ram.push(teste[i].ram)
+          frequencia.push(teste[i].frequencia)
+          disco.push(teste[i].disco)
+          
+          //
+          }
+          console.log(temperatura)
+          console.log(media)
+
+  
+    }
+)}  
+  
+)
+fetch("/media/media/1", {
+    method: "GET",
+    headers: {
+        "content-Type": "application/json"
+    }
+    
+  }).then(
+
+    (res) => {
+      res.json()
+      .then(
+        (json) => {
+
+            
+            media = json[0].media 
+            console.log(media)
+
+  
+    }
+)}  
+  
+)
+} , 1000);
+</script>
+
+<script>
+setTimeout(function plotar() {
+
+  // principal
+  let linha = document.getElementById('grafico').getContext("2d");
+  let lin = new Chart(linha, {
+  type: 'polarArea', 
+  data: {labels: ["setor 1"], 
+  datasets: [{
+    label: "Media de temperatura do setor",
+    fillColor: "rgba(220,220,220,0.2)",
+    strokeColor: "rgba(220,220,220,1)",
+    pointColor: "rgba(220,220,220,1)",
+    pointStrokeColor: "#fff",
+    pointHighlightFill: "#fff",
+    pointHighlightStroke: "rgba(220,220,220,1)",
+  data:[media,110]
+  
+  }]}
+  });  
+  //
+
+
+  //primeiro de cima
+  let primeiro = document.getElementById('primo')
+  let primus = new Chart(primeiro, {
+  type: 'polarArea', 
+  data: {labels: ["CPU1"], 
+  datasets: [{
+  label: 'Uso da CPU',
+  backgroundColor:['green'],
+  data:[10,temperatura[0]],
+  fill: false
+  }]}
+  });
+  //
+
+        // segundo de cima
+  let segundo = document.getElementById('secu')
+  let secus = new Chart(segundo, {
+    type: 'polarArea', 
+    data: {labels: ["CPU2"], 
+  datasets: [{
+    label: 'Uso da CPU',
+    backgroundColor:['red'],
+    data:[10,temperatura[0]],
+    fill: true
+  }]}
+  });
+  //
+
+    // terceiro de cima
+  let terceiro = document.getElementById('terc')
+  let tercius = new Chart(terceiro, {
+    type: 'polarArea', 
+    data: {labels: ["CPU3"], 
+  datasets: [{
+    label: 'Uso da CPU',
+    backgroundColor:['yellow'],
+    data:[10,temperatura[0]],
+    fill: true
+      
+  }]}
+  });
+    //
+
+  
+}, 1200);
+</script>
+
+<script>
+  var i = 0;
+
+  
+  // primeiro inferior
+  let primo_inf = document.getElementById('g-um')
+  let  primus_inf = new Chart(primo_inf, {
+      type: 'line', 
+      data: {labels: [], 
+    datasets: [{
+      label: 'CPU',
+      backgroundColor:['rgb(57, 255, 20)'],
+      data:[],
+      fill: false
+        
+      }]}
+      });
+      //
+  
+      // segundo inferior
+      let secu_inf = document.getElementById('g-dois')
+      let secus_inf = new Chart(secu_inf, {
+      type: 'line', 
+      data: {labels: [], 
+    datasets: [{
+      label: 'Disco',
+      backgroundColor:['rgb(57, 255, 20)'],
+      data:[],
+      fill: false
+    }]}
+    });
+      //
+  
+      // terceiro inferior
+      let terc_inf = document.getElementById('g-tres')
+      let tercis_inf = new Chart(terc_inf, {
+      type: 'line', 
+      data: {labels: [], 
+    datasets: [{
+      label: 'RAM',
+      backgroundColor:['rgb(57, 255, 20)'],
+      data:[],
+      fill: false
+    }]}
+        
+    });
+      //
+  
+      
+  
+  setInterval(function plotarInferior(){
+    
+    /*setInterval(function () {
+    i++
+    },1000);*/
+
+      
+    i++
+
+        primus_inf.data.labels.push(i + "H")
+        primus_inf.data.datasets[0].data.push(frequencia[i])
+        primus_inf.update();
+
+        secus_inf.data.labels.push(i + "H")
+        secus_inf.data.datasets[0].data.push(disco[i])
+        secus_inf.update();
+        
+        tercis_inf.data.labels.push(i + "H")
+        tercis_inf.data.datasets[0].data.push(ram[i])
+        tercis_inf.update();
+       
+    
+    
+      
+
+  },5000);
+  
+
+  </script>
+
+<script>
+  function mensagem() {
+    fetch("/mensagem/numero", {
+    method: "GET",
+    headers: {
+        "content-Type": "application/json"
+    }
+    
+  }).then(
+
+    (res) => {
+      res.json()
+      .then(
+        (json) => {
+          
+    }
+)}  
+  
+)  
+  }
+  
+</script>

@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 /* Dashboard */
 async function getMaquinas(fkEmpresa) {
-    var sql = `SELECT idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
+    var sql = `SELECT TOP 5 idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
     let res = await database.executar(sql)
     let metricas = await getMetricas();
     
@@ -13,7 +13,7 @@ async function getMaquinas(fkEmpresa) {
         let isEmpty = [];
         for (let i = 0; metricas.length > i; i++) {
             if (checker(isEmpty) && i >= metricas.length / 2) {
-                console.log("Quebrei...........................................")
+                console.log("...........................................")
                 break;
             }
             if (metricas[i].isEstatico == 0) {

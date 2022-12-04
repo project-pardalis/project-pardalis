@@ -490,6 +490,11 @@ header {
   max-height: 100%;
 }
 
+#chartComponente {
+
+  height: 21rem;
+}
+
 .mini-chart {
 
   min-height: 100%;
