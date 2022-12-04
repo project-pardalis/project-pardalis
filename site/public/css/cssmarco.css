@@ -33,21 +33,26 @@ body{
     display: flex;
 }
 .lateral-esquerda{
-    margin-top: 6%;
-    width: 10%;
-    height: 100%;
+    
+    width: 15%;
+    height: 1000px;
     
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.021);
 }
 .lateral-direita{
     margin-top: 1%;
-    width: 80%;
+    width: 75.7%;
     height: 40rem;
-    margin-left: 5.7rem;
+    margin-left: 6%;
     display: flex;
 
+
+}
+.nav-item{
+    color: black;
 
 }
 .box-primaria{
@@ -113,9 +118,10 @@ body{
     width: 100%;
 }
 .pernas{
-    width: 99%;
+    width: 94%;
     height: 30rem;
     margin-top: -3rem;
+    margin-left: 6%;
     
 }
 .graficos-grupo{
