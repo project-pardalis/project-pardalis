@@ -211,14 +211,14 @@ async function getComponente(fkEmpresa, fkMaquina, nomeComponente) {
 }
 
 async function getSum() {
-    let sql = `SELECT * FROM [dbo].[Summarys]`;
+    let sql = `SELECT * FROM Summarys`;
     let res = await database.executar(sql);
 
     return res;
 }
 
 async function getDadosGeral() {
-    let sql = "select top 100 valorLeitura, fkMetrica from [dbo].[Leitura]";
+    let sql = "select valorLeitura, fkMetrica from Leitura limit 100";
     let res = await database.executar(sql);
     return res
 }
