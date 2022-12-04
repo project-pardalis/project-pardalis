@@ -16,6 +16,7 @@ const jiraRouter = require("./src/routes/jira");
 const medidasRouter = require("./src/routes/medidas");
 const mediaRouter = require("./src/routes/media");
 const msgRouter = require("./src/routes/msg");
+const chamadoRouter = require("./src/routes/rotas")
 // RoutersMarco
 
 app.use(express.json());
@@ -29,6 +30,7 @@ app.use("/usuarios", usuariosRouter);
 app.use("/maquina", maquinaRouter);
 app.use('/dash', dashRouter);
 app.use('/jira', jiraRouter);
+app.use('/rotas', chamadoRouter)
 
 // RoutersMarco 
 app.use('/medidas', medidasRouter);
