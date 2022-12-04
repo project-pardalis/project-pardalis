@@ -9,26 +9,22 @@ function logout() {
 }
 
 function changeName() {
-    console.log(document.getElementById("ipt-nome").style.display)
+    document.getElementById("ipt-nome").value = document.getElementById("nome-usuario").innerHTML;
     if (document.getElementById("ipt-nome").style.display == "none") {
-        document.getElementById("ipt-nome").value = document.getElementById("nome-usuario").innerHTML;
         document.getElementById("ipt-nome").style.display = "block";
         document.getElementById("nome-usuario").style.display = "none";
-
     } else {
-        document.getElementById("ipt-nome").value = "";
         document.getElementById("ipt-nome").style.display = "none";
         document.getElementById("nome-usuario").style.display = "block";
     }
 }
 
 function changeEmail() {
+    document.getElementById("ipt-email").value = document.getElementById("email-usuario").innerHTML;
     if (document.getElementById("ipt-email").style.display == "none") {
-        document.getElementById("ipt-email").value = document.getElementById("email-usuario").innerHTML;
         document.getElementById("ipt-email").style.display = "block";
         document.getElementById("email-usuario").style.display = "none";
     } else {
-        document.getElementById("ipt-email").value = "";
         document.getElementById("ipt-email").style.display = "none";
         document.getElementById("email-usuario").style.display = "block";
     }
@@ -110,6 +106,8 @@ async function updateAccount() {
         userEmail: document.getElementById("ipt-email").value,
         userPassword: document.getElementById("ipt-passwd").value
     };
+
+    if (data.userPassword == "") data.userPassword = undefined;
 
     let res = await fetch(`http://localhost:3000/usuarios/atualizar/`, {
         method: "POST",

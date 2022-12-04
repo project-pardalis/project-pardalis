@@ -19,56 +19,68 @@
   
 <div class="universo">
   
-<div class="cabeca">
+
     
     
 
-  
-    <div class="header">
-        <div class="container d-flex my-2 w-100">
-            <a href="index.html" class="titulo">
-                <img class="logo" src="./assets/imgs/logo.png" alt="" draggable="false">  
+  <header class="sticky-top bg-dark d-flex m-0 p-0 vw-auto shadow d-flex justify-content-between">
+    <a class="navbar-brand px-2 fs-4 text-light" style="width: 15%;">Pardalis</a>
 
-            </a>
-            <ul class="register">
-                <li>
-                    <a class="font-nav fw-bolder">Home</a>
-                </li>
-                <li>
-                    <a class=" font-nav" href="./planos.html">Planos</a>
-                </li>
-                <div class="v-hr"></div>
-                <li>
-                    <img class='img-icon-user' src="http://cdn.onlinewebfonts.com/svg/img_184513.png" alt="" draggable="false">
-                </li>
-                <li>
-
-                    <button class="ms-1 btn fw-semibold login-botao"
-                        onclick="redirectUserToLogin()">Cadastrar</button>
-                </li>
-
-            </ul>
-        </div>
-    </div> 
+    <div class="navbar-nav w-auto">
+      <div class="nav-item text-nowrap">
+        <a class="nav-link px-3 text-light" onclick="sair()" style="cursor: pointer;">Sair</a>
+      </div>
+    </div>
+  </header>
     
 
-</div>
+
 
 
 <div class="corpo">
 
 
   <div class="lateral-esquerda">
-    <img src="./icons marco/bell-solid.svg" alt="" style="height: 2rem; margin-top: 1rem;">
-    <img src="./icons marco/chart-line-solid.svg" alt="" style="height: 2rem;">
-    <img src="./icons marco/house-solid.svg" alt="" style="height: 2rem;">
-    <img src="./icons marco/bell-solid.svg" alt="" style="height: 2rem;">
-    <img src="" alt="" style="height: 4rem;">
-    
-    <img src="" alt="" style="height: 2rem;">
-    <img src="" alt="" style="height: 2rem;">
-    <img src="" alt="" style="height: 2rem;">
-    <img src="../../Site/public/assets/imgs/logo.png" alt="" style="height: 2rem;">
+    <div class="p-2 sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <p class="h5 text-muted fw-bolder">Dashboards</p>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content; color: black;">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="marco.html"> Dash temperatura</a>
+        </li>
+        <ul class="nav flex-column mt-2">
+          <li class="nav-item">
+            <p class="h5 text-muted fw-bolder">Teste de Servidor</p>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="area-de-analise.html"> Área de Análise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="download-teste.html">Instruções</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="performance.html">Visão Geral</a>
+          </li>
+        </ul>
+
+        <ul class="nav flex-column mt-2">
+          <li class="nav-item">
+            <p class="h5 text-muted fw-bolder">Conta</p>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="visualizar-contas.html">Gerenciar Contas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="edit-account.html">Editar
+              Conta</a>
+          </li>
+        </ul>
+    </div>
   </div>
   
   
@@ -255,9 +267,9 @@ setTimeout(function plotar() {
     data: {labels: ["CPU2"], 
   datasets: [{
     label: 'Uso da CPU',
-    backgroundColor:['rgb(255, 0, 0)'],
-    data:[10,teste[0].temperatura],
-    fill: false
+    backgroundColor:['red'],
+    data:[10,temperatura[0]],
+    fill: true
   }]}
   });
   //
@@ -270,8 +282,8 @@ setTimeout(function plotar() {
   datasets: [{
     label: 'Uso da CPU',
     backgroundColor:['yellow'],
-    data:[10,teste[0].temperatura],
-    fill: false
+    data:[10,temperatura[0]],
+    fill: true
       
   }]}
   });

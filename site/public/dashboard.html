@@ -36,6 +36,9 @@
           <li class="nav-item">
             <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;">Home</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="marco.html"> Dash temperatura</a>
+          </li>
           <ul class="nav flex-column mt-2">
             <li class="nav-item">
               <p class="h5 text-muted fw-bolder">Teste de Servidor</p>
@@ -198,20 +201,17 @@
         </div>
 
       </div>
-      <div class="card cards-general-data mt-4 p-4 d-flex flex-column" style="height: fit-content; width: 100%; ">
+      <div class="card cards-general-data mt-4 p-4 d-flex flex-column justify-content-start" style="height: 400px; width: 100%; ">
         <div class="h2">Uso dos componentes </div>
         <select name="" id="getComponent" onchange="setUsePeerComponent(getComponent.value)">
-          <option value="ram">Memória Ram</option>
           <option value="cpu">Processador</option>
+          <option value="ram">Memória Ram</option>
           <option value="disco">Disco Rígido</option>
         </select>
-        <p class="lead small-font">
-        </p>
 
-        <canvas id="chartComponente"></canvas>
-
-
-
+        <div style="height: 60%; width: 100%">
+          <canvas id="chartComponente"></canvas>
+        </div>
       </div>
 
     </main>

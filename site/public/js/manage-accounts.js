@@ -73,13 +73,20 @@ function updateUser(userId, userName, userEmail, userCargo) {
                 document.getElementById('ipt-cargo').value
             )
             if (checker) {
+                let senha, cargo;
+                if (document.getElementById('ipt-senha').value == "") senha = undefined;
+                else senha = document.getElementById('ipt-senha').value;
+
+                if (document.getElementById('ipt-cargo').value == "") cargo = 'Indefinido';
+                else cargo = document.getElementById('ipt-cargo').value;
+
                 return await updateAccount(
                     {
                         idUsuario: userId,
                         userName: document.getElementById('ipt-nome').value,
                         userEmail: document.getElementById('ipt-email').value,
-                        userPassword: document.getElementById('ipt-senha').value,
-                        userCargo: document.getElementById('ipt-cargo').value
+                        userPassword: senha,
+                        userCargo: cargo
                     }
                 )
             } else {
@@ -281,4 +288,14 @@ async function addAccount(data) {
     }
 }
 
+
+
+if (sessionStorage.FK_ADMINISTRADOR !== 'null') {
+    window.location.href = "/dashboard.html";
+}
 visualizarUsuario();
+
+function logout() {
+    sessionStorage.clear();
+    window.location.href = "login.html";
+}

@@ -24,20 +24,20 @@ async function cadastrarEmpresa(nome, cnpj) {
     return await database.executar(`SELECT TOP 1 idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC;`);
 }
 
-async function cadastrarFuncionario(nome, email, senha, fk, fkEmpresa, fkAdministrador = 'null') {
+async function cadastrarFuncionario(nome, email, senha, cargo, fkEmpresa, fkAdministrador='null') {
     let funcionarios = await getAllUserInfo(fkEmpresa);
     if (funcionarios.length == 0) fkAdministrador = 'null';
-    // else fkAdministrador = funcionarios[0].idUsuario;
+    else fkAdministrador = funcionarios[0].idUsuario;
     var instrucao;
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucao = `
-        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
-        VALUES ('${nome}', '${email}', '${senha}', "${fk}" , ${fkEmpresa}, ${fkAdministrador});
+        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, cargo, fkEmpresa, fkAdministrador) 
+        VALUES ('${nome}', '${email}', '${senha}', '${cargo}' , ${fkEmpresa}, ${fkAdministrador});
         `;
     } else {
         instrucao = `
-        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario,cargo, fkEmpresa, fkAdministrador) 
-        VALUES ('${nome}', '${email}', '${senha}', "${cargo}" , ${fkEmpresa}, ${fkAdministrador});
+        INSERT INTO Usuario (nomeUsuario, emailUsuario, senhaUsuario, cargo, fkEmpresa, fkAdministrador) 
+        VALUES ('${nome}', '${email}', '${senha}', '${cargo}' , ${fkEmpresa}, ${fkAdministrador});
         `;
     }
     return await database.executar(instrucao);
@@ -61,7 +61,7 @@ function deleteEmpresa(idEmpresa) {
     `;
     return database.executar(instrucao);
 }
-
+    
 function getInfo(idUsuario) {
     let instrucao;
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -75,13 +75,19 @@ function getInfo(idUsuario) {
 }
 
 function updateUser(idUsuario, nome, email, senha, cargo) {
-    if (cargo == undefined) cargo = 'Indefinido';
+    
     let instrucao;
     console.log("Atualizando Usuario")
     if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}', cargo = '${cargo}' WHERE idUsuario = '${idUsuario}';`;
+        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}'`
+        if (senha != undefined) instrucao += `, senhaUsuario = '${senha}'`
+        if (cargo != undefined) instrucao += `, cargo = '${cargo}'`;
+        instrucao += ` WHERE idUsuario = '${idUsuario}';`;
     } else {
-        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}', senhaUsuario = '${senha}', cargo = '${cargo}' WHERE idUsuario = '${idUsuario}';`;
+        instrucao = `UPDATE Usuario SET nomeUsuario = '${nome}', emailUsuario = '${email}'`
+        if (senha != undefined) instrucao += `, senhaUsuario = '${senha}'`
+        if (cargo != undefined) instrucao += `, cargo = '${cargo}'`;
+        instrucao += ` WHERE idUsuario = '${idUsuario}';`;
     }
 
     try {

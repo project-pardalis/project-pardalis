@@ -1,5 +1,5 @@
 var charts = {};
-
+var alert;
 charts.cpu = new Chart(
     document.getElementById('cpu-chart'),
     {
@@ -675,7 +675,7 @@ async function start() {
     }
 
     loadDataDayChart();
-
+    alert.close();
     interval = setInterval(async () => {
         console.log("------------------------------------------------------------");
         metricas = await getServerInfo(true);
@@ -685,7 +685,25 @@ async function start() {
     }, 5000);
 }
 
-start();
+
+alert = swal.fire(
+    {
+        title: "Carregando",
+        text: "Aguarde enquanto os dados são carregados",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showConfirmButton: false,
+        showCancelButton: false,
+        showCloseButton: false,
+
+        didOpen: () => {
+            Swal.showLoading()
+            start();
+        }
+
+    }
+)
 
 
 /* ----------------------------- DAY CHART ------------------------------------------- */
