@@ -23,6 +23,14 @@ router.post("/getComponenteServer", function (req, res) {
     dashController.getComponente(req, res)
 })
 
+router.post("/getSum", function (req, res) {
+    dashController.getSum(req, res)
+})
+
+router.post("/getDadosGeral", function (req, res) {
+    dashController.getDadosGeral(req, res)
+})
+
 /* router.post("/getDadosMaquina", function (req, res) {
     dashController.getDadosMaquina(req, res)
 }) */

@@ -1,8 +1,120 @@
 .containerGeral {
     position: relative;
-    border: 1px solid black;
-    width: 75vw;
+    width:  80vw;
     height: 85vh;
     margin-top: -90vh;
-    margin-left: 20vw;
+    margin-left: 17vw;
+    border-radius: 20px;
+    background-color: rgb(232, 232, 232);
+    display: flex;
+}
+.containerSummarys {
+    position: relative;
+    border: 2px solid rgb(202, 209, 214);
+    width: 45vw;
+    height: 55vh;
+    margin-left: 1.2vw;
+    margin-top: 2vh;
+    border-radius: 5px;
+    background-color: aliceblue;
+}
+.containerMeses {
+    height: 3.5vh;
+    display: flex;
+    background-color: rgb(202, 209, 214);
+}
+.containerKPIS {
+    border: 2px solid rgb(202, 209, 214);
+    width: 77.5vw;
+    height: 24vh;
+    position: absolute;
+    margin-left: 1.2vw;
+    margin-top: 59vh;
+    border-radius: 5px;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.containerForecasting {
+    border: 2px solid rgb(202, 209, 214);
+    width: 31.5vw;
+    height: 55vh;
+    margin-top: 2vh;
+    margin-left: 1vw;
+    border-radius: 5px;
+    background-color: aliceblue;
+}
+.mes {
+    border-right: 2px solid rgb(202, 209, 214);
+    width: 4vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4vh;
+    cursor: pointer;
+}
+.mesFinal {
+    width: 4vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4vh;
+    cursor: pointer;
+}
+.containerSum {
+    height: 45vh;
+    width: 42vw;
+    margin-left: 1.3vw;
+    margin-top: 3vh;
+}
+.summary {
+    border: 2px solid rgb(113, 113, 113);
+    width: 35vw;
+    height: 10vh;
+    margin-left: 3.3vw;
+    margin-top: 2vh;
+    border-radius: 10px;
+    display: flex;
+}
+.sumVal {
+    width: 5.9vw;
+    border-right: 2px solid rgb(113, 113, 113);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vh;
+}
+
+.sumValFinal {
+    width: 5.9vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vh;
+}
+.sumValDif {
+    position: absolute;
+    margin-left: -2.7vw;
+    margin-top: 7vh;
+    font-size: 1.5vh;
+    font-weight: bold;
+}
+.containerGraph {
+    margin-top: 3vh;
+    margin-left: -0.8vw;
+}
+.graphForecasting {
+    margin-top: 3vh;
+}
+.kpi {
+    border: 2px solid rgb(177, 183, 188);
+    width: 13vw;
+    height: 13vh;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.3vh;
+    margin-left: 3vw;
 }

@@ -210,6 +210,19 @@ async function getComponente(fkEmpresa, fkMaquina, nomeComponente) {
     return res;
 }
 
+async function getSum() {
+    let sql = `SELECT * FROM [dbo].[Summarys]`;
+    let res = await database.executar(sql);
+
+    return res;
+}
+
+async function getDadosGeral() {
+    let sql = "select top 100 valorLeitura, fkMetrica from [dbo].[Leitura]";
+    let res = await database.executar(sql);
+    return res
+}
+
 module.exports = {
     getMaquinas,
     getDados,
@@ -218,5 +231,7 @@ module.exports = {
     getMaquinaInfo,
     getComponente,
     getMetricas,
-    getView
+    getView,
+    getSum,
+    getDadosGeral
 }
