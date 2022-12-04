@@ -7,6 +7,13 @@ T2_SYSTEM = 0.023
 HOURS = 0
 
 
+plt.style.use("fivethirtyeight")
+plt.xticks(size=12)
+plt.yticks(size=12)
+
+plt.grid()
+
+
 def getValDayT2():
     global T2_SYSTEM, HOURS
 
@@ -23,8 +30,9 @@ def plotChartCustYear():
 
     plt.plot(xlab, ycust)
     plt.title("Custo x Mês")
-    plt.savefig('chart-month-cust.pdf')
 
+    plt.savefig('chart-month-cust.pdf')
+    plt.close()
     return ycust
 
 
@@ -38,7 +46,10 @@ def plotChartCustSem():
     plt.plot(xlab, ycust)
     plt.title("Custo x Semana")
 
+    plt.grid()
     plt.savefig('chart-sem-cust.pdf')
+    plt.close()
+
     return ycust
 
 
@@ -53,6 +64,7 @@ def main():
     T2_SYSTEM = float(T2_SYSTEM)
     HOURS = int(HOURS)
     plotChartCustSem()
+    plotChartCustYear()
 
 
 main()
