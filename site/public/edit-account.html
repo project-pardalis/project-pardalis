@@ -75,20 +75,20 @@
             <p class="h1 bolder">Alterar dados</p>
             <div id="nome" class="mb-2 d-flex align-items-center">
                 <span class="fs-5 me-1 fw-bolder">Nome: </span>
-                <span id="nome-usuario" class="fs-5">JoaoXXX</span>
+                <span id="nome-usuario" class="fs-5">???????</span>
                 <input type="nome" id="ipt-nome" class="form-control w-25 ms-2" style="display: none;"
                     placeholder="Nome" />
                 <i class="fa-solid fa-pen ms-1" id="change-name" onclick="changeName()"></i>
             </div>
             <div id="nome" class="mb-2 d-flex align-items-center">
                 <span class="fs-5 me-1 fw-bolder">Email: </span>
-                <span id="email-usuario" class="fs-5">JoaoXXX@gmail.com</span>
+                <span id="email-usuario" class="fs-5">?????????@??????.????</span>
                 <input type="email" id="ipt-email" class="form-control w-25" style="display: none;"
                     placeholder="E-mail" />
                 <i class="fa-solid fa-pen ms-1" id="change-passwd" onclick="changeEmail()"></i>
             </div>
             <div id="nome" class="d-flex align-items-center justify-content-between w-50">
-                <span class="me-1 fw-bolder fs-5 w-25">Alterar Senha:</span>
+                <span class="me-1 fw-bolder fs-5" style="white-space: nowrap; width: fit-content !important;">Alterar Senha:</span>
                 <input type="password" id="ipt-passwd" class="form-control me-2" style="width: 40%;"
                     placeholder="Senha" />
                 <input type="password" id="ipt-confirm-passwd" class="form-control" style="width: 40%;"
@@ -115,37 +115,4 @@
 
 </html>
 <script>
-    async function cadastrarUsuario() {
-
-        let nome = document.getElementById('ipt_nome').value
-        let email = document.getElementById('ipt_email').value
-        let password = document.getElementById('ipt_password').value
-        let cargo = document.getElementById('ipt_cargo').value
-
-        let res = await fetch("/usuarios/cadastrarFuncionario", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nomeServer: nome,
-                userEmailServer: email,
-                senhaServer: password,
-                cargoServer: cargo,
-                empresaServer: 1
-            })
-        });
-        if (res.ok) {
-            let resJson = await res.json();
-
-            console.log(resJson)
-
-        }
-    }
-
-
-
-    function redirectToPage(page) {
-        window.location.href = page
-    }
 </script>
