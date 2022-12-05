@@ -140,6 +140,7 @@
 
 </html>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script src="./js/chartsVisualizacaoChamados.js"></script>
 <script>
 
@@ -183,7 +184,7 @@
 
         document.getElementById('chamadosCriadosNow').innerHTML = chamadosCriadosHoje(new Date())
 
-        document.getElementById('mediaResolucaoDia').innerHTML = (countFechados / getMediaResolucaoDia())
+        document.getElementById('mediaResolucaoDia').innerHTML = Math.round((countFechados / getMediaResolucaoDia()))
 
         document.getElementById('categoriaMaisChamados').innerHTML = tratarCategoria(categoria)
 
