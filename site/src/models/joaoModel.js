@@ -9,41 +9,12 @@ async function getMetricas() {
 }
 
 async function createViewAllStats(fkEmpresa, fkMaquina, nomeEmpresa, nomeMaquina) {
-
-    let sql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-
-        try {
-            await database.executar("DROP VIEW" + " vw_" + nomeEmpresa + "_" + nomeMaquina + "")
-        } catch { }
-
-        //honestamente, eu tentei ajudar de algum modo nesse select mas eu comecei a sentir dor física quando fui trabalhar com datas no sql, acredito que vc tenha que usar datediff pra pegar a diferença dos dias
-
-        // decidi não mexer mt mais aqui pq não sei a tua intenção com esse select direito, e pra mexer + precisaria saber. até então eu só converti o básico de mysql pra sql, pra que ficasse mais fácil
-
-
-        //se n qusier producao msm, só deleta essa parte pq o de dev ta embaixo
-        sql = "CREATE VIEW" + " vw_" + nomeEmpresa + "_" + nomeMaquina + " ";
-        sql += `AS SELECT Distinct (fkMetrica, FORMAT(dataColeta, '%Y-%m-%d') AS 'diaInteiro', 
-        DATEPART(hour, dataColeta) AS hora, DATEPART(minute, dataColeta) AS 'minuto', DATEPART(second, dataColeta) AS 'segundo',
-        valorLeitura FROM Leitura JOIN Metrica ON idMetrica = fkMetrica AND isEstatico = 0) WHERE fkEmpresa = ${fkEmpresa} AND fkMaquina = ${fkMaquina}
-        AND valorLeitura != -500.00 AND dataColeta > (SELECT TOP 1 dataColeta FROM Leitura WHERE fkMaquina = ${fkMaquina} and fkEmpresa = ${fkEmpresa} ORDER BY dataColeta DESC ) 
-        - DATEADD(day, -7, GETDATE()) ORDER BY dataColeta DESC; `
-        // no sql, order by é inválido em views :/
-
-    } else {
-        sql = "CREATE OR REPLACE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "` ";
-        sql += `AS SELECT Distinct fkMetrica, date_format(dataColeta, '%Y-%m-%d') AS 'diaInteiro', 
-        HOUR(dataColeta) AS 'hora', MINUTE(dataColeta) AS 'minuto', SECOND(dataColeta) AS 'segundo',
-        valorLeitura FROM Leitura JOIN Metrica ON idMetrica = fkMetrica AND isEstatico = 0 WHERE fkEmpresa = ${fkEmpresa} AND fkMaquina = ${fkMaquina}
-        AND valorLeitura != -500.00 AND dataColeta > (SELECT dataColeta FROM Leitura WHERE fkMaquina = ${fkMaquina} and fkEmpresa = ${fkEmpresa} ORDER BY dataColeta DESC LIMIT 1) 
-        - INTERVAL 7 DAY ORDER BY dataColeta DESC;`
-    }
-
-
-
-
+    let sql = "CREATE OR REPLACE VIEW" + " `vw_" + nomeEmpresa + "_" + nomeMaquina + "` ";
+    sql += `AS SELECT Distinct fkMetrica, date_format(dataColeta, '%Y-%m-%d') AS 'diaInteiro', 
+    HOUR(dataColeta) AS 'hora', MINUTE(dataColeta) AS 'minuto', SECOND(dataColeta) AS 'segundo',
+    valorLeitura FROM Leitura JOIN Metrica ON idMetrica = fkMetrica AND isEstatico = 0 WHERE fkEmpresa = ${fkEmpresa} AND fkMaquina = ${fkMaquina}
+    AND valorLeitura != -500.00 AND dataColeta > (SELECT dataColeta FROM Leitura WHERE fkMaquina = ${fkMaquina} and fkEmpresa = ${fkEmpresa} ORDER BY dataColeta DESC LIMIT 1) 
+    - INTERVAL 7 DAY ORDER BY dataColeta DESC;`
     return await database.executar(sql);
 }
 
@@ -173,13 +144,7 @@ function predictWithMl(data, x = null) {
 async function getMaquinaInfo(hashMaquina) {
     let hashMaq = hashMaquina;
 
-
-
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        sql = `SELECT TOP 1 idMaquina, fkEmpresa, nomeMaquina, nomeEmpresa, hashMaquina, sistemaOperacional, onCloud, dataCriacao FROM Maquina JOIN Empresa on idEmpresa = Maquina.fkEmpresa WHERE hashMaquina='${hashMaq}' `;
-    } else {
-        sql = `SELECT idMaquina, fkEmpresa, nomeMaquina, nomeEmpresa, hashMaquina, sistemaOperacional, onCloud, dataCriacao FROM Maquina JOIN Empresa on idEmpresa = Maquina.fkEmpresa WHERE hashMaquina='${hashMaq} LIMIT 1'`;
-    }
+    sql = `SELECT idMaquina, fkEmpresa, nomeMaquina, nomeEmpresa, hashMaquina, sistemaOperacional, onCloud, dataCriacao FROM Maquina JOIN Empresa on idEmpresa = Maquina.fkEmpresa WHERE hashMaquina='${hashMaq}' LIMIT 1`
 
     return await database.executar(sql)
 }
