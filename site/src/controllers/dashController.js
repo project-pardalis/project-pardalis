@@ -47,6 +47,16 @@ async function getComponente(req, res) {
     res.json(response[0]);
 }
 
+async function getSum(req, res) {
+    let response = await dashModel.getSum();
+    res.json(response)
+}
+
+async function getDadosGeral(req, res) {
+    let response = await dashModel.getDadosGeral();
+    res.json(response);
+}
+
 
 
 module.exports = {
@@ -54,5 +64,7 @@ module.exports = {
     getDados,
     getMetricas,
     getMaquina,
-    getComponente
+    getComponente,
+    getSum,
+    getDadosGeral
 }

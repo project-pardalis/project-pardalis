@@ -1,0 +1,16 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "simulacaoSite.js",
+  "scripts": {
+    "test": "echo \"Erro: sem teste especificado\" && exit 1",
+    "start": "node simulacaoSite.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

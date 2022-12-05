@@ -7,6 +7,8 @@
         "https": "^1.0.0",
         "jira-client": "^8.2.2",
         "js-sha512": "^0.8.0",
+        "mathjs": "^11.4.0",
+        "ml-regression-multivariate-linear": "^2.0.4",
         "mssql": "^8.1.1",
         "mysql2": "^2.3.3",
         "node-fetch": "^3.2.10",

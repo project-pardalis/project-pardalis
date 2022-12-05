@@ -205,7 +205,7 @@ function setChartDiskTotal() {
         let machine = machines[i];
 
         if (machine.lastData.disco_Usado === undefined || machine.lastData.estatico === undefined) continue;
-
+        
         let data = machine.lastData.disco_Usado.valorLeitura;
 
         total += parseFloat((machines[i].lastData.estatico.filter((metrica) => metrica.nomeMetrica == "disco_Total")[0]).valorLeitura);
@@ -225,8 +225,9 @@ function setAlertsMetricas() {
 
     for (i = 0; i < machines.length; i++) {
         try {
+            if (machines[i].lastData.ramUsada == undefined) ramPercent = 0;
             ramPercent = (machines[i].lastData.ram_Usada.valorLeitura * 1024) * 100 / (machines[i].lastData.estatico.filter((metrica) => metrica.nomeMetrica == "ram_Total")[0].valorLeitura * 1024)
-
+            if (machines[i].lastData.cpu_Utilizacao == undefined) cpuPercent = 0;
             cpuPercent = tratarDados(machines[i].lastData.cpu_Utilizacao.valorLeitura)
         }
         catch {
@@ -284,21 +285,22 @@ function chartCpuTotal(ok, risco, alerta) {
 
 }
 function plotOnPage(ok, risco, alerta) {
-    riscoKpi.innerHTML += risco
-    alertaKpi.innerHTML += alerta
-    okKpi.innerHTML += ok
-    qtdServidores.innerHTML += machines.length
-    lastServer.innerHTML += getLastServer()
-    serverMoreUse.innerHTML += getServerMoreUse()
+    riscoKpi.innerHTML = `${risco} Servidores estão críticos`
+    alertaKpi.innerHTML = `${alerta} Servidores requer atenção`
+    okKpi.innerHTML = `${ok} Servidores estão OK!`
+    qtdServidores.innerHTML = `Quantidade de Servidores: ${machines.length}`
+    lastServer.innerHTML = `Último servidor cadastrado: ${getLastServer()}`
+    serverMoreUse.innerHTML = `Servidor com maior uso: ${getServerMoreUse()}`
 }
 function getLastServer() {
-    return machines[0].nomeMaquina
+    return machines[machines.length - 1].nomeMaquina
 }
 function getServerMoreUse() {
     max = 0
     indexMaxCpuFreq = 0
     for (i = 0; i < machines.length; i++) {
         try {
+            if (data = machines[i].lastData.cpu_Utilizacao == undefined) data = 0;
             data = machines[i].lastData.cpu_Utilizacao.valorLeitura
         } catch {
 

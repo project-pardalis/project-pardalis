@@ -1,4 +1,4 @@
-process.env.AMBIENTE_PROCESSO = "producao"
+process.env.AMBIENTE_PROCESSO = "desenvolvimento"
 
 const express = require("express");
 const cors = require("cors");
@@ -19,6 +19,9 @@ const msgRouter = require("./src/routes/msg");
 const chamadoRouter = require("./src/routes/rotas")
 // RoutersMarco
 
+/* João */
+const joaoRouter = require("./src/routes/joao.js");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -37,6 +40,9 @@ app.use('/medidas', medidasRouter);
 app.use('/media', mediaRouter);
 app.use("/mensagem", msgRouter);
 // RoutersMarco
+
+/* João */
+app.use('/npd', joaoRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA}`);

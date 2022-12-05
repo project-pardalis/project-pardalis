@@ -52,6 +52,15 @@
               <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;" href="performance.html">Visão Geral</a>
             </li>
           </ul>
+          <ul class="nav flex-column mt-2">
+            <li class="nav-item">
+              <p class="h5 text-muted fw-bolder">Histórico da máquina</p>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="joao.html">Verificar Histórico da máquina</a>
+            </li>
+          </ul>
 
           <ul class="nav flex-column mt-2">
             <li class="nav-item">
@@ -71,5 +80,31 @@
 </div>
 
 <div class="containerGeral">
-    
+    <div class="containerSummarys">
+      <div class="containerMeses">
+        <div id="jan" onclick="pushValues(0), changeColor('jan')" class="mes" style="background-color: aliceblue;">Janeiro</div>
+        <div id="fev" onclick="pushValues(24), changeColor('fev')" class="mes">Fevereiro</div>
+        <div id="mar" onclick="pushValues(48), changeColor('mar')" class="mes">Março</div>
+        <div id="abr" onclick="pushValues(72), changeColor('abr')" class="mes">Abril</div>
+        <div id="mai" onclick="pushValues(96), changeColor('mai')" class="mes">Maio</div>
+        <div id="jun" onclick="pushValues(120), changeColor('jun')" class="mes">Junho</div>
+        <div id="jul" onclick="pushValues(144), changeColor('jul')" class="mes">Julho</div>
+        <div id="ago" onclick="pushValues(168), changeColor('ago')" class="mes">Agosto</div>
+        <div id="set" onclick="pushValues(192), changeColor('set')" class="mes">Setembro</div>
+        <div id="nov" onclick="pushValues(216), changeColor('nov')" class="mes">Novembro</div>  
+        <div id="out" onclick="pushValues(240), changeColor('out')" class="mes">Outubro</div>
+        <div id="dez" onclick="showGraph(), changeColor('dez')" class="mesFinal">Dezembro</div>      
+      </div>
+      <div id="containerSum" class="containerSum">
+        
+      </div>
+    </div>
+    <div id="containerKPIS" class="containerKPIS">
+
+    </div>
+    <div id="containerForecasting" class="containerForecasting">
+
+    </div>
 </div>
+<script src="js/performance.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

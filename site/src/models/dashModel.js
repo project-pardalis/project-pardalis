@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 /* Dashboard */
 async function getMaquinas(fkEmpresa) {
-    var sql = `SELECT TOP 5 idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
+    var sql = `SELECT idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
     let res = await database.executar(sql)
     let metricas = await getMetricas();
     
@@ -210,6 +210,19 @@ async function getComponente(fkEmpresa, fkMaquina, nomeComponente) {
     return res;
 }
 
+async function getSum() {
+    let sql = `SELECT * FROM Summarys`;
+    let res = await database.executar(sql);
+
+    return res;
+}
+
+async function getDadosGeral() {
+    let sql = "select valorLeitura, fkMetrica from Leitura limit 100";
+    let res = await database.executar(sql);
+    return res
+}
+
 module.exports = {
     getMaquinas,
     getDados,
@@ -218,5 +231,7 @@ module.exports = {
     getMaquinaInfo,
     getComponente,
     getMetricas,
-    getView
+    getView,
+    getSum,
+    getDadosGeral
 }
