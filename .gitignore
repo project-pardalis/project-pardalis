@@ -1,2 +1,2 @@
-projeto-individual/Rafael/site/public/js/token.json
-projeto-individual/Rafael/site/node_modules
+node_modules
+./site/src/controllers/token.js

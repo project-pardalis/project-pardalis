@@ -162,7 +162,7 @@ function responderChamado(req, res) {
     const slackToken = tokenSlack.token;
     chamadoModel.responderChamado(respostaChamado, idChamado)
 
-    const url = 'https://hooks.slack.com/services/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';
+    const url = 'https://hooks.slack.com/services/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';
     const resposta = axios.post(url, {
         channel: '#geral',
         text: `Olá! O seu chamado acaba de ser respondido! 😅 \n De: Analista de sistemas (𝐩𝐚𝐫𝐝𝐚𝐥𝐢𝐬𝐩𝐫𝐨𝐣𝐞𝐭𝐨@𝐠𝐦𝐚𝐢𝐥.𝐜𝐨𝐦)\n \n Resposta:\n ${respostaChamado} \n\nᶜᵃˢᵒ ᵉˢˢᵃ ʳᵉˢᵖᵒˢᵗᵃ ⁿᵃᵒ ˢᵉʲᵃ ᵃ ˢᵒˡᵘᶜᵃᵒ ⁿᵒˢ ᶜᵒⁿᵗᵃᵗᵉ ᵖᵒʳ ᵉᵐᵃᶦˡ 📧   `

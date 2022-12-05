@@ -10,29 +10,28 @@ import sys
 from gpiozero import CPUTemperature
 
 
-con = conector.connect(user='aluno', password='sptech',
-                              host='127.0.0.1',
-                              database='P1');
-cursor = con.cursor();
+con = conector.connect(user='aluno', password='urubu100',
+                       host='127.0.0.1',
+                       database='PARDALIS')
+cursor = con.cursor()
 
-i=0;
-contador=200;
+i = 0
+contador = 200
 
-CPU=[]
-RAM=[]
-DISCO=[]  
-TEMPERATURA=[22,222,22,22]
+CPU = []
+RAM = []
+DISCO = []
+TEMPERATURA = [22, 222, 22, 22]
 
 
-while(i<contador):
+while (i < contador):
     i += 1
 
-    cpu = psutil.cpu_percent(4);
+    cpu = psutil.cpu_percent(4)
     ram = psutil.virtual_memory()[2] / 10
-    disco = round(psutil.disk_usage('/').total/(1024*1024*1024),1)
+    disco = round(psutil.disk_usage('/').total/(1024*1024*1024), 1)
     temp = wmi.WMI(namespace="root\\wmi")
     cpu_temp = CPUTemperature()
-
 
     # CSV_URL="http://192.168.101.5:8085"
 
@@ -41,26 +40,24 @@ while(i<contador):
     CPU.append(cpu)
     RAM.append(ram)
     DISCO.append(disco)
-   
+
     # cursor.execute("USE db_test")
-    cursor.execute(f"Insert into CPU_metricas values({i}, 33.1,{ram}, {cpu}, {disco},1);")
+    cursor.execute(
+        f"Insert into CPU_metricas values({i}, 33.1,{ram}, {cpu}, {disco},1);")
     con.commit()
     cursor.execute(f"select * from CPU_metricas")
-    resultado = cursor.fetchall() # fetchone
+    resultado = cursor.fetchall()  # fetchone
     print(cpu)
     print(cpu.temperature)
-    # TEMPERATURA.append(temp);  
+    # TEMPERATURA.append(temp);
 
-   
 
 print(CPU)
 print(RAM)
 print(DISCO)
 
 
-
-
-GERAL=(CPU,RAM,DISCO);
+GERAL = (CPU, RAM, DISCO)
 
 
 objJson = json.dumps(GERAL)
@@ -71,7 +68,7 @@ print(GERAL)
 # class Juncao():
 #     dados={}
 #     def
-   
+
 # with open('data000000000000.csv.gz', 'wb') as f:
 #         f.write(CPU)
 
@@ -79,8 +76,6 @@ print(GERAL)
 # file_content=f.read()
 
 
-
-   
 # cr = csv.reader(file_content.splitlines(), delimiter=',')
 # my_list = list(cr)
 # for row in my_list:

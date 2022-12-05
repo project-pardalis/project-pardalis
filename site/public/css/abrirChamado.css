@@ -1,0 +1,64 @@
+:root {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    --grey: rgb(158, 158, 158);
+}
+
+.content {
+    display: flex;
+
+    padding: 2rem;
+    justify-content: center;
+    width: 100%;
+
+
+
+}
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 1px solid rgb(158, 158, 158);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: 80%;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+
+}
+
+.title {
+    font-size: 1.5em;
+    font-weight: bolder;
+}
+
+label {
+    margin-top: 0.5rem;
+    font-weight: 300;
+    font-size: 0.8em;
+}
+
+select {
+    border: none;
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+
+
+}
+
+.inputs button {
+    background-color: black;
+    color: white;
+    margin-top: 0.5rem;
+    border: none;
+
+}
+
+.vertical-hr {
+    height: 100%;
+    border-right: 1px solid var(--grey);
+}

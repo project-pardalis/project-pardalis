@@ -268,7 +268,9 @@
             - arr.filter(v => v === b).length //subtraia se v tbm === b
         ).pop();
 
-        return String(new Date(date).toLocaleString('default', { month: 'long' })).toUpperCase()
+        console.log(date)
+        getData = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+        return getData[date - 1].toUpperCase()
     }
     function getMediaResolucaoDia() {
         countMediaDias = 1

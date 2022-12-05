@@ -547,7 +547,7 @@
 
     }
     function fecharChamado() {
-        let res = fetch("/fecharChamado", {
+        let res = fetch("rotas/fecharChamado", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -562,7 +562,7 @@
         if (res != undefined) {
 
             alert("Chamado fechado!")
-            window.location.href = './index.html'
+            window.location.href = './chamadoIndex.html'
         }
     }
 

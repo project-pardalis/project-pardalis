@@ -84,7 +84,7 @@ function updateChamado(id, risco) {
 }
 
 function responderChamado(resposta, id) {
-    instrucao = "UPDATE Chamado SET respostaChamado='" + resposta + "' on idChamado=" + id
+    instrucao = "UPDATE Chamado SET respostaChamado='" + resposta + "' WHERE idChamado=" + id
     database.executar(instrucao)
 }
 

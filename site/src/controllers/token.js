@@ -1,3 +1,3 @@
 tokenSlackPassword = {
-    "token": "xoxb-4452607343987-4450607489781-rVOobrsO0MaDhOVN6l3lHGKS"
+    "token": "xoxb-4464762865523-4467332847732-xU6YNReIpy4Plgh3xLFqxKt49"
 }
