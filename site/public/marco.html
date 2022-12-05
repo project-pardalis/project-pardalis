@@ -196,6 +196,8 @@ setTimeout(function obter() {
   
     }
 )}  
+
+
   
 )
 fetch("/media/media/1", {
@@ -221,6 +223,11 @@ fetch("/media/media/1", {
   
 )
 } , 1000);
+
+
+
+
+
 </script>
 
 <script>
@@ -371,7 +378,7 @@ setTimeout(function plotar() {
   },5000);
   
 
-  </script>
+</script>
 
 <script>
   function mensagem() {
@@ -391,7 +398,13 @@ setTimeout(function plotar() {
     }
 )}  
   
-)  
-  }
+)}
+
+  for (let index = 0; index < temperatura.length; index++) {
+            if (temperatura[index] > 110.0) {
+              mensagem();
+            }
+            
+}
   
 </script>
