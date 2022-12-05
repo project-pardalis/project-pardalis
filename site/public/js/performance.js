@@ -158,7 +158,7 @@ function createGraph() {
         data: dataGraph
       }],
         chart: {
-        height: 450,
+        height: 275,
         type: 'area',
         animations: {
             enabled: true,
@@ -291,7 +291,7 @@ function createForeGraph() {
       }],
         chart: {
         type: 'bar',
-        height: 500
+        height: 300
       },
       plotOptions: {
         bar: {
@@ -309,7 +309,7 @@ function createForeGraph() {
         colors: ['transparent']
       },
       xaxis: {
-        categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Esperado Para Esse Mes'],
+        categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Previsao'],
       },
       yaxis: {
         title: {
@@ -339,7 +339,7 @@ function createKpis() {
     divHorario.className = 'kpi';
     divTextHorario = document.createElement('div');
     divTextHorario.className = 'textKpi';
-    divTextHorario.innerHTML = 'Horário de Pico: <br>&nbsp 12:00 - 14:00';
+    divTextHorario.innerHTML = 'Horário de Pico: <br>&nbsp 12:00 - 16:00';
     divHorario.appendChild(divTextHorario);
     container.appendChild(divHorario);
 
