@@ -528,6 +528,12 @@ header {
   color: rgb(118, 118, 118);
 }
 
+.installBash {
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+
+}
+
 /* Scroll */
 ::-webkit-scrollbar-track {
   background-color: whitesmoke;

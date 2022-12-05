@@ -4,8 +4,8 @@ function buscarMedia(idCPU, limite_linhas) {
     instrucaoSql = `select 
                         avg(temperatura) as media 
                     from CPU_metricas
-                    where fk_Cpu = ${idCPU}
-                    order by idCPU desc 
+                    where fkCpu = ${idCPU}
+                   
                     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -15,5 +15,5 @@ function buscarMedia(idCPU, limite_linhas) {
 
 module.exports = {
     buscarMedia,
-    
+
 }

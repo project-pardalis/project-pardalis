@@ -5,7 +5,7 @@ async function getMaquinas(fkEmpresa) {
     var sql = `SELECT idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
     let res = await database.executar(sql)
     let metricas = await getMetricas();
-    
+
     let checker = arr => arr.every(v => v === true);
 
     for (let j = 0; j < res.length; j++) {
@@ -48,12 +48,12 @@ async function analysys(fkEmpresa, fkMaquina, order, limit) {
     let maquinaInfo = await getMaquinaInfo(fkEmpresa, fkMaquina);
     let nomeEmpresa = maquinaInfo[0].nomeEmpresa, nomeMaquina = maquinaInfo[0].nomeMaquina;
     let metricas = await getMetricas();
-    
+
     let res = {};
-    
+
     for (let i = 0; i < metricas.length; i++) {
         let nomeMetrica = metricas[i].nomeMetrica;
-        
+
         if (metricas[i].isEstatico == 0) {
             res[nomeMetrica] = await getView(nomeEmpresa, nomeMaquina, nomeMetrica, order, limit);
         }
@@ -218,7 +218,11 @@ async function getSum() {
 }
 
 async function getDadosGeral() {
-    let sql = "select valorLeitura, fkMetrica from Leitura limit 100";
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        sql = `select top 100 valorLeitura, fkMetrica from Leitura; `;
+    } else {
+        sql = `select valorLeitura, fkMetrica from Leitura limit 100`;
+    }
     let res = await database.executar(sql);
     return res
 }
