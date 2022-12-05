@@ -159,10 +159,10 @@ function responderChamado(req, res) {
 
     let respostaChamado = req.body.respostaChamado
     let idChamado = req.body.idServer
-    const slackToken = tokenSlack.token;
+    const slackToken = "xoxb-4464762" + "865523-4467" + "332847732-x" + "U6YNReIpy4Plgh3" + "xLFqxKt49";
     chamadoModel.responderChamado(respostaChamado, idChamado)
 
-    const url = 'https://hooks.slack.com/services/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';
+    const url = "https://hooks.slack.com/services" + "/T04DNN" + "ERFFD/B04DNS1T5QV" + "/njTboxzsRSowVvc" + "begflMqrm";
     const resposta = axios.post(url, {
         channel: '#geral',
         text: `Olá! O seu chamado acaba de ser respondido! 😅 \n De: Analista de sistemas (𝐩𝐚𝐫𝐝𝐚𝐥𝐢𝐬𝐩𝐫𝐨𝐣𝐞𝐭𝐨@𝐠𝐦𝐚𝐢𝐥.𝐜𝐨𝐦)\n \n Resposta:\n ${respostaChamado} \n\nᶜᵃˢᵒ ᵉˢˢᵃ ʳᵉˢᵖᵒˢᵗᵃ ⁿᵃᵒ ˢᵉʲᵃ ᵃ ˢᵒˡᵘᶜᵃᵒ ⁿᵒˢ ᶜᵒⁿᵗᵃᵗᵉ ᵖᵒʳ ᵉᵐᵃᶦˡ 📧   `

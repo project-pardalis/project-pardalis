@@ -67,7 +67,7 @@ while (True):
 
     # cursor.execute("USE db_test")
     cursor.execute(
-        f"insert into CPU_metricas (temperatura, ram, frequencia, disco, fkCpu) values  ( {cpu_temp},{ram}, {cpu}, {disco},1);")
+        f"insert into CPU_metricas (temperatura, ram, frequencia, disco) values  ( {cpu_temp},{ram}, {cpu}, {disco});")
     connection.commit()
     cursor.execute(f"select * from CPU_metricas")
     resultado = cursor.fetchall()  # fetchone
