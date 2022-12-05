@@ -21,13 +21,13 @@ var sqlServerConfig = {
 
 var mySqlConfig = {
     host: "localhost",
-    database: "PARDALIS_RAFAEL",
+    database: "PARDALIS2",
     user: "aluno",
-    password: "urubu100",
+    password: "sptech",
 };
 
 function executar(instrucao) {
-    console.log(instrucao)
+    /* console.log(instrucao) */
     // VERIFICA A VARIÁVEL DE AMBIENTE SETADA EM app.js
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         //console.log("Executando a instrução SQL: \n" + instrucao);

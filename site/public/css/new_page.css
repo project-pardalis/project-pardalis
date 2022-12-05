@@ -1,0 +1,54 @@
+@font-face {
+    font-family: "Nunito", sans-serif;
+    src: url(./assets/font/Nunito-Italic-VariableFont_wght.ttf) format('truetype');
+}
+
+body {
+    font-family: 'Nunito', 'Open Sans', sans-serif !important;
+}
+
+.table-metric-container,
+.chart-container {
+    width: 75vw;
+}
+
+.chart-container {
+    height: 300px;
+}
+
+.table-metric-container {
+    border-collapse: collapse !important;
+}
+
+#sidebarMenu {
+    width: 10%;
+    overflow: hidden;
+    /* display: none !important; */
+    transition: width 350ms;
+}
+
+#sidebarMenu p,
+#sidebarMenu a {
+    white-space: nowrap;
+}
+
+#sidebarMenu:hover {
+    width: 13%;
+
+}
+
+.table-metric-container td,
+.table-metric-container th {
+    /*  border: 1px solid #000 !important; */
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#chart-specific-metric {
+    opacity: 0;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}

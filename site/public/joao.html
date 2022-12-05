@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/new_page.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title> Projeto Individual | Pardalis</title>
+</head>
+
+<body>
+    <!-- <input type="text" id="sampleSlider"/> -->
+    <header class="sticky-top bg-dark d-flex m-0 p-0 vw-auto shadow d-flex justify-content-between">
+        <a class="navbar-brand px-2 fs-4 text-light" style="width: 15%;">Pardalis</a>
+    
+        <div class="navbar-nav w-auto">
+          <div class="nav-item text-nowrap">
+            <a class="nav-link px-3 text-light" onclick="sair()" style="cursor: pointer;">Sair</a>
+          </div>
+        </div>
+      </header>
+
+    <div class="container-fluid row m-0 p-0 flex-row">
+        <!-- Navbar lateral -->
+        <nav id="sidebarMenu" class="p-0 d-md-block bg-light collapse">
+            <div class="p-2 sidebar-sticky">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <p class="h5 text-muted fw-bolder">Dashboards</p>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="dashboard.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="marco.html"> Dash temperatura</a>
+                  </li>
+                  <ul class="nav flex-column mt-2">
+                    <li class="nav-item">
+                      <p class="h5 text-muted fw-bolder">Teste de Servidor</p>
+                    </li>
+          
+                    <li class="nav-item">
+                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="area-de-analise.html"> Área de Análise</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="download-teste.html">Instruções</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="performance.html">Visão Geral</a>
+                    </li>
+                  </ul>
+                  <ul class="nav flex-column mt-2">
+                    <li class="nav-item">
+                      <p class="h5 text-muted fw-bolder">Histórico da máquina</p>
+                    </li>
+          
+                    <li class="nav-item">
+                      <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content; color: black;">Verificar Histórico da máquina</a>
+                    </li>
+                  </ul>
+          
+                  <ul class="nav flex-column mt-2">
+                    <li class="nav-item">
+                      <p class="h5 text-muted fw-bolder">Conta</p>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="visualizar-contas.html">Gerenciar Contas</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="edit-account.html">Editar
+                        Conta</a>
+                    </li>
+                  </ul>
+              </div>
+              
+        </nav>
+
+        <div style="display: flex; flex-direction: column; width: auto; padding-left: 50px;">
+            <div class="display-6 mt-4 mb-1">
+                <span id="server-name">????????</span>
+                <div class="h5">Hash:<span id="server-num" class="ps-2">??????????</span></div>
+            </div>
+            <div class="d-flex my-2 mb-4 w-100 flex-row-reverse">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button class="btn btn-outline-primary py-1 px-2" onclick="createPredict()"
+                        style="height: fit-content;">Prever próximas 5 horas</button>
+                    <button class="btn btn-outline-primary py-1 px-2" onclick="startPredictWithMl()"
+                        style="height: fit-content;" id="predict-button">Prever próximas 5 horas utilizando modelo linear</button>
+                    <button class="btn btn-outline-primary py-1 px-2" onclick="createPredict2()"
+                        style="height: fit-content;" id="predict-button">Prever próximas 5 horas utilizando modelo linear2</button>
+                    
+                </div>
+
+            </div>
+            <div class="d-flex w-100 mb-5 card p-4">
+                <div class="chart-container">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="table-metric-container mt-5 card px-4 pt-4 pb-2 w-100">
+                <div class="d-flex align-items-center mb-4">
+                    <p class="h5">Selecione uma data para que você possa visualizar os dados daquele dia:</p>
+                    <select name="" class="ms-2 h-auto h6" id="labels" onChange="updateSelect()">
+                        <option value="0">Selecione uma data.</option>
+                    </select>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Métrica</th>
+                            <th scope="col">Média</th>
+                            <th scope="col">Desvio Padrão</th>
+                            <th scope="col">Mínimo</th>
+                            <th scope="col">Máximo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-metric">
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="d-flex w-100 card my-5 p-4" id="chart-specific-metric">
+                <div class="chart-container">
+                    <canvas id="chart2"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-0 center flex-column align-items-center" style="width: 85%;">
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</body>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="./js/joao_charts.js"></script>
+<script src="./js/joao.js"></script>
+
+</html>

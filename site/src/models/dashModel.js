@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 /* Dashboard */
 async function getMaquinas(fkEmpresa) {
-    var sql = `SELECT TOP 5 idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
+    var sql = `SELECT idMaquina, nomeEmpresa, nomeMaquina, sistemaOperacional, onCloud, dataCriacao, hashMaquina FROM Maquina JOIN Empresa ON fkEmpresa = idEmpresa WHERE fkEmpresa = ${fkEmpresa};`
     let res = await database.executar(sql)
     let metricas = await getMetricas();
     
