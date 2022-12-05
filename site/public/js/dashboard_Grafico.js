@@ -209,9 +209,9 @@ function setChartDiskTotal() {
         let data = machine.lastData.disco_Usado.valorLeitura;
 
         total += parseFloat((machines[i].lastData.estatico.filter((metrica) => metrica.nomeMetrica == "disco_Total")[0]).valorLeitura);
-        used += data;
+        used += parseFloat(data);
     }
-
+    
     chartMaquinasArmazenamentoTotal.data.datasets[0].data = [used, total - used];
     chartMaquinasArmazenamentoTotal.update();
 }

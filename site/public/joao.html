@@ -42,7 +42,7 @@
             <p class="h5 text-muted fw-bolder">Dashboards</p>
           </li>
           <li class="nav-item">
-            <a class="nav-link active h6 p-2 m-0 fw-bold" href='dashboard.html' style="width: fit-content;">Home</a>
+            <a class="nav-link active h6 p-2 m-0" href='dashboard.html' style="width: fit-content;">Home</a>
           </li>
           <ul class="nav flex-column mt-2">
             <li class="nav-item">
@@ -82,7 +82,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="joao.html">Verificar
+              <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;">Verificar
                 Histórico da máquina</a>
             </li>
           </ul>
@@ -128,11 +128,11 @@
       <div class="d-flex my-2 mb-4 w-100 flex-row-reverse">
         <div class="btn-group" role="group" aria-label="Basic example">
           <button class="btn btn-outline-primary py-1 px-2" onclick="createPredict()"
-            style="height: fit-content;">Prever próximas 5 horas</button>
+            style="height: fit-content;">Prever próximas 3 horas</button>
           <button class="btn btn-outline-primary py-1 px-2" onclick="startPredictWithMl()" style="height: fit-content;"
-            id="predict-button">Prever próximas 5 horas utilizando modelo linear</button>
-          <button class="btn btn-outline-primary py-1 px-2" onclick="createPredict2()" style="height: fit-content;"
-            id="predict-button">Prever próximas 5 horas utilizando modelo linear2</button>
+            id="predict-button">Prever próximas 5 horas utilizando regressão multilinear</button>
+          <button class="btn btn-outline-primary py-1 px-2" onclick="createPredict2()" style="height: fit-content; display:none"
+            id="predict-button2">Prever próximas 5 horas utilizando modelo linear2</button>
 
         </div>
 

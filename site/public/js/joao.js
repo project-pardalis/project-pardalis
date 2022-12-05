@@ -97,7 +97,7 @@ function separateChartData(data) {
                         chartAllDataMean.data.datasets[datasetPosArr].data.push(null);
                     }
                 }
-                /* if (chartAllDataMean.data.datasets[datasetPosArr].data.length >= 10)  */document.getElementById("predict-button").style.display = 'block';
+                if (chartAllDataMean.data.datasets[datasetPosArr].data.length >= 10) document.getElementById("predict-button2").style.display = 'block';
                 if (data[date][hour][metric].math == undefined) appendChartData(null, metric);
                 else appendChartData(data[date][hour][metric].math.mean, metric);
             }
@@ -183,6 +183,9 @@ function loadTable(metricName, date, hour, mean, std, min, max) {
         case "cpu_Utilizacao":
             unidade = "%";
             break;
+        case "cpu_Temperatura":
+            unidade = "°C";
+            break;
         case "disco_read_time":
             unidade = "Mb";
             break;
@@ -195,7 +198,7 @@ function loadTable(metricName, date, hour, mean, std, min, max) {
         case "ram_Usada":
             unidade = "Gb";
             break;
-        
+
     }
     tr.innerHTML = `
                 <td scope="row">${labelsTranslate[metricName]}</td>
@@ -257,31 +260,33 @@ function createNextDate() {
 
 /* Faz a manipulação dos dados para obter a média do ângulo dos pontos*/
 function createPredictUsingDataset(datasetPosArr, dataset) {
+
     return new Promise((resolve, reject) => {
         if (dataset.data.length > 0) {
 
             for (let i = 0; i < 5; i++) {
-
+                dataset = chartAllDataMean.data.datasets[datasetPosArr];
                 let graph = [];
                 let lengthDataset = dataset.data.length - 1;
                 let medianDataset = Math.floor(lengthDataset / 2);
 
                 /* for (let j = medianDataset - i; j < lengthDataset; j++) { */
-                for (let j = lengthDataset; j >= medianDataset + i; j--) {
+                for (let j = lengthDataset; j >= medianDataset + i - 1; j--) {
 
                     if (dataset.data[j] != null && dataset.data[j - 1] != null && dataset.data[j - 1] != undefined) {
                         graph.push([dataset.data[j - 1], dataset.data[j]]);
                     }
                 }
-
+                console.log(graph)
                 let meanAngle = getMeanGraphAngle(graph);
 
                 let predict = (meanAngle * ((lengthDataset + 1) - lengthDataset)) + dataset.data[lengthDataset - 1];
 
                 chartAllDataMean.data.datasets[datasetPosArr].data.push(parseFloat(predict.toFixed(1)));
             }
-            chartAllDataMean.update();
+
         }
+        chartAllDataMean.update();
         resolve("Finalizado");
         /* reject("Erro"); */
     });
@@ -344,11 +349,11 @@ function main() {
         showCancelButton: true,
         confirmButtonText: "Buscar",
         showLoaderOnConfirm: true
-        
+
     }).then(
         async (result) => {
             if (result.isConfirmed) {
-                let res = await fetch(`http://localhost:3000/npd/getMaquina/${result.value.split(":").join("").toUpperCase()}`);
+                let res = await fetch(`/npd/getMaquina/${result.value.split(":").join("").toUpperCase()}`);
 
                 if (res.status == 200) {
                     let json = await res.json();
@@ -371,7 +376,7 @@ function main() {
             }
         }
     )
-    
+
 }
 
 main();
@@ -437,7 +442,7 @@ function startPredictWithMl() {
 
 /* Faz a requisição e adiciona os valores no gráfico */
 async function createPredictWithMl() {
-    let res = await fetch(`http://localhost:3000/npd/predictWithMl/${fkMaquina}&${fkEmpresa}`, {
+    let res = await fetch(`/npd/predictWithMl/${fkMaquina}&${fkEmpresa}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -522,13 +527,13 @@ class MyLm {
                     this.lockIntercept = true;
                 }
             }
-            
+
         }
         this.lastStd = this.totalStd;
         return true;
         /* 142.05 */
     }
-    
+
     printEpochInfo() {
         console.log(`
             Epoch: ${this.epoch.toFixed(2)}
@@ -547,7 +552,7 @@ class MyLm {
 function getTotalStd(xData, yData, angle, intercept) {
     let totalStd = 0;
     for (let i = 0; i < xData.length; i++) {
-        y= angle*xData[i] + intercept
+        y = angle * xData[i] + intercept
         let dataStd = Math.pow(yData[i] - y, 2);
         dataStd = Math.sqrt(dataStd);
         totalStd += dataStd;
@@ -556,10 +561,10 @@ function getTotalStd(xData, yData, angle, intercept) {
 }
 
 function plotNewValues(angle, intercept, x, metrica) {
-    if (metrica =="disco_read_time" || metrica =="disco_write_time" || metrica == "cpu_Frequencia_Atual") return;
+    if (metrica == "disco_read_time" || metrica == "disco_write_time" || metrica == "cpu_Frequencia_Atual") return;
     let datasetPos = findDataset(labelsTranslate[metrica]);
 
-    
+
     let allY = [];
 
     for (let i = 0; i < x.length; i++) {
@@ -582,48 +587,48 @@ async function createPredict2() {
     let metricas = {};
     for (let day in allData) {
         for (let hour in allData[day]) {
-            for(let metrica in allData[day][hour]) {
+            for (let metrica in allData[day][hour]) {
                 if (metricas[metrica] == undefined) metricas[metrica] = [];
                 metricas[metrica].push(allData[day][hour][metrica].math.mean);
             }
         }
     }
-    
+
     let ramValues;
     let myMl;
     console.log(metricas);
     for (let metrica in metricas) {
         myMl = new MyLm();
-        
+
         if (metrica == "cpu_Utilizacao") {
             continue;
         } else {
-            await myMl.train([... Array(metricas[metrica].length).keys()], metricas[metrica]);
+            await myMl.train([...Array(metricas[metrica].length).keys()], metricas[metrica]);
             if (metrica == "ram_Usada") {
-                ramValues = plotNewValues(myMl.angle, myMl.intercept, 
-                    [... Array(metricas[metrica].length + metricas[metrica].length + 2).keys()]
-                    .filter((x) => { return x > metricas[metrica].length; }), 
+                ramValues = plotNewValues(myMl.angle, myMl.intercept,
+                    [...Array(metricas[metrica].length + metricas[metrica].length + 2).keys()]
+                        .filter((x) => { return x > metricas[metrica].length; }),
                     metrica);
             } else {
-                plotNewValues(myMl.angle, myMl.intercept, 
-                    [... Array(metricas[metrica].length + metricas[metrica].length + 2).keys()]
-                    .filter((x) => { return x > metricas[metrica].length; }), 
+                plotNewValues(myMl.angle, myMl.intercept,
+                    [...Array(metricas[metrica].length + metricas[metrica].length + 2).keys()]
+                        .filter((x) => { return x > metricas[metrica].length; }),
                     metrica);
             }
         }
 
-        
-         
+
+
     }
-    
+
     myMl = new MyLm();
     myMl.train(metricas["ram_Usada"], metricas["cpu_Utilizacao"]);
-    plotNewValues(myMl.angle, myMl.intercept, 
-        [... Array(metricas["cpu_Utilizacao"].length + metricas["cpu_Utilizacao"].length + 2).keys()]
-        .filter((x) => { return x > metricas["cpu_Utilizacao"].length; }), 
+    plotNewValues(myMl.angle, myMl.intercept,
+        [...Array(metricas["cpu_Utilizacao"].length + metricas["cpu_Utilizacao"].length + 2).keys()]
+            .filter((x) => { return x > metricas["cpu_Utilizacao"].length; }),
         "cpu_Utilizacao");
     predictLock = true;
-    
+
 }
 
 function sair() {

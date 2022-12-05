@@ -1,4 +1,4 @@
-process.env.AMBIENTE_PROCESSO = "producao"
+process.env.AMBIENTE_PROCESSO = "desenvolvimento"
 
 const express = require("express");
 const cors = require("cors");
