@@ -363,14 +363,15 @@ function saveMachineInfo(machineName, hashMaquina) {
     serverName.innerHTML = machineName;
     let serverNum = document.getElementById("server-num");
     let macAddress = '';
-    hashMaquina = hashMaquina.split("");
-    for (let i = 2; i < hashMaquina.length; i += 2) {
-        if (i % 2 == 0) {
-            if (i == hashMaquina.length - 2) macAddress += hashMaquina[i - 1] + hashMaquina[i];
-            else macAddress += hashMaquina[i - 1] + hashMaquina[i] + ":";
-
+    hashMaquina.split("").forEach(
+        (char, index) => {
+            if (index % 2 == 0 && index != 0) {
+                macAddress += ":";
+            }
+            macAddress += char;
         }
-    }
+    )
+
     serverNum.innerHTML = "Mac Address: " + macAddress;
     /* Deixar o setor para depois */
 }

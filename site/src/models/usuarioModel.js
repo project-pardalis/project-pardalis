@@ -21,7 +21,13 @@ async function cadastrarEmpresa(nome, cnpj) {
         INSERT INTO Empresa (nomeEmpresa, cnpjEmpresa) VALUES ('${nome}', '${cnpj}');
     `;
     await database.executar(instrucao);
-    return await database.executar(`SELECT TOP 1 idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC;`);
+    if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        console.log(`SELECT idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC limit 1;`)
+        return await database.executar(`SELECT idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC limit 1;`);
+    } else {
+
+        return await database.executar(`SELECT TOP 1 idEmpresa FROM Empresa WHERE cnpjEmpresa = '${cnpj}' ORDER BY idEmpresa DESC;`);
+    }
 }
 
 async function cadastrarFuncionario(nome, email, senha, cargo, fkEmpresa, fkAdministrador='null') {

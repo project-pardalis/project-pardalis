@@ -289,11 +289,12 @@ function plotOnPage(ok, risco, alerta) {
     alertaKpi.innerHTML = `${alerta} Servidores requer atenção`
     okKpi.innerHTML = `${ok} Servidores estão OK!`
     qtdServidores.innerHTML = `Quantidade de Servidores: ${machines.length}`
-    lastServer.innerHTML = `Último servidor cadastrado: ${getLastServer()}`
-    serverMoreUse.innerHTML = `Servidor com maior uso: ${getServerMoreUse()}`
+    lastServer.innerHTML = getLastServer()
+    serverMoreUse.innerHTML = ` ${getServerMoreUse()}`
 }
 function getLastServer() {
-    return machines[machines.length - 1].nomeMaquina
+    if (machines.length == 0) return 'Nenhum servidor cadastrado'
+    return `Último servidor cadastrado: ${machines[machines.length - 1].nomeMaquina}`
 }
 function getServerMoreUse() {
     max = 0
@@ -315,7 +316,8 @@ function getServerMoreUse() {
         }
 
     }
-    return machines[indexMaxCpuFreq].nomeMaquina;
+    if (machines.length == 0) return 'Nenhum servidor cadastrado'
+    return `Servidor com maior uso: ${machines[indexMaxCpuFreq].nomeMaquina}`;
 }
 function alertsRisk(val, risco, alerta) {
 

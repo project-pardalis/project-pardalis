@@ -63,14 +63,16 @@ async function cadastrar(req, res) {
     try {
       resEmpresa = await usuarioModel.cadastrarEmpresa(empresa, cnpj);
       try {
-        let resultado = await usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), resEmpresa[0].idEmpresa, "Programador")
+        let resultado = await usuarioModel.cadastrarFuncionario(gerente, email, sha512(senha), "Programador", resEmpresa[0].idEmpresa)
         res.json({ "ok": true });
       } catch (error) {
+        console.log(error)
         res.status(500).json({ "erro": error.sqlMessage });
       }
     } catch (error) {
-      res.status(500).json({ "erro": error.sqlMessage });
+      console.log(error)
       usuarioModel.deleteEmpresa(resEmpresa[0].idEmpresa);
+      res.status(500).json({ "erro": error.sqlMessage });
 
     }
 
