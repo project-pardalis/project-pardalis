@@ -25,57 +25,71 @@
 
     <div class="container-fluid row m-0 p-0 flex-row">
         <!-- Navbar lateral -->
-        <nav id="sidebarMenu" class="p-0 d-md-block bg-light collapse">
-            <div class="p-2 sidebar-sticky">
-                <ul class="nav flex-column">
-                  <li class="nav-item">
-                    <p class="h5 text-muted fw-bolder">Dashboards</p>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="dashboard.html">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="marco.html"> Dash temperatura</a>
-                  </li>
-                  <ul class="nav flex-column mt-2">
-                    <li class="nav-item">
-                      <p class="h5 text-muted fw-bolder">Teste de Servidor</p>
-                    </li>
-          
-                    <li class="nav-item">
-                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="area-de-analise.html"> Área de Análise</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="download-teste.html">Instruções</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="performance.html">Visão Geral</a>
-                    </li>
-                  </ul>
-                  <ul class="nav flex-column mt-2">
-                    <li class="nav-item">
-                      <p class="h5 text-muted fw-bolder">Histórico da máquina</p>
-                    </li>
-          
-                    <li class="nav-item">
-                      <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content; color: black;">Verificar Histórico da máquina</a>
-                    </li>
-                  </ul>
-          
-                  <ul class="nav flex-column mt-2">
-                    <li class="nav-item">
-                      <p class="h5 text-muted fw-bolder">Conta</p>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="visualizar-contas.html">Gerenciar Contas</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="edit-account.html">Editar
-                        Conta</a>
-                    </li>
-                  </ul>
-              </div>
-              
+        <nav id="sidebarMenu" class="p-0 d-md-block bg-light collapse" style="width: 15%;">
+          <div class="p-2 sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <p class="h5 text-muted fw-bolder">Dashboards</p>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active h6 p-2 m-0" style="width: fit-content;">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active h6 p-2 m-0" style="width: fit-content; color: black;" href="marco.html"> Dash temperatura</a>
+              </li>
+              <ul class="nav flex-column mt-2">
+                <li class="nav-item">
+                  <p class="h5 text-muted fw-bolder">Teste de Servidor</p>
+                </li>
+    
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="download-teste.html">Download & Instruções</a>
+              </li>
+                <li class="nav-item">
+                  <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="performance.html">Visão Geral</a>
+                </li>
+              </ul>
+              <ul class="nav flex-column mt-2">
+                <li class="nav-item">
+                  <p class="h5 text-muted fw-bolder">Histórico da máquina</p>
+                </li>
+      
+                <li class="nav-item">
+                  <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content; color: black;" href="joao.html">Verificar Histórico da máquina</a>
+                </li>
+              </ul>
+    
+              <ul class="nav flex-column mt-2">
+                <li class="nav-item">
+                  <p class="h5 text-muted fw-bolder">Conta</p>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="visualizar-contas.html">Gerenciar
+                    Contas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="edit-account.html">Editar
+                    Conta</a>
+                </li>
+              </ul>
+              <ul class="nav flex-column mt-2">
+                <li class="nav-item">
+                  <p class="h5 text-muted fw-bolder">Chamados</p>
+                </li>
+    
+                <li class="nav-item">
+    
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="chamadoIndex.html">Gerencia</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="abrirChamados.html">Abrir
+                    chamados</a>
+                </li>
+              </ul>
+          </div>
         </nav>
 
         <div style="display: flex; flex-direction: column; width: auto; padding-left: 50px;">
@@ -88,9 +102,9 @@
                     <button class="btn btn-outline-primary py-1 px-2" onclick="createPredict()"
                         style="height: fit-content;">Prever próximas 5 horas</button>
                     <button class="btn btn-outline-primary py-1 px-2" onclick="startPredictWithMl()"
-                        style="height: fit-content;" id="predict-button">Prever próximas 5 horas com modelo linear aprimorado</button>
+                        style="height: fit-content;" id="predict-button">Prever próximas 5 horas utilizando modelo linear</button>
                     <button class="btn btn-outline-primary py-1 px-2" onclick="createPredict2()"
-                        style="height: fit-content;" id="predict-button">Prever próximas 5 horas com modelo linear</button>
+                        style="height: fit-content;" id="predict-button">Prever próximas 5 horas utilizando modelo linear2</button>
                     
                 </div>
 

@@ -6,12 +6,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <title>Dashboard | Pardalis</title>
+  <title>Teste de Servidor - Download & Instruções | Pardalis</title>
 
   <link href="./css/dashboard.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/performance.css">
 </head>
 
 
@@ -47,10 +46,10 @@
 
           </li>
           <li class="nav-item">
-            <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="download-teste.html">Download & Instruções</a>
+            <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;" href="download-teste.html">Download & Instruções</a>
           </li>
             <li class="nav-item">
-              <a class="nav-link active h6 p-2 m-0 fw-bold" style="width: fit-content;" href="performance.html">Visão Geral</a>
+              <a class="nav-link active h6 p-2 m-0" style="width: fit-content;" href="performance.html">Visão Geral</a>
             </li>
           </ul>
           <ul class="nav flex-column mt-2">
@@ -94,34 +93,50 @@
           </ul>
       </div>
     </nav>
-</div>
 
-<div class="containerGeral">
-    <div class="containerSummarys">
-      <div class="containerMeses">
-        <div id="jan" onclick="pushValues(0), changeColor('jan')" class="mes" style="background-color: aliceblue;">Janeiro</div>
-        <div id="fev" onclick="pushValues(24), changeColor('fev')" class="mes">Fevereiro</div>
-        <div id="mar" onclick="pushValues(48), changeColor('mar')" class="mes">Março</div>
-        <div id="abr" onclick="pushValues(72), changeColor('abr')" class="mes">Abril</div>
-        <div id="mai" onclick="pushValues(96), changeColor('mai')" class="mes">Maio</div>
-        <div id="jun" onclick="pushValues(120), changeColor('jun')" class="mes">Junho</div>
-        <div id="jul" onclick="pushValues(144), changeColor('jul')" class="mes">Julho</div>
-        <div id="ago" onclick="pushValues(168), changeColor('ago')" class="mes">Agosto</div>
-        <div id="set" onclick="pushValues(192), changeColor('set')" class="mes">Setembro</div>
-        <div id="nov" onclick="pushValues(216), changeColor('nov')" class="mes">Novembro</div>  
-        <div id="out" onclick="pushValues(240), changeColor('out')" class="mes">Outubro</div>
-        <div id="dez" onclick="showGraph(), changeColor('dez')" class="mesFinal">Dezembro</div>      
+    <main class="main col-md-9 ms-sm-auto col-lg-10 px-md-4 text-center">
+      <div class="d-flex justify-content-between">
+
+
       </div>
-      <div id="containerSum" class="containerSum">
+      <div class=" text-title-center">
+        Teste para Servidores
+      </div>
+
+      
+      <hr> <!-- linha -->
+
+      <div>
+
+        <span class="span1 fw-bold fs-3">Instruções </span>
+        <span>
+          <div class="dadosInfraestrutura">
+            <p>
+            <div>Para o funcionamento do teste é necessário realizar o download do <i>Teste de Servidores Pardalis</i></div>
+            </p>
+            <p>
+                <a href="/a/oi.png" download>Clique aqui para realizar o download:</a>
+            </p>
+            <p>
+            <div> Após o Download do arquivo(zip) extraia-o</div>
+            </p>
+            <p>
+                <div> Você pode escolher entre a versão de terminal ou a versão com interface </div>
+            </p>
+            <p>
+                <div> Após executar o teste vá para a <a href="./area-de-analise.html">área de análise</a> ou a <a href=./index.html>home da dashboard.</a> para ver os resultados</div>
+            </p>
+          </div>
+
+        </span>
         
       </div>
-    </div>
-    <div id="containerKPIS" class="containerKPIS">
 
-    </div>
-    <div id="containerForecasting" class="containerForecasting">
+    </main>
 
-    </div>
-</div>
-<script src="js/performance.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+  </div>
+
+</body>
+
+</html>
